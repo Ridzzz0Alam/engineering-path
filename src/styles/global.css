@@ -135,17 +135,11 @@ code, pre, kbd { font-family: var(--font-mono); }
 }
 .search-btn:hover { border-color: var(--faint); }
 .search-btn kbd { font-size: 0.72rem; border: 1px solid var(--border); border-radius: 999px; padding: 1px 7px; background: var(--surface-2); }
-.header-cta {
-  display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px;
-  background: var(--text); color: var(--bg); text-decoration: none; font-size: 0.86rem; font-weight: 600; white-space: nowrap;
-}
-.header-cta:hover { background: color-mix(in oklab, var(--text) 86%, var(--accent)); }
 .menu-btn { display: none; }
 @media (max-width: 1180px) {
   .search-btn .label, .search-btn kbd { display: none; }
   .search-btn { width: 36px; padding: 0; justify-content: center; }
 }
-@media (max-width: 1040px) { .header-cta { display: none; } }
 @media (max-width: 860px) {
   .nav { display: none; }
   .menu-btn { display: inline-grid; }
@@ -236,7 +230,7 @@ code, pre, kbd { font-family: var(--font-mono); }
 .prose :not(pre) > code { font-size: 0.86em; padding: 0.15em 0.4em; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border); word-break: break-word; }
 .prose pre { padding: 22px 24px; border-radius: var(--radius-sm); border: 1px solid var(--border); overflow-x: auto; font-size: 0.86rem; line-height: 1.65; }
 .prose pre.astro-code { background-color: var(--surface) !important; }
-:root[data-theme='dark'] .astro-code, :root[data-theme='dark'] .astro-code span { color: var(--shiki-dark) !important; background-color: var(--shiki-dark-bg); }
+:root[data-theme='dark'] .astro-code, :root[data-theme='dark'] .astro-code span { color: var(--shiki-dark) !important; }
 :root[data-theme='dark'] .prose pre.astro-code { background-color: var(--surface) !important; }
 .prose table { display: block; width: max-content; max-width: 100%; overflow-x: auto; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.92rem; line-height: 1.5; }
 .prose th, .prose td { padding: 12px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
@@ -273,6 +267,31 @@ code, pre, kbd { font-family: var(--font-mono); }
 .callout-important { --c: var(--important); }
 .callout-warning { --c: var(--warning); }
 .callout-caution { --c: var(--caution); }
+
+/* ---------- Code blocks and language tabs ---------- */
+.prose .code-block, .prose .code-tabs { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.code-bar, .code-tabs-bar {
+  display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 10px 6px 16px;
+  background: var(--surface-2); border-bottom: 1px solid var(--border);
+}
+.code-lang, .code-tabs-title { font: 600 0.74rem/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.code-tablist { display: flex; flex-wrap: wrap; gap: 4px; }
+.code-tablist button {
+  padding: 6px 13px; border: 1px solid transparent; border-radius: 8px; background: transparent;
+  color: var(--muted); font-size: 0.84rem; font-weight: 600; line-height: 1.2; transition: color .15s, background-color .15s;
+}
+.code-tablist button:hover { color: var(--text); background: color-mix(in oklab, var(--accent) 10%, transparent); }
+.code-tablist button[aria-selected='true'] { color: var(--accent); background: var(--surface); border-color: color-mix(in oklab, var(--accent) 45%, var(--border)); }
+.code-copy {
+  margin-left: auto; padding: 5px 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);
+  color: var(--muted); font-size: 0.78rem; font-weight: 600; transition: color .15s, border-color .15s;
+}
+.code-copy:hover { color: var(--text); border-color: var(--faint); }
+.prose .code-block pre, .prose .code-tabs pre { margin: 0; border: 0; border-radius: 0; }
+.prose .code-panel > * + * { margin-top: 0; }
+/* Without JavaScript every language stays visible, one after another. */
+.js .code-panel:not(.active) { display: none; }
+@media print { .code-panel { display: block !important; } .code-copy { display: none; } }
 
 /* Search results */
 #search mark { background: color-mix(in oklab, var(--accent) 22%, transparent); color: inherit; border-radius: 3px; padding: 0 2px; }

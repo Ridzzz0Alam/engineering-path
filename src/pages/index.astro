@@ -103,7 +103,6 @@ const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing
         <div class="feature"><h3>Diagrams everywhere</h3><p>Architecture and flow diagrams render right in the page, in light or dark mode.</p></div>
         <div class="feature"><h3>Trade-offs, not just facts</h3><p>Lessons explain when an approach fits and when it doesn't, with real numbers where they matter.</p></div>
         <div class="feature"><h3>Track your progress</h3><p>Mark lessons complete and pick up where you left off. Saved in your browser, no account.</p></div>
-        <div class="feature"><h3>Your own notes</h3><p>Every lesson has a notes box. Write the idea in your own words, then review all your notes in one place.</p></div>
         <div class="feature"><h3>Fast search</h3><p>Press <kbd>/</kbd> anywhere to search all {totalLessons} lessons instantly.</p></div>
         <div class="feature"><h3>Code in four languages</h3><p>DSA lessons include solutions in Python, Java, C++ and Go.</p></div>
       </div>
@@ -136,7 +135,7 @@ const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing
       <h2>Free, open learning for engineers</h2>
       <p>
         {SITE.name} is a free, independent place to study system design, algorithms and AI engineering. The courses build on
-        an excellent open-source handbook, reorganized into a structured path with progress tracking and notes.
+        an excellent open-source handbook, reorganized into a structured path with progress tracking.
       </p>
     </div>
   </section>
@@ -189,6 +188,7 @@ const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing
   .feature { padding: 36px 32px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .feature h3 { font-size: 1.1rem; margin-bottom: 8px; }
   .feature p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+  @media (min-width: 761px) { .feature:last-child { grid-column: span 2; } }
   kbd { font-size: 0.8em; border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; background: var(--surface-2); }
 
   .featured { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }

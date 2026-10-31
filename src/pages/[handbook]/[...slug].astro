@@ -122,17 +122,6 @@ const allIds = course.lessons.map((l) => l.id).join(',');
           </button>
         </div>
 
-        <div class="card notes-card">
-          <div class="notes-head">
-            <label for="lesson-notes"><strong>My notes</strong></label>
-            <span class="muted notes-status" data-notes-status>Saved in this browser</span>
-          </div>
-          <textarea id="lesson-notes" data-notes={lesson.id} rows="5" placeholder="Write what you learned in your own words. Explaining it back is the fastest way to find gaps."></textarea>
-          <div class="notes-foot">
-            <a href="/notes/">All my notes</a>
-          </div>
-        </div>
-
         {related.length > 0 && (
           <nav class="read-next" aria-label="Read next">
             <span class="eyebrow">Read next</span>
@@ -195,7 +184,7 @@ const allIds = course.lessons.map((l) => l.id).join(',');
   <div class="nav-backdrop" data-nav-backdrop></div>
 
   <script>
-    import { refreshProgress, setDone, getDone, getNote, setNote, setLast } from '../../scripts/progress';
+    import { refreshProgress, setDone, getDone, setLast } from '../../scripts/progress';
 
     const completeBtn = document.querySelector<HTMLButtonElement>('[data-complete]')!;
     const id = completeBtn.dataset.complete!;
@@ -213,20 +202,6 @@ const allIds = course.lessons.map((l) => l.id).join(',');
       sync();
     });
     sync();
-
-    // Notes
-    const notes = document.querySelector<HTMLTextAreaElement>('[data-notes]')!;
-    const status = document.querySelector<HTMLElement>('[data-notes-status]')!;
-    notes.value = getNote(id);
-    let t: number | undefined;
-    notes.addEventListener('input', () => {
-      status.textContent = 'Saving…';
-      clearTimeout(t);
-      t = window.setTimeout(() => {
-        setNote(id, notes.value);
-        status.textContent = 'Saved in this browser';
-      }, 400);
-    });
 
     // Mobile course navigation drawer
     const nav = document.querySelector<HTMLElement>('[data-course-nav]')!;
@@ -347,12 +322,6 @@ const allIds = course.lessons.map((l) => l.id).join(',');
   .complete-card .is-done { background: var(--surface-2); color: var(--ok); border: 1px solid var(--border); }
   .complete-card .is-done .when-todo { display: none; }
   .complete-card .is-done .when-done { display: inline; }
-  .notes-card { padding: 28px; display: grid; gap: 14px; }
-  .notes-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  .notes-status { font-size: 0.8rem; }
-  .notes-card textarea { width: 100%; resize: vertical; min-height: 110px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); padding: 12px 14px; font: 0.95rem/1.6 var(--font-body); }
-  .notes-foot { font-size: 0.85rem; }
-  .notes-foot a { color: var(--accent); }
   .read-next { display: grid; gap: 16px; margin-top: 12px; }
   .read-next-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
   .read-next-card { display: grid; gap: 8px; align-content: start; padding: 22px; text-decoration: none; transition: border-color .15s, transform .15s; }

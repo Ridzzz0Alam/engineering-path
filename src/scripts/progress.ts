@@ -1,7 +1,6 @@
-// Reading progress and notes are kept in this browser only (localStorage).
+// Reading progress is kept in this browser only (localStorage).
 
 const DONE_KEY = 'lwr:done';
-const NOTE_PREFIX = 'lwr:note:';
 const LAST_KEY = 'lwr:last:';
 
 function read<T>(key: string, fallback: T): T {
@@ -25,25 +24,6 @@ export function setDone(id: string, done: boolean) {
   done ? s.add(id) : s.delete(id);
   write(DONE_KEY, [...s]);
   refreshProgress();
-}
-
-export const getNote = (id: string) => read<string>(NOTE_PREFIX + id, '');
-export function setNote(id: string, text: string) {
-  try {
-    if (text.trim()) localStorage.setItem(NOTE_PREFIX + id, JSON.stringify(text));
-    else localStorage.removeItem(NOTE_PREFIX + id);
-  } catch {}
-}
-
-export function allNotes(): { id: string; text: string }[] {
-  const out: { id: string; text: string }[] = [];
-  try {
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i)!;
-      if (k.startsWith(NOTE_PREFIX)) out.push({ id: k.slice(NOTE_PREFIX.length), text: read(k, '') });
-    }
-  } catch {}
-  return out.sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true }));
 }
 
 export const setLast = (course: string, url: string) => write(LAST_KEY + course, url);

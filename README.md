@@ -8,7 +8,7 @@ Built with [Astro](https://astro.build) + TypeScript. Fully static: no server or
 - **3 courses, 429 lessons**, grouped into stages and parts, each with its own course page
 - **Lesson pages** with a course sidebar, "on this page" outline, prerequisites, prev/next, and reading time
 - **Diagrams** (950+ Mermaid diagrams render in the browser, light and dark)
-- **Progress tracking** ("mark as complete", "continue where you left off") and **personal notes** per lesson, saved in the reader's browser, with a Markdown export at `/notes/`
+- **Progress tracking** ("mark as complete", "continue where you left off"), saved in the reader's browser
 - **Search** across all lessons (press `/`), powered by Pagefind
 - **Code viewer** for the DSA solutions in Python, Java, C++ and Go
 - **Newsletter** section, currently inactive
@@ -66,6 +66,8 @@ npm run build
 ```
 
 The import also runs `scripts/remove-em-dashes.mjs`, so newly imported lessons don't bring em dashes back.
+
+The AI Engineering illustrations are shown as Mermaid diagrams from `src/lib/image-diagrams.mjs`. Astro caches rendered lessons, so after changing that file or `src/lib/remark-handbook.mjs`, run `rm -rf node_modules/.astro .astro/data-store.json` before building.
 
 Lessons rewritten for this site live in `src/data/rewrites/`, using the same paths as `src/data/handbooks/`. The import copies them over the handbook originals, so edit a rewritten lesson there and in `src/data/handbooks/`, or re-run the import. Add `rewritten: true` to the lesson's frontmatter so its credit line says it was rewritten.
 

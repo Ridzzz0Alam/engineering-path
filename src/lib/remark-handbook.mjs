@@ -3,9 +3,13 @@
 //  - rewrites relative links to lessons, code samples, images and files
 //  - turns ```mermaid fences into <pre class="mermaid"> for client rendering
 //  - turns GitHub-style "> [!WARNING]" blockquotes into styled callouts
+//  - swaps illustrations for their Mermaid versions (see image-diagrams.mjs)
+//  - shows a solution's Python, Java, C++ and Go as language tabs
 
 import { visit, SKIP } from 'unist-util-visit';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { IMAGE_DIAGRAMS, TEXT_DIAGRAMS } from './image-diagrams.mjs';
 import { CONTENT_ROOT, SOURCE_REPO, CODE_EXTS, lessonUrl, folderUrl, codeUrl, fileUrl } from './paths.mjs';
 
 const CALLOUTS = {
@@ -18,6 +22,56 @@ const CALLOUTS = {
 
 const escapeHtml = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+const escapeAttr = (s) => escapeHtml(s).replace(/"/g, '&quot;');
+
+const mermaidNode = (source, description = '') => ({
+  type: 'html',
+  value: `<div class="diagram"${description ? ` role="img" aria-label="${escapeAttr(description)}"` : ''}><pre class="mermaid">${escapeHtml(source)}</pre></div>`,
+});
+
+const TAB_LANGS = { Python: 'python', Java: 'java', 'C++': 'cpp', Go: 'go' };
+
+// "**Solution** in Python ([Java](...) · [C++](...) · [Go](...))" followed by the Python code.
+function solutionTabs(tree, relDir) {
+  if (relDir === null) return;
+  const root = path.resolve(CONTENT_ROOT);
+  for (let i = tree.children.length - 2; i >= 0; i--) {
+    const intro = tree.children[i];
+    const code = tree.children[i + 1];
+    if (intro.type !== 'paragraph' || code.type !== 'code' || code.lang !== 'python') continue;
+    const first = intro.children[0];
+    if (first?.type !== 'strong' || first.children[0]?.value !== 'Solution') continue;
+
+    const others = intro.children
+      .filter((n) => n.type === 'link' && TAB_LANGS[n.children[0]?.value])
+      .map((n) => ({ label: n.children[0].value, file: path.join(root, relDir, decodeURI(n.url)) }))
+      .filter((o) => existsSync(o.file));
+    if (!others.length) continue;
+
+    const panels = [
+      { label: 'Python', lang: 'python', value: code.value },
+      ...others.map((o) => ({
+        label: o.label,
+        lang: TAB_LANGS[o.label],
+        value: readFileSync(o.file, 'utf8').trimEnd(),
+      })),
+    ];
+    const buttons = panels
+      .map((p, n) => `<button type="button" role="tab" data-lang="${p.lang}" aria-selected="${n === 0}"${n ? ' tabindex="-1"' : ''}>${escapeHtml(p.label)}</button>`)
+      .join('');
+    const nodes = [{ type: 'html', value: `<div class="code-tabs" data-code-tabs><div class="code-tabs-bar"><span class="code-tabs-title">Solution</span><div class="code-tablist" role="tablist" aria-label="Solution language">${buttons}</div></div>` }];
+    panels.forEach((p, n) => {
+      nodes.push(
+        { type: 'html', value: `<div class="code-panel${n ? '' : ' active'}" role="tabpanel" data-lang="${p.lang}">` },
+        { type: 'code', lang: p.lang, value: p.value },
+        { type: 'html', value: '</div>' },
+      );
+    });
+    nodes.push({ type: 'html', value: '</div>' });
+    tree.children.splice(i, 2, ...nodes);
+  }
+}
 
 function contentRelDir(file) {
   const abs = file.path || file.history?.[0];
@@ -58,6 +112,8 @@ export default function remarkHandbook() {
     const firstH1 = tree.children.findIndex((n) => n.type === 'heading' && n.depth === 1);
     if (firstH1 !== -1 && firstH1 < 3) tree.children.splice(firstH1, 1);
 
+    solutionTabs(tree, relDir);
+
     visit(tree, (node, index, parent) => {
       // 2. Links and images.
       if (node.type === 'link' || node.type === 'definition') {
@@ -65,6 +121,30 @@ export default function remarkHandbook() {
         if (/^https?:/.test(node.url)) {
           node.data = node.data || {};
           node.data.hProperties = { ...(node.data.hProperties || {}), target: '_blank', rel: 'noopener' };
+        }
+      }
+      if (node.type === 'image' && parent && index !== undefined && relDir !== null) {
+        const [, part] = relDir.split(path.sep);
+        const key = `${part}/${path.basename(decodeURI(node.url)).replace(/\.\w+$/, '')}`;
+        if (IMAGE_DIAGRAMS[key]) {
+          // An image alone in its paragraph replaces the paragraph, so the diagram isn't nested in a <p>.
+          const replacement = mermaidNode(IMAGE_DIAGRAMS[key], node.alt ?? '');
+          if (parent.type === 'paragraph' && parent.children.length === 1) {
+            parent.type = 'html';
+            parent.value = replacement.value;
+            delete parent.children;
+          } else {
+            parent.children[index] = replacement;
+          }
+          return SKIP;
+        }
+      }
+      if (node.type === 'code' && relDir !== null && !node.lang?.includes('mermaid')) {
+        const lesson = path.basename(file.path || file.history?.[0] || '', '.md');
+        const source = TEXT_DIAGRAMS[`${relDir.split(path.sep).join('/')}/${lesson}#${node.value.split(':')[0]}:`];
+        if (source && parent && index !== undefined) {
+          parent.children[index] = mermaidNode(source);
+          return SKIP;
         }
       }
       if (node.type === 'image' && relDir !== null && !/^([a-z]+:|\/)/i.test(node.url)) {

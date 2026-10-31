@@ -81,6 +81,32 @@ const themeVariables = (mode: 'light' | 'dark') => {
     critBorderColor: rose.stroke,
     gridColor: line,
     todayLineColor: rose.stroke,
+    xyChart: {
+      backgroundColor: 'transparent',
+      plotColorPalette: [teal.stroke, indigo.stroke, rose.stroke].join(','),
+      titleColor: text,
+      xAxisLabelColor: text,
+      xAxisTitleColor: text,
+      xAxisLineColor: line,
+      xAxisTickColor: line,
+      yAxisLabelColor: text,
+      yAxisTitleColor: text,
+      yAxisLineColor: line,
+      yAxisTickColor: line,
+    },
+    quadrant1Fill: teal.fill,
+    quadrant2Fill: indigo.fill,
+    quadrant3Fill: rose.fill,
+    quadrant4Fill: violet.fill,
+    quadrant1TextFill: text,
+    quadrant2TextFill: text,
+    quadrant3TextFill: text,
+    quadrant4TextFill: text,
+    quadrantTitleFill: text,
+    quadrantXAxisTextFill: text,
+    quadrantYAxisTextFill: text,
+    quadrantInternalBorderStrokeFill: line,
+    quadrantExternalBorderStrokeFill: line,
     pie1: teal.stroke,
     pie2: indigo.stroke,
     pie3: rose.stroke,
@@ -100,10 +126,44 @@ const authorStyled = (node: Element) =>
   Array.from(node.classList).some((c) => !PLAIN_CLASSES.test(c)) ||
   Array.from(node.querySelectorAll('rect, polygon, circle, ellipse, path')).some((s) => /fill\s*:/.test(s.getAttribute('style') ?? ''));
 
+const hueOf = (css: string) => {
+  const m = css.match(/rgba?\(\s*([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)(?:[ ,/]+([\d.]+))?/);
+  if (!m || m[4] === '0') return null;
+  const [r, g, b] = [m[1], m[2], m[3]].map((n) => Number(n) / 255);
+  const max = Math.max(r, g, b);
+  const delta = max - Math.min(r, g, b);
+  if (delta < 0.02) return { hue: 0, grey: true };
+  const hue = max === r ? ((g - b) / delta + 6) % 6 : max === g ? (b - r) / delta + 2 : (r - g) / delta + 4;
+  return { hue: hue * 60, grey: false };
+};
+
+// An author's colour can carry meaning ("the front (orange)"), so it keeps its hue. Its shade
+// is redrawn to suit the theme, because a pale fill written for white pages glares on dark ones.
+function themedColour(css: string, mode: 'light' | 'dark'): Swatch | null {
+  const colour = hueOf(css);
+  if (!colour) return null;
+  const sat = colour.grey ? 0 : 1;
+  return mode === 'dark'
+    ? { fill: `hsl(${colour.hue} ${48 * sat}% 21%)`, stroke: `hsl(${colour.hue} ${72 * sat}% 66%)` }
+    : { fill: `hsl(${colour.hue} ${78 * sat}% 91%)`, stroke: `hsl(${colour.hue} ${72 * sat}% 34%)` };
+}
+
+function restyleAuthorNode(node: SVGGElement, mode: 'light' | 'dark') {
+  node.querySelectorAll<SVGElement>('rect, polygon, circle, ellipse, path').forEach((shape) => {
+    const swatch = themedColour(getComputedStyle(shape).fill, mode);
+    if (swatch) paint(shape, swatch);
+  });
+  const text = mode === 'dark' ? '#e8e4da' : '#1c1e24';
+  node.querySelectorAll<HTMLElement>('.nodeLabel, .nodeLabel *, span, p').forEach((label) => label.style.setProperty('color', text, 'important'));
+  node.querySelectorAll<SVGElement>('text, tspan').forEach((label) => label.style.setProperty('fill', text, 'important'));
+}
+
 // Boxes in the same layer of the diagram share a colour, which makes the layers easy to follow.
 function colourNodes(svg: SVGSVGElement, source: string, mode: 'light' | 'dark') {
   const horizontal = /^\s*(?:flowchart|graph)\s+(?:LR|RL)\b/m.test(source) || /direction\s+(?:LR|RL)\b/.test(source);
-  const nodes = Array.from(svg.querySelectorAll<SVGGElement>('g.node'))
+  const all = Array.from(svg.querySelectorAll<SVGGElement>('g.node'));
+  all.filter(authorStyled).forEach((n) => restyleAuthorNode(n, mode));
+  const nodes = all
     .filter((n) => !authorStyled(n))
     .map((node) => {
       const box = node.getBoundingClientRect();
@@ -144,8 +204,14 @@ function colour(host: HTMLElement, mode: 'light' | 'dark') {
   const svg = host.querySelector<SVGSVGElement>('svg');
   if (!svg) return;
   const kind = svg.getAttribute('aria-roledescription') ?? '';
-  if (kind === 'sequence') colourActors(svg, mode);
-  else if (/flowchart|state|class/.test(kind)) colourNodes(svg, host.dataset.source ?? '', mode);
+  if (kind === 'sequence') {
+    colourActors(svg, mode);
+    // "rect rgb(...)" bands behind messages.
+    svg.querySelectorAll<SVGElement>('rect.rect').forEach((band) => {
+      const swatch = themedColour(getComputedStyle(band).fill, mode);
+      if (swatch) band.style.setProperty('fill', swatch.fill, 'important');
+    });
+  } else if (/flowchart|state|class/.test(kind)) colourNodes(svg, host.dataset.source ?? '', mode);
 }
 
 export function initDiagrams() {
