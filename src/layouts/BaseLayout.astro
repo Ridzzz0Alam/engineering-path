@@ -115,6 +115,7 @@ const path = Astro.url.pathname;
 
     <script>
       import { initReveal } from '../scripts/reveal';
+      import { initDiagrams } from '../scripts/diagrams';
 
       initReveal();
 
@@ -144,32 +145,7 @@ const path = Astro.url.pathname;
         }
       });
 
-      // Mermaid diagrams are rendered in the browser, only on pages that have them.
-      const diagrams = Array.from(document.querySelectorAll<HTMLElement>('pre.mermaid'));
-      if (diagrams.length) {
-        diagrams.forEach((d) => (d.dataset.source = d.textContent ?? ''));
-        import('mermaid').then(async ({ default: mermaid }) => {
-          const render = async () => {
-            mermaid.initialize({
-              startOnLoad: false,
-              securityLevel: 'strict',
-              theme: root.dataset.theme === 'dark' ? 'dark' : 'neutral',
-              fontFamily: 'Inter Variable, system-ui, sans-serif',
-            });
-            diagrams.forEach((d) => {
-              d.removeAttribute('data-processed');
-              d.textContent = d.dataset.source ?? '';
-            });
-            try {
-              await mermaid.run({ nodes: diagrams, suppressErrors: true });
-            } catch (err) {
-              console.warn('Mermaid render error', err);
-            }
-          };
-          await render();
-          window.addEventListener('lwr:theme', render);
-        });
-      }
+      initDiagrams();
     </script>
   </body>
 </html>

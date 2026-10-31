@@ -248,10 +248,17 @@ code, pre, kbd { font-family: var(--font-mono); }
 .prose details[open] { padding-bottom: 16px; }
 .prose summary { cursor: pointer; padding: 14px 0; font-weight: 600; }
 .prose details > * + * { margin-top: 0.9em; }
-.prose .diagram { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); padding: 28px; overflow-x: auto; text-align: center; }
+.prose .diagram { border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background:
+    radial-gradient(420px 220px at 100% 0%, color-mix(in oklab, var(--ai) 9%, transparent), transparent 70%),
+    radial-gradient(420px 220px at 0% 100%, color-mix(in oklab, var(--hld) 9%, transparent), transparent 70%),
+    var(--surface); padding: 28px; overflow-x: auto; text-align: center; }
 .prose pre.mermaid { border: 0; padding: 0; margin: 0; background: transparent; font-size: 0.8rem; color: var(--faint); white-space: pre-wrap; text-align: left; }
 .prose pre.mermaid[data-processed] { text-align: center; color: inherit; }
 .prose pre.mermaid svg { max-width: 100%; height: auto; }
+.prose pre.mermaid .node rect, .prose pre.mermaid rect.actor { rx: 10px; ry: 10px; }
+.prose pre.mermaid .cluster rect { rx: 14px; ry: 14px; }
+.prose pre.mermaid .node, .prose pre.mermaid rect.actor { filter: drop-shadow(0 2px 5px rgb(0 0 0 / 0.14)); }
+.prose pre.mermaid .nodeLabel, .prose pre.mermaid .actor { font-weight: 500; }
 .prose .footnotes { font-size: 0.88rem; color: var(--muted); margin-top: 3em; border-top: 1px solid var(--border); padding-top: 1em; }
 .prose .footnotes h2 { font-size: 1.1rem; margin-top: 0; }
 .prose sup { line-height: 0; }
