@@ -1,0 +1,25 @@
+---
+// The newsletter is not active yet. When you pick a provider (Buttondown,
+// ConvertKit, Resend, etc.), set NEWSLETTER_ACTION to its form endpoint and
+// set NEWSLETTER_ENABLED to true.
+const NEWSLETTER_ENABLED = false;
+const NEWSLETTER_ACTION = '';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+
+<section class:list={['card newsletter', { compact }]} aria-labelledby="nl-title">
+  <div>
+    <span class="eyebrow">Newsletter · coming soon</span>
+    <h3 id="nl-title">One lesson worth your time, every week.</h3>
+    <p>A short email with a concept explained simply, a diagram, and what to read next. No spam, unsubscribe anytime.</p>
+  </div>
+  <div>
+    <form action={NEWSLETTER_ENABLED ? NEWSLETTER_ACTION : undefined} method="post" onsubmit={NEWSLETTER_ENABLED ? undefined : 'return false'}>
+      <label class="visually-hidden" for="nl-email">Email address</label>
+      <input id="nl-email" name="email" type="email" placeholder="you@example.com" required disabled={!NEWSLETTER_ENABLED} />
+      <button class="btn btn-primary" type="submit" disabled={!NEWSLETTER_ENABLED}>Subscribe</button>
+    </form>
+    {!NEWSLETTER_ENABLED && <p class="note">Sign-ups open soon. The courses are free to read in the meantime.</p>}
+  </div>
+</section>
