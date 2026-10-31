@@ -104,9 +104,9 @@ Two pivots fall out of the table. The first: what does each pointer represent? R
 
 One per family that this page disambiguates against the others. Pattern tags name the discriminating signal.
 
-- [LC 11 — Container With Most Water](https://leetcode.com/problems/container-with-most-water/) [Medium] • opposite-ends, case-analysis proof
-- [LC 141 — Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) [Easy] • fast-slow, Floyd's tortoise and hare
-- [LC 75 — Sort Colors](https://leetcode.com/problems/sort-colors/) [Medium] • Dutch flag three-way partition
+- [LC 11: Container With Most Water](https://leetcode.com/problems/container-with-most-water/) [Medium] • opposite-ends, case-analysis proof
+- [LC 141: Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) [Easy] • fast-slow, Floyd's tortoise and hare
+- [LC 75: Sort Colors](https://leetcode.com/problems/sort-colors/) [Medium] • Dutch flag three-way partition
 
 LC 11 is the cleanest test of the case-analysis proof: every pair the algorithm skips is dominated by a pair it visits, so the discarded half can't hide a better answer. LC 141 demonstrates the gap-grows-by-one argument that distinguishes fast-slow from any read-write scan. LC 75 forces the reader to confront the "do not advance `mid` on a high swap" line, which is where almost everyone reinvents the algorithm wrong.
 

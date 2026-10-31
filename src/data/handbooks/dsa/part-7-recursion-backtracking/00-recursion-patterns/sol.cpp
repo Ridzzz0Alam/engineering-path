@@ -1,4 +1,4 @@
-// Chapter 7.0 — Recursion patterns: linear, tree, and divide-and-conquer
+// Chapter 7.0: Recursion patterns: linear, tree, and divide-and-conquer
 #include <vector>
 #include <unordered_map>
 

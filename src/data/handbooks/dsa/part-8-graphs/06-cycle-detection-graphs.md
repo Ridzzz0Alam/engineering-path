@@ -114,7 +114,7 @@ flowchart LR
 
 Switch graph kinds. The undirected case has its own version of the two-color bug, but in reverse: collapsing to one boolean is correct here, and forgetting a different piece of state is what breaks it.
 
-Look at a triangle: `0 — 1 — 2 — 0`. Three vertices, three undirected edges. There's a cycle. Write the algorithm:
+Look at a triangle: `0 (1) 2, 0`. Three vertices, three undirected edges. There's a cycle. Write the algorithm:
 
 ```python
 # WRONG: this reports a cycle on every connected graph with >= 1 edge.
@@ -215,7 +215,7 @@ def validate_binary_tree_nodes(n, leftChild, rightChild):
     return visited_count == n       # all reachable from root?
 ```
 
-**Solution** — Python ([Java](./06-cycle-detection-graphs/lc-1361/sol.java) · [C++](./06-cycle-detection-graphs/lc-1361/sol.cpp) · [Go](./06-cycle-detection-graphs/lc-1361/sol.go))
+**Solution** in Python ([Java](./06-cycle-detection-graphs/lc-1361/sol.java) · [C++](./06-cycle-detection-graphs/lc-1361/sol.cpp) · [Go](./06-cycle-detection-graphs/lc-1361/sol.go))
 
 ```python
 # LC 1361. Validate Binary Tree Nodes
@@ -281,9 +281,9 @@ The in-degree pass enforces "every node has at most one parent" and "exactly one
 
 A small example. `n = 4`, `leftChild = [1, -1, 3, -1]`, `rightChild = [2, -1, -1, -1]`. In-degrees: node 0 has none, nodes 1, 2, 3 each have one parent. Root is 0. BFS visits 0, then 1, 2, then 3. All four seen, no revisits. Return true.
 
-A cycle case. `n = 4`, `leftChild = [1, 0, 3, -1]`, `rightChild = [-1, -1, -1, -1]`. Node 0 points to 1 which points back to 0. In-degree of 0 is 1, in-degree of 1 is 1, in-degree of 2 is 0, in-degree of 3 is 1. Two roots? Wait — only node 2 has in-degree zero, so root = 2. BFS from 2 visits 2 and 3. Then `visited_count = 2 != 4`. Return false. The cycle in {0, 1} is unreachable from the root, and the connectivity check catches it.
+A cycle case. `n = 4`, `leftChild = [1, 0, 3, -1]`, `rightChild = [-1, -1, -1, -1]`. Node 0 points to 1 which points back to 0. In-degree of 0 is 1, in-degree of 1 is 1, in-degree of 2 is 0, in-degree of 3 is 1. Two roots? Wait, only node 2 has in-degree zero, so root = 2. BFS from 2 visits 2 and 3. Then `visited_count = 2 != 4`. Return false. The cycle in {0, 1} is unreachable from the root, and the connectivity check catches it.
 
-The code reuses the chapter's two algorithms with one twist: because each edge is directed (parent → child) and a child can only have one parent, the parent-tracking guard from the undirected version is replaced by the in-degree precondition. Otherwise the BFS body is identical to the undirected DFS in §"The other half" — visited again means cycle.
+The code reuses the chapter's two algorithms with one twist: because each edge is directed (parent → child) and a child can only have one parent, the parent-tracking guard from the undirected version is replaced by the in-degree precondition. Otherwise the BFS body is identical to the undirected DFS in §"The other half": visited again means cycle.
 
 ## What it actually costs
 
@@ -317,10 +317,10 @@ Parallel undirected edges are subtler. If the graph has two distinct edges betwe
 ## Two pitfalls that bite
 
 > [!WARNING]
-> **Stack overflow on chain-shaped graphs.** A directed graph that's structurally a chain — `0 → 1 → 2 → ... → 99999` — forces DFS recursion depth equal to V. CPython's default recursion limit is 1000, designed to catch infinite recursion before exhausting the OS stack, not to support deep graph DFS.[^5] The same code that passes locally on n = 100 fails on the LC hidden test with `RecursionError`. Fix: set `sys.setrecursionlimit(10**6)` at the top of the module, or convert to an explicit-stack iterative DFS where the stack frames live on the heap. Java's JVM stack size `-Xss` is platform-dependent and the same risk applies; the iterative conversion is the portable answer. Go's auto-growing goroutine stack is the rare structural win.
+> **Stack overflow on chain-shaped graphs.** A directed graph that's structurally a chain: `0 → 1 → 2 → ... → 99999`: forces DFS recursion depth equal to V. CPython's default recursion limit is 1000, designed to catch infinite recursion before exhausting the OS stack, not to support deep graph DFS.[^5] The same code that passes locally on n = 100 fails on the LC hidden test with `RecursionError`. Fix: set `sys.setrecursionlimit(10**6)` at the top of the module, or convert to an explicit-stack iterative DFS where the stack frames live on the heap. Java's JVM stack size `-Xss` is platform-dependent and the same risk applies; the iterative conversion is the portable answer. Go's auto-growing goroutine stack is the rare structural win.
 
 > [!WARNING]
-> **Forgetting to restart on every component.** The inner DFS only visits one connected component (or one weakly-connected component for directed graphs). On a graph with multiple components, the outer for-loop is what catches cycles that aren't in the root's component. Both algorithms in this chapter wrap the DFS in `for u in range(n): if color[u] == WHITE: dfs(u)` for exactly this reason. A submission that runs DFS only from vertex 0 will return "no cycle" on a graph whose first component is a tree and whose second component is a triangle — and will fail silently on the hidden test that exercises this case.
+> **Forgetting to restart on every component.** The inner DFS only visits one connected component (or one weakly-connected component for directed graphs). On a graph with multiple components, the outer for-loop is what catches cycles that aren't in the root's component. Both algorithms in this chapter wrap the DFS in `for u in range(n): if color[u] == WHITE: dfs(u)` for exactly this reason. A submission that runs DFS only from vertex 0 will return "no cycle" on a graph whose first component is a tree and whose second component is a triangle, and will fail silently on the hidden test that exercises this case.
 
 A third trap worth naming briefly: writing `if color[v] != WHITE: return True` inside the directed algorithm. This conflates BLACK with GREY and regresses to the two-color bug from the opening. The cycle witness is *only* a GREY neighbor; a BLACK neighbor is a finished subtree and is benign. Naming the constant `ON_STACK` instead of `GREY` helps the mental model. The question the algorithm is actually asking is *"is `v` currently on my recursion stack?"*, and only ON_STACK answers yes.
 
@@ -328,14 +328,14 @@ A third trap worth naming briefly: writing `if color[v] != WHITE: return True` i
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 565 — Array Nesting](https://leetcode.com/problems/array-nesting/) [Medium] • directed-cycle-functional-graph
-- [LC 1361 — Validate Binary Tree Nodes](https://leetcode.com/problems/validate-binary-tree-nodes/) [Medium] • undirected-cycle-tree-validity ★
-- [LC 261 — Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/) [Medium] • undirected-cycle-tree-validity *(Premium; free mirror: [LC 684 — Redundant Connection](https://leetcode.com/problems/redundant-connection/))*
+- [LC 565: Array Nesting](https://leetcode.com/problems/array-nesting/) [Medium] • directed-cycle-functional-graph
+- [LC 1361: Validate Binary Tree Nodes](https://leetcode.com/problems/validate-binary-tree-nodes/) [Medium] • undirected-cycle-tree-validity ★
+- [LC 261: Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/) [Medium] • undirected-cycle-tree-validity *(Premium; free mirror: [LC 684: Redundant Connection](https://leetcode.com/problems/redundant-connection/))*
 
 ### STRETCH (optional)
 
-- [LC 1971 — Find if Path Exists in Graph](https://leetcode.com/problems/find-if-path-exists-in-graph/) [Easy] • undirected-traversal-DFS
-- [LC 802 — Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) [Medium] • directed-cycle-three-color
+- [LC 1971: Find if Path Exists in Graph](https://leetcode.com/problems/find-if-path-exists-in-graph/) [Easy] • undirected-traversal-DFS
+- [LC 802: Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) [Medium] • directed-cycle-three-color
 
 LC 565 is the gentlest entry: a permutation has out-degree exactly 1, so the three-color machinery collapses to "follow the chain until you re-enter visited territory". LC 1361 is the chapter's signature problem (★) and its worked example. LC 261 sits behind LC Premium; readers without a subscription drill the same algorithm on LC 684 (PRIMARY-owned by [Union-Find](./08-union-find.md) under the union-find framing, but the parent-tracking DFS in this chapter solves it just as well). The two STRETCH problems extend the family in adjacent directions: LC 1971 is the same parent-tracking DFS skeleton answering reachability instead of cycle-presence (the warm-up); LC 802 uses the three-color DFS as a node-property test ("a vertex is safe iff its DFS subtree contains no GREY neighbor"), the natural Medium follow-up to LC 565's "follow one chain" framing.
 

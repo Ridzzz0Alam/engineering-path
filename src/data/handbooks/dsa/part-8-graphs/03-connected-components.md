@@ -71,7 +71,7 @@ def num_islands(grid):
     return count
 ```
 
-**Solution** — Python ([Java](./03-connected-components/lc-200/sol.java) · [C++](./03-connected-components/lc-200/sol.cpp) · [Go](./03-connected-components/lc-200/sol.go))
+**Solution** in Python ([Java](./03-connected-components/lc-200/sol.java) · [C++](./03-connected-components/lc-200/sol.cpp) · [Go](./03-connected-components/lc-200/sol.go))
 
 ```python
 # LC 200. Number of Islands
@@ -177,7 +177,7 @@ def find_circle_num(is_connected):
     return count
 ```
 
-**Solution** — Python ([Java](./03-connected-components/lc-547/sol.java) · [C++](./03-connected-components/lc-547/sol.cpp) · [Go](./03-connected-components/lc-547/sol.go))
+**Solution** in Python ([Java](./03-connected-components/lc-547/sol.java) · [C++](./03-connected-components/lc-547/sol.cpp) · [Go](./03-connected-components/lc-547/sol.go))
 
 ```python
 # LC 547. Number of Provinces
@@ -254,7 +254,7 @@ def max_area_of_island(grid):
     return best
 ```
 
-**Solution** — Python ([Java](./03-connected-components/lc-695/sol.java) · [C++](./03-connected-components/lc-695/sol.cpp) · [Go](./03-connected-components/lc-695/sol.go))
+**Solution** in Python ([Java](./03-connected-components/lc-695/sol.java) · [C++](./03-connected-components/lc-695/sol.cpp) · [Go](./03-connected-components/lc-695/sol.go))
 
 ```python
 # LC 695. Max Area of Island
@@ -302,7 +302,7 @@ The same template handles "sum of values in each component," "list of representa
 
 ## The same algorithm in different clothing: flood fill
 
-[Flood Fill (LC 733)](https://leetcode.com/problems/flood-fill/) gives you a grid, a start cell, and a new colour. Reach the entire region of cells matching the start's original colour and recolour them. Read it as a graph problem and it's exactly the inner traversal from LC 200 — BFS from one specified start, neighbour predicate is "same original colour as start." There's no outer scan because there's no counting; the caller supplies the seed. Flood fill is the inner half of this chapter's template, exposed as a public API. The graphics-programming literature has been calling this algorithm flood fill since the 1970s; the textbook calls it the same algorithm.[^2]
+[Flood Fill (LC 733)](https://leetcode.com/problems/flood-fill/) gives you a grid, a start cell, and a new colour. Reach the entire region of cells matching the start's original colour and recolour them. Read it as a graph problem and it's exactly the inner traversal from LC 200: BFS from one specified start, neighbour predicate is "same original colour as start." There's no outer scan because there's no counting; the caller supplies the seed. Flood fill is the inner half of this chapter's template, exposed as a public API. The graphics-programming literature has been calling this algorithm flood fill since the 1970s; the textbook calls it the same algorithm.[^2]
 
 ## Three approaches, one template
 
@@ -362,15 +362,15 @@ The skeleton accommodates a few useful variants without changing shape.
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 200 — Number of Islands](https://leetcode.com/problems/number-of-islands/) [Medium] • grid-flood-fill ★
-- [LC 695 — Max Area of Island](https://leetcode.com/problems/max-area-of-island/) [Medium] • grid-flood-fill
-- [LC 547 — Number of Provinces](https://leetcode.com/problems/number-of-provinces/) [Medium] • adjacency-matrix-cc
+- [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/) [Medium] • grid-flood-fill ★
+- [LC 695: Max Area of Island](https://leetcode.com/problems/max-area-of-island/) [Medium] • grid-flood-fill
+- [LC 547: Number of Provinces](https://leetcode.com/problems/number-of-provinces/) [Medium] • adjacency-matrix-cc
 
 ### STRETCH (optional)
 
-- [LC 463 — Island Perimeter](https://leetcode.com/problems/island-perimeter/) [Easy] • grid-traversal-counting
-- [LC 733 — Flood Fill](https://leetcode.com/problems/flood-fill/) [Easy] • grid-flood-fill
-- [LC 305 — Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) [Hard] • union-find-incremental *(reference: Python only; Premium-only — free alternative is solving LC 547 with the Union-Find template)*
+- [LC 463: Island Perimeter](https://leetcode.com/problems/island-perimeter/) [Easy] • grid-traversal-counting
+- [LC 733: Flood Fill](https://leetcode.com/problems/flood-fill/) [Easy] • grid-flood-fill
+- [LC 305: Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) [Hard] • union-find-incremental *(reference: Python only; Premium-only, free alternative is solving LC 547 with the Union-Find template)*
 
 LC 200 is the chapter's signature problem (★) and the canonical worked example. The CORE three are all Medium because the pattern's natural difficulty level lives there; LC 463 anchors Easy STRETCH by being the "looks like flood-fill, isn't" lesson, LC 733 is the second Easy STRETCH and the public-API form of the inner traversal taught in §"The same algorithm in different clothing", and LC 305 anchors Hard by reframing the same problem as an online algorithm whose data structure is owned by the next-but-one chapter.
 

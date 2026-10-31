@@ -143,7 +143,7 @@ def shortest_path_length(graph):
     return -1
 ```
 
-**Solution** — Python ([Java](./14-bitmask-dp/lc-847/sol.java) · [C++](./14-bitmask-dp/lc-847/sol.cpp) · [Go](./14-bitmask-dp/lc-847/sol.go))
+**Solution** in Python ([Java](./14-bitmask-dp/lc-847/sol.java) · [C++](./14-bitmask-dp/lc-847/sol.cpp) · [Go](./14-bitmask-dp/lc-847/sol.go))
 
 ```python
 # LC 847. Shortest Path Visiting All Nodes
@@ -197,7 +197,7 @@ Take `graph = [[1], [0, 2], [1]]`, three nodes in a line: 0 connects to 1, 1 con
 
 The seed is `(0, 0b001, 0)`. Step one expands node 0's only neighbour, producing `(1, 0b011, 1)`. Popping that state expands node 1 to both neighbours: `(0, 0b011, 2)` is enqueued because the joint key has not been seen even though node 0 has, and `(2, 0b111, 2)` is enqueued with the full mask. The next dequeued state is the full-mask one. Answer: 2.
 
-> **Interactive widget:** [Bitmask BFS: (node, mask) state expansion](../widgets/w-34-bitmask-dp.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Bitmask BFS: (node, mask) state expansion](../widgets/w-34-bitmask-dp.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: 8-step BFS trace from node 0 on the 3-node line graph. State (node, mask) tuples advance one edge per step; the visited table prunes repeat (node, mask) pairs but admits revisits to a node that change the mask. The full mask `0b111` is reached at distance 2 via the walk 0 → 1 → 2.*
 
@@ -255,14 +255,14 @@ This is the cheapest of the three sub-shapes because the implicit position point
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 847 — Shortest Path Visiting All Nodes](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) [Hard] • bitmask-bfs ★
-- [LC 526 — Beautiful Arrangement](https://leetcode.com/problems/beautiful-arrangement/) [Medium] • bitmask-dp-permutation *(reference: Python only)*
-- [LC 698 — Partition to K Equal Sum Subsets](https://leetcode.com/problems/partition-to-k-equal-sum-subsets/) [Medium] • bitmask-dp-partition *(reference: Python only)*
+- [LC 847: Shortest Path Visiting All Nodes](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) [Hard] • bitmask-bfs ★
+- [LC 526: Beautiful Arrangement](https://leetcode.com/problems/beautiful-arrangement/) [Medium] • bitmask-dp-permutation *(reference: Python only)*
+- [LC 698: Partition to K Equal Sum Subsets](https://leetcode.com/problems/partition-to-k-equal-sum-subsets/) [Medium] • bitmask-dp-partition *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 1986 — Minimum Number of Work Sessions to Finish the Tasks](https://leetcode.com/problems/minimum-number-of-work-sessions-to-finish-the-tasks/) [Medium] • bitmask-dp-bin-packing *(reference: Python only)*
-- [LC 1125 — Smallest Sufficient Team](https://leetcode.com/problems/smallest-sufficient-team/) [Hard] • bitmask-dp-set-cover *(reference: Python only)*
+- [LC 1986: Minimum Number of Work Sessions to Finish the Tasks](https://leetcode.com/problems/minimum-number-of-work-sessions-to-finish-the-tasks/) [Medium] • bitmask-dp-bin-packing *(reference: Python only)*
+- [LC 1125: Smallest Sufficient Team](https://leetcode.com/problems/smallest-sufficient-team/) [Hard] • bitmask-dp-set-cover *(reference: Python only)*
 
 The ladder is structurally Medium-and-Hard. There is no canonical Easy bitmask-DP problem; the moment a problem is Easy, the bitmask state compression is unnecessary, because either `n` is too small for the technique to matter or the structure flattens to 1D DP. Attempting to span Easy/Medium/Hard would either pad the chapter with non-canonical problems or reach into a different pattern family.
 

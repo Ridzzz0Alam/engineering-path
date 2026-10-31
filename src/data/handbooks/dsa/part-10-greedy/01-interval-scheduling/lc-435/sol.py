@@ -5,7 +5,7 @@
 # otherwise keep it and update the cursor. Return the drop count.
 #
 # Why sort-by-end and not sort-by-start: see the chapter's exchange-argument
-# section. Sort-by-start fails on inputs like [[1,100],[2,3],[3,4]] — it
+# section. Sort-by-start fails on inputs like [[1,100],[2,3],[3,4]], and it
 # greedily keeps [1,100], drops both shorter intervals, returns 2; the
 # optimum is to keep [2,3] and [3,4], drop [1,100], for a count of 1.
 from typing import List

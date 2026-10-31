@@ -86,7 +86,7 @@ def letter_combinations(digits):
     return result
 ```
 
-**Solution** — Python ([Java](./01-backtracking-template/lc-17/sol.java) · [C++](./01-backtracking-template/lc-17/sol.cpp) · [Go](./01-backtracking-template/lc-17/sol.go))
+**Solution** in Python ([Java](./01-backtracking-template/lc-17/sol.java) · [C++](./01-backtracking-template/lc-17/sol.cpp) · [Go](./01-backtracking-template/lc-17/sol.go))
 
 ```python
 # LC 17. Letter Combinations of a Phone Number
@@ -205,7 +205,7 @@ Trace the right template on `digits = "23"`, keypad `{2: "abc", 3: "def"}`. The 
 
 Read line 1 against line 10. The first top-level branch chose `'a'`; ten lines later that choose has its matching unchoose. In between, the subtree under `'a'` ran to completion (three emits, three pushes, three pops) and `path` returned to `['a']` before the final pop took it back to `[]`. When the for-loop's next iteration starts on line 11, `path` is what it was on line 1 before the branch began. The sibling branches `'b'` and `'c'` mirror `'a'` exactly because they all start from the same state.
 
-> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-template`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-template`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: tree fans out 3 × 3 to nine leaves; every choose along the path from root to leaf has a matching unchoose; on every back-up the path shortens by one element until the next sibling at that depth begins.*
 
@@ -282,7 +282,7 @@ The difference between a backtracking solution that solves N-queens at `n = 12` 
 
 ### CORE (foundation/framework, one anchor)
 
-- [LC 17 — Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/) [Medium] • backtracking-template-cartesian-product ★
+- [LC 17: Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/) [Medium] • backtracking-template-cartesian-product ★
 
 This is a foundation/framework chapter; the ladder is intentionally short. LC 17 is the cleanest problem on which the choose/explore/unchoose triangle is visible without subset-ordering or permutation-skipping noise. Each digit indexes a disjoint character set, so the tree is pure cartesian product. The concrete problem families live in the next four chapters, each of which inherits the template verbatim and customizes the four levers: [Subsets, combinations, and permutations](./02-subsets-combinations-permutations.md) for LC 78 / 77 / 46 / 39, [Word search and grid backtracking](./05-word-search.md) for LC 79 / 212, [N-queens and constraint propagation](./03-n-queens.md) for LC 51 / 37, and [Partitioning and combination sum](./02-subsets-combinations-permutations.md) for LC 131 / 698.
 

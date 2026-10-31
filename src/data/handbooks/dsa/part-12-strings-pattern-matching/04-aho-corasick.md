@@ -28,7 +28,7 @@ This chapter is that algorithm. The shape is a trie with two extra ideas bolted 
 The cleanest naive solve: for each pattern, run the linear-time single-pattern matcher (Knuth-Morris-Pratt) from earlier in the part against the text. That is `k` independent scans:
 
 ```python
-# Naive: O(k * n + m) — what we're replacing
+# Naive: O(k * n + m), what we're replacing
 def find_all_naive(patterns, text):
     matches = {}
     for pat in patterns:
@@ -183,7 +183,7 @@ for i, ch in enumerate(text):
 return result
 ```
 
-**Solution** — Python ([Java](./04-aho-corasick/lc-1032/sol.java) · [C++](./04-aho-corasick/lc-1032/sol.cpp) · [Go](./04-aho-corasick/lc-1032/sol.go))
+**Solution** in Python ([Java](./04-aho-corasick/lc-1032/sol.java) · [C++](./04-aho-corasick/lc-1032/sol.cpp) · [Go](./04-aho-corasick/lc-1032/sol.go))
 
 ```python
 # LC 1032. Stream of Characters
@@ -335,13 +335,13 @@ The line connecting these three (the IDS, the antivirus engine, the Unix utility
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 1032 — Stream of Characters](https://leetcode.com/problems/stream-of-characters/) [Hard] • trie-with-failure-link-streaming ★
-- [LC 745 — Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/) [Hard] • bidirectional-trie-multi-key
-- [LC 648 — Replace Words](https://leetcode.com/problems/replace-words/) [Medium] • trie-shortest-prefix-match
+- [LC 1032: Stream of Characters](https://leetcode.com/problems/stream-of-characters/) [Hard] • trie-with-failure-link-streaming ★
+- [LC 745: Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/) [Hard] • bidirectional-trie-multi-key
+- [LC 648: Replace Words](https://leetcode.com/problems/replace-words/) [Medium] • trie-shortest-prefix-match
 
 ### STRETCH (optional)
 
-- [LC 720 — Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) [Easy] • trie-membership-scan
+- [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) [Easy] • trie-membership-scan
 
 LC 1032 is the chapter's signature problem (★) and the one whose AC formulation appears in the companion `StreamChecker` files. LC 648 is the gentler entry point: a trie scan against a stream of word starts, no failure links needed, but the same "preprocess once, scan many" mental model that AC extends. LC 745 generalises the preprocessing trick to bidirectional matching. LC 720 is the adjacent-pattern Easy: a single-trie problem with no failure links, filling the Easy band that multi-pattern matching has no canonical entry for on LC.
 

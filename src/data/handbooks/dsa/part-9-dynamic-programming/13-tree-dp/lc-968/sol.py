@@ -42,14 +42,14 @@ def min_camera_cover(root: Optional[TreeNode]) -> int:
             return COVERED
         l = dfs(node.left)
         r = dfs(node.right)
-        # Any child unmonitored — place a camera here.
+        # Any child unmonitored: place a camera here.
         if l == NEEDS_COVER or r == NEEDS_COVER:
             cameras += 1
             return HAS_CAMERA
-        # Any child holds a camera — this node is covered by it.
+        # Any child holds a camera, and this node is covered by it.
         if l == HAS_CAMERA or r == HAS_CAMERA:
             return COVERED
-        # Both children covered, none has a camera — this node needs cover.
+        # Both children covered, none has a camera, and this node needs cover.
         return NEEDS_COVER
 
     if dfs(root) == NEEDS_COVER:

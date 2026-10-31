@@ -1,6 +1,6 @@
 ---
 title: "Topological sort: DFS post-order reverse"
-description: "DFS-based topological sort: three-color recursion, post-order emission, and the algorithms that fall out of the same skeleton — Tarjan's bridges, Hierholzer's Eulerian path, cycle-length detection."
+description: "DFS-based topological sort: three-color recursion, post-order emission, and the algorithms that fall out of the same skeleton, Tarjan's bridges, Hierholzer's Eulerian path, cycle-length detection."
 slug: 05-topological-sort-dfs
 part: 8
 chapter: 5
@@ -78,7 +78,7 @@ def can_finish(num_courses, prerequisites):
     return True
 ```
 
-**Solution** — Python ([Java](./05-topological-sort-dfs/lc-207/sol.java) · [C++](./05-topological-sort-dfs/lc-207/sol.cpp) · [Go](./05-topological-sort-dfs/lc-207/sol.go))
+**Solution** in Python ([Java](./05-topological-sort-dfs/lc-207/sol.java) · [C++](./05-topological-sort-dfs/lc-207/sol.cpp) · [Go](./05-topological-sort-dfs/lc-207/sol.go))
 
 ```python
 # LC 207. Course Schedule
@@ -142,7 +142,7 @@ Back in `DFS(3)`. The for-loop in `DFS(3)` had only one neighbor (5), so 3 also 
 
 Post-order list: `[5, 3, 1, 4, 2, 0]`. Reverse it: `[0, 2, 4, 1, 3, 5]`. **That's the topological order DFS reports.**
 
-> **Interactive widget:** [Topological sort (Kahn's vs DFS post-order)](../widgets/w-27-topological-sort-kahn.yml) (panel `panel-dfs`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Topological sort (Kahn's vs DFS post-order)](../widgets/w-27-topological-sort-kahn.yml) (panel `panel-dfs`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the panel-dfs trace runs 23 steps. The post-order list stays empty until the deepest frame finishes (step 9 emits 5), then grows one entry per DFS-exit, and reaches `[5, 3, 1, 4, 2, 0]` at step 20 when the outermost call to `DFS(0)` returns. Step 21 reverses the list in place. The widget's panel-kahn pane animates Kahn's algorithm on the same DAG so the two emit orders sit on screen at once.*
 
@@ -218,14 +218,14 @@ A useful heuristic: if the question is *"is this a DAG"* or *"give me an order"*
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 1192 — Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/) [Hard] • dfs-postorder ★
-- [LC 332 — Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/) [Hard] • dfs-postorder
-- [LC 2360 — Longest Cycle in a Graph](https://leetcode.com/problems/longest-cycle-in-a-graph/) [Hard] • dfs-postorder
+- [LC 1192: Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/) [Hard] • dfs-postorder ★
+- [LC 332: Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/) [Hard] • dfs-postorder
+- [LC 2360: Longest Cycle in a Graph](https://leetcode.com/problems/longest-cycle-in-a-graph/) [Hard] • dfs-postorder
 
 ### STRETCH (optional)
 
-- [LC 444 — Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/) [Medium] • dfs-postorder *(Premium; free alternative: [LC 210 — Course Schedule II](https://leetcode.com/problems/course-schedule-ii/))*
-- [LC 1059 — All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) [Medium] • dfs-postorder *(Premium; free alternative: [LC 207 — Course Schedule](https://leetcode.com/problems/course-schedule/))*
+- [LC 444: Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/) [Medium] • dfs-postorder *(Premium; free alternative: [LC 210: Course Schedule II](https://leetcode.com/problems/course-schedule-ii/))*
+- [LC 1059: All Paths from Source Lead to Destination](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/) [Medium] • dfs-postorder *(Premium; free alternative: [LC 207: Course Schedule](https://leetcode.com/problems/course-schedule/))*
 
 The CORE three are intentionally all Hard. Pure DFS post-order applications (Tarjan's bridges, Hierholzer's, cycle-length via timestamps) are structurally Hard and LC has no canonical Easy at this theme. LC 207 and LC 210 are owned by [Topological sort: Kahn's algorithm](./04-topological-sort-kahn.md), which exercises the same family of problems at the Medium tier. The post-order skeleton in this chapter and the indegree skeleton in 8.4 cover the topological-sort question between them.
 

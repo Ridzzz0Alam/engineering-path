@@ -21,7 +21,7 @@ ladder:
 
 # Minimum spanning tree: Kruskal's algorithm
 
-In 1956, Joseph Kruskal published a three-page paper titled *On the Shortest Spanning Subtree of a Graph and the Traveling Salesman Problem*. Three pages. The algorithm fits in two paragraphs of English; the proof of correctness fits in the third. Seventy years later, every system that lays cable, every clustering pipeline that draws boundaries from a similarity graph, every interview question that asks for the minimum-cost way to connect things — they're all running the same loop Kruskal wrote down at Bell Labs.
+In 1956, Joseph Kruskal published a three-page paper titled *On the Shortest Spanning Subtree of a Graph and the Traveling Salesman Problem*. Three pages. The algorithm fits in two paragraphs of English; the proof of correctness fits in the third. Seventy years later, every system that lays cable, every clustering pipeline that draws boundaries from a similarity graph, every interview question that asks for the minimum-cost way to connect things, and they're all running the same loop Kruskal wrote down at Bell Labs.
 
 The chapter's signature problem is *Min Cost to Connect All Points* (LC 1584). You're given `n` points in 2D, like `[[0,0], [2,2], [3,10], [5,2], [7,0]]`. Every pair of points has a connection cost equal to the Manhattan distance between them. Return the minimum total cost that wires all the points together so any one is reachable from any other. The five-point example above answers 20. The naive instinct is to greedily attach each new point to its nearest connected neighbour, which feels right and is wrong on inputs of size four. The correct answer is Kruskal's algorithm, and it has been the correct answer since the year *I Love Lucy* aired.
 
@@ -89,7 +89,7 @@ def min_cost_connect_points(points):
     return total
 ```
 
-**Solution** — Python ([Java](./11-mst-kruskal/lc-1584/sol.java) · [C++](./11-mst-kruskal/lc-1584/sol.cpp) · [Go](./11-mst-kruskal/lc-1584/sol.go))
+**Solution** in Python ([Java](./11-mst-kruskal/lc-1584/sol.java) · [C++](./11-mst-kruskal/lc-1584/sol.cpp) · [Go](./11-mst-kruskal/lc-1584/sol.go))
 
 ```python
 # LC 1584. Min Cost to Connect All Points
@@ -157,7 +157,7 @@ The `if accepted == n - 1: break` line is the early termination. A spanning tree
 
 ## Why it works: the cut property
 
-The correctness of Kruskal's algorithm rests on one theorem from CLRS Chapter 21.[^2] Pick any way to split the vertices into two non-empty sets — call this a cut. Of all the edges that cross the cut (one endpoint in each set), the lightest one belongs to *some* minimum spanning tree.
+The correctness of Kruskal's algorithm rests on one theorem from CLRS Chapter 21.[^2] Pick any way to split the vertices into two non-empty sets: call this a cut. Of all the edges that cross the cut (one endpoint in each set), the lightest one belongs to *some* minimum spanning tree.
 
 Kruskal's loop is the cut property applied implicitly. When the algorithm considers edge `(u, v)` and `find(u) ≠ find(v)`, the two endpoints are in different components. There's a cut that separates `u`'s component from the rest of the graph, and `(u, v)` is the lightest edge across that cut. Every cheaper edge has already been processed and either accepted (in which case it lies inside one of the two components) or rejected because its endpoints were already in one component, so it couldn't cross this cut. The cut property says taking `(u, v)` is safe. Repeated `n - 1` times, the resulting tree is optimal.
 
@@ -186,7 +186,7 @@ flowchart LR
 
 Sort: `A-B 1, B-C 2, A-C 3, C-D 4, B-D 5, D-E 6, C-E 7, D-F 8, E-F 9, E-G 10, F-G 11`.
 
-Walk the sorted list. The first two edges (A-B, B-C) connect fresh components; both accepted. The third edge, A-C 3, finds `find(A) = find(C) = A` — already in one component. **Reject.** This is the moment the algorithm earns its keep. The naive sort-and-take-three approach would have taken A-C and missed the cheaper path through B.
+Walk the sorted list. The first two edges (A-B, B-C) connect fresh components; both accepted. The third edge, A-C 3, finds `find(A) = find(C) = A`: already in one component. **Reject.** This is the moment the algorithm earns its keep. The naive sort-and-take-three approach would have taken A-C and missed the cheaper path through B.
 
 C-D 4 is accepted. B-D 5 is rejected (B and D both reach root A). D-E 6 is accepted. C-E 7 is rejected. D-F 8 is accepted. E-F 9 is rejected. E-G 10 is accepted, and that's the sixth edge. The early break fires and F-G 11 is never examined.
 
@@ -204,7 +204,7 @@ flowchart LR
 
 *The minimum spanning tree. Both Kruskal and Prim produce these exact six edges; the next chapter animates Prim's path to the same answer.*
 
-> **Interactive widget:** [MST: Kruskal + Prim (side-by-side)](../widgets/w-30-mst-kruskal-prim.yml) (panel `panel-kruskal`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [MST: Kruskal + Prim (side-by-side)](../widgets/w-30-mst-kruskal-prim.yml) (panel `panel-kruskal`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: 23-step trace on the canonical graph. Six accepts (green), four rejects (vermilion), one edge skipped via early break (sky blue). Final mst_weight = 31, accepted = 6 = n - 1.*
 
@@ -261,13 +261,13 @@ A third pitfall worth a sentence: writing `find` recursively. The textbook `find
 
 ### CORE (solve to claim chapter mastery)
 
-- [LC 1584 — Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) [Medium] • mst-kruskal-union-find ★
+- [LC 1584: Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) [Medium] • mst-kruskal-union-find ★
 
 ### STRETCH (optional)
 
-- [LC 1135 — Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/) [Medium] • mst-kruskal-union-find *(LeetCode Premium)*
-- [LC 1168 — Optimize Water Distribution in a Village](https://leetcode.com/problems/optimize-water-distribution-in-a-village/) [Hard] • mst-virtual-source-node *(LeetCode Premium)*
-- [LC 1489 — Find Critical and Pseudo-Critical Edges in MST](https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/) [Hard] • mst-kruskal-with-edge-fix
+- [LC 1135: Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/) [Medium] • mst-kruskal-union-find *(LeetCode Premium)*
+- [LC 1168: Optimize Water Distribution in a Village](https://leetcode.com/problems/optimize-water-distribution-in-a-village/) [Hard] • mst-virtual-source-node *(LeetCode Premium)*
+- [LC 1489: Find Critical and Pseudo-Critical Edges in MST](https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/) [Hard] • mst-kruskal-with-edge-fix
 
 LC 1584 is the chapter's signature problem (★) and the worked example. The MST pattern on LeetCode skews Medium-and-Hard; there is no canonical Easy MST problem, and the difficulty span is achieved across CORE-plus-STRETCH rather than within CORE alone. LC 1135 carries the textbook explicit-graph framing (Premium-locked, with LC 1584 as the free analogue). LC 1168 carries the virtual-source-node modeling trick. LC 1489 carries the Hard band and exercises both the cut and cycle properties at once.
 

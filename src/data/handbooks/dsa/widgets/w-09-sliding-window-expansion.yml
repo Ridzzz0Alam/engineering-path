@@ -1,5 +1,5 @@
 # Sliding window expansion (fixed + variable)
-# Dual-panel shared widget — chapters 3.2 and 3.3 each render one panel.
+# Dual-panel shared widget: chapters 3.2 and 3.3 each render one panel.
 
 id: w-09-sliding-window-expansion
 title: "Sliding window (fixed + variable size)"
@@ -155,7 +155,7 @@ panels:
         kind: expand
         payload: { entering: 'w', index: 2 }
         state: { l: 0, r: 2, counts: { p: 1, w: 2 }, best: 2 }
-        narration: "Expand. r = 2. counts['w'] = 2 — predicate violated."
+        narration: "Expand. r = 2. counts['w'] = 2: predicate violated."
       - step: 8
         kind: check
         state: { l: 0, r: 2, counts: { p: 1, w: 2 }, valid: false, best: 2 }
@@ -204,7 +204,7 @@ panels:
         kind: expand
         payload: { entering: 'w', index: 5 }
         state: { l: 2, r: 5, counts: { p: 0, w: 2, k: 1, e: 1 }, best: 3 }
-        narration: "Expand. r = 5. counts['w'] = 2 — predicate violated."
+        narration: "Expand. r = 5. counts['w'] = 2: predicate violated."
       - step: 19
         kind: check
         state: { l: 2, r: 5, counts: { p: 0, w: 2, k: 1, e: 1 }, valid: false, best: 3 }

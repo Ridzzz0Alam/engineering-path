@@ -67,7 +67,7 @@ When the runtime executes `f()` calling `g()`, it pushes a record onto a region 
 
 This is the part that makes recursion work. A recursive function does not have any special machinery. It pushes a frame onto the same call stack any other call would use, runs its body, and pops that frame when it returns. The reason `factorial(5)` produces `120` and not, say, the most recent intermediate value, is that each recursive call has its own frame holding its own copy of `n`, and the LIFO discipline of the call stack guarantees that frames are dismantled in the reverse order they were created. [Recursion's mental model](../part-0-foundations/02-recursion-mental-model.md) develops this connection from the recursion side; we're approaching it from the data-structure side, and arriving at the same point.
 
-This is also why "stack overflow" happens. The OS reserves a fixed-size region for the call stack, typically 1 to 8 MB on Linux, configurable via `ulimit -s`. Every function call consumes some of that region. Deep recursion exhausts it. Python sets a soft limit (`sys.setrecursionlimit`, default 1000) below the OS hard limit so it can throw `RecursionError` cleanly before the OS kills the process. Java's `-Xss` flag controls the size; the default of 512KB to 1MB lets you nest perhaps 10,000 deep before `StackOverflowError`. When you read those error messages, the data structure is not a metaphor — it is literally the data structure.
+This is also why "stack overflow" happens. The OS reserves a fixed-size region for the call stack, typically 1 to 8 MB on Linux, configurable via `ulimit -s`. Every function call consumes some of that region. Deep recursion exhausts it. Python sets a soft limit (`sys.setrecursionlimit`, default 1000) below the OS hard limit so it can throw `RecursionError` cleanly before the OS kills the process. Java's `-Xss` flag controls the size; the default of 512KB to 1MB lets you nest perhaps 10,000 deep before `StackOverflowError`. When you read those error messages, the data structure is not a metaphor, and it is literally the data structure.
 
 The conversion from recursive to iterative code is the same observation in reverse. If your recursive solution exceeds the language's recursion limit, you allocate an explicit stack in your application code, push what would have been an activation record (current state + the place to come back to), and walk it manually. Iterative DFS over a tree is the canonical example: where the recursive version uses the call stack, the iterative version uses a `Deque<Node>` or `list[Node]`, and the algorithm is the same modulo who manages the stack. [Backtracking](../part-7-recursion-backtracking) and [graph traversal](../part-8-graphs) chapters both rely on this conversion without re-teaching it.
 
@@ -100,7 +100,7 @@ def is_valid(s: str) -> bool:
     return not stack
 ```
 
-**Solution** — Python ([Java](./05-stacks/lc-20/sol.java) · [C++](./05-stacks/lc-20/sol.cpp) · [Go](./05-stacks/lc-20/sol.go))
+**Solution** in Python ([Java](./05-stacks/lc-20/sol.java) · [C++](./05-stacks/lc-20/sol.cpp) · [Go](./05-stacks/lc-20/sol.go))
 
 ```python
 # LC 20. Valid Parentheses
@@ -150,10 +150,10 @@ Every language has a canonical idiom and a wrong-but-tempting alternative. Three
 
 | Language | Right idiom | Wrong-but-tempting alternative |
 |---|---|---|
-| Python | `list` (`append`, `pop()`, `[-1]`) | `collections.deque` — works, but over-engineered |
-| Java | `Deque<T> stack = new ArrayDeque<>()` | `java.util.Stack` — synchronized, slow |
-| C++ | `std::stack<T>` | `std::vector<T>` — works, but doesn't enforce LIFO at the type level |
-| Go | `[]T` slice with `append` and `s[:len(s)-1]` | `container/list` — pointer-heavy, slower |
+| Python | `list` (`append`, `pop()`, `[-1]`) | `collections.deque`: works, but over-engineered |
+| Java | `Deque<T> stack = new ArrayDeque<>()` | `java.util.Stack`: synchronized, slow |
+| C++ | `std::stack<T>` | `std::vector<T>`: works, but doesn't enforce LIFO at the type level |
+| Go | `[]T` slice with `append` and `s[:len(s)-1]` | `container/list`: pointer-heavy, slower |
 
 The Java case is the one worth ink. `java.util.Stack` is a 1996 class that extends `Vector`, the original synchronized dynamic array. Every `push` and `pop` on it acquires the intrinsic lock on `this`, even in single-threaded code. Sedgewick & Wayne are unambiguous in algs4: "Java has a built in library called Stack, but you should avoid using it."[^3] Oracle's own JDK 21 Javadoc on `ArrayDeque` says: "This class is likely to be faster than `Stack` when used as a stack."[^4] *Effective Java* covers the broader principle, that legacy synchronized collections are not the right primitive for single-threaded code.[^5] Beginner Java tutorials still default to `new Stack<>()`. The standard code-review fix is `Deque<Integer> stack = new ArrayDeque<>()` and the `Deque` interface methods `push`, `pop`, `peek`.
 
@@ -198,12 +198,12 @@ The amortized bound on push is the same one [Dynamic array internals](./01-dynam
 
 ### CORE (solve both to claim chapter mastery)
 
-- [LC 20 — Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) [Easy] • stack-balanced-paren-matching ★
-- [LC 71 — Simplify Path](https://leetcode.com/problems/simplify-path/) [Medium] • stack-track-most-recent-context
+- [LC 20: Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) [Easy] • stack-balanced-paren-matching ★
+- [LC 71: Simplify Path](https://leetcode.com/problems/simplify-path/) [Medium] • stack-track-most-recent-context
 
 ### STRETCH (optional)
 
-- [LC 224 — Basic Calculator](https://leetcode.com/problems/basic-calculator/) [Hard] • stack-iterative-recursion-simulation
+- [LC 224: Basic Calculator](https://leetcode.com/problems/basic-calculator/) [Hard] • stack-iterative-recursion-simulation
 
 LC 71 demonstrates that the stack is not exclusively a "validator or evaluator" pattern but more broadly a "track most-recent-context" primitive: split a Unix-style path on `/`, push directory names, on `..` pop, on `.` skip. LC 224 is the chapter's Hard span anchor and the bridge to Part 4: it parses an infix expression with parentheses and unary minus using a single stack of running sums and signs, iteratively simulating the recursion the runtime would otherwise perform.
 

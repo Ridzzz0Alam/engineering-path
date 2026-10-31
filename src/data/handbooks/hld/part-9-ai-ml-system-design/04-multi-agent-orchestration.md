@@ -153,7 +153,7 @@ The multi-agent framework landscape is wide. Here are the four you will encounte
 
 **CrewAI:** Role-based crews with a process (sequential or hierarchical). Lower learning curve. Best for prototyping role-based teams quickly.
 
-**Others worth knowing:** CrewAI (1.x as of 2026 — role-based crews with sequential or hierarchical processes), MetaGPT (SOP-driven software dev crew, lower per-task token cost than ChatDev on the SoftwareDev benchmark)[^8], DSPy (programmatic prompts compiled, not orchestrated), LlamaIndex Workflows (event-driven), Pydantic AI, Mastra (TypeScript-first).
+**Others worth knowing:** CrewAI (1.x as of 2026: role-based crews with sequential or hierarchical processes), MetaGPT (SOP-driven software dev crew, lower per-task token cost than ChatDev on the SoftwareDev benchmark)[^8], DSPy (programmatic prompts compiled, not orchestrated), LlamaIndex Workflows (event-driven), Pydantic AI, Mastra (TypeScript-first).
 
 | Framework | Core abstraction | State model | Human-in-the-loop | Best for |
 |---|---|---|---|---|

@@ -15,7 +15,7 @@ date_updated: 2026-05-11
 
 # Multimodal AI Systems (CLIP, Whisper, LayoutLM, Document AI)
 
-> **TL;DR**: Production AI is no longer text-only. Users upload photos, voice notes, and PDFs and expect the system to reason across all of it. The stack has four layers: ingest (parse, OCR, transcribe), embed (CLIP/SigLIP for images, Whisper for audio, ColPali for documents), store (blob storage for originals, vector DB for embeddings, linked by object ID), and serve (ANN retrieval plus optional multimodal LLM). Google Lens crossed 100 billion visual searches in 2025 (~8 billion per month), growing 65% year-over-year[^1]. Cascade pipelines (OCR then embed then LLM) beat end-to-end multimodal LLMs on cost and debuggability at production scale; reserve frontier vision models (GPT-5.x, Gemini 3, Claude 4.x, Llama 4) for low-volume, quality-critical tasks — image token costs vary by model family and you should always re-run the math against the specific model you deploy[^2].
+> **TL;DR**: Production AI is no longer text-only. Users upload photos, voice notes, and PDFs and expect the system to reason across all of it. The stack has four layers: ingest (parse, OCR, transcribe), embed (CLIP/SigLIP for images, Whisper for audio, ColPali for documents), store (blob storage for originals, vector DB for embeddings, linked by object ID), and serve (ANN retrieval plus optional multimodal LLM). Google Lens crossed 100 billion visual searches in 2025 (~8 billion per month), growing 65% year-over-year[^1]. Cascade pipelines (OCR then embed then LLM) beat end-to-end multimodal LLMs on cost and debuggability at production scale; reserve frontier vision models (GPT-5.x, Gemini 3, Claude 4.x, Llama 4) for low-volume, quality-critical tasks: image token costs vary by model family and you should always re-run the math against the specific model you deploy[^2].
 
 ## Learning Objectives
 
@@ -158,7 +158,7 @@ flowchart TD
 
 *Adapter-based models bolt vision onto a frozen LLM cheaply. Unified models tokenize all modalities into one sequence for stronger reasoning at higher cost.*
 
-Gemini 3.1 Pro (released Feb 19, 2026) supports up to 1M input tokens and reasons over hours of video and audio in a single prompt[^17]. As an illustrative example, GPT-4o's high-detail mode costs 85 + (tiles × 170) tokens per image (a 1024×1024 image = 765 tokens). At 10K image queries/day, that is ~$19,125/month just for image input. The cost math matters. OpenAI's newer GPT-5.x models use a patch-based tokenization rather than the GPT-4o tile formula, and Claude 4.x / Gemini 3.x each have their own token-per-image rules — always re-run the math against the specific model and version you deploy[^2].
+Gemini 3.1 Pro (released Feb 19, 2026) supports up to 1M input tokens and reasons over hours of video and audio in a single prompt[^17]. As an illustrative example, GPT-4o's high-detail mode costs 85 + (tiles × 170) tokens per image (a 1024×1024 image = 765 tokens). At 10K image queries/day, that is ~$19,125/month just for image input. The cost math matters. OpenAI's newer GPT-5.x models use a patch-based tokenization rather than the GPT-4o tile formula, and Claude 4.x / Gemini 3.x each have their own token-per-image rules: always re-run the math against the specific model and version you deploy[^2].
 
 ### Multimodal RAG and ColPali-style retrieval
 

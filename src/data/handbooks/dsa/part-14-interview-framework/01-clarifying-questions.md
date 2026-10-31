@@ -36,7 +36,7 @@ Each of these is a question whose **answer changes the code**. That's the test. 
 
 ## Which questions actually matter?
 
-Take a real example. *"Given an array of integers, find two numbers that sum to a target."* That's [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/), phrased ambiguously. Ian Douglas uses a near-identical warm-up specifically because most candidates hear "array" without checking; the prompt he uses says "grouping," and he's watching whether they ask.[^1]
+Take a real example. *"Given an array of integers, find two numbers that sum to a target."* That's [LC 1: Two Sum](https://leetcode.com/problems/two-sum/), phrased ambiguously. Ian Douglas uses a near-identical warm-up specifically because most candidates hear "array" without checking; the prompt he uses says "grouping," and he's watching whether they ask.[^1]
 
 Five questions are worth asking. *"Is the array sorted?"* Sorted unlocks a two-pointer solution in O(1) extra space; unsorted forces a hash map. *"Can the same index be used twice?"* That affects the loop's inner check. *"Are there duplicates?"* Duplicates change the return contract when two valid pairs exist. *"What do I return on no match?"* The answer picks the function signature. *"Negatives allowed?"* That eliminates the can't-go-below-zero argument before it bites.
 
@@ -61,7 +61,7 @@ That tops out at about four minutes for a fresh medium prompt.[^2][^3] Cracking 
 
 What does *not* fit in the budget: designing the algorithm, walking through trade-offs between two solutions, or asking process meta-questions like "how detailed should I be?" Those come later. A 15-second exchange to set communication expectations ("I'll think for about a minute, then share my approach, then code") is fine; a multi-minute conversation about how you work is not.
 
-On a true warm-up easy ([LC 344 — Reverse String](https://leetcode.com/problems/reverse-string/)), the budget compresses to 60 to 90 seconds total. Spending four minutes clarifying *"reverse a string"* is the same failure mode as not clarifying at all.
+On a true warm-up easy ([LC 344: Reverse String](https://leetcode.com/problems/reverse-string/)), the budget compresses to 60 to 90 seconds total. Spending four minutes clarifying *"reverse a string"* is the same failure mode as not clarifying at all.
 
 ## When does over-clarifying become the failure?
 
@@ -97,8 +97,8 @@ Pull two prompts from your queue, one easy and one medium, and run the clarifica
 
 Two illustrative problems to think about, not solve as part of this chapter:
 
-- [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/) [Easy]. The surface ambiguity (sortedness, return-format, missing-answer behavior) is the cleanest substrate for practicing the input-shape arc.
-- [LC 146 — LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium]. The prompt is *"design and implement"*, which forces the API contract into the open. `get` returns what on a miss? Is the cache thread-safe? What's the complexity target, O(1) worst case or amortized? The answers pick the data structure.
+- [LC 1: Two Sum](https://leetcode.com/problems/two-sum/) [Easy]. The surface ambiguity (sortedness, return-format, missing-answer behavior) is the cleanest substrate for practicing the input-shape arc.
+- [LC 146: LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium]. The prompt is *"design and implement"*, which forces the API contract into the open. `get` returns what on a miss? Is the cache thread-safe? What's the complexity target, O(1) worst case or amortized? The answers pick the data structure.
 
 Both are CORE in their algorithmic chapters; this chapter only references them. The clarification skill itself is built by drilling it on whatever you're already practicing.
 

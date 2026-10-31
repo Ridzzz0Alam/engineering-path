@@ -59,7 +59,7 @@ flowchart TD
 The most natural BFS that a five-minute whiteboard produces looks like this:
 
 ```python
-# Naive BFS — correct visit order, wrong output shape
+# Naive BFS: correct visit order, wrong output shape
 def naive_bfs(root):
     if root is None:
         return []
@@ -88,7 +88,7 @@ def level_order(root):
     result = []
     queue = deque([root])
     while queue:
-        level_size = len(queue)              # the snapshot — this is the chapter
+        level_size = len(queue)              # the snapshot, and this is the chapter
         level = []
         for _ in range(level_size):
             node = queue.popleft()
@@ -99,7 +99,7 @@ def level_order(root):
     return result
 ```
 
-**Solution** — Python ([Java](./03-level-order-traversal/lc-102/sol.java) · [C++](./03-level-order-traversal/lc-102/sol.cpp) · [Go](./03-level-order-traversal/lc-102/sol.go))
+**Solution** in Python ([Java](./03-level-order-traversal/lc-102/sol.java) · [C++](./03-level-order-traversal/lc-102/sol.cpp) · [Go](./03-level-order-traversal/lc-102/sol.go))
 
 ```python
 # LC 102. Binary Tree Level Order Traversal
@@ -159,7 +159,7 @@ Build phase: enqueue the root, snapshot `level_size = 1`, dequeue 3, visit it, e
 
 The decisive moment is at step 8. The queue holds `[9, 20]`, the result holds `[[3]]`, and the algorithm snapshots `level_size = 2`. Over the next four iterations, 9 and 20 each get dequeued and visited, and 20's children 15 and 7 get appended *behind* the boundary. By the end of the inner loop, the queue is `[15, 7]` and the current level is `[9, 20]`. The boundary held; the next iteration of the outer loop will see it again with a fresh snapshot of 2.
 
-> **Interactive widget:** [Tree traversal animator (DFS pre/in/post + BFS level-order)](../widgets/w-16-tree-traversal-animator.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Tree traversal animator (DFS pre/in/post + BFS level-order)](../widgets/w-16-tree-traversal-animator.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: across 23 steps, the queue evolves [3] → [9, 20] → [15, 7] → empty. The result accumulates [[3]] → [[3], [9, 20]] → [[3], [9, 20], [15, 7]]. The boundary bar appears three times, each time after a `level_size` snapshot, holding the line between the level being processed and the level being prepared.*
 
@@ -173,7 +173,7 @@ The outer loop is the same in all five LC problems on the chapter ladder. What c
 | LC 515, max per row | `level_max = max(level_max, node.val)` | `result.append(level_max)` |
 | LC 199, right-side view | append `node.val` only when `i == level_size - 1` | the per-level rightmost value |
 | LC 103, zigzag | identical to LC 102 | reverse `level` on odd rows before appending |
-| LC 116, next pointer | peek the next-in-level via `queue[0]`; set `node.next = queue[0]` (or `None` on the last iteration) | nothing — the side effect *is* the answer |
+| LC 116, next pointer | peek the next-in-level via `queue[0]`; set `node.next = queue[0]` (or `None` on the last iteration) | nothing: the side effect *is* the answer |
 
 LC 199 has the cleanest "boundary" framing: the rightmost node on a level is the one dequeued at `i == level_size - 1`. The level-snapshot tells you exactly when that moment arrives. Without it, "rightmost" is undefined: which 9-or-20 is "rightmost" depends on what level you're in, and the queue alone can't tell you that.
 
@@ -208,20 +208,20 @@ A third pitfall worth naming briefly: on LC 199, hybrid BFS-and-DFS solutions ar
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 102 — Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) [Medium] • bfs-level-order ★
-- [LC 199 — Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) [Medium] • bfs-level-order-rightmost
-- [LC 103 — Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) [Medium] • bfs-level-order-alternating-direction
+- [LC 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) [Medium] • bfs-level-order ★
+- [LC 199: Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) [Medium] • bfs-level-order-rightmost
+- [LC 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) [Medium] • bfs-level-order-alternating-direction
 
 ### STRETCH (optional)
 
-- [LC 116 — Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/) [Medium] • bfs-level-order-with-sibling-link
-- [LC 515 — Find Largest Value in Each Tree Row](https://leetcode.com/problems/find-largest-value-in-each-tree-row/) [Medium] • bfs-level-order-reduce
+- [LC 116: Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/) [Medium] • bfs-level-order-with-sibling-link
+- [LC 515: Find Largest Value in Each Tree Row](https://leetcode.com/problems/find-largest-value-in-each-tree-row/) [Medium] • bfs-level-order-reduce
 
 The honest framing: every problem on the ladder is LC-rated Medium. The Easy candidates that touch level order (LC 100 Same Tree, LC 101 Symmetric Tree, LC 104 Maximum Depth) are claimed by [Binary trees: structure and recursion](./00-binary-tree-fundamentals.md), which is the right home for them. The Hard adjacent, LC 297 Serialize and Deserialize, belongs to [Tree traversals: pre, in, post](./01-tree-traversals.md). What's left for this chapter is structurally a single-difficulty band, recorded in the registry as a property of the pattern, not a gap. Five Medium problems, one skeleton, five inner-loop bodies.
 
 ## Where this leads
 
-The level-snapshot trick generalizes. Replace "tree" with "unweighted graph" and add a `visited` set to handle cycles, and the same outer skeleton becomes the canonical algorithm for shortest paths in an unweighted graph — exactly one new concept ([BFS shortest paths](../part-8-graphs/01-bfs.md)). Replace "tree" with "grid" and seed the queue with multiple starts, and the same skeleton becomes multi-source BFS, which is how you solve "rotting oranges" and "01 matrix" style problems in linear time without Dijkstra. The pattern is the bridge between this chapter and a chunk of Part 8.
+The level-snapshot trick generalizes. Replace "tree" with "unweighted graph" and add a `visited` set to handle cycles, and the same outer skeleton becomes the canonical algorithm for shortest paths in an unweighted graph: exactly one new concept ([BFS shortest paths](../part-8-graphs/01-bfs.md)). Replace "tree" with "grid" and seed the queue with multiple starts, and the same skeleton becomes multi-source BFS, which is how you solve "rotting oranges" and "01 matrix" style problems in linear time without Dijkstra. The pattern is the bridge between this chapter and a chunk of Part 8.
 
 There is also a sideways move worth flagging. The `next`-pointer trick from LC 116 has an O(1)-extra-space solution that walks the parent level's already-wired pointers; the same observation underlies the iterative O(1) Morris traversal covered in [Morris traversal](./02-morris-traversal.md). The two algorithms have nothing in common at the surface, yet both are applications of the same idea: already-wired pointers in a tree can carry the work that an explicit auxiliary structure would otherwise hold.
 

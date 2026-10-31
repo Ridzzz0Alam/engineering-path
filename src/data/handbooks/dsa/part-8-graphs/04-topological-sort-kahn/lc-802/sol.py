@@ -1,5 +1,5 @@
 # LC 802. Find Eventual Safe States
-"""LC 802 Find Eventual Safe States — reverse-graph Kahn."""
+"""LC 802 Find Eventual Safe States: reverse-graph Kahn."""
 from collections import deque
 from typing import List
 

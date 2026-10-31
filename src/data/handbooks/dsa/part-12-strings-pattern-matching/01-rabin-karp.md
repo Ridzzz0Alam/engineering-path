@@ -105,7 +105,7 @@ def str_str(haystack, needle):
     return -1
 ```
 
-**Solution** — Python ([Java](./01-rabin-karp/lc-28/sol.java) · [C++](./01-rabin-karp/lc-28/sol.cpp) · [Go](./01-rabin-karp/lc-28/sol.go))
+**Solution** in Python ([Java](./01-rabin-karp/lc-28/sol.java) · [C++](./01-rabin-karp/lc-28/sol.cpp) · [Go](./01-rabin-karp/lc-28/sol.go))
 
 ```python
 # LC 28. Find the Index of the First Occurrence in a String
@@ -223,14 +223,14 @@ Three pieces of advice that fall out of that:
 
 For LC, none of this matters. Single hash, fixed prime, fixed base, verify on hash match. For Codeforces, all three matter.
 
-## When the pattern bends — binary-search-on-length
+## When the pattern bends: binary-search-on-length
 
 The chapter's signature problem is LC 1044, Longest Duplicate Substring, and it's where Rabin-Karp earns its place in the curriculum. The problem: given a string `s`, find the longest substring that appears at least twice. Naive solutions enumerate every substring (`O(n^2)` of them) and bucket them by content (`O(n)` to compare each) for `O(n^3)` total, which times out around `n = 200`.
 
 The trick is a reduction that turns the problem into a feasibility question. *Does any duplicate substring of length `L` exist?* If yes, slide a length-`L` window across `s`, hash each window, dump hashes into a dictionary keyed by hash with values being starting indices, and on hash collision verify by slicing. If a verify confirms equality, length `L` is feasible. Because feasibility is monotone (a duplicate of length `L+1` contains one of length `L`), binary-search the answer: the largest feasible `L` is the answer length, and any matching pair gives the substring itself.
 
 ```python
-# LC 1044 sketch — full implementation in lc-1044/sol.py
+# LC 1044 sketch: full implementation in lc-1044/sol.py
 def longest_dup_substring(s):
     n = len(s)
     # ... precompute prefix hashes h[] and powers pow_b[] over s ...
@@ -322,7 +322,7 @@ def longest_dup_substring(s: str) -> str:
     return s[best_start:best_start + best_len]
 ```
 
-Two things are different from the LC 28 version. First, the inner hash isn't a sliding window — it's a *substring hash from a prefix-hash table*. Precompute `h[i] = hash(s[0..i])` once in `O(n)`, then any `hash(s[left..left+length))` is computable in O(1) via `(h[left+length] - h[left] * pow_b[length]) mod p`. Second, the data structure on the inside is a hash *map* keyed by window-hash, not a single needle's hash. The verify still runs on collision; the key insight is that the binary search costs an extra `log n` factor but each feasibility test is genuinely linear, so the total is `O(n log n)` expected — fast enough for `n = 30,000`.[^5]
+Two things are different from the LC 28 version. First, the inner hash isn't a sliding window, and it's a *substring hash from a prefix-hash table*. Precompute `h[i] = hash(s[0..i])` once in `O(n)`, then any `hash(s[left..left+length))` is computable in O(1) via `(h[left+length] - h[left] * pow_b[length]) mod p`. Second, the data structure on the inside is a hash *map* keyed by window-hash, not a single needle's hash. The verify still runs on collision; the key insight is that the binary search costs an extra `log n` factor but each feasibility test is genuinely linear, so the total is `O(n log n)` expected: fast enough for `n = 30,000`.[^5]
 
 The same shape recurs in LC 1316 (Distinct Echo Substrings: count substrings of even length whose first half hashes equal to its second half) and in any problem where the question is "is there a substring with property X", X is monotone in length, and the inner predicate reduces to hash-set membership. The substrate is the rolling hash; the binary search and the hash-set are wrapping decisions.
 
@@ -352,17 +352,17 @@ Anywhere the input is adversarial: double hashing, real prime modulus, randomize
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 1044 — Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/) [Hard] • rabin-karp + binary-search-on-length ★ *(reference: Python only)*
-- [LC 187 — Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) [Medium] • rabin-karp + small-alphabet-base
-- [LC 1316 — Distinct Echo Substrings](https://leetcode.com/problems/distinct-echo-substrings/) [Hard] • rabin-karp on substring hash sets
+- [LC 1044: Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/) [Hard] • rabin-karp + binary-search-on-length ★ *(reference: Python only)*
+- [LC 187: Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) [Medium] • rabin-karp + small-alphabet-base
+- [LC 1316: Distinct Echo Substrings](https://leetcode.com/problems/distinct-echo-substrings/) [Hard] • rabin-karp on substring hash sets
 
 ### STRETCH (optional)
 
-- [LC 1062 — Longest Repeating Substring](https://leetcode.com/problems/longest-repeating-substring/) [Medium, Premium — free alternative is LC 1044] • rabin-karp + binary-search-on-length
+- [LC 1062: Longest Repeating Substring](https://leetcode.com/problems/longest-repeating-substring/) [Medium, Premium: free alternative is LC 1044] • rabin-karp + binary-search-on-length
 
 LC 1044 is the chapter's signature problem (★) and the one the worked example walks through. LC 187 is the gentlest second pass: a 4-letter DNA alphabet means `base = 4` works and the 100,000-character constraint plays naturally with a fixed window size of 10. LC 1316 is the reframing where instead of comparing window hashes against a target, you bucket window hashes into a set and count distinct echoes; the `pow_b` and prefix-hash machinery from LC 1044 transfers verbatim.
 
-The pattern admits no canonical Easy LC variant — the rolling-hash setup costs more lines than the naive O(n × m) baseline returns at small input sizes, so Easy problems on LC's "rolling hash" tag tend to be either owned by the sliding-window chapter (LC 187 sits on the boundary) or absent. The CORE three above sit at M / H / H by LC's labels, and the chapter's curation flag `core-emh-via-stretch` documents the absence honestly rather than pretending an Easy exists.
+The pattern admits no canonical Easy LC variant: the rolling-hash setup costs more lines than the naive O(n × m) baseline returns at small input sizes, so Easy problems on LC's "rolling hash" tag tend to be either owned by the sliding-window chapter (LC 187 sits on the boundary) or absent. The CORE three above sit at M / H / H by LC's labels, and the chapter's curation flag `core-emh-via-stretch` documents the absence honestly rather than pretending an Easy exists.
 
 ## Where this leads
 

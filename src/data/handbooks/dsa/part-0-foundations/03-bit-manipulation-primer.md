@@ -33,7 +33,7 @@ The constraints emphasise non-negative 32-bit integers, and the natural represen
 
 The desired transformation has a known closed-form bitwise expression: lowest set bit (`x & -x`), swap (`a ^= b; b ^= a; a ^= b`), multiply or divide by `2^k` (`<<k` or `>>k`), set bit (`x |= (1 << k)`), clear bit (`x &= ~(1 << k)`), toggle bit (`x ^= (1 << k)`), test bit (`(x >> k) & 1`).
 
-This chapter is the primer. The deeper applications — bitwise truth tables for Single Number II, group-by-bit XOR partitions for Single Number III, MSB-alignment tricks for range AND, parallel-SWAR popcount — live in the bit-manipulation deep-dive part of the book. Here you get the vocabulary.
+This chapter is the primer. The deeper applications: bitwise truth tables for Single Number II, group-by-bit XOR partitions for Single Number III, MSB-alignment tricks for range AND, parallel-SWAR popcount, live in the bit-manipulation deep-dive part of the book. Here you get the vocabulary.
 
 ## The single-bit operations
 
@@ -72,7 +72,7 @@ def hamming_weight(n: int) -> int:
     return count
 ```
 
-**Solution** — Python ([Java](./03-bit-manipulation-primer/lc-191/sol.java) · [C++](./03-bit-manipulation-primer/lc-191/sol.cpp) · [Go](./03-bit-manipulation-primer/lc-191/sol.go))
+**Solution** in Python ([Java](./03-bit-manipulation-primer/lc-191/sol.java) · [C++](./03-bit-manipulation-primer/lc-191/sol.cpp) · [Go](./03-bit-manipulation-primer/lc-191/sol.go))
 
 ```python
 # LC 191. Number of 1 Bits
@@ -189,8 +189,8 @@ This chapter is foundation/framework-exempt: no Easy/Medium/Hard span requiremen
 
 ### CORE
 
-- [LC 191 — Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) [Easy] • bit-count-popcount ★
-- [LC 461 — Hamming Distance](https://leetcode.com/problems/hamming-distance/) [Easy] • bit-xor-distance
+- [LC 191: Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) [Easy] • bit-count-popcount ★
+- [LC 461: Hamming Distance](https://leetcode.com/problems/hamming-distance/) [Easy] • bit-xor-distance
 
 The deep-dive chapters in the bit-manipulation part of the book pick up Single Number II, Single Number III, Bitwise AND of Numbers Range, Total Hamming Distance, and the rest of the canonical Medium/Hard bit problems. They're owned there, not here, because the primer's job is to install the vocabulary, not to compete for the headline problems.
 

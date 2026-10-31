@@ -144,11 +144,11 @@ where the convention here uses the inclusive bottom-right corner shifted by `+1`
 
 Three problems anchor the family. Working all three is enough to recognise the cues for the other two variants on sight.
 
-[LC 303 — Range Sum Query Immutable](https://leetcode.com/problems/range-sum-query-immutable/) is the cleanest demonstration of variant A. Static array, many range-sum queries, the empty-sum sentinel removes the `l = 0` branch from the query, two reads and one subtract per call. If you can derive `prefix[r+1] − prefix[l]` on paper without looking it up, you own variant A.[^2]
+[LC 303: Range Sum Query Immutable](https://leetcode.com/problems/range-sum-query-immutable/) is the cleanest demonstration of variant A. Static array, many range-sum queries, the empty-sum sentinel removes the `l = 0` branch from the query, two reads and one subtract per call. If you can derive `prefix[r+1] − prefix[l]` on paper without looking it up, you own variant A.[^2]
 
-[LC 560 — Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) is the canonical variant-B problem and the most-asked subarray-counting problem in interview rotation. Mixed-sign array; sliding window doesn't apply; the hash maps every prefix value seen so far to a count, seeded `{0: 1}`. Solve it once, then run the trace `nums = [1, -1, 1, 1], k = 2` to see why the obvious sliding-window attempt undercounts.[^3]
+[LC 560: Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) is the canonical variant-B problem and the most-asked subarray-counting problem in interview rotation. Mixed-sign array; sliding window doesn't apply; the hash maps every prefix value seen so far to a count, seeded `{0: 1}`. Solve it once, then run the trace `nums = [1, -1, 1, 1], k = 2` to see why the obvious sliding-window attempt undercounts.[^3]
 
-[LC 304 — Range Sum Query 2D Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) is variant E in its purest form. The four-corner formula with `+ − − +` signs is the inclusion-exclusion identity Crow introduced at SIGGRAPH 1984; deriving it from the picture is faster and more reliable than memorising the sign pattern.[^6]
+[LC 304: Range Sum Query 2D Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) is variant E in its purest form. The four-corner formula with `+ − − +` signs is the inclusion-exclusion identity Crow introduced at SIGGRAPH 1984; deriving it from the picture is faster and more reliable than memorising the sign pattern.[^6]
 
 ## Common misconceptions
 

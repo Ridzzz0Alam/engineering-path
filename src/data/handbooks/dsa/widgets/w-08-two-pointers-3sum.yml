@@ -1,4 +1,4 @@
-# Two Pointers — sum-equals-target on a sorted array
+# Two Pointers: sum-equals-target on a sorted array
 # Reference widget. Authoritative spec at runtime.
 
 id: w-08-two-pointers-3sum
@@ -104,6 +104,6 @@ panels:
         narration: "Pair found at indices [1, 4]. Three branch decisions, one linear sweep."
 
 notes: |
-  Reference widget for the AlgoStep contract — the shape every Phase 1 widget
+  Reference widget for the AlgoStep contract: the shape every Phase 1 widget
   mirrors.
   Distinct from editorial widget e-LC015-3sum, which animates LC 15 specifically.

@@ -85,7 +85,7 @@ flowchart TD
     F --> J[Forward check on every place]
 ```
 
-*Three forces — bounded domain, group-level AllDiff, small constant per cell — make Sudoku the textbook fit for constraint-propagation backtracking; magic-square completion at large n is the textbook miss.*
+*Three forces (bounded domain, group-level AllDiff, small constant per cell) make Sudoku the textbook fit for constraint-propagation backtracking; magic-square completion at large n is the textbook miss.*
 
 ## The pattern
 
@@ -149,7 +149,7 @@ def solve_sudoku(board):
     backtrack()
 ```
 
-**Solution** — Python ([Java](./04-sudoku-solver/lc-37/sol.java) · [C++](./04-sudoku-solver/lc-37/sol.cpp) · [Go](./04-sudoku-solver/lc-37/sol.go))
+**Solution** in Python ([Java](./04-sudoku-solver/lc-37/sol.java) · [C++](./04-sudoku-solver/lc-37/sol.cpp) · [Go](./04-sudoku-solver/lc-37/sol.go))
 
 ```python
 # LC 37. Sudoku Solver
@@ -228,7 +228,7 @@ def solve_sudoku(board: List[List[str]]) -> None:
 
 ## Worked example: a 4x4 mini-Sudoku
 
-The 9x9 LC 37 solution traces are too long to follow by hand. A 4x4 mini-Sudoku — digits `{1, 2, 3, 4}`, four 2x2 boxes — preserves every constraint structural feature while compressing the trace to 33 frames. The puzzle:
+The 9x9 LC 37 solution traces are too long to follow by hand. A 4x4 mini-Sudoku (digits `{1, 2, 3, 4}`, four 2x2 boxes) preserves every constraint structural feature while compressing the trace to 33 frames. The puzzle:
 
 ```text
 . 2 . .
@@ -237,11 +237,11 @@ The 9x9 LC 37 solution traces are too long to follow by hand. A 4x4 mini-Sudoku 
 . . 1 .
 ```
 
-After loading the four clues, the masks for row 0, row 1, row 2, row 3 hold `{1, 3, 4}`, `{1, 2, 4}`, `{1, 2, 3}`, `{2, 3, 4}` respectively (each row has one digit cleared). Column and box masks update similarly. The first MRV scan finds cell `(0, 0)` with two candidates `{1, 4}` — its row 0 admits `{1, 3, 4}`, column 0 admits `{1, 2, 4}`, box 0 admits `{1, 4}`, the intersection is `{1, 4}`. That two-candidate cell is the only place the algorithm actually branches on this puzzle.
+After loading the four clues, the masks for row 0, row 1, row 2, row 3 hold `{1, 3, 4}`, `{1, 2, 4}`, `{1, 2, 3}`, `{2, 3, 4}` respectively (each row has one digit cleared). Column and box masks update similarly. The first MRV scan finds cell `(0, 0)` with two candidates `{1, 4}`: its row 0 admits `{1, 3, 4}`, column 0 admits `{1, 2, 4}`, box 0 admits `{1, 4}`, the intersection is `{1, 4}`. That two-candidate cell is the only place the algorithm actually branches on this puzzle.
 
-Try `1`. The XOR removes `1` from row 0, column 0, and box 0. The next scan finds cell `(0, 3)` with exactly one candidate, `3` — forced. Place it. The cascade runs: every subsequent cell turns out to have exactly one legal digit, in the order `(0, 2)=4`, `(1, 1)=4`, `(1, 2)=2`, `(1, 3)=1`, `(2, 0)=2`, `(2, 2)=3`, `(2, 1)=1`, `(3, 0)=4`, `(3, 1)=3`, `(3, 3)=2`. Twelve placements, zero backtracks, one branch decision the entire run.
+Try `1`. The XOR removes `1` from row 0, column 0, and box 0. The next scan finds cell `(0, 3)` with exactly one candidate, `3`: forced. Place it. The cascade runs: every subsequent cell turns out to have exactly one legal digit, in the order `(0, 2)=4`, `(1, 1)=4`, `(1, 2)=2`, `(1, 3)=1`, `(2, 0)=2`, `(2, 2)=3`, `(2, 1)=1`, `(3, 0)=4`, `(3, 1)=3`, `(3, 3)=2`. Twelve placements, zero backtracks, one branch decision the entire run.
 
-> **Interactive widget:** [Sudoku solver (constraint propagation + MRV)](../widgets/w-24-sudoku-grid.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Sudoku solver (constraint propagation + MRV)](../widgets/w-24-sudoku-grid.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the four clues highlight at init; the first MRV pick at `(0, 0)` shows its two candidates `{1, 4}`; mid-trace at step 16 the top half of the grid is filled and propagation has reduced every remaining cell to one candidate; the final keyframe shows the completed grid `1 2 4 3 / 3 4 2 1 / 2 1 3 4 / 4 3 1 2`.*
 
@@ -279,7 +279,7 @@ Some Sudoku puzzles solve without any branching at all, only by repeatedly apply
 > **The box-index formula `(r // 3) * 3 + (c // 3)`.** This single expression maps `(r, c)` to the 3x3 box id `0..8`, and almost every off-by-one bug in Sudoku sits in some variant of it. `r * 3 + c // 3` (forgets to divide r), `(r // 3) + (c // 3)` (collides on adjacent boxes), `(r / 3) * 3 + (c / 3)` in Python 3 (gives a float; rare in mask code, common when computing peer indices). The mental check that holds: rows 0, 1, 2 are box-row 0; rows 3, 4, 5 are box-row 1; rows 6, 7, 8 are box-row 2. The same partition for columns. The box id is `box_row * 3 + box_col`. If a quick mental trace of `box_index(2, 2) = 0`, `box_index(0, 3) = 1`, `box_index(8, 8) = 8` doesn't pass, the formula is wrong; rewrite it from the partition rule.
 
 > [!WARNING]
-> **Reaching for `PriorityQueue<Integer>` in Java to track empties by candidate count.** Java auto-boxes on every `offer` and `poll`; the inner loop allocates an `Integer` for every comparison and pushes garbage-collection pressure into a hot path. The reference implementation uses a flat scan over the 81 cells per recursive entry. The scan looks expensive — 81 cells per call, called up to 81 times deep — but most levels short-circuit on a 1-candidate cell and the early-break on `count <= 1` cuts the average scan length to a small constant. A `PriorityQueue<int[]>` boxes less but introduces its own allocation, and neither beats the flat scan on a 9x9 board. Pick the scan; profile only if a real input shows otherwise.
+> **Reaching for `PriorityQueue<Integer>` in Java to track empties by candidate count.** Java auto-boxes on every `offer` and `poll`; the inner loop allocates an `Integer` for every comparison and pushes garbage-collection pressure into a hot path. The reference implementation uses a flat scan over the 81 cells per recursive entry. The scan looks expensive (81 cells per call, called up to 81 times deep) but most levels short-circuit on a 1-candidate cell and the early-break on `count <= 1` cuts the average scan length to a small constant. A `PriorityQueue<int[]>` boxes less but introduces its own allocation, and neither beats the flat scan on a 9x9 board. Pick the scan; profile only if a real input shows otherwise.
 
 ## Problem ladder
 
@@ -287,13 +287,13 @@ This chapter ships a 2-problem ladder. The constraint-propagation Sudoku pattern
 
 ### CORE (solve to claim chapter mastery)
 
-- [LC 37 — Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) [Hard] • constraint-propagation-backtracking ★
+- [LC 37: Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) [Hard] • constraint-propagation-backtracking ★
 
 ### STRETCH (optional)
 
-- [LC 980 — Unique Paths III](https://leetcode.com/problems/unique-paths-iii/) [Hard] • grid-backtracking-with-state-encoding
+- [LC 980: Unique Paths III](https://leetcode.com/problems/unique-paths-iii/) [Hard] • grid-backtracking-with-state-encoding
 
-LC 980 is a different shape of backtracking — the place / recurse / unplace template applied to grid traversal where the constraint is "visit every empty cell exactly once" rather than AllDiff over a digit domain. It rewards the same recursion-with-undo discipline this chapter teaches, on a problem where the state encoding is a `(remaining_count, current_position)` pair rather than three bitmasks.
+LC 980 is a different shape of backtracking: the place / recurse / unplace template applied to grid traversal where the constraint is "visit every empty cell exactly once" rather than AllDiff over a digit domain. It rewards the same recursion-with-undo discipline this chapter teaches, on a problem where the state encoding is a `(remaining_count, current_position)` pair rather than three bitmasks.
 
 ## Where this leads
 

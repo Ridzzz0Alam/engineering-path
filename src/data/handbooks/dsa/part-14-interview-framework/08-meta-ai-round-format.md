@@ -28,7 +28,7 @@ It is a coding round where the AI is in the room as a tool, and the round is gra
 The round was first surfaced in a leaked internal Meta post in late July 2025 calling for mock candidates, framed two ways: that the future Meta engineer will work alongside an LLM, and that giving candidates an LLM makes Take-home-style cheating less effective.[^3] Pilot interviews ran in August 2025; the round entered active onsite use in October 2025. By April 2026 it was the default at most levels.[^1][^2] At E7 and above, candidates increasingly report only one coding round on the loop, and it is this one.[^2]
 
 > [!IMPORTANT]
-> The round is **not** a prompt-engineering test. Multiple guides converge on the same line: how well you prompt is barely scored. What is scored is meta-cognitive — when to delegate, when to verify, when to override the AI and write the line yourself.[^1][^4]
+> The round is **not** a prompt-engineering test. Multiple guides converge on the same line: how well you prompt is barely scored. What is scored is meta-cognitive, when to delegate, when to verify, when to override the AI and write the line yourself.[^1][^4]
 
 Where it sits on the loop, as of April 2026:
 
@@ -79,7 +79,7 @@ Supported languages, as of April 2026: Java, C++, C#, Python, Kotlin, TypeScript
 The model menu is the most volatile piece of the format. As of early 2026, candidates choose from a dropdown that has included GPT-5, GPT-4o mini, Claude Sonnet 4 and 4.5, Claude Haiku 4.5, Claude Opus 4, Gemini 2.5 Pro, and Llama 4 Maverick.[^1][^4][^6] Reports from January 2026 and April 2026 list overlapping but not identical menus.[^4][^7] Most recent candidate accounts default to Claude Sonnet 4.5; GPT-5 gets flagged as too slow under interview time pressure.[^1]
 
 > [!WARNING]
-> **The AI may be nerfed.** Multiple candidates have reported the assistant being noticeably worse in the live interview than in the practice environment — hallucinating on problems the same model handles cleanly outside, describing functionality without surfacing bugs, refusing to volunteer fixes.[^1][^5] The leading theory, corroborated across reports, is that Meta modifies behaviour through the system prompt: don't volunteer bug fixes, don't supply complete solutions unprompted, describe rather than diagnose. Plan accordingly. If you have practiced only against an unconstrained model, your live experience will feel slower and dumber, and you will lose minutes being surprised.
+> **The AI may be nerfed.** Multiple candidates have reported the assistant being noticeably worse in the live interview than in the practice environment: hallucinating on problems the same model handles cleanly outside, describing functionality without surfacing bugs, refusing to volunteer fixes.[^1][^5] The leading theory, corroborated across reports, is that Meta modifies behaviour through the system prompt: don't volunteer bug fixes, don't supply complete solutions unprompted, describe rather than diagnose. Plan accordingly. If you have practiced only against an unconstrained model, your live experience will feel slower and dumber, and you will lose minutes being surprised.
 
 ## How is it graded?
 

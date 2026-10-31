@@ -20,7 +20,7 @@ func sumOfDistancesInTree(n int, edges [][]int) []int {
 		count[i] = 1
 	}
 
-	// Pass 1: post-order DFS — fill count[] and answer[0].
+	// Pass 1: post-order DFS, fill count[] and answer[0].
 	var post func(u, parent int)
 	post = func(u, parent int) {
 		for _, v := range adj[u] {
@@ -33,7 +33,7 @@ func sumOfDistancesInTree(n int, edges [][]int) []int {
 		}
 	}
 
-	// Pass 2: pre-order DFS — re-root from u to each child v in O(1).
+	// Pass 2: pre-order DFS, re-root from u to each child v in O(1).
 	var pre func(u, parent int)
 	pre = func(u, parent int) {
 		for _, v := range adj[u] {

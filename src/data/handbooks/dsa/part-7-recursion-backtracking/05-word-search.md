@@ -38,7 +38,7 @@ and the word `"ABCCED"`, decide whether the letters spell out a path of 4-adjace
 The honest first attempt allocates a separate `visited[][]` boolean grid the same shape as the board, marks `visited[r][c] = true` before each recursive call, and clears it on the way back up.
 
 ```python
-# Brute force: O(m*n*4^L) time, O(m*n) auxiliary space — what we're replacing
+# Brute force: O(m*n*4^L) time, O(m*n) auxiliary space, what we're replacing
 def exist_with_visited(board, word):
     rows, cols = len(board), len(board[0])
     visited = [[False] * cols for _ in range(rows)]
@@ -96,7 +96,7 @@ def exist(board, word):
     return False
 ```
 
-**Solution** — Python ([Java](./05-word-search/lc-79/sol.java) · [C++](./05-word-search/lc-79/sol.cpp) · [Go](./05-word-search/lc-79/sol.go))
+**Solution** in Python ([Java](./05-word-search/lc-79/sol.java) · [C++](./05-word-search/lc-79/sol.cpp) · [Go](./05-word-search/lc-79/sol.go))
 
 ```python
 # LC 79. Word Search
@@ -227,7 +227,7 @@ LC 79 is the strict form: a single word, a 4-adjacent grid, a yes/no answer. Thr
 
 The first relaxes the answer type. LC 1219 (Path with Maximum Gold) replaces "does a path exist" with "what is the maximum gold collected over any single path"; the recursion's return changes from `bool found = a or b or c or d` to `int best = max(a, b, c, d) + this_cell_value`, and the rest is identical. The mark-and-restore step is unchanged because the no-revisit constraint is unchanged.
 
-The second relaxes the grid. LC 1306 (Jump Game III) is a linear array where each index `i` has at most two neighbors, `i + arr[i]` and `i - arr[i]`. The four-direction `||` chain shrinks to a two-direction one, the `(r, c)` parameter collapses to a single index, and the visited mark moves to a separate `seen[]` because the question asks "ever reachable," not "reachable on a single path" — so the mark persists for the whole run and there is no restore. That difference is worth holding onto: when the no-revisit constraint is per-path, you mark and restore; when it is per-search, you mark and keep. LC 1306 sits in the chapter's CORE ladder for exactly this contrast.
+The second relaxes the grid. LC 1306 (Jump Game III) is a linear array where each index `i` has at most two neighbors, `i + arr[i]` and `i - arr[i]`. The four-direction `||` chain shrinks to a two-direction one, the `(r, c)` parameter collapses to a single index, and the visited mark moves to a separate `seen[]` because the question asks "ever reachable," not "reachable on a single path", so the mark persists for the whole run and there is no restore. That difference is worth holding onto: when the no-revisit constraint is per-path, you mark and restore; when it is per-search, you mark and keep. LC 1306 sits in the chapter's CORE ladder for exactly this contrast.
 
 The third generalizes from one word to many. LC 212 (Word Search II) asks for every word in a list that appears on a board, and the naive answer (run LC 79 once per word) hits time-limit-exceeded on the hidden tests. The fix is a trie that prunes across the word list simultaneously: the dfs walks the trie in lockstep with the board and abandons the path the moment the trie has no child for the next character. The trie part is the algorithmic novelty, not the recursion shape, which is why LC 212 lives in [Tries](../part-6-trees-heaps/08-tries.md) instead of here.
 
@@ -240,15 +240,15 @@ The third generalizes from one word to many. LC 212 (Word Search II) asks for ev
 > **Marking the cell after the recursive calls instead of before.** The four recursive calls fire while the cell is still un-visited, the dfs reuses the cell on the same path, and the algorithm returns true on inputs where every valid path requires distinct cells. The canonical structure is `saved = board[r][c]; board[r][c] = '#'; <four recursive calls>; board[r][c] = saved`. The sentinel write happens between the parameter capture and the recursion, never after. NeetCode lists this as the second pitfall under the name "checking visited before matching character"; placing the visited check before the character match check creates the same class of bug.[^4]
 
 > [!WARNING]
-> **Reaching for BFS because the prompt says "grid + path."** BFS marks cells as visited globally, with no per-path scope and no natural backtrack step. It works fine for [connected-region exploration](../part-8-graphs/03-connected-components.md) where the visited bit is global. It fails for word search because LC 79's "each cell at most once" is per-path, not per-traversal — two different start cells legitimately want to walk through the same middle cell on different attempts. A BFS variant that carries a per-state `(r, c, current_visited_set)` is exponential in queue size, at which point DFS with a six-line mark-and-restore is just better. Stack Overflow has a thread documenting a BFS attempt on LC 79 that produces the wrong visiting order and returns false on cases where DFS-with-backtracking returns true.[^6]
+> **Reaching for BFS because the prompt says "grid + path."** BFS marks cells as visited globally, with no per-path scope and no natural backtrack step. It works fine for [connected-region exploration](../part-8-graphs/03-connected-components.md) where the visited bit is global. It fails for word search because LC 79's "each cell at most once" is per-path, not per-traversal: two different start cells legitimately want to walk through the same middle cell on different attempts. A BFS variant that carries a per-state `(r, c, current_visited_set)` is exponential in queue size, at which point DFS with a six-line mark-and-restore is just better. Stack Overflow has a thread documenting a BFS attempt on LC 79 that produces the wrong visiting order and returns false on cases where DFS-with-backtracking returns true.[^6]
 
 ## Problem ladder
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 463 — Island Perimeter](https://leetcode.com/problems/island-perimeter/) [Easy] • grid-traversal-counting
-- [LC 79 — Word Search](https://leetcode.com/problems/word-search/) [Medium] • grid-backtracking-dfs ★
-- [LC 1306 — Jump Game III](https://leetcode.com/problems/jump-game-iii/) [Medium] • graph-backtracking-dfs
+- [LC 463: Island Perimeter](https://leetcode.com/problems/island-perimeter/) [Easy] • grid-traversal-counting
+- [LC 79: Word Search](https://leetcode.com/problems/word-search/) [Medium] • grid-backtracking-dfs ★
+- [LC 1306: Jump Game III](https://leetcode.com/problems/jump-game-iii/) [Medium] • graph-backtracking-dfs
 
 LC 79 is the chapter's signature problem (★) and the worked example. LC 463 anchors the rows-cols outer loop and the four-neighbor-offset idiom without the recursion-and-restore step; if the in-place sentinel feels too clever, it lands. LC 1306 generalizes the skeleton to non-grid neighbor functions and shows the mark-globally case for direct contrast with the mark-and-restore taught here. The chapter's `core-emh-via-stretch` flag records that the canonical Hard for this pattern (LC 212, Word Search II) is owned by [Tries](../part-6-trees-heaps/08-tries.md) and not duplicated here; the pattern admits no other Hard whose dominant teaching is single-word grid backtracking.
 
@@ -266,7 +266,7 @@ When the question shifts from "does this path exist" to "how big is this connect
 
 [^3]: walkccc/LeetCode, "79. Word Search," time `O(m*n*4^|word|)`, space `O(|word|)` recursion stack; in-place sentinel marker idiom across C++/Java/Python. <https://walkccc.me/LeetCode/problems/79/>.
 
-[^4]: NeetCode, "79. Word Search — Explanation," three approaches (hash-set, visited-array, in-place mutation), all `O(m * 4^n)` time and `O(n)` space; pitfalls section names "Not Restoring the Cell After Backtracking" and "Checking Visited Before Matching Character." Constraints `1 <= board.length, board[i].length <= 5; 1 <= word.length <= 10`. <https://neetcode.io/solutions/word-search>.
+[^4]: NeetCode, "79. Word Search: Explanation," three approaches (hash-set, visited-array, in-place mutation), all `O(m * 4^n)` time and `O(n)` space; pitfalls section names "Not Restoring the Cell After Backtracking" and "Checking Visited Before Matching Character." Constraints `1 <= board.length, board[i].length <= 5; 1 <= word.length <= 10`. <https://neetcode.io/solutions/word-search>.
 
 [^5]: Jeff Erickson, *Algorithms* (1st ed., 2019), Chapter 2 "Backtracking" treats per-path search where visited state is local to the recursion, distinct from textbook DFS where the visited mark persists. <https://jeffe.cs.illinois.edu/teaching/algorithms/>.
 

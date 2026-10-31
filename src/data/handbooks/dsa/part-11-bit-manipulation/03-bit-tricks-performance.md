@@ -1,6 +1,6 @@
 ---
 title: "Bit tricks for performance"
-description: "A toolkit of bit-pattern identities — Brian Kernighan's loop, x & -x, SWAR popcount, de Bruijn bit-scan — and the hardware intrinsics that have made most of them obsolete in production."
+description: "A toolkit of bit-pattern identities (Brian Kernighan's loop, x & -x, SWAR popcount, de Bruijn bit-scan) and the hardware intrinsics that have made most of them obsolete in production."
 slug: 03-bit-tricks-performance
 part: 11
 chapter: 3
@@ -185,8 +185,8 @@ This chapter is foundation/framework-exempt: a toolkit catalog, not a problem-so
 
 ### CORE
 
-- [LC 868 — Binary Gap](https://leetcode.com/problems/binary-gap/) [Easy] • bit-shift-scan
-- [LC 371 — Sum of Two Integers](https://leetcode.com/problems/sum-of-two-integers/) [Medium] • bit-parallel-arithmetic ★
+- [LC 868: Binary Gap](https://leetcode.com/problems/binary-gap/) [Easy] • bit-shift-scan
+- [LC 371: Sum of Two Integers](https://leetcode.com/problems/sum-of-two-integers/) [Medium] • bit-parallel-arithmetic ★
 
 LC 371 is the chapter's signature: it forbids `+` and `-`, forcing the candidate to compose `^` (sum without carry) and `& << 1` (carry) into a full adder. Full four-language code lives in `lc-371/`.
 
@@ -201,7 +201,7 @@ def get_sum(a: int, b: int) -> int:
     return a if a < SIGN_BIT else a - (SIGN_BIT << 1)
 ```
 
-**Solution** — Python ([Java](./03-bit-tricks-performance/lc-371/sol.java) · [C++](./03-bit-tricks-performance/lc-371/sol.cpp) · [Go](./03-bit-tricks-performance/lc-371/sol.go))
+**Solution** in Python ([Java](./03-bit-tricks-performance/lc-371/sol.java) · [C++](./03-bit-tricks-performance/lc-371/sol.cpp) · [Go](./03-bit-tricks-performance/lc-371/sol.go))
 
 ```python
 # LC 371. Sum of Two Integers

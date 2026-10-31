@@ -1,5 +1,5 @@
 # LC 207. Course Schedule
-"""LC 207 Course Schedule — Kahn's algorithm reference."""
+"""LC 207 Course Schedule: Kahn's algorithm reference."""
 from collections import deque
 from typing import List
 

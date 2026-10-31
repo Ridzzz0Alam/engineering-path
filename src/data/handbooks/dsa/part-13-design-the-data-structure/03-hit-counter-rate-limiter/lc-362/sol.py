@@ -5,7 +5,7 @@
 
 
 class HitCounter:
-    """LC 362 — bucket-array hit counter, fixed memory.
+    """LC 362: bucket-array hit counter, fixed memory.
 
     The window is W = 300 seconds. We pre-allocate 300 slots indexed by
     `t % 300`; each slot stores (bucket_timestamp, count). On hit(t), if

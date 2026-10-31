@@ -109,7 +109,7 @@ def getNewsFeed(self, userId):
     return feed
 ```
 
-**Solution** — Python ([Java](./05-twitter-feed/lc-355/sol.java) · [C++](./05-twitter-feed/lc-355/sol.cpp) · [Go](./05-twitter-feed/lc-355/sol.go))
+**Solution** in Python ([Java](./05-twitter-feed/lc-355/sol.java) · [C++](./05-twitter-feed/lc-355/sol.cpp) · [Go](./05-twitter-feed/lc-355/sol.go))
 
 ```python
 # LC 355. Design Twitter
@@ -290,14 +290,14 @@ None of that scaling work changes the algorithm in `getNewsFeed`. The read-side 
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 355 — Design Twitter](https://leetcode.com/problems/design-twitter/) [Medium] • k-way-merge-design ★
-- [LC 1797 — Design Authentication Manager](https://leetcode.com/problems/design-authentication-manager/) [Medium] • ttl-design
-- [LC 1825 — Finding MK Average](https://leetcode.com/problems/finding-mk-average/) [Hard] • sliding-window-with-trimmed-mean
+- [LC 355: Design Twitter](https://leetcode.com/problems/design-twitter/) [Medium] • k-way-merge-design ★
+- [LC 1797: Design Authentication Manager](https://leetcode.com/problems/design-authentication-manager/) [Medium] • ttl-design
+- [LC 1825: Finding MK Average](https://leetcode.com/problems/finding-mk-average/) [Hard] • sliding-window-with-trimmed-mean
 
 ### STRETCH (optional)
 
-- [LC 1603 — Design Parking System](https://leetcode.com/problems/design-parking-system/) [Easy] • counter-design
-- [LC 1622 — Fancy Sequence](https://leetcode.com/problems/fancy-sequence/) [Hard] • lazy-evaluation-design *(LeetCode Premium)*
+- [LC 1603: Design Parking System](https://leetcode.com/problems/design-parking-system/) [Easy] • counter-design
+- [LC 1622: Fancy Sequence](https://leetcode.com/problems/fancy-sequence/) [Hard] • lazy-evaluation-design *(LeetCode Premium)*
 
 The Twitter pattern admits no canonical Easy from inside the merge family. Strip out any of the four moving parts (constructor state, monotonic timestamp, follow set, feed merge) and the problem either collapses into a trivial counter or loses the timeline-merge teaching point. LC 1603 fills the Easy slot from an adjacent design pattern: a constructor with state, a counter check, a boolean return. Different algorithm, same class-shape discipline.
 

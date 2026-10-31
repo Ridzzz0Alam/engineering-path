@@ -7,6 +7,8 @@ export default defineConfig({
   trailingSlash: 'always',
   markdown: {
     remarkPlugins: [remarkHandbook],
+    // Keep "--" as typed: it appears in URLs and code, where an em dash would be wrong.
+    smartypants: { dashes: false },
     shikiConfig: {
       themes: { light: 'github-light', dark: 'github-dark-dimmed' },
       wrap: false,

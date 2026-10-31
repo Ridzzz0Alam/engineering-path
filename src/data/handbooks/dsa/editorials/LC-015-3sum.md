@@ -34,7 +34,7 @@ The output is a list of **values**, not indices. That distinction is what makes 
 Pick three indices `i < j < k`, check the sum, dedup by sorting each hit and storing it in a set.
 
 ```python
-# Brute force: O(n^3) time, O(n^2) space — what we're replacing
+# Brute force: O(n^3) time, O(n^2) space, what we're replacing
 def three_sum_brute(nums):
     seen = set()
     out = []
@@ -59,7 +59,7 @@ Time `O(n^3)`. Space `O(n^2)` worst case for the set. At `n = 3000` the brute fo
 The natural second instinct, and the one many candidates reach for after solving [Two Sum](./LC-001-two-sum.md) with a hash map. Sort the array, then for each anchor `i` run a Two Sum with target `-nums[i]` over the suffix using a hash set.
 
 ```python
-# O(n^2) time, O(n) space — correct, but awkward at the edges
+# O(n^2) time, O(n) space: correct, but awkward at the edges
 def three_sum_hash(nums):
     nums = sorted(nums)
     n = len(nums)
@@ -117,7 +117,7 @@ def three_sum(nums):
     return out
 ```
 
-**Solution** — Python ([Java](./LC-015-3sum/lc-15/sol.java) · [C++](./LC-015-3sum/lc-15/sol.cpp) · [Go](./LC-015-3sum/lc-15/sol.go))
+**Solution** in Python ([Java](./LC-015-3sum/lc-15/sol.java) · [C++](./LC-015-3sum/lc-15/sol.cpp) · [Go](./LC-015-3sum/lc-15/sol.go))
 
 ```python
 # LC 15. 3Sum
@@ -159,7 +159,7 @@ def three_sum(nums: List[int]) -> List[List[int]]:
     return out
 ```
 
-> **Interactive widget:** [3Sum (LC 15) — sort + anchor + opposite-ends with duplicate-skip](../widgets/e-LC015-3sum.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [3Sum (LC 15): sort + anchor + opposite-ends with duplicate-skip](../widgets/e-LC015-3sum.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: on `nums = [-1, 0, 1, 2, -1, -4]`, sort produces `[-4, -1, -1, 0, 1, 2]`. Anchor `-4` sweeps the suffix without a hit. Anchor `-1` at index 1 finds `(-1, 2)` then `(0, 1)`, emitting both triplets. Anchor `-1` at index 2 is skipped by rule (a). Anchors `0` and beyond contribute nothing. Final: `[[-1, -1, 2], [-1, 0, 1]]`.*
 
@@ -203,9 +203,9 @@ A tempting alternative tracks the last emitted triplet's component values (`prev
 
 **What about 4Sum?** That's [LC 18](https://leetcode.com/problems/4sum/). Same template, one extra outer loop. Fix two anchors and run the inner two-pointer sweep on the suffix targeting `T - nums[i] - nums[j]`. Two layers of duplicate-skip on the outer side, plus the same `(b)` and `(c)` rules from this editorial unchanged. Total cost `O(n³)`. Generalizes to k-Sum at `O(n^(k-1))`.
 
-**What if the goal is the closest sum, not exactly the target?** That's [LC 16 — 3Sum Closest](https://leetcode.com/problems/3sum-closest/). Same algorithm, different objective: find the triplet whose sum is closest to a given target. Drop all three duplicate-skip rules (you only need one closest-sum, not all unique triplets) and replace the equality branch with "compute `|s - T|`; if it improves the running minimum, update." Same `O(n²)` cost.
+**What if the goal is the closest sum, not exactly the target?** That's [LC 16: 3Sum Closest](https://leetcode.com/problems/3sum-closest/). Same algorithm, different objective: find the triplet whose sum is closest to a given target. Drop all three duplicate-skip rules (you only need one closest-sum, not all unique triplets) and replace the equality branch with "compute `|s - T|`; if it improves the running minimum, update." Same `O(n²)` cost.
 
-**What about counting triplets below a target?** That's [LC 259 — 3Sum Smaller](https://leetcode.com/problems/3sum-smaller/). The dedup discipline disappears because the count is over indices, not values. When `nums[i] + nums[l] + nums[r] < target`, every pair `(l, l+1), (l, l+2), ..., (l, r)` satisfies the condition because the array is sorted, so add `r - l` to the count and advance `l`. Same `O(n²)`.
+**What about counting triplets below a target?** That's [LC 259: 3Sum Smaller](https://leetcode.com/problems/3sum-smaller/). The dedup discipline disappears because the count is over indices, not values. When `nums[i] + nums[l] + nums[r] < target`, every pair `(l, l+1), (l, l+2), ..., (l, r)` satisfies the condition because the array is sorted, so add `r - l` to the count and advance `l`. Same `O(n²)`.
 
 **Is there a lower bound on this problem's time complexity?** The two-pointer `O(n²)` matches the linear-decision-tree lower bound proved by Erickson in 1999.[^2] Whether 3Sum admits a truly subquadratic algorithm in the word-RAM model is open; Pătrașcu's 3SUM-hardness conjecture is the load-bearing assumption underneath dozens of fine-grained complexity reductions.[^4]
 

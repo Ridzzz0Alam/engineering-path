@@ -1,6 +1,6 @@
 ---
 title: "Recursion patterns: linear, tree, and divide-and-conquer"
-description: "Three call-tree shapes — linear, tree, divide-and-conquer — and how to read the shape from the recursive case so you know whether you need memoization, an accumulator, or neither."
+description: "Three call-tree shapes (linear, tree, divide-and-conquer) and how to read the shape from the recursive case so you know whether you need memoization, an accumulator, or neither."
 slug: 00-recursion-patterns
 part: 7
 chapter: 0
@@ -108,10 +108,10 @@ def merge_sort(nums: list[int]) -> list[int]:
     return _merge(left, right)
 ```
 
-**Solution** — Python ([Java](./00-recursion-patterns/sol.java) · [C++](./00-recursion-patterns/sol.cpp) · [Go](./00-recursion-patterns/sol.go))
+**Solution** in Python ([Java](./00-recursion-patterns/sol.java) · [C++](./00-recursion-patterns/sol.cpp) · [Go](./00-recursion-patterns/sol.go))
 
 ```python
-# Chapter 7.0 — Recursion patterns: linear, tree, and divide-and-conquer
+# Chapter 7.0: Recursion patterns: linear, tree, and divide-and-conquer
 # merge_sort canonical cases pass.
 import sys
 from functools import lru_cache
@@ -214,7 +214,7 @@ Memoization is the lift between tree and linear. The memoized Fibonacci does `n`
 
 The combine step is what makes divide-and-conquer non-trivial. Linear and tree recursion combine in `O(1)`: multiply two values, add two values, compare two values. Divide-and-conquer's combine does `Theta(f(n))` work per level. Merge sort's `Theta(n)` merge is what gives it the `log n` factor over a flat `Theta(n)` traversal.
 
-> **Interactive widget:** [Recursion call stack (factorial; three-shapes comparison)](../widgets/w-01-recursion-call-stack.yml) (panel `three_shapes`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Recursion call stack (factorial; three-shapes comparison)](../widgets/w-01-recursion-call-stack.yml) (panel `three_shapes`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: three call-stack panels animate side by side. The linear panel pushes four frames in order, hits the base case, then pops back. The tree panel pushes a left subtree, pops it, then pushes a right subtree, then pops it; each base case is independent. The divide-and-conquer panel splits the input, recurses, and shows explicit merge events on the way up. The trace is deterministic and matches the Python reference.*
 
@@ -246,13 +246,13 @@ For the linear shape, the canonical first-recursion problem is [LC 509 Fibonacci
 
 ### CORE
 
-- [LC 779 — K-th Symbol in Grammar](https://leetcode.com/problems/k-th-symbol-in-grammar/) [Medium] • tree-recursion ★
-- [LC 932 — Beautiful Array](https://leetcode.com/problems/beautiful-array/) [Medium] • divide-and-conquer
+- [LC 779: K-th Symbol in Grammar](https://leetcode.com/problems/k-th-symbol-in-grammar/) [Medium] • tree-recursion ★
+- [LC 932: Beautiful Array](https://leetcode.com/problems/beautiful-array/) [Medium] • divide-and-conquer
 
 ### STRETCH
 
-- [LC 247 — Strobogrammatic Number II](https://leetcode.com/problems/strobogrammatic-number-ii/) [Medium] • tree-recursion *(LeetCode Premium; free alternative is LC 22 Generate Parentheses, reserved for a later Part 7 chapter)*
-- [LC 87 — Scramble String](https://leetcode.com/problems/scramble-string/) [Hard] • divide-and-conquer + memo
+- [LC 247: Strobogrammatic Number II](https://leetcode.com/problems/strobogrammatic-number-ii/) [Medium] • tree-recursion *(LeetCode Premium; free alternative is LC 22 Generate Parentheses, reserved for a later Part 7 chapter)*
+- [LC 87: Scramble String](https://leetcode.com/problems/scramble-string/) [Hard] • divide-and-conquer + memo
 
 LC 779 walks a binary tree of length-doubling rows. The recursion halves `k` each frame and asks whether `k` falls in the left half or the right half of the previous row; that's the entire algorithm. Depth is `n - 1`, work per frame is constant, total time `Theta(n)`. The recurrence is `T(n) = T(n-1) + O(1)`, the same shape as factorial, but the recursive structure of the *problem* (length-doubling rows) is what makes the recursion the natural solution rather than an ornament.
 

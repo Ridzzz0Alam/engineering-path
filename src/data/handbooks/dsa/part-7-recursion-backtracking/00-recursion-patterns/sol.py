@@ -1,4 +1,4 @@
-# Chapter 7.0 — Recursion patterns: linear, tree, and divide-and-conquer
+# Chapter 7.0: Recursion patterns: linear, tree, and divide-and-conquer
 # merge_sort canonical cases pass.
 import sys
 from functools import lru_cache

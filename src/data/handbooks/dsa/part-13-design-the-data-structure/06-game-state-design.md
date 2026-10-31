@@ -93,7 +93,7 @@ class TicTacToe:
         return 0
 ```
 
-**Solution** — Python ([Java](./06-game-state-design/lc-348/sol.java) · [C++](./06-game-state-design/lc-348/sol.cpp) · [Go](./06-game-state-design/lc-348/sol.go))
+**Solution** in Python ([Java](./06-game-state-design/lc-348/sol.java) · [C++](./06-game-state-design/lc-348/sol.cpp) · [Go](./06-game-state-design/lc-348/sol.go))
 
 ```python
 # LC 348. Design Tic-Tac-Toe
@@ -223,14 +223,14 @@ The order-of-operations subtlety on this one: when the new head lands on the cel
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 1275 — Find Winner on a Tic Tac Toe Game](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/) [Easy] • game-state-incremental *(reference: Python only)*
-- [LC 794 — Valid Tic-Tac-Toe State](https://leetcode.com/problems/valid-tic-tac-toe-state/) [Medium] • game-state-invariants ★ *(reference: Python only)*
-- [LC 750 — Number Of Corner Rectangles](https://leetcode.com/problems/number-of-corner-rectangles/) [Medium] • game-board-enumeration *(reference: Python only)*
+- [LC 1275: Find Winner on a Tic Tac Toe Game](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/) [Easy] • game-state-incremental *(reference: Python only)*
+- [LC 794: Valid Tic-Tac-Toe State](https://leetcode.com/problems/valid-tic-tac-toe-state/) [Medium] • game-state-invariants ★ *(reference: Python only)*
+- [LC 750: Number Of Corner Rectangles](https://leetcode.com/problems/number-of-corner-rectangles/) [Medium] • game-board-enumeration *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 348 — Design Tic-Tac-Toe](https://leetcode.com/problems/design-tic-tac-toe/) [Medium] • game-state-incremental *(Premium; full four-language code at [`lc-348/sol.py`](./06-game-state-design/lc-348/sol.py))*
-- [LC 1496 — Path Crossing](https://leetcode.com/problems/path-crossing/) [Easy] • board-state-hashing *(reference: Python only)*
+- [LC 348: Design Tic-Tac-Toe](https://leetcode.com/problems/design-tic-tac-toe/) [Medium] • game-state-incremental *(Premium; full four-language code at [`lc-348/sol.py`](./06-game-state-design/lc-348/sol.py))*
+- [LC 1496: Path Crossing](https://leetcode.com/problems/path-crossing/) [Easy] • board-state-hashing *(reference: Python only)*
 
 > [!NOTE]
 > **No canonical Hard.** Pure game-state design has no Hard LC problem in the public catalog: the depth of the pattern lives in chess-engine literature (bitboards, Zobrist) rather than in LC's interview set. Readers wanting a Hard at this pattern should attempt the chess-engine extensions (write a Zobrist key for a half-board), or work the backtracking Hards LC 51 *N-Queens* and LC 37 *Sudoku* in [Backtracking templates](../part-7-recursion-backtracking/01-backtracking-template.md), which exercise board-state with branching.

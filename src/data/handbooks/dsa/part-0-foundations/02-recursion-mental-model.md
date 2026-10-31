@@ -19,7 +19,7 @@ ladder:
 
 A candidate writes `def fib(n): return fib(n-1) + fib(n-2)`, hits Run, and watches Python crash on `fib(35)` with `RecursionError: maximum recursion depth exceeded`. They read the error, reach for `sys.setrecursionlimit(10**6)`, run again, and now Python takes thirty seconds to return a number. The bug isn't the depth limit. The bug isn't even the missing base case (it's missing two). The bug is that the candidate cannot see what the runtime is doing. They wrote three lines that look like math, the runtime turned them into a tree of two-and-a-half-billion calls, and nothing on the screen explains the gap.
 
-This is the chapter that closes the gap. Every later chapter that builds on recursion — tree DFS in [Binary tree fundamentals](../part-6-trees-heaps/00-binary-tree-fundamentals.md), the recurse-and-undo pattern in [Backtracking fundamentals](../part-7-recursion-backtracking/01-backtracking-template.md), the cache-the-recursion trick in [DP recursion to memoisation](../part-9-dynamic-programming/00-dp-recursion-to-memo.md) — assumes you can read a recursive function and pick out the base case, the recursive case, and the implicit call stack as three separate things. Until that reading is reflex, recursion will keep producing exceptions you don't know how to debug.
+This is the chapter that closes the gap. Every later chapter that builds on recursion: tree DFS in [Binary tree fundamentals](../part-6-trees-heaps/00-binary-tree-fundamentals.md), the recurse-and-undo pattern in [Backtracking fundamentals](../part-7-recursion-backtracking/01-backtracking-template.md), the cache-the-recursion trick in [DP recursion to memoisation](../part-9-dynamic-programming/00-dp-recursion-to-memo.md): assumes you can read a recursive function and pick out the base case, the recursive case, and the implicit call stack as three separate things. Until that reading is reflex, recursion will keep producing exceptions you don't know how to debug.
 
 ## Why factorial is a trap
 
@@ -53,9 +53,9 @@ Every terminating recursive function has exactly three components. If any one is
 
 **A recursive case.** A strictly smaller subproblem plus a constant amount of combining work. For factorial, `n * factorial(n - 1)` reduces by one and combines the answer with one multiplication. Knuth's *The Art of Computer Programming* §1.1 grounds the termination argument: every recursive procedure that terminates does so because each recursive call moves the input strictly closer to the base case under some well-founded ordering on the input space.[^1] If the reduction step doesn't strictly progress, the function loops forever.
 
-**An implicit call stack.** The runtime maintains a stack of pending frames behind your back. Every recursive call pushes a frame; every return pops one. The chain of pending frames holds onto the multiplications you deferred — `5 *`, `4 *`, `3 *` — until the base case finally hands back a value to multiply against.
+**An implicit call stack.** The runtime maintains a stack of pending frames behind your back. Every recursive call pushes a frame; every return pops one. The chain of pending frames holds onto the multiplications you deferred (`5 *`, `4 *`, `3 *`) until the base case finally hands back a value to multiply against.
 
-The third part is the one beginners haven't seen explicitly. Abelson and Sussman's *Structure and Interpretation of Computer Programs* §1.2.1 names this the substitution model and emphasises that the *procedure* (the syntax of the function calling itself) and the *process* (the chain of deferred operations the interpreter actually executes) are not the same thing.[^2] Understanding the call stack as a physical artifact — frames being pushed, frames being popped, frames carrying state — is what lets you reason about recursive functions you haven't written yet.
+The third part is the one beginners haven't seen explicitly. Abelson and Sussman's *Structure and Interpretation of Computer Programs* §1.2.1 names this the substitution model and emphasises that the *procedure* (the syntax of the function calling itself) and the *process* (the chain of deferred operations the interpreter actually executes) are not the same thing.[^2] Understanding the call stack as a physical artifact (frames being pushed, frames being popped, frames carrying state) is what lets you reason about recursive functions you haven't written yet.
 
 ```mermaid
 flowchart TD
@@ -109,10 +109,10 @@ def factorial(n: int) -> int:
     return n * factorial(n - 1)
 ```
 
-**Solution** — Python ([Java](./02-recursion-mental-model/sol.java) · [C++](./02-recursion-mental-model/sol.cpp) · [Go](./02-recursion-mental-model/sol.go))
+**Solution** in Python ([Java](./02-recursion-mental-model/sol.java) · [C++](./02-recursion-mental-model/sol.cpp) · [Go](./02-recursion-mental-model/sol.go))
 
 ```python
-# Chapter 0.2 — The recursion mental model
+# Chapter 0.2: The recursion mental model
 # Worked example: factorial(n) by direct recursion.
 import sys
 
@@ -134,9 +134,9 @@ The shape across all four languages is identical: validate, base-case branch, re
 
 ## Worked example: tracing factorial(4)
 
-The call stack lives in the runtime's bookkeeping, not on the page. Reading the code doesn't show it; you have to watch it run. Step through the widget twice, deliberately, before reading on. Pay attention to steps 5 through 7 — the moment the stack is full, the moment the base case fires, the moment the first deferred multiplication runs.
+The call stack lives in the runtime's bookkeeping, not on the page. Reading the code doesn't show it; you have to watch it run. Step through the widget twice, deliberately, before reading on. Pay attention to steps 5 through 7: the moment the stack is full, the moment the base case fires, the moment the first deferred multiplication runs.
 
-> **Interactive widget:** [Recursion call stack (factorial; three-shapes comparison)](../widgets/w-01-recursion-call-stack.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Recursion call stack (factorial; three-shapes comparison)](../widgets/w-01-recursion-call-stack.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a five-frame stack builds up as `factorial(4)` recurses through `factorial(3)`, `factorial(2)`, `factorial(1)`, and `factorial(0)`. The base case at `factorial(0)` returns 1 directly. Then the stack unwinds: each frame computes `n * (returned value)` and returns, in reverse order of the calls.*
 
@@ -173,7 +173,7 @@ Three things follow.
 
 **Linear recursion.** One recursive call per frame. Factorial, list-length, list-reverse, binary search. The call stack grows linearly with input size; the recursion *tree* degenerates to a path.
 
-**Tail recursion.** The recursive call is the very last action, returned directly with no surrounding work: `return f(...)` rather than `return n * f(...)`. A tail-call-optimising compiler can reuse the current frame instead of pushing a new one, dropping space from `Theta(n)` to `Theta(1)`. Python, Java, and Go do not perform tail-call elimination as a language guarantee. C++ may, depending on the compiler and optimisation flags. **Treat tail recursion as expressive sugar, not a portable space optimisation** — see the warning below.
+**Tail recursion.** The recursive call is the very last action, returned directly with no surrounding work: `return f(...)` rather than `return n * f(...)`. A tail-call-optimising compiler can reuse the current frame instead of pushing a new one, dropping space from `Theta(n)` to `Theta(1)`. Python, Java, and Go do not perform tail-call elimination as a language guarantee. C++ may, depending on the compiler and optimisation flags. **Treat tail recursion as expressive sugar, not a portable space optimisation**: see the warning below.
 
 **Tree recursion.** Multiple recursive calls per frame. Naive Fibonacci, merge sort, tree DFS, the count-change problem in SICP §1.2.2.[^2] The recursion tree branches, so node count (which dominates time) and tree depth (which dominates space) diverge. Naive Fibonacci is `Theta(phi^n)` time but only `Theta(n)` space, because time counts every node in the tree (which fans out exponentially) and space counts the longest path from root to leaf (which is just `n`).
 
@@ -228,17 +228,17 @@ This chapter is foundation/framework-exempt: no Easy/Medium/Hard span requiremen
 
 ### CORE
 
-- [LC 509 — Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) [Easy] • recursion-linear ★
+- [LC 509: Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) [Easy] • recursion-linear ★
 
 ### STRETCH
 
-- [LC 344 — Reverse String](https://leetcode.com/problems/reverse-string/) [Easy] • recursion-linear
+- [LC 344: Reverse String](https://leetcode.com/problems/reverse-string/) [Easy] • recursion-linear
 
-LC 509 is the canonical first-recursion problem: the prompt's specification (`F(n) = F(n-1) + F(n-2)`) is itself recursive, the strongest possible signal to reach for the pattern. Write it the naive way first, watch it slow down at `n = 35`, and notice that the recursion tree of `fib(35)` has roughly `phi^35` nodes — about 30 million — while the call stack only holds 35 frames at a time. Time and depth diverge. That divergence is the whole point of [DP recursion to memoisation](../part-9-dynamic-programming/00-dp-recursion-to-memo.md).
+LC 509 is the canonical first-recursion problem: the prompt's specification (`F(n) = F(n-1) + F(n-2)`) is itself recursive, the strongest possible signal to reach for the pattern. Write it the naive way first, watch it slow down at `n = 35`, and notice that the recursion tree of `fib(35)` has roughly `phi^35` nodes (about 30 million) while the call stack only holds 35 frames at a time. Time and depth diverge. That divergence is the whole point of [DP recursion to memoisation](../part-9-dynamic-programming/00-dp-recursion-to-memo.md).
 
 LC 344 is recursion as accumulation: swap `s[l]` and `s[r]`, then recurse on `(l + 1, r - 1)` with base case `l >= r`. The iterative two-pointer version is the canonical answer in [Strings](../part-1-linear-data-structures/02-strings.md); doing it recursively here is a deliberate exercise in trusting the recursion.
 
-For divide-and-conquer recursion that halves the input each frame, see [LC 50 — Pow(x, n)](https://leetcode.com/problems/powx-n/) in [Math for interviews](./04-math-for-interviews.md), where `pow(x, n) = pow(x*x, n/2)` for even `n` drops the recurrence from `T(n) = T(n-1) + O(1)` to `T(n) = T(n/2) + O(1) = O(log n)`.
+For divide-and-conquer recursion that halves the input each frame, see [LC 50: Pow(x, n)](https://leetcode.com/problems/powx-n/) in [Math for interviews](./04-math-for-interviews.md), where `pow(x, n) = pow(x*x, n/2)` for even `n` drops the recurrence from `T(n) = T(n-1) + O(1)` to `T(n) = T(n/2) + O(1) = O(log n)`.
 
 ## Where this leads
 
@@ -256,7 +256,7 @@ The widget is the chapter. When a recursive function in a later chapter confuses
 
 [^3]: Erickson, J., *Algorithms*, 1st ed., 2019, Chapter 1 ("Recursion"), [jeffe.cs.illinois.edu/teaching/algorithms](https://jeffe.cs.illinois.edu/teaching/algorithms/).
 
-[^4]: Shannon, M., "PEP 651 — Robust Stack Overflow Handling," Python Enhancement Proposal, January 2021 (rejected). <https://peps.python.org/pep-0651/>
+[^4]: Shannon, M., "PEP 651: Robust Stack Overflow Handling," Python Enhancement Proposal, January 2021 (rejected). <https://peps.python.org/pep-0651/>
 
 [^5]: Cormen, T.H., Leiserson, C.E., Rivest, R.L., Stein, C., *Introduction to Algorithms*, 4th ed., MIT Press, 2022, Chapter 4 (§4.3 substitution method, §4.4 recursion-tree method, §4.5 master method).
 

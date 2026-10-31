@@ -73,7 +73,7 @@ The chaining implementations (Java, C++) tolerate higher thresholds because chai
 
 The chapter widget animates a clean sequence with no collisions and no resize. Four inserts and two lookups on a 4-bucket chained table, with a hash function `hash(s) = ord(s[0])` chosen so the first three keys land in distinct buckets:
 
-> **Interactive widget:** [Hash table (chained insert + lookup)](../widgets/w-02-hash-table.yml) (panel `panel-a`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Hash table (chained insert + lookup)](../widgets/w-02-hash-table.yml) (panel `panel-a`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a 4-bucket table starts empty; three inserts (apple, banana, cherry) land in buckets 1, 2, 3; a fourth insert of apple finds the existing entry and updates in place; a lookup of banana hits bucket 2 and returns 1; a lookup of grape probes bucket 3, scans past cherry, and returns NotFound.*
 
@@ -100,7 +100,7 @@ def two_sum(nums, target):
     return []
 ```
 
-**Solution** — Python ([Java](./03-hash-maps/lc-1/sol.java) · [C++](./03-hash-maps/lc-1/sol.cpp) · [Go](./03-hash-maps/lc-1/sol.go))
+**Solution** in Python ([Java](./03-hash-maps/lc-1/sol.java) · [C++](./03-hash-maps/lc-1/sol.cpp) · [Go](./03-hash-maps/lc-1/sol.go))
 
 ```python
 # LC 1. Two Sum
@@ -125,7 +125,7 @@ The order of operations is load-bearing. For each `nums[i]`, the function looks 
 
 The editorial widget animates the LC-1-specific trace at full fidelity, with a deliberately small input (`nums = [3, 3]`, `target = 6`) chosen because it surfaces the lookup-before-store invariant on step 4:
 
-> **Interactive widget:** [Two Sum (LC 1) — optimal one-pass hash map](../widgets/e-LC001-two-sum.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Two Sum (LC 1): optimal one-pass hash map](../widgets/e-LC001-two-sum.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the value-to-index hash map starts empty; on `i = 0` the lookup for complement 3 misses, then 3 → 0 is stored; on `i = 1` the lookup for complement 3 hits at index 0, the function returns `[0, 1]`. Two lookups, one insert.*
 
@@ -148,7 +148,7 @@ def group_anagrams(strs):
     return list(groups.values())
 ```
 
-**Solution** — Python ([Java](./03-hash-maps/lc-49/sol.java) · [C++](./03-hash-maps/lc-49/sol.cpp) · [Go](./03-hash-maps/lc-49/sol.go))
+**Solution** in Python ([Java](./03-hash-maps/lc-49/sol.java) · [C++](./03-hash-maps/lc-49/sol.cpp) · [Go](./03-hash-maps/lc-49/sol.go))
 
 ```python
 # LC 49. Group Anagrams
@@ -194,7 +194,7 @@ def is_anagram(s, t):
     return True
 ```
 
-**Solution** — Python ([Java](./03-hash-maps/lc-242/sol.java) · [C++](./03-hash-maps/lc-242/sol.cpp) · [Go](./03-hash-maps/lc-242/sol.go))
+**Solution** in Python ([Java](./03-hash-maps/lc-242/sol.java) · [C++](./03-hash-maps/lc-242/sol.cpp) · [Go](./03-hash-maps/lc-242/sol.go))
 
 ```python
 # LC 242. Valid Anagram
@@ -266,15 +266,15 @@ Two of the bounds above need a one-line explanation. The amortized `Θ(1)` per i
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/) [Easy] • hash-map-complement-lookup ★
-- [LC 242 — Valid Anagram](https://leetcode.com/problems/valid-anagram/) [Easy] • hash-map-character-counts
-- [LC 49 — Group Anagrams](https://leetcode.com/problems/group-anagrams/) [Medium] • hash-map-keyed-by-sorted-or-counted
-- [LC 149 — Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) [Hard] • hash-map-keyed-by-reduced-slope *(reference: Python only)*
+- [LC 1: Two Sum](https://leetcode.com/problems/two-sum/) [Easy] • hash-map-complement-lookup ★
+- [LC 242: Valid Anagram](https://leetcode.com/problems/valid-anagram/) [Easy] • hash-map-character-counts
+- [LC 49: Group Anagrams](https://leetcode.com/problems/group-anagrams/) [Medium] • hash-map-keyed-by-sorted-or-counted
+- [LC 149: Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) [Hard] • hash-map-keyed-by-reduced-slope *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 347 — Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) [Medium] • hash-map-counts-plus-heap
-- [LC 217 — Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) [Easy] • hash-set-membership
+- [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) [Medium] • hash-map-counts-plus-heap
+- [LC 217: Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) [Easy] • hash-set-membership
 
 LC 347 is owned by [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md); the deep treatment of "hash counter + min-heap of size k" lives there. It earns a STRETCH seat here because the hash-counter half is the chapter's pattern, and seeing it composed with a second data structure is worth one read.
 

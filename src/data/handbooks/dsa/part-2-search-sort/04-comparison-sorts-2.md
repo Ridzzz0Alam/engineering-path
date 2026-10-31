@@ -42,7 +42,7 @@ The version called Lomuto partition (CLRS calls it just PARTITION) reads off the
 
 The loop invariant is what makes the algorithm correct: at every iteration, `arr[lo..i]` holds elements `<= pivot`, `arr[i+1..j-1]` holds elements `> pivot`, and `arr[j..hi-1]` is unexamined. Initialize `i = lo - 1` so the prefix starts empty; iterate `j` over the range; and the invariant survives every step.
 
-> **Interactive widget:** [Quicksort partition (Lomuto, step-by-step)](../widgets/w-06-quicksort-partition.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Quicksort partition (Lomuto, step-by-step)](../widgets/w-06-quicksort-partition.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a 16-step animation of the Lomuto sweep on `[5, 2, 4, 1, 3, 6]` showing `i` and `j` advance, the prefix grow, and the pivot land at index 5.*
 
@@ -106,7 +106,7 @@ def _lomuto_partition(arr, lo, hi):
     return i + 1
 ```
 
-**Solution** — Python ([Java](./04-comparison-sorts-2/lc-912/sol.java) · [C++](./04-comparison-sorts-2/lc-912/sol.cpp) · [Go](./04-comparison-sorts-2/lc-912/sol.go))
+**Solution** in Python ([Java](./04-comparison-sorts-2/lc-912/sol.java) · [C++](./04-comparison-sorts-2/lc-912/sol.cpp) · [Go](./04-comparison-sorts-2/lc-912/sol.go))
 
 ```python
 # LC 912. Sort an Array
@@ -160,7 +160,7 @@ Three details earn their lines. None is optional, and skipping any one of them s
 
 **`mid = lo + (hi - lo) // 2`** dodges the integer overflow Joshua Bloch documented in 2006 in `java.util.Arrays.binarySearch`, where the bug had lain undetected for nine years.[^6] On signed 32-bit arithmetic, `lo + hi` overflows once the array exceeds 2^30 elements, the division stays negative, and the recursion runs off the end. The two forms are equivalent on unbounded integers; they are not equivalent on bounded integer types. Use the safe form by reflex.
 
-**Sedgewick's tail-call elimination** — recurse on the smaller side, loop on the larger — bounds the recursion stack at O(log n) even in the worst case. Naive recursive quicksort uses O(n) stack frames on adversarial input; Python raises `RecursionError` at depth 1000, Java throws `StackOverflowError` somewhere between depth 2,000 and 10,000 depending on per-frame size. The `while lo < hi` loop with the smaller-side-first idiom processes the larger sub-range without consuming a frame, keeping stack depth proportional to the log of the input even when partition behaves badly. Skip the idiom and a 50,000-element worst-case input crashes rather than times out, which is harder to debug.
+**Sedgewick's tail-call elimination** (recurse on the smaller side, loop on the larger) bounds the recursion stack at O(log n) even in the worst case. Naive recursive quicksort uses O(n) stack frames on adversarial input; Python raises `RecursionError` at depth 1000, Java throws `StackOverflowError` somewhere between depth 2,000 and 10,000 depending on per-frame size. The `while lo < hi` loop with the smaller-side-first idiom processes the larger sub-range without consuming a frame, keeping stack depth proportional to the log of the input even when partition behaves badly. Skip the idiom and a 50,000-element worst-case input crashes rather than times out, which is harder to debug.
 
 **Median-of-three places the pivot at `arr[hi]`**, not at `arr[mid]`. This is a Lomuto-specific contract: `_lomuto_partition` reads its pivot from `arr[hi]` by definition. The three-comparison header sorts `(arr[lo], arr[mid], arr[hi])` so `arr[hi]` ends up holding the median. Do it differently and the partition's invariant is wrong from the first scan.
 
@@ -172,7 +172,7 @@ The canonical input is the same eight elements that panel-a of the widget animat
 
 The first partition picks median-of-three of `(arr[0]=5, arr[3]=7, arr[7]=6) = 6`, swaps the median into `arr[7]`, and runs Lomuto. Pivot 6 lands at index 6; the left band `[5, 2, 4, 1, 3, 2]` is everything `<= 6`; the right band is just `[7]`. Recursion descends three levels deep with pivots 4, 2, and 1 chosen at the next three subproblems. The duplicate `2`s travel together through depth 2; median-of-three of `(2, 2, 3)` picks `2` as pivot, and the partition lands the second `2` adjacent to the first. Quicksort is not stable: their relative order in the output may differ from the input.
 
-> **Interactive widget:** [Sorting visualizer (merge sort + quicksort)](../widgets/w-05-sorting-visualizer.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Sorting visualizer (merge sort + quicksort)](../widgets/w-05-sorting-visualizer.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a 22-step trace of the median-of-three Lomuto algorithm on `[5, 2, 4, 7, 1, 3, 2, 6]` ending at `[1, 2, 2, 3, 4, 5, 6, 7]`, with the recursion-tree depth visible at every partition.*
 
@@ -251,14 +251,14 @@ CORE spans Easy, Medium, Medium because the canonical Hard partition+quicksort p
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 905 — Sort Array By Parity](https://leetcode.com/problems/sort-array-by-parity/) [Easy] • partition
-- [LC 2161 — Partition Array According to Given Pivot](https://leetcode.com/problems/partition-array-according-to-given-pivot/) [Medium] • partition ★
-- [LC 324 — Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/) [Medium] • quickselect-and-partition
+- [LC 905: Sort Array By Parity](https://leetcode.com/problems/sort-array-by-parity/) [Easy] • partition
+- [LC 2161: Partition Array According to Given Pivot](https://leetcode.com/problems/partition-array-according-to-given-pivot/) [Medium] • partition ★
+- [LC 324: Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/) [Medium] • quickselect-and-partition
 
 ### STRETCH (optional)
 
-- [LC 462 — Minimum Moves to Equal Array Elements II](https://leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/) [Medium] • quickselect-via-partition
-- [LC 922 — Sort Array By Parity II](https://leetcode.com/problems/sort-array-by-parity-ii/) [Easy] • partition
+- [LC 462: Minimum Moves to Equal Array Elements II](https://leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/) [Medium] • quickselect-via-partition
+- [LC 922: Sort Array By Parity II](https://leetcode.com/problems/sort-array-by-parity-ii/) [Easy] • partition
 
 ## Where this leads
 
@@ -276,7 +276,7 @@ The next chapter, [Heap sort and the n log n lower bound](./05-heap-sort.md), pr
 
 [^5]: Robert Sedgewick and Kevin Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011, §2.3 "Quicksort". Online at <https://algs4.cs.princeton.edu/23quicksort/>.
 
-[^6]: Joshua Bloch, "Extra, Extra — Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/>.
+[^6]: Joshua Bloch, "Extra, Extra, Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/>.
 
 [^7]: Jon L. Bentley and M. Douglas McIlroy, "Engineering a Sort Function," *Software: Practice and Experience*, 23(11):1249-1265, 1993.
 

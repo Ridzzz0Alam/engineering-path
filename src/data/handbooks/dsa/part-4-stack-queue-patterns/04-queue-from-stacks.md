@@ -87,7 +87,7 @@ class MyQueue:
         return not self.inbox and not self.outbox
 ```
 
-**Solution** — Python ([Java](./04-queue-from-stacks/lc-232/sol.java) · [C++](./04-queue-from-stacks/lc-232/sol.cpp) · [Go](./04-queue-from-stacks/lc-232/sol.go))
+**Solution** in Python ([Java](./04-queue-from-stacks/lc-232/sol.java) · [C++](./04-queue-from-stacks/lc-232/sol.cpp) · [Go](./04-queue-from-stacks/lc-232/sol.go))
 
 ```python
 # LC 232. Implement Queue using Stacks
@@ -186,7 +186,7 @@ Initial state: `inbox = []`, `outbox = []`.
 
 Six steps in total: one init, two pushes, one transfer-fused-with-peek, one cheap pop, one query. The widget animates each step with the inbox/outbox state and the credit-balance badge alongside.
 
-> **Interactive widget:** [Amortized queue via two stacks (LC 232)](../widgets/w-12-amortized-queue-via-stacks.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Amortized queue via two stacks (LC 232)](../widgets/w-12-amortized-queue-via-stacks.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: across the six steps, inbox transitions through `[]`, `[1]`, `[1, 2]`, `[]`, `[]`, `[]`; outbox transitions through `[]`, `[]`, `[]`, `[2, 1]`, `[2]`, `[2]`; the credit balance climbs to 2, collapses to 0 on the transfer, and stays at 0 thereafter.*
 
@@ -258,8 +258,8 @@ Push enqueues `x` at the back, then rotates the queue `size - 1` times so `x` la
 
 ### CORE (solve both to claim chapter mastery)
 
-- [LC 232 — Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/) [Easy] • queue-via-two-stacks ★
-- [LC 225 — Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/) [Easy] • stack-via-two-queues *(reference: Python only)*
+- [LC 232: Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/) [Easy] • queue-via-two-stacks ★
+- [LC 225: Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/) [Easy] • stack-via-two-queues *(reference: Python only)*
 
 LC 232 is the chapter's signature problem (★) and the one the worked example and widget animate. LC 225 is the inversion that surfaces the structural asymmetry between LIFO-from-FIFO and FIFO-from-LIFO; it earns CORE because the asymmetry itself is the lesson, not because the rotation code is hard. The pattern admits no canonical Hard problem at the time of writing. The natural Hard candidates (LC 1172 Dinner Plate Stacks; LC 1670 Design Front Middle Back Queue) are owned by other chapters, and there is no Hard LC problem about constructing one ADT from another's primitives under the chapter's framing. The frontmatter carries `ladder_curation_flag: no-hard-canonical` accordingly.
 

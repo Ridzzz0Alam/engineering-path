@@ -123,7 +123,7 @@ def max_envelopes(envelopes):
     return length_of_lis([e[1] for e in envelopes])
 ```
 
-**Solution** — Python ([Java](./09-lis-patience-sort/lc-354/sol.java) · [C++](./09-lis-patience-sort/lc-354/sol.cpp) · [Go](./09-lis-patience-sort/lc-354/sol.go))
+**Solution** in Python ([Java](./09-lis-patience-sort/lc-354/sol.java) · [C++](./09-lis-patience-sort/lc-354/sol.cpp) · [Go](./09-lis-patience-sort/lc-354/sol.go))
 
 ```python
 # LC 354. Russian Doll Envelopes
@@ -153,7 +153,7 @@ def max_envelopes(envelopes: List[List[int]]) -> int:
 
 The LIS phase animates the same way regardless of the input source, so the chapter widget runs against the canonical LC 300 input `[10, 9, 2, 5, 3, 7, 101, 18]` rather than the heights of a sorted envelope list. Both traces end with `tails = [2, 3, 7, 18]` and length 4. The build-up of the array is the lesson, not the specific values.
 
-> **Interactive widget:** [LIS via patience sort](../widgets/w-33-lis-patience.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [LIS via patience sort](../widgets/w-33-lis-patience.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: input `[10, 9, 2, 5, 3, 7, 101, 18]` runs through the eight steps. Tails grows `[10] -> [9] -> [2] -> [2, 5] -> [2, 3] -> [2, 3, 7] -> [2, 3, 7, 101] -> [2, 3, 7, 18]`. Length lands at 4. The replacement at step 8, same length but smaller tail, is the moment to pause on; it is the algorithm's central trick.*
 
@@ -249,13 +249,13 @@ The honest closing on the comparison: pick 9.8 first when teaching yourself the 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 354 — Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes/) [Hard] • sort-then-lis-patience ★
-- [LC 1964 — Find the Longest Valid Obstacle Course at Each Position](https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position/) [Hard] • non-strict-lis-patience *(reference: Python only)*
-- [LC 646 — Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/) [Medium] • sort-then-lis-patience *(reference: Python only)*
+- [LC 354: Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes/) [Hard] • sort-then-lis-patience ★
+- [LC 1964: Find the Longest Valid Obstacle Course at Each Position](https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position/) [Hard] • non-strict-lis-patience *(reference: Python only)*
+- [LC 646: Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/) [Medium] • sort-then-lis-patience *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 406 — Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/) [Medium] • sort-by-compound-key-then-greedy *(reference: Python only)*
+- [LC 406: Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/) [Medium] • sort-by-compound-key-then-greedy *(reference: Python only)*
 
 LC 300, *Longest Increasing Subsequence*, is the sibling problem owned by [LIS: quadratic DP](./08-lis-quadratic.md) and intentionally absent from this ladder. The two chapters cite each other for the same problem solved through different lenses; the registry holds LC 300's primary at 9.8 to keep the cross-reference clean.
 

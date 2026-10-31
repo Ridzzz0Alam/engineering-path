@@ -122,21 +122,21 @@ A reading of the table: the first three axes (space, mutation, tree state) put r
 
 ## Three signature problems
 
-### LC 94 — Binary Tree Inorder Traversal
+### LC 94: Binary Tree Inorder Traversal
 
-[LC 94 — Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) [Easy]
+[LC 94: Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) [Easy]
 
 The chapter where all three forms live next to each other. Recursive inorder is five lines. Iterative inorder with the descent-and-pivot template is twelve. Morris inorder is twenty. The official editorial walks the recursive form, then the iterative form as the "could you do this without recursion?" follow-up, then references Morris as the constant-space variant. The decision tree on this page is calibrated against this problem: there is no constraint, so the default holds, and the recursive form ships first. Switch to iterative if the follow-up arrives. Mention Morris if the interviewer asks for O(1) and you are confident in the threading.
 
-### LC 145 — Binary Tree Postorder Traversal
+### LC 145: Binary Tree Postorder Traversal
 
-[LC 145 — Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/) [Easy]
+[LC 145: Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/) [Easy]
 
 The asymmetry between the three forms shows up most clearly here. Recursive postorder is the same five-line skeleton as inorder with the visit call moved to the bottom. Iterative postorder is structurally harder than iterative inorder because the parent must be visited *after* both children, and the descent-and-pivot template doesn't directly support that. The standard answers are the two-stack template or the single-stack template with a "last-visited" pointer. Morris postorder is materially harder than Morris inorder; the seductive analogy "Morris preorder moved the visit one way, postorder must move it the other way" produces a wrong algorithm that emits reverse-preorder instead. The genuine O(1) Morris postorder uses spine-reversal and is intricate enough that competitive-programming references treat it as a separate algorithm.[^9] If an interviewer pushes for O(1) postorder, the spine-reversal variant is the answer; most accept O(h) iterative postorder as a reasonable compromise.
 
-### LC 173 — Binary Search Tree Iterator
+### LC 173: Binary Search Tree Iterator
 
-[LC 173 — Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) [Medium]
+[LC 173: Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) [Medium]
 
 The problem where iterative wins by construction. The contract is "expose `next()` and `hasNext()` such that each `next()` returns the next inorder value." The iterative form *is* the canonical answer: the explicit stack survives between `next()` calls and acts as the iterator's resumable state.[^4] A recursive submission that materialises the entire inorder list up-front fails the problem's average O(1) `next()` requirement. Morris would technically work but pausing mid-walk leaves threads installed in the tree, which fails any reader that touches the BST between calls. This is the sharpest case where the three forms separate cleanly: recursive is wrong by API, Morris is wrong by ownership, iterative is the only fit.
 

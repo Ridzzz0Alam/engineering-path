@@ -46,11 +46,11 @@ Note what mathRules did *not* do wrong: the prompt was good, the AI was directed
 
 Three patterns. None of them are the candidate copying answers.
 
-**You cannot defend a specific line.** The interviewer points at branch four — the empty-case handler, the off-by-one guard, the dictionary fallback — and asks why it's written that way. You wrote the prompt that produced it; you did not write it. The freeze is the signal.[^7] An IGotAnOffer coach who has interviewed three thousand-plus candidates calls this the rubric red flag: "silently pasting AI output is a red flag and could get you a low score for technical communication."[^10]
+**You cannot defend a specific line.** The interviewer points at branch four (the empty-case handler, the off-by-one guard, the dictionary fallback) and asks why it's written that way. You wrote the prompt that produced it; you did not write it. The freeze is the signal.[^7] An IGotAnOffer coach who has interviewed three thousand-plus candidates calls this the rubric red flag: "silently pasting AI output is a red flag and could get you a low score for technical communication."[^10]
 
 **Long silent stretches while you're prompting.** At E4 a sixty-second pause reads as thinking. At E7 or M2 the same pause reads as "no working hypothesis," because the senior bar is graded on whether you direct the round, not on whether you eventually arrive somewhere.[^1] [^7] The cure is narration before the prompt. *"I'm going to ask the model to draft the parser, then I'll review the edge cases against our test set"* is the shape; narration after the fact is not.
 
-**Architecture drift.** The AI suggests a data structure that doesn't fit the existing codebase. You take it. The follow-up — *"how would you do this without `OrderedDict`?"* — finds the gap immediately. The candidate let the model choose the shape of the solution, and the shape was wrong.[^3] [^8]
+**Architecture drift.** The AI suggests a data structure that doesn't fit the existing codebase. You take it. The follow-up (*"how would you do this without `OrderedDict`?"*) finds the gap immediately. The candidate let the model choose the shape of the solution, and the shape was wrong.[^3] [^8]
 
 The shared mechanism is that interviewers grade on **control over the AI**, not on whether the AI was used. CoderPad's industry rubric scores candidates from 1 to 5 on this axis: "AI driving while the candidate reacts" is a 1 to 2; "deliberate, goal-directed use" is a 3 to 4; rejecting AI suggestions outright when they're wrong is the top band.[^9] A candidate who never rejects an AI suggestion in 60 minutes scores in the bottom band by definition, even if every suggestion happened to be correct.
 
@@ -91,7 +91,7 @@ The diagnostic, which works on your last practice session as well as on a real r
 
 3. **Run cadence.** How many times did you click run between the start of phase 2 and the end of the session? Under five in a 60-minute round is a flagged signal.[^3] The rhythm interviewers want is prompt, review, run, confirm, move on.[^1]
 
-4. **Rejection.** Did you ever discard an AI suggestion outright — not refine, not re-prompt, but throw it away and write something different yourself? Candidates who never reject an AI output score in the bottom band on the "critical evaluation" axis.[^9]
+4. **Rejection.** Did you ever discard an AI suggestion outright, not refine, not re-prompt, but throw it away and write something different yourself? Candidates who never reject an AI output score in the bottom band on the "critical evaluation" axis.[^9]
 
 5. **No-AI fallback.** If the AI had been removed at minute 20, would you still have finished phase 2? If the answer is no, you are in the V1 pattern, and the AI nerf in the actual interview is the trap that springs.[^1]
 

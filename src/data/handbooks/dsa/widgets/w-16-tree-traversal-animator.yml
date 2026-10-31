@@ -1,4 +1,4 @@
-# Tree traversal animator — chapter widget for 6.1 (panel-a) and 6.3 (panel-b).
+# Tree traversal animator: chapter widget for 6.1 (panel-a) and 6.3 (panel-b).
 # Dual-panel shared widget: same canonical tree, two control-flow shapes.
 # Panel-a animates DFS pre/in/postorder with a recursion-stack overlay.
 # Panel-b (6.3, scaffolded) animates BFS level-order with a queue overlay.
@@ -280,7 +280,7 @@ panels:
         kind: level-end
         payload: { level_index: 1, level_values: [9, 20] }
         state: { phase: "level-order", current: null, queue: [15, 7], result: [[3], [9, 20]], level: [], level_size: null, output: [[3], [9, 20]] }
-        narration: "End of level 1: result.append(level) → result = [[3], [9, 20]]. The boundary held — 9 and 20 grouped, 15 and 7 still pending."
+        narration: "End of level 1: result.append(level) → result = [[3], [9, 20]]. The boundary held: 9 and 20 grouped, 15 and 7 still pending."
       - step: 13
         kind: snapshot
         payload: { level_size: 2 }
@@ -290,7 +290,7 @@ panels:
         kind: visit
         payload: { node: "node-15", stack_depth: 3 }
         state: { phase: "level-order", current: "node-15", queue: [7], result: [[3], [9, 20]], level: [15], level_size: 2, output_after: [15] }
-        narration: "Inner i=0: dequeue node 15; level = [15]. Leaf — nothing to enqueue."
+        narration: "Inner i=0: dequeue node 15; level = [15]. Leaf: nothing to enqueue."
       - step: 15
         kind: visit
         payload: { node: "node-7", stack_depth: 3 }
@@ -305,7 +305,7 @@ panels:
         kind: phase-done
         payload: { output: [[3], [9, 20], [15, 7]] }
         state: { phase: "level-order", current: null, queue: [], result: [[3], [9, 20], [15, 7]], level: [], level_size: null, output: [[3], [9, 20], [15, 7]], done: true }
-        narration: "Outer loop exits: while queue is False. Return [[3], [9, 20], [15, 7]] — three levels, three lists, boundary preserved."
+        narration: "Outer loop exits: while queue is False. Return [[3], [9, 20], [15, 7]]: three levels, three lists, boundary preserved."
       - step: 18
         kind: phase-start
         payload: { phase: "naive-comparison", expected_output: [3, 9, 20, 15, 7] }
@@ -325,7 +325,7 @@ panels:
         kind: visit
         payload: { node: "node-20", stack_depth: 2 }
         state: { phase: "naive-comparison", current: "node-20", queue: [15, 7], result: [3, 9, 20], level: [], level_size: null, output_after: [3, 9, 20] }
-        narration: "Pop 20. Enqueue 15 and 7. result = [3, 9, 20]. The level boundary that the snapshot version preserved has dissolved — 9, 20, 15, 7 are now intermixed in the same FIFO with nothing distinguishing them by depth."
+        narration: "Pop 20. Enqueue 15 and 7. result = [3, 9, 20]. The level boundary that the snapshot version preserved has dissolved: 9, 20, 15, 7 are now intermixed in the same FIFO with nothing distinguishing them by depth."
       - step: 22
         kind: phase-done
         payload: { output: [3, 9, 20, 15, 7] }

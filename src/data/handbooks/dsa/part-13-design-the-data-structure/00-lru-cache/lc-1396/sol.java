@@ -1,5 +1,5 @@
 // LC 1396. Design Underground System
-// Two cooperating hash maps — the dual-structure design pattern
+// Two cooperating hash maps: the dual-structure design pattern
 // stripped to its essence. checkIns: id -> (start, t). checkOuts:
 // "start->end" -> {sum, count}.
 import java.util.HashMap;

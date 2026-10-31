@@ -6,7 +6,7 @@ return). The helper returns a 2-tuple (left_extending, right_extending)
 describing how far a zigzag chain entering this node from above can extend
 in each direction. A closure-captured global takes the max with the
 through-this-node composite at every step. The final answer lives in the
-global, NOT in the helper's return value — that split is the chapter's
+global, NOT in the helper's return value: that split is the chapter's
 load-bearing insight.
 """
 import sys

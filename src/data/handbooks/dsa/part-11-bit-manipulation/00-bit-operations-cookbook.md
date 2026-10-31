@@ -26,7 +26,7 @@ x & -x         # the value of the lowest set bit
 x & (x - 1)    # x with the lowest set bit cleared
 ```
 
-Everything else in Part 11 is built on those two lines. Fenwick trees walk the index space with `i += i & -i`. Brian Kernighan's popcount loops on `n &= n - 1`. Bitmask DP iterates subsets with `sub = (sub - 1) & mask`. The single-number-XOR family separates two unique numbers by isolating any one bit they differ in — and that bit is `(a ^ b) & -(a ^ b)`. Memorize both identities and the rest of Part 11 stops looking like sorcery.
+Everything else in Part 11 is built on those two lines. Fenwick trees walk the index space with `i += i & -i`. Brian Kernighan's popcount loops on `n &= n - 1`. Bitmask DP iterates subsets with `sub = (sub - 1) & mask`. The single-number-XOR family separates two unique numbers by isolating any one bit they differ in, and that bit is `(a ^ b) & -(a ^ b)`. Memorize both identities and the rest of Part 11 stops looking like sorcery.
 
 The other primitives (set, clear, flip, test, popcount, iterate set bits) are one line apiece. This chapter is a reference, not a narrative. Skim it once. Come back when a problem asks for one of the operations and you forgot the exact form.
 
@@ -66,7 +66,7 @@ def clear_bit(x, i):
 x ^ (1 << i)
 ```
 
-XOR with the mask flips the target bit, leaves the others. Two flips return to the original — XOR is its own inverse, the foundational identity for everything in chapter 11.1.
+XOR with the mask flips the target bit, leaves the others. Two flips return to the original: XOR is its own inverse, the foundational identity for everything in chapter 11.1.
 
 ```python
 def flip_bit(x, i):
@@ -175,7 +175,7 @@ def count_bits(n):
     return dp
 ```
 
-**Solution** — Python ([Java](./00-bit-operations-cookbook/lc-338/sol.java) · [C++](./00-bit-operations-cookbook/lc-338/sol.cpp) · [Go](./00-bit-operations-cookbook/lc-338/sol.go))
+**Solution** in Python ([Java](./00-bit-operations-cookbook/lc-338/sol.java) · [C++](./00-bit-operations-cookbook/lc-338/sol.cpp) · [Go](./00-bit-operations-cookbook/lc-338/sol.go))
 
 ```python
 # LC 338. Counting Bits
@@ -250,14 +250,14 @@ This chapter teaches reference primitives; the ladder pulls problems where the c
 
 ### CORE
 
-- [LC 338 — Counting Bits](https://leetcode.com/problems/counting-bits/) [Easy] • bit-dp-on-low-bit ★
-- [LC 1009 — Complement of Base 10 Integer](https://leetcode.com/problems/complement-of-base-10-integer/) [Easy] • mask-construction *(reference: Python only)*
-- [LC 201 — Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) [Medium] • common-prefix-via-shift *(reference: Python only)*
+- [LC 338: Counting Bits](https://leetcode.com/problems/counting-bits/) [Easy] • bit-dp-on-low-bit ★
+- [LC 1009: Complement of Base 10 Integer](https://leetcode.com/problems/complement-of-base-10-integer/) [Easy] • mask-construction *(reference: Python only)*
+- [LC 201: Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) [Medium] • common-prefix-via-shift *(reference: Python only)*
 
 ### STRETCH
 
-- [LC 89 — Gray Code](https://leetcode.com/problems/gray-code/) [Medium] • gray-code-formula *(reference: Python only)*
-- [LC 1521 — Find a Value of a Mysterious Function Closest to Target](https://leetcode.com/problems/find-a-value-of-a-mysterious-function-closest-to-target/) [Hard] • sliding-and-deduplication *(reference: Python only)*
+- [LC 89: Gray Code](https://leetcode.com/problems/gray-code/) [Medium] • gray-code-formula *(reference: Python only)*
+- [LC 1521: Find a Value of a Mysterious Function Closest to Target](https://leetcode.com/problems/find-a-value-of-a-mysterious-function-closest-to-target/) [Hard] • sliding-and-deduplication *(reference: Python only)*
 
 LC 1521 is the rare canonical Hard for the per-bit-monotonicity argument: each AND-of-subarray-ending-here can only clear bits, never set them, so the set of distinct AND-values you carry forward has size at most `log2(max(arr)) + 1`. Pure cookbook reasoning at scale.
 
@@ -281,4 +281,4 @@ Outside Part 11, the cookbook's identities show up everywhere. Fenwick trees wal
 
 [^5]: Stack Overflow, "Why was 1 << 31 changed to be implementation-defined in C++14?", [stackoverflow.com/questions/26331035](https://stackoverflow.com/questions/26331035).
 
-[^6]: The Go Authors, "The Go Programming Language Specification — Operators," [go.dev/ref/spec#Operators](https://go.dev/ref/spec#Operators).
+[^6]: The Go Authors, "The Go Programming Language Specification, Operators," [go.dev/ref/spec#Operators](https://go.dev/ref/spec#Operators).

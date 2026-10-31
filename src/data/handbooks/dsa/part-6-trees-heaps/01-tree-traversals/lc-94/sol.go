@@ -7,7 +7,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// InorderTraversal — recursive, the canonical LC 94 entry point.
+// InorderTraversal: recursive, the canonical LC 94 entry point.
 func InorderTraversal(root *TreeNode) []int {
 	out := []int{}
 	var dfs func(*TreeNode)
@@ -23,7 +23,7 @@ func InorderTraversal(root *TreeNode) []int {
 	return out
 }
 
-// InorderIterative — push left chain, pop, pivot right.
+// InorderIterative: push left chain, pop, pivot right.
 func InorderIterative(root *TreeNode) []int {
 	out := []int{}
 	stack := []*TreeNode{}
@@ -41,7 +41,7 @@ func InorderIterative(root *TreeNode) []int {
 	return out
 }
 
-// PreorderIterative — push right BEFORE left so left pops next.
+// PreorderIterative: push right BEFORE left so left pops next.
 func PreorderIterative(root *TreeNode) []int {
 	out := []int{}
 	if root == nil {
@@ -62,7 +62,7 @@ func PreorderIterative(root *TreeNode) []int {
 	return out
 }
 
-// PostorderIterative — two-stack / reverse trick.
+// PostorderIterative: two-stack / reverse trick.
 func PostorderIterative(root *TreeNode) []int {
 	out := []int{}
 	if root == nil {

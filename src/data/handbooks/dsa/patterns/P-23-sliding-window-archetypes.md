@@ -128,7 +128,7 @@ A close cousin worth naming, even though it's not one of the five archetypes: wh
 |---|---|---|---|---|---|
 | Window movement | Both pointers move once per step, exactly `k` apart | Pointers move independently, length emerges | Inner loop retracts `l` while shrink condition holds | `r` advances per outer step; `l` retracts only inside shrink | `r` advances per outer step; `l` retracts only inside shrink |
 | Condition shape | Aggregate over fixed-length window | Predicate over slice contents | Local: `O(1)` decision on `arr[l]` | Upper-bound predicate ("at most", "no repeats") | Lower-bound predicate ("at least", "covers") |
-| Expand trigger | Always: one slide per step | Always: outer loop advances `r` | N/A — describes shrink only | Always: outer loop advances `r` | Always: outer loop advances `r` |
+| Expand trigger | Always: one slide per step | Always: outer loop advances `r` | N/A, describes shrink only | Always: outer loop advances `r` | Always: outer loop advances `r` |
 | Contract trigger | Always: pair with expand, fixed `k` apart | Inner while, condition-driven | While shrink-condition holds | While predicate violated (window broken) | While predicate satisfied (window good) |
 | Complexity | `O(n)` time, `O(1)` or `O(σ)` space | `O(n)` amortized, `O(σ)` space | Amortized `O(n)` total inner work | `O(n)` amortized, `O(σ)` space | `O(n)` amortized, `O(σ)` space |
 | Canonical example | LC 643 max average | LC 3 / LC 209 | The inner while in LC 3 and LC 209 | LC 3 longest no-repeats | LC 209 minimum size subarray sum |
@@ -137,19 +137,19 @@ The first four columns make the same point in different vocabularies: fixed-size
 
 ## Three signature problems
 
-### LC 3 — Longest Substring Without Repeating Characters
+### LC 3: Longest Substring Without Repeating Characters
 
 [https://leetcode.com/problems/longest-substring-without-repeating-characters/](https://leetcode.com/problems/longest-substring-without-repeating-characters/) (Medium).
 
 Longest-with-condition. State is a frequency map; the upper-bound predicate is "no character repeats inside the window," equivalently `freq[c] <= 1` for every key. The right pointer advances each step. When `freq[s[r]]` becomes 2, the window is broken; the inner while retracts `l` until `freq[s[r]]` drops back to 1, restoring validity. Best length is read whenever the window is valid. Sketch: input `"abcabcbb"` builds the window `"abc"` (length 3), then `r = 3` adds another `'a'`, the inner while retracts `l` to position 1, window becomes `"bca"` (still 3). The answer 3 holds.[^3]
 
-### LC 209 — Minimum Size Subarray Sum
+### LC 209: Minimum Size Subarray Sum
 
 [https://leetcode.com/problems/minimum-size-subarray-sum/](https://leetcode.com/problems/minimum-size-subarray-sum/) (Medium).
 
 Smallest-with-condition. State is the running sum; the lower-bound predicate is `sum >= target`. The right pointer advances each step. As soon as `sum >= target`, the window is good; the inner while records the current length and retracts `l` while the predicate is *still* satisfied, looking for a shorter satisfying window. Sketch: with `target = 7` and `nums = [2, 3, 1, 2, 4, 3]`, the predicate first holds when `r = 3` (sum 8), records length 4; retracts to `l = 1` (sum 6), exits. At `r = 5`, sum reaches 9, retracts down to `[4, 3]` of length 2, which is the answer.[^4]
 
-### LC 643 — Maximum Average Subarray I
+### LC 643: Maximum Average Subarray I
 
 [https://leetcode.com/problems/maximum-average-subarray-i/](https://leetcode.com/problems/maximum-average-subarray-i/) (Easy).
 

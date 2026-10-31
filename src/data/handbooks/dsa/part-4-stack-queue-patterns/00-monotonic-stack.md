@@ -20,7 +20,7 @@ ladder:
 
 # Monotonic stack
 
-A length-100,000 array of integer temperatures. For every day, find how many days you wait until a warmer one. The honest first try is two nested loops: for each day, scan forward until the temperature exceeds today's. It works on the chapter's eight-day example. On the real LeetCode test it dies, because the worst input is monotonically decreasing — every day scans to the end, ten billion comparisons total, and the judge cuts it off long before the answer prints.
+A length-100,000 array of integer temperatures. For every day, find how many days you wait until a warmer one. The honest first try is two nested loops: for each day, scan forward until the temperature exceeds today's. It works on the chapter's eight-day example. On the real LeetCode test it dies, because the worst input is monotonically decreasing: every day scans to the end, ten billion comparisons total, and the judge cuts it off long before the answer prints.
 
 This chapter is the one-line change that drops it to twenty thousand stack operations. The data structure that does it is a stack you've already seen, with a single new rule attached: the values at successive stack positions, read bottom to top, stay monotonic. Every push that would break the rule is preceded by zero or more pops that restore it. The popped elements are exactly the ones whose answer is now known.
 
@@ -50,7 +50,7 @@ The prerequisite is [Stacks and the call stack analogy](../part-1-linear-data-st
 Brute force is the natural first attempt. For each index, scan right until you find a warmer day.
 
 ```python
-# Brute force: O(n^2) — what we're replacing
+# Brute force: O(n^2), what we're replacing
 def daily_temperatures_brute(temps):
     n = len(temps)
     answer = [0] * n
@@ -66,7 +66,7 @@ Correct on small inputs. Catastrophic on a strictly decreasing array of size 100
 
 The redundancy is staring at you. When the inner loop sits at index `j` looking back at index `i`, it is recomputing work the previous outer iteration already started. There is no memory between iterations. The fix is to give the algorithm a memory.
 
-Stand the array on its head. Walk left to right. The indices you've seen but not yet resolved — the ones still waiting for a warmer day — accumulate. Every time a new value arrives, you check whether it resolves any of the waiting ones. If it does, you pop them off, write their answers, and continue. The waiting list is a stack, and the values along that stack are monotonically decreasing by construction: any time an incoming value would break the order, the violating entries get popped first.
+Stand the array on its head. Walk left to right. The indices you've seen but not yet resolved (the ones still waiting for a warmer day) accumulate. Every time a new value arrives, you check whether it resolves any of the waiting ones. If it does, you pop them off, write their answers, and continue. The waiting list is a stack, and the values along that stack are monotonically decreasing by construction: any time an incoming value would break the order, the violating entries get popped first.
 
 That's the whole pattern. Two lines of cognitive overhead beyond a regular stack: store **indices** (not values), and pop **while** the comparison fires (not just `if`).
 
@@ -87,7 +87,7 @@ def daily_temperatures(temperatures):
     return answer
 ```
 
-**Solution** — Python ([Java](./00-monotonic-stack/lc-739/sol.java) · [C++](./00-monotonic-stack/lc-739/sol.cpp) · [Go](./00-monotonic-stack/lc-739/sol.go))
+**Solution** in Python ([Java](./00-monotonic-stack/lc-739/sol.java) · [C++](./00-monotonic-stack/lc-739/sol.cpp) · [Go](./00-monotonic-stack/lc-739/sol.go))
 
 ```python
 # LC 739. Daily Temperatures
@@ -135,7 +135,7 @@ Day 6 is the dramatic moment. Value 76 pops index 5 with `answer[5] = 1`, then p
 
 Day 7 is value 73, smaller than 76. No pop, just a push. Stack is `[6, 7]`. Loop ends. Indices 6 and 7 keep their `answer[i] = 0` defaults; neither has a warmer day in the array.
 
-> **Interactive widget:** [Monotonic stack (next-greater scan)](../widgets/w-11-monotonic-stack.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Monotonic stack (next-greater scan)](../widgets/w-11-monotonic-stack.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the stack grows to `[2, 3, 4]` after day 4 and reaches its peak just before day 5 fires the first pop chain; the dramatic resolution at day 6 sees `answer[2] = 4` printed after a four-day wait.*
 
@@ -163,7 +163,7 @@ def largest_rectangle_area(heights):
     return ans
 ```
 
-**Solution** — Python ([Java](./00-monotonic-stack/lc-84/sol.java) · [C++](./00-monotonic-stack/lc-84/sol.cpp) · [Go](./00-monotonic-stack/lc-84/sol.go))
+**Solution** in Python ([Java](./00-monotonic-stack/lc-84/sol.java) · [C++](./00-monotonic-stack/lc-84/sol.cpp) · [Go](./00-monotonic-stack/lc-84/sol.go))
 
 ```python
 # LC 84. Largest Rectangle in Histogram
@@ -188,7 +188,7 @@ def largest_rectangle_area(heights: List[int]) -> int:
 
 The new piece is the loop range. It runs to `n` inclusive, with `cur = 0` at the final step. That phantom zero-height bar at index `n` is the **sentinel**. Without it, a strictly increasing input like `[1, 2, 3, 4, 5]` never triggers a pop during the main loop. Every bar is taller than the last, so the stack just grows, and the function returns `ans = 0` instead of the correct 9. The sentinel guarantees every remaining bar gets popped before the function returns, because the phantom 0 is shorter than every possible bar height.
 
-The width formula deserves slowing down. After popping the bar at index `j`, the rectangle of height `heights[j]` is bounded on the right by `i` (exclusive: `i` is what caused the pop, so it's strictly shorter and not part of the rectangle) and on the left by the new stack top (also exclusive, since the new top is strictly shorter — the stack maintained the non-decreasing invariant up to but not including `j`). The rectangle occupies the open interval `(newTop, i)`, which contains `i - newTop - 1` indices. If the stack is empty after the pop, the left bound is the array's left edge at index `-1`, so `w = i - (-1) - 1 = i`. Writing this as `i - newTop` instead of `i - newTop - 1` is the canonical off-by-one bug; the LC 84 official editorial documents it as a recurring submission failure.[^8]
+The width formula deserves slowing down. After popping the bar at index `j`, the rectangle of height `heights[j]` is bounded on the right by `i` (exclusive: `i` is what caused the pop, so it's strictly shorter and not part of the rectangle) and on the left by the new stack top (also exclusive, since the new top is strictly shorter, the stack maintained the non-decreasing invariant up to but not including `j`). The rectangle occupies the open interval `(newTop, i)`, which contains `i - newTop - 1` indices. If the stack is empty after the pop, the left bound is the array's left edge at index `-1`, so `w = i - (-1) - 1 = i`. Writing this as `i - newTop` instead of `i - newTop - 1` is the canonical off-by-one bug; the LC 84 official editorial documents it as a recurring submission failure.[^8]
 
 The amortization argument carries over verbatim. Each bar is pushed once and popped at most once. The total work is O(n), exactly as for LC 739, even though the resolution function is meatier.
 
@@ -230,14 +230,14 @@ LC 42 Trapping Rain Water deserves a brief mention here even though [Two pointer
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 496 — Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/) [Easy] • monotonic-stack-next-greater
-- [LC 739 — Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) [Medium] • monotonic-stack-next-greater
-- [LC 84 — Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) [Hard] • monotonic-stack-rectangle ★
+- [LC 496: Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/) [Easy] • monotonic-stack-next-greater
+- [LC 739: Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) [Medium] • monotonic-stack-next-greater
+- [LC 84: Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) [Hard] • monotonic-stack-rectangle ★
 
 ### STRETCH (optional)
 
-- [LC 503 — Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) [Medium] • monotonic-stack-next-greater-circular
-- [LC 85 — Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/) [Hard] • monotonic-stack-rectangle-2d
+- [LC 503: Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) [Medium] • monotonic-stack-next-greater-circular
+- [LC 85: Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/) [Hard] • monotonic-stack-rectangle-2d
 
 LC 84 is the chapter's signature problem (★) and gets the dedicated editorial widget at Appendix C. LC 739 is the gentlest second pass after LC 496: same template, the resolution function changes from "the value at the cause-of-pop index" to "the distance to the cause-of-pop index." LC 503 forces the doubling trick and the "push only on first pass" subtlety; LC 85 forces the per-row histogram reduction.
 

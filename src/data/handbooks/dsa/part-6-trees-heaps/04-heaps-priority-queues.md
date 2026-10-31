@@ -87,7 +87,7 @@ def sift_down(a, i, n):
 
 Both loops walk one path from where they start to either a leaf or a satisfied position. Path length is bounded by the tree's height, `floor(log2 n)`. Each iteration does constant work (a comparison and optionally a swap). So both primitives run in `O(log n)` worst case, and the rest of the operation table is one-line wrappers around them.
 
-> **Interactive widget:** [Heap operations: sift-up after push, sift-down after pop](../widgets/w-18-heap-operations.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Heap operations: sift-up after push, sift-down after pop](../widgets/w-18-heap-operations.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: starting from the max-heap `[9, 7, 8, 3, 6, 2, 5]`, push(10) appends 10 at index 7 and sifts up through three swaps (10↔3, 10↔7, 10↔9) to reach the root. pop_max() then returns 10, moves the last leaf 3 into the root, and sifts down through two swaps (3↔9, 3↔7), restoring the heap to its starting shape.*
 
@@ -179,7 +179,7 @@ def find_kth_largest(nums, k):
     return heap[0]
 ```
 
-**Solution** — Python ([Java](./04-heaps-priority-queues/lc-215/sol.java) · [C++](./04-heaps-priority-queues/lc-215/sol.cpp) · [Go](./04-heaps-priority-queues/lc-215/sol.go))
+**Solution** in Python ([Java](./04-heaps-priority-queues/lc-215/sol.java) · [C++](./04-heaps-priority-queues/lc-215/sol.cpp) · [Go](./04-heaps-priority-queues/lc-215/sol.go))
 
 ```python
 # LC 215. Kth Largest Element in an Array
@@ -276,7 +276,7 @@ class MedianFinder:
         return (-self.lower[0] + self.upper[0]) / 2.0
 ```
 
-**Solution** — Python ([Java](./04-heaps-priority-queues/lc-295/sol.java) · [C++](./04-heaps-priority-queues/lc-295/sol.cpp) · [Go](./04-heaps-priority-queues/lc-295/sol.go))
+**Solution** in Python ([Java](./04-heaps-priority-queues/lc-295/sol.java) · [C++](./04-heaps-priority-queues/lc-295/sol.cpp) · [Go](./04-heaps-priority-queues/lc-295/sol.go))
 
 ```python
 # LC 295. Find Median from Data Stream
@@ -341,7 +341,7 @@ def merge_k_lists(lists):
     return dummy.next
 ```
 
-**Solution** — Python ([Java](./04-heaps-priority-queues/lc-23/sol.java) · [C++](./04-heaps-priority-queues/lc-23/sol.cpp) · [Go](./04-heaps-priority-queues/lc-23/sol.go))
+**Solution** in Python ([Java](./04-heaps-priority-queues/lc-23/sol.java) · [C++](./04-heaps-priority-queues/lc-23/sol.cpp) · [Go](./04-heaps-priority-queues/lc-23/sol.go))
 
 ```python
 # LC 23. Merge k Sorted Lists
@@ -415,14 +415,14 @@ The d-ary heap (a heap with `d` children per node instead of 2) is a different o
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 703 — Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/) [Easy] • min-heap-of-size-k-streaming
-- [LC 347 — Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) [Medium] • hash-map-counts-plus-heap
-- [LC 23 — Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) [Hard] • k-way-merge-min-heap-of-cursors ★
+- [LC 703: Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/) [Easy] • min-heap-of-size-k-streaming
+- [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) [Medium] • hash-map-counts-plus-heap
+- [LC 23: Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) [Hard] • k-way-merge-min-heap-of-cursors ★
 
 ### STRETCH (optional)
 
-- [LC 295 — Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) [Hard] • two-heap-running-median
-- [LC 692 — Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/) [Medium] • heap-with-custom-comparator
+- [LC 295: Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) [Hard] • two-heap-running-median
+- [LC 692: Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/) [Medium] • heap-with-custom-comparator
 
 LC 215 is intentionally absent from this ladder. Its primary owner is [Quickselect](../part-2-search-sort/07-quickselect.md), where the partition algorithm is the lesson; this chapter cited LC 215 as a worked example to show the heap *alternative*, not as the chapter's signature problem. Solve it via heap once for the practice; solve it via quickselect when 2.7 comes up.
 
@@ -434,17 +434,17 @@ For the offline-array `Kth largest` story, [Quickselect](../part-2-search-sort/0
 
 ## References
 
-[^1]: J. W. J. Williams, "Algorithm 232 — Heapsort", *Communications of the ACM*, 7(6):347–348, June 1964.
+[^1]: J. W. J. Williams, "Algorithm 232: Heapsort", *Communications of the ACM*, 7(6):347–348, June 1964.
 
-[^2]: Robert W. Floyd, "Algorithm 245 — Treesort", *Communications of the ACM*, 7(12):701, December 1964. The bottom-up `Θ(n)` build-heap algorithm. Available via [ACM Digital Library](https://cacm.acm.org/research/algorithm-245-treesort/).
+[^2]: Robert W. Floyd, "Algorithm 245: Treesort", *Communications of the ACM*, 7(12):701, December 1964. The bottom-up `Θ(n)` build-heap algorithm. Available via [ACM Digital Library](https://cacm.acm.org/research/algorithm-245-treesort/).
 
-[^3]: Python documentation, [`heapq` — Heap queue algorithm](https://docs.python.org/3/library/heapq.html).
+[^3]: Python documentation, [`heapq`, Heap queue algorithm](https://docs.python.org/3/library/heapq.html).
 
 [^4]: Cormen, Leiserson, Rivest & Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022.
 
 [^5]: Robert Sedgewick & Kevin Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011. §2.4 "Priority Queues": sink/swim primitives, the proposition that "Sink-based heap construction uses fewer than 2n compares and fewer than n exchanges" sharpened from CLRS's `O(n)` bound via a charging argument. The `IndexMinPQ.java` implementation in the same section is the canonical reference for the indexed priority queue used in Dijkstra. <https://algs4.cs.princeton.edu/24pq/>.
 
-[^6]: Python documentation, [`heapq` — Heap queue algorithm](https://docs.python.org/3/library/heapq.html).
+[^6]: Python documentation, [`heapq`, Heap queue algorithm](https://docs.python.org/3/library/heapq.html).
 
 [^7]: cppreference.com, [`std::priority_queue`](https://en.cppreference.com/w/cpp/container/priority_queue).
 

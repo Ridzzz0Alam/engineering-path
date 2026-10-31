@@ -68,7 +68,7 @@ def max_area(height):
     return best
 ```
 
-**Solution** — Python ([Java](./00-two-pointers-opposite/lc-11/sol.java) · [C++](./00-two-pointers-opposite/lc-11/sol.cpp) · [Go](./00-two-pointers-opposite/lc-11/sol.go))
+**Solution** in Python ([Java](./00-two-pointers-opposite/lc-11/sol.java) · [C++](./00-two-pointers-opposite/lc-11/sol.cpp) · [Go](./00-two-pointers-opposite/lc-11/sol.go))
 
 ```python
 # LC 11. Container With Most Water
@@ -114,14 +114,14 @@ Every opposite-ends problem fills the same four slots: place pointers, observe t
 
 | Problem | `init_pointers` | `observe(l, r)` | `advance_rule` | `terminate` |
 |---|---|---|---|---|
-| LC 167 — Two Sum II | `l = 0, r = n - 1` | sum vs target | sum < T → `l++`; sum > T → `r--`; hit → return | hit, or `l >= r` |
-| LC 11 — Container | `l = 0, r = n - 1` | `min(h[l], h[r]) * (r - l)` vs best | shorter-wall side advances | `l >= r` |
-| LC 15 — 3Sum | `l = i+1, r = n-1` (per anchor `i`) | sum vs `-nums[i]` | sum < T → `l++`; sum > T → `r--`; hit → record + skip dups | `l >= r` |
-| LC 125 — Valid Palindrome | `l = 0, r = n - 1` | `s[l]` vs `s[r]` (case-folded) | mismatch → false; match → both inward | `l >= r` |
+| LC 167: Two Sum II | `l = 0, r = n - 1` | sum vs target | sum < T → `l++`; sum > T → `r--`; hit → return | hit, or `l >= r` |
+| LC 11: Container | `l = 0, r = n - 1` | `min(h[l], h[r]) * (r - l)` vs best | shorter-wall side advances | `l >= r` |
+| LC 15: 3Sum | `l = i+1, r = n-1` (per anchor `i`) | sum vs `-nums[i]` | sum < T → `l++`; sum > T → `r--`; hit → record + skip dups | `l >= r` |
+| LC 125: Valid Palindrome | `l = 0, r = n - 1` | `s[l]` vs `s[r]` (case-folded) | mismatch → false; match → both inward | `l >= r` |
 
 When you meet a new opposite-ends problem, the work is filling those four cells. The skeleton is identical across all of them. The widget below is the configurable demo for the simplest specialization (pair-sum on a sorted array); the two editorial widgets later in the chapter pin LC 11 and LC 15 to fixed inputs at full fidelity.
 
-> **Interactive widget:** [Two pointers (sum-equals-target)](../widgets/w-08-two-pointers-3sum.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Two pointers (sum-equals-target)](../widgets/w-08-two-pointers-3sum.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *The chapter widget on the canonical input `nums = [-2, -1, 1, 4, 7, 12, 15], target = 6` walks the pair-sum specialization through three branch decisions before locking onto the hit at indices `[1, 4]`. Step through it once before reading on; the geometry of "advance the smaller side" is faster to feel than to read.*
 
@@ -133,9 +133,9 @@ Run the algorithm on LC's standard example. Two pointers, `l = 0` and `r = 8`. H
 
 The remaining iterations confirm no later pair beats `49`. With `l` pinned at index 1, every subsequent `r` lands on a wall shorter than 8, and width is monotonically shrinking. So the bound is whatever `r` lands on, multiplied by an ever-smaller width. Walls of height 3, 8, 4, 5, 2, 6 at distances 6, 5, 4, 3, 2, 1 give areas 18, 40, 16, 15, 4, 6. None reaches 49. Pointers cross; the algorithm returns 49.
 
-> **Interactive widget:** [Container With Most Water (LC 11) — greedy two-pointer shrink](../widgets/e-LC011-container.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Container With Most Water (LC 11): greedy two-pointer shrink](../widgets/e-LC011-container.yml), rendered on the website; the YAML spec describes the keyframes.
 
-*The LC 11 editorial widget animates the same trace on the same input at full fidelity. Preset-only — the canonical input is the lesson. Step 2 is the answer; the rest is confirmation.*
+*The LC 11 editorial widget animates the same trace on the same input at full fidelity. Preset-only: the canonical input is the lesson. Step 2 is the answer; the rest is confirmation.*
 
 A reader who watches steps 1-3 and then asks "why didn't the algorithm find a bigger answer hidden in the middle of the array?" has hit the proof. The middle pairs all involve at least one wall that's no taller than 7, and at distances strictly less than 7. So `min * width` for every middle pair is bounded above by `7 * 7 = 49`, which is what we already have. The algorithm doesn't need to check them.
 
@@ -157,7 +157,7 @@ flowchart TD
 
 ## Worked example: LC 15 (3Sum) on `[-1, 0, 1, 2, -1, -4]`
 
-3Sum is the chapter's second canonical problem. The reduction is one sentence: sort the array, fix one anchor at a time, and the remaining problem is "find all pairs summing to `-nums[i]` in the suffix" — exactly the simple opposite-ends scan from LC 167.[^4]
+3Sum is the chapter's second canonical problem. The reduction is one sentence: sort the array, fix one anchor at a time, and the remaining problem is "find all pairs summing to `-nums[i]` in the suffix", exactly the simple opposite-ends scan from LC 167.[^4]
 
 Sorted: `[-4, -1, -1, 0, 1, 2]`.
 
@@ -176,11 +176,11 @@ Sorted: `[-4, -1, -1, 0, 1, 2]`.
 
 Final: `[[-1, -1, 2], [-1, 0, 1]]`.
 
-> **Interactive widget:** [3Sum (LC 15) — sort + anchor + opposite-ends with duplicate-skip](../widgets/e-LC015-3sum.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [3Sum (LC 15): sort + anchor + opposite-ends with duplicate-skip](../widgets/e-LC015-3sum.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *The LC 15 editorial widget animates this trace step-for-step, including the sort step (which forgetting is a recurring bug) and the anchor-duplicate-skip on step 10 (the highest-leverage moment in the trace).*
 
-The duplicate-skip choreography is the entire reason 3Sum is harder than Two Sum II. After the first hit, advancing both pointers is not enough — if the new `nums[l]` equals the old, you'll find the same triplet twice with a different inner partner. The fix is three lines, not two.
+The duplicate-skip choreography is the entire reason 3Sum is harder than Two Sum II. After the first hit, advancing both pointers is not enough, if the new `nums[l]` equals the old, you'll find the same triplet twice with a different inner partner. The fix is three lines, not two.
 
 ### The three duplicate-skips that 3Sum requires
 
@@ -212,7 +212,7 @@ Skipping any one breaks the algorithm on the right input. Skipping (a) re-emits 
 | LC 42 Trapping Rain Water | O(n) | O(1) | Same opposite-ends scaffold with running `left_max` and `right_max` invariants. |
 | LC 125 palindrome scan | O(n) | O(1) | Symmetric scan, character comparison. |
 
-The honest framing on 3Sum's complexity, for the interviewer who asks "is this optimal?": the two-pointer O(n^2) algorithm matches the linear-decision-tree lower bound established by Erickson 1999.[^2] Beating it requires the Grønlund-Pettie 2014 word-RAM trick that runs in `O(n^2 (log log n)^O(1) / log^2 n)` and is well outside any interview's scope.[^2] So for the comparison model, yes, you have to do `n^2` work. Whether the word-RAM model admits truly subquadratic 3Sum is still open — Pătrașcu's 3SUM-hardness conjecture from STOC 2010 is the load-bearing assumption underneath dozens of fine-grained complexity reductions.[^6]
+The honest framing on 3Sum's complexity, for the interviewer who asks "is this optimal?": the two-pointer O(n^2) algorithm matches the linear-decision-tree lower bound established by Erickson 1999.[^2] Beating it requires the Grønlund-Pettie 2014 word-RAM trick that runs in `O(n^2 (log log n)^O(1) / log^2 n)` and is well outside any interview's scope.[^2] So for the comparison model, yes, you have to do `n^2` work. Whether the word-RAM model admits truly subquadratic 3Sum is still open: Pătrașcu's 3SUM-hardness conjecture from STOC 2010 is the load-bearing assumption underneath dozens of fine-grained complexity reductions.[^6]
 
 ## When the pattern bends
 
@@ -241,14 +241,14 @@ The honest framing on 3Sum's complexity, for the interviewer who asks "is this o
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 167 — Two Sum II — Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) [Easy] • two-pointers-opposite-ends-on-sorted
-- [LC 11 — Container With Most Water](https://leetcode.com/problems/container-with-most-water/) [Medium] • two-pointers-greedy-shrink ★
-- [LC 15 — 3Sum](https://leetcode.com/problems/3sum/) [Medium] • two-pointers-on-sorted-with-anchor
+- [LC 167: Two Sum II, Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) [Easy] • two-pointers-opposite-ends-on-sorted
+- [LC 11: Container With Most Water](https://leetcode.com/problems/container-with-most-water/) [Medium] • two-pointers-greedy-shrink ★
+- [LC 15: 3Sum](https://leetcode.com/problems/3sum/) [Medium] • two-pointers-on-sorted-with-anchor
 
 ### STRETCH (optional)
 
-- [LC 42 — Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) [Hard] • two-pointers-with-running-max
-- [LC 125 — Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) [Easy] • two-pointers-symmetric-scan
+- [LC 42: Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) [Hard] • two-pointers-with-running-max
+- [LC 125: Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) [Easy] • two-pointers-symmetric-scan
 
 LC 11 is the chapter's signature problem (★) and the case-analysis proof above is its masterclass moment. LC 42 is the natural Hard follow-up. It reuses the shorter-wall insight to maintain `left_max` and `right_max` invariants while sweeping inward, and the same correctness argument carries through with one extra term.
 
@@ -270,4 +270,4 @@ The window cousin is [Sliding window: fixed size](./02-sliding-window-fixed.md).
 
 [^5]: Stack Overflow, "Leetcode #15: 3sum, avoiding duplicate," 2018-onwards. <https://stackoverflow.com/questions/38909591/leetcode-15-3sum-avoiding-duplicate>.
 
-[^6]: Mihai Pătrașcu, "Towards polynomial lower bounds for dynamic problems," *Proceedings of the 42nd ACM symposium on Theory of computing — STOC '10*, 2010, pp. 603-610. <https://doi.org/10.1145/1806689.1806772>.
+[^6]: Mihai Pătrașcu, "Towards polynomial lower bounds for dynamic problems," *Proceedings of the 42nd ACM symposium on Theory of computing, STOC '10*, 2010, pp. 603-610. <https://doi.org/10.1145/1806689.1806772>.

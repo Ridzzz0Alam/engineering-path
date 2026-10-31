@@ -34,7 +34,7 @@ def max_path_sum(root: Optional[TreeNode]) -> int:
             return 0
         left_gain  = max(gain(node.left),  0)
         right_gain = max(gain(node.right), 0)
-        # Bent path through this node — compared to global, NOT returned.
+        # Bent path through this node: compared to global, NOT returned.
         if node.val + left_gain + right_gain > best:
             best = node.val + left_gain + right_gain
         # Straight-down path returned to caller.

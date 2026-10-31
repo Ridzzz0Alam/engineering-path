@@ -10,7 +10,7 @@ public final class Sol {
         TreeNode(int val) { this.val = val; }
     }
 
-    // Helper returns int[2] {robThis, skipThis} — the canonical Java idiom
+    // Helper returns int[2] {robThis, skipThis}: the canonical Java idiom
     // for tuple returns, no boxing, fits in a single allocation per node.
     public int rob(TreeNode root) {
         int[] r = helper(root);

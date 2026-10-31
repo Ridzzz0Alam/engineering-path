@@ -19,7 +19,7 @@ A candidate stares at the constraint line. `n <= 10^9`. Sixty seconds in, they p
 
 A billion items at one nanosecond each is a full second of CPU time before any work happens, and that estimate assumes free memory and a perfect cache. A real linear scan over `10^9` items takes ten to thirty seconds on production hardware. The interviewer wasn't being coy. The constraint was the entire question. When `n` reaches a billion, you cannot read the input in linear time, which means the algorithm has to be `O(log n)`, a closed-form formula, or a precomputed lookup. There is no scan that fits.
 
-Every later chapter assumes you can do this calculation in your head. Sliding window at `n = 10^5`, segment tree at `n = 10^6`, dynamic programming at `n = 5000` — each constraint implies a complexity ceiling, and the algorithm has to fit underneath. The whole book hangs on this page.
+Every later chapter assumes you can do this calculation in your head. Sliding window at `n = 10^5`, segment tree at `n = 10^6`, dynamic programming at `n = 5000`: each constraint implies a complexity ceiling, and the algorithm has to fit underneath. The whole book hangs on this page.
 
 ## What "complexity" actually means
 
@@ -82,8 +82,8 @@ The growth gap between these classes is dramatic, and the dramatic part hides in
 
 ```mermaid
 flowchart LR
-    A["n = 10<br/>O(1) = 1<br/>O(log n) ≈ 3<br/>O(n) = 10<br/>O(n²) = 100<br/>O(2ⁿ) ≈ 10³<br/>O(n!) ≈ 4×10⁶"] --> B["n = 100<br/>O(1) = 1<br/>O(log n) ≈ 7<br/>O(n) = 100<br/>O(n²) = 10⁴<br/>O(2ⁿ) ≈ 10³⁰<br/>O(n!) — astronomical"]
-    B --> C["n = 10⁶<br/>O(1) = 1<br/>O(log n) ≈ 20<br/>O(n) = 10⁶<br/>O(n²) = 10¹² (12 days)<br/>O(2ⁿ) — heat death of universe"]
+    A["n = 10<br/>O(1) = 1<br/>O(log n) ≈ 3<br/>O(n) = 10<br/>O(n²) = 100<br/>O(2ⁿ) ≈ 10³<br/>O(n!) ≈ 4×10⁶"] --> B["n = 100<br/>O(1) = 1<br/>O(log n) ≈ 7<br/>O(n) = 100<br/>O(n²) = 10⁴<br/>O(2ⁿ) ≈ 10³⁰<br/>O(n!) - astronomical"]
+    B --> C["n = 10⁶<br/>O(1) = 1<br/>O(log n) ≈ 20<br/>O(n) = 10⁶<br/>O(n²) = 10¹² (12 days)<br/>O(2ⁿ) - heat death of universe"]
 ```
 
 *At `n = 100`, an `O(2^n)` algorithm needs more operations than there are atoms in the observable universe. Lower-order terms stop mattering long before the higher-order ones become catastrophic.*
@@ -92,7 +92,7 @@ The practical question is "what fits in one second." Given the standard one-seco
 
 | Input size | Algorithms that fit |
 |---|---|
-| `n <= 10` | `O(n!)`, `O(2^n)` — anything goes |
+| `n <= 10` | `O(n!)`, `O(2^n)`: anything goes |
 | `n <= 20` | `O(2^n)` (~`10^6` ops), bitmask DP |
 | `n <= 500` | `O(n^3)` (~`10^8`) |
 | `n <= 5,000` | `O(n^2)` (~`2.5 × 10^7`) |
@@ -112,11 +112,11 @@ T(n) = a · T(n/b) + f(n)
 
 where `a >= 1`, `b > 1`, and `f(n)` is the work done at the top level to split and recombine. The master theorem solves recurrences of this shape in three cases, keyed on a critical exponent `c_crit = log_b(a)`.[^3]
 
-**Case 1 — subproblems dominate.** If `f(n) = O(n^c)` with `c < c_crit`, then `T(n) = Θ(n^{c_{crit}})`.
+**Case 1: subproblems dominate.** If `f(n) = O(n^c)` with `c < c_crit`, then `T(n) = Θ(n^{c_{crit}})`.
 
-**Case 2 — balanced.** If `f(n) = Θ(n^{c_{crit}} · (log n)^k)` for `k >= 0`, then `T(n) = Θ(n^{c_{crit}} · (log n)^{k+1})`.
+**Case 2: balanced.** If `f(n) = Θ(n^{c_{crit}} · (log n)^k)` for `k >= 0`, then `T(n) = Θ(n^{c_{crit}} · (log n)^{k+1})`.
 
-**Case 3 — split work dominates.** If `f(n) = Ω(n^c)` with `c > c_crit`, and the regularity condition `a · f(n/b) <= k · f(n)` holds for some `k < 1`, then `T(n) = Θ(f(n))`.
+**Case 3: split work dominates.** If `f(n) = Ω(n^c)` with `c > c_crit`, and the regularity condition `a · f(n/b) <= k · f(n)` holds for some `k < 1`, then `T(n) = Θ(f(n))`.
 
 Three applications you'll see repeatedly:
 
@@ -142,7 +142,7 @@ Three methods, all introduced in CLRS Chapter 16.[^1]
 
 **Potential.** Define a non-negative function `Φ` of the data structure's state. The amortised cost of an operation is its actual cost plus `Φ_after - Φ_before`. For dynamic array, take `Φ = 2 · num_elements - capacity`. When push doesn't trigger resize, Φ rises by 2 and amortised cost is `actual + 2 = 3`. When push triggers a resize from `k` to `2k`, actual cost is `k + 1` and Φ drops from `k` to `2`, so amortised is `(k + 1) + (2 - k) = 3`. Same answer, derived two ways.
 
-The crucial caveat: amortised `O(1)` does not mean every operation is `O(1)`. The push that triggers the resize is genuinely `O(n)` in that moment. Hard real-time systems — game audio buffers, embedded controllers, low-latency trading — care about worst-case-per-operation and may use a deamortised data structure or a fixed-capacity ring buffer for exactly this reason.
+The crucial caveat: amortised `O(1)` does not mean every operation is `O(1)`. The push that triggers the resize is genuinely `O(n)` in that moment. Hard real-time systems (game audio buffers, embedded controllers, low-latency trading) care about worst-case-per-operation and may use a deamortised data structure or a fixed-capacity ring buffer for exactly this reason.
 
 You'll meet amortised bounds again in [Dynamic array internals](../part-1-linear-data-structures/01-dynamic-array-internals.md) (the doubling proof gets the full step-by-step treatment), Union-Find with path compression at `O(α(n))` per operation, and splay trees at `O(log n)` amortised despite `O(n)` worst case.
 
@@ -158,7 +158,7 @@ The mental model to walk into Part 9 with: time and space are two axes of a Pare
 
 ## What this chapter doesn't cover
 
-Average-case analysis surfaces in Part 5, where quicksort's `O(n log n)` average versus `O(n^2)` worst case gets the full proof. Randomised algorithms — expected time, Las Vegas versus Monte Carlo — appear with universal hashing in Part 1 and with random pivoting in Part 5. Lower-bound proofs (the `Ω(n log n)` decision-tree argument for comparison sorting, adversary arguments) live with sorting in Part 5. The Akra-Bazzi method shows up only when a divide-and-conquer recurrence breaks the master theorem. P, NP, and the rest of complexity theory wait for the interview-meta chapters in Part 14.
+Average-case analysis surfaces in Part 5, where quicksort's `O(n log n)` average versus `O(n^2)` worst case gets the full proof. Randomised algorithms (expected time, Las Vegas versus Monte Carlo) appear with universal hashing in Part 1 and with random pivoting in Part 5. Lower-bound proofs (the `Ω(n log n)` decision-tree argument for comparison sorting, adversary arguments) live with sorting in Part 5. The Akra-Bazzi method shows up only when a divide-and-conquer recurrence breaks the master theorem. P, NP, and the rest of complexity theory wait for the interview-meta chapters in Part 14.
 
 The chapter's posture is narrow on purpose. Big-O is the dialect. The proofs that exotic complexities require live in the chapters that need them.
 

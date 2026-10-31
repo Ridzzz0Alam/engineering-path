@@ -156,7 +156,7 @@ def _query(self, v, tl, tr, l, r):
             + self._query(2 * v + 1, tm + 1, tr, max(l, tm + 1), r))
 ```
 
-**Solution** — Python ([Java](./10-segment-tree/lc-307/sol.java) · [C++](./10-segment-tree/lc-307/sol.cpp) · [Go](./10-segment-tree/lc-307/sol.go))
+**Solution** in Python ([Java](./10-segment-tree/lc-307/sol.java) · [C++](./10-segment-tree/lc-307/sol.cpp) · [Go](./10-segment-tree/lc-307/sol.go))
 
 ```python
 # LC 307. Range Sum Query - Mutable
@@ -225,7 +225,7 @@ Update walks four levels: descend `v=1 → v=2 → v=5 → v=11`, rewrite the le
 
 Query splits at the root: `[2, 5]` straddles `tm = 3`. Left child gets `[2, 3]`; right child gets `[4, 5]`. The left subtree recurses once more and exits on an exact match at `v=5` returning 11. The right subtree exits on an exact match at `v=6` returning 20. The two halves of the recursion that fell off the side of the query (the `v=4` and `v=7` calls) hit the empty-range guard and return 0 in constant time. Final answer: `11 + 20 = 31`.
 
-> **Interactive widget:** [Segment tree (build / update / query)](../widgets/w-21-segment-tree.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Segment tree (build / update / query)](../widgets/w-21-segment-tree.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the widget animates 48 steps total (30 build + 9 update + 9 query). At step 29 the build is complete, with `t[1] = 64` at the root. At step 38 the update has finished and the four touched vertices on the index-3 root path carry their new sums. At step 47 the query returns 31, with the two hit vertices `v=5 (sum=11)` and `v=6 (sum=20)` highlighted in green and the empty-branch calls at `v=4` and `v=7` dimmed.*
 
@@ -272,14 +272,14 @@ The chapter's skeleton handles a much wider family than just sum queries. Three 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 307 — Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/) [Medium] • segment-tree-point-update-range-query ★
-- [LC 731 — My Calendar II](https://leetcode.com/problems/my-calendar-ii/) [Medium] • segment-tree-range-update-with-lazy *(reference: Python only)*
-- [LC 732 — My Calendar III](https://leetcode.com/problems/my-calendar-iii/) [Hard] • dynamic-segment-tree-range-update *(reference: Python only)*
+- [LC 307: Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/) [Medium] • segment-tree-point-update-range-query ★
+- [LC 731: My Calendar II](https://leetcode.com/problems/my-calendar-ii/) [Medium] • segment-tree-range-update-with-lazy *(reference: Python only)*
+- [LC 732: My Calendar III](https://leetcode.com/problems/my-calendar-iii/) [Hard] • dynamic-segment-tree-range-update *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 729 — My Calendar I](https://leetcode.com/problems/my-calendar-i/) [Medium] • segment-tree-point-conflict-check
-- [LC 218 — The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) [Hard] • sweep-line-with-heap-or-segtree
+- [LC 729: My Calendar I](https://leetcode.com/problems/my-calendar-i/) [Medium] • segment-tree-point-conflict-check
+- [LC 218: The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) [Hard] • sweep-line-with-heap-or-segtree
 
 The natural Easy candidate, LC 303 *Range Sum Query - Immutable*, is locked to [Prefix sums and difference arrays](../part-3-pointers-window-prefix/04-prefix-sums.md) as that chapter's signature problem.[^1] Per the registry's "each LC appears as CORE in exactly one chapter" rule, this chapter ships M/M/H with the `no-easy-canonical` flag. No other Easy LC genuinely teaches segment trees over prefix sums.
 

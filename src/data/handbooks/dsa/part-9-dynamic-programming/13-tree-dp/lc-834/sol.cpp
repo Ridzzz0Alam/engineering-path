@@ -15,9 +15,9 @@ public:
         count_.assign(n, 1);
         answer_.assign(n, 0);
         n_ = n;
-        // Pass 1: post-order — fill count[] and answer[0].
+        // Pass 1: post-order, fill count[] and answer[0].
         post(0, -1);
-        // Pass 2: pre-order — re-root from u to each child v in O(1).
+        // Pass 2: pre-order, re-root from u to each child v in O(1).
         pre(0, -1);
         return answer_;
     }

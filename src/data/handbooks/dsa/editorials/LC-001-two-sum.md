@@ -35,7 +35,7 @@ That last row breaks most first attempts at the optimized version. Hold it in mi
 Translate the statement directly. Pick `i < j`, check `nums[i] + nums[j] == target`, return the first hit.
 
 ```python
-# Brute force: O(n²) — what we're replacing
+# Brute force: O(n²), what we're replacing
 def two_sum_brute(nums, target):
     n = len(nums)
     for i in range(n):
@@ -90,7 +90,7 @@ def two_sum(nums, target):
     return []
 ```
 
-**Solution** — Python ([Java](./LC-001-two-sum/lc-1/sol.java) · [C++](./LC-001-two-sum/lc-1/sol.cpp) · [Go](./LC-001-two-sum/lc-1/sol.go))
+**Solution** in Python ([Java](./LC-001-two-sum/lc-1/sol.java) · [C++](./LC-001-two-sum/lc-1/sol.cpp) · [Go](./LC-001-two-sum/lc-1/sol.go))
 
 ```python
 # LC 1. Two Sum
@@ -114,7 +114,7 @@ def two_sum(nums: List[int], target: int) -> List[int]:
     return []
 ```
 
-> **Interactive widget:** [Two Sum (LC 1) — optimal one-pass hash map](../widgets/e-LC001-two-sum.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Two Sum (LC 1): optimal one-pass hash map](../widgets/e-LC001-two-sum.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: with `nums = [3, 3]`, target 6, iteration 0 looks up complement 3 against an empty map (miss) and stores `3 -> 0`. Iteration 1 looks up complement 3 against `{3: 0}` (hit) and returns `[0, 1]`.*
 
@@ -125,7 +125,7 @@ The widget plays the trace on `[3, 3]` because it is the only one of LC's three 
 A two-pass variant builds the full `value -> index` map first, then scans for complements. Same O(n) time, same O(n) space.
 
 ```python
-# Two-pass variant — equivalent, but walks twice
+# Two-pass variant: equivalent, but walks twice
 def two_sum_two_pass(nums, target):
     seen = {nums[i]: i for i in range(len(nums))}
     for i, x in enumerate(nums):
@@ -139,7 +139,7 @@ Pass 1's dict comprehension overwrites earlier indices with later ones, so on `[
 
 ## Edge cases
 
-**Duplicate values, both in the answer.** `[3, 3]`, target 6. The constraint forbids using the same **index** twice, not the same **value** twice. Reversing lookup and store on the optimized version produces `[0, 0]` — a same-value-against-itself match — which is the most common bug on this approach.
+**Duplicate values, both in the answer.** `[3, 3]`, target 6. The constraint forbids using the same **index** twice, not the same **value** twice. Reversing lookup and store on the optimized version produces `[0, 0]` (a same-value-against-itself match) which is the most common bug on this approach.
 
 **Negative integers.** `[-1, -2, -3, -4]`, target -3. The algorithm is sign-agnostic; `target - x` works for any signed integer. Defensive `if x > target: continue` filters break on negative inputs and sometimes appear from candidates assuming a non-negative target.
 
@@ -149,7 +149,7 @@ Pass 1's dict comprehension overwrites earlier indices with later ones, so on `[
 
 **Returning `[0, 0]` on `[3, 3]/6`.** The classic. The candidate writes `seen[nums[i]] = i` *before* `if complement in seen`, so on iteration 0 the map already contains `{3: 0}` when the complement check runs. Lookup first, store second.
 
-**Returning values instead of indices.** On `[2, 7, 11, 15]/9` the candidate returns `[2, 7]` instead of `[0, 1]`. Reading the problem statement — *"return the indices"* — is the fix.
+**Returning values instead of indices.** On `[2, 7, 11, 15]/9` the candidate returns `[2, 7]` instead of `[0, 1]`. Reading the problem statement (*"return the indices"*) is the fix.
 
 **Hash *set* instead of hash *map*.** Set membership answers "have I seen this value" but discards the index. The candidate finishes with the right pair of values and the wrong pair of indices.
 
@@ -171,7 +171,7 @@ Pass 1's dict comprehension overwrites earlier indices with later ones, so on `[
 
 [^1]: doocs/leetcode, "LC 1 Two Sum." https://github.com/doocs/leetcode/blob/main/solution/0000-0099/0001.Two%20Sum/README_EN.md
 
-[^2]: doocs/leetcode, "LC 167 Two Sum II — Input Array Is Sorted." https://github.com/doocs/leetcode/blob/main/solution/0100-0199/0167.Two%20Sum%20II%20-%20Input%20Array%20Is%20Sorted/README_EN.md
+[^2]: doocs/leetcode, "LC 167 Two Sum II, Input Array Is Sorted." https://github.com/doocs/leetcode/blob/main/solution/0100-0199/0167.Two%20Sum%20II%20-%20Input%20Array%20Is%20Sorted/README_EN.md
 
 [^3]: Sedgewick and Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011, §3.4. https://algs4.cs.princeton.edu/34hash/
 

@@ -64,7 +64,7 @@ def search_bst(root, target):
     return None
 ```
 
-**Solution** — Python ([Java](./05-binary-search-trees/lc-700/sol.java) · [C++](./05-binary-search-trees/lc-700/sol.cpp) · [Go](./05-binary-search-trees/lc-700/sol.go))
+**Solution** in Python ([Java](./05-binary-search-trees/lc-700/sol.java) · [C++](./05-binary-search-trees/lc-700/sol.cpp) · [Go](./05-binary-search-trees/lc-700/sol.go))
 
 ```python
 # LC 700. Search in a Binary Search Tree
@@ -112,7 +112,7 @@ def insert_into_bst(root, val):
     return root
 ```
 
-**Solution** — Python ([Java](./05-binary-search-trees/lc-701/sol.java) · [C++](./05-binary-search-trees/lc-701/sol.cpp) · [Go](./05-binary-search-trees/lc-701/sol.go))
+**Solution** in Python ([Java](./05-binary-search-trees/lc-701/sol.java) · [C++](./05-binary-search-trees/lc-701/sol.cpp) · [Go](./05-binary-search-trees/lc-701/sol.go))
 
 ```python
 # LC 701. Insert into a Binary Search Tree
@@ -194,7 +194,7 @@ def delete_node(root, key):
     return root
 ```
 
-**Solution** — Python ([Java](./05-binary-search-trees/lc-450/sol.java) · [C++](./05-binary-search-trees/lc-450/sol.cpp) · [Go](./05-binary-search-trees/lc-450/sol.go))
+**Solution** in Python ([Java](./05-binary-search-trees/lc-450/sol.java) · [C++](./05-binary-search-trees/lc-450/sol.cpp) · [Go](./05-binary-search-trees/lc-450/sol.go))
 
 ```python
 # LC 450. Delete Node in a BST
@@ -243,7 +243,7 @@ def delete_node(root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
 
 Walk through deleting the root of the canonical tree. The widget animates it; the prose names the moment of decision. Build [5, 3, 8, 1, 4, 7, 9] one insert at a time. To delete 5: locate it (it's the root), see two children, find the successor by walking the right subtree's left spine. At 8 go left; at 7 stop because 7 has no left child, so 7 is the successor. Copy 7 into the root's value slot. The tree now has 7 at the root *and* 7 as the original right-subtree node; the recursive call removes the duplicate by Case 2a (the original 7 had a right child, no left, so its right child takes its place). Inorder afterward: [1, 3, 4, 7, 8, 9]. Sorted. Invariant survived.
 
-> **Interactive widget:** [BST operations and AVL rotations](../widgets/w-19-bst-rotations.yml) (panel `panel-bst-ops`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [BST operations and AVL rotations](../widgets/w-19-bst-rotations.yml) (panel `panel-bst-ops`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: an empty tree fills via seven inserts to [5, 3, 8, 1, 4, 7, 9]; the root is located as a Case-3 target; the successor walk highlights 8, then 7; 7 is chosen; the root's label morphs from 5 to 7; the original 7 fades out via Case 2a; the final tree is [7, 3, 8, 1, 4, null, 9] with inorder [1, 3, 4, 7, 8, 9].*
 
@@ -272,7 +272,7 @@ def is_valid_bst(root):
     return check(root, float("-inf"), float("inf"))
 ```
 
-**Solution** — Python ([Java](./05-binary-search-trees/lc-98/sol.java) · [C++](./05-binary-search-trees/lc-98/sol.cpp) · [Go](./05-binary-search-trees/lc-98/sol.go))
+**Solution** in Python ([Java](./05-binary-search-trees/lc-98/sol.java) · [C++](./05-binary-search-trees/lc-98/sol.cpp) · [Go](./05-binary-search-trees/lc-98/sol.go))
 
 ```python
 # LC 98. Validate Binary Search Tree
@@ -359,15 +359,15 @@ The natural follow-up is [AVL rotations](./06-avl-rotations.md), which adds the 
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 700 — Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/) [Easy] • bst-search
-- [LC 701 — Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/) [Medium] • bst-insert-recursive
-- [LC 98 — Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) [Medium] • bst-bounded-recursion ★
-- [LC 450 — Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/) [Medium] • bst-delete-three-case
+- [LC 700: Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/) [Easy] • bst-search
+- [LC 701: Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/) [Medium] • bst-insert-recursive
+- [LC 98: Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) [Medium] • bst-bounded-recursion ★
+- [LC 450: Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/) [Medium] • bst-delete-three-case
 
 ### STRETCH (optional)
 
-- [LC 230 — Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) [Medium] • bst-inorder-iterator
-- [LC 235 — Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) [Medium] • bst-walk-down-lca
+- [LC 230: Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) [Medium] • bst-inorder-iterator
+- [LC 235: Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) [Medium] • bst-walk-down-lca
 
 The CORE set spans Easy + Medium with no Hard. The reason: the canonical BST-related Hards all live in adjacent chapters under the registry's primary-ownership rule. *Recover Binary Search Tree* (LC 99) is owned by [Morris traversal](./02-morris-traversal.md); the tree-DP family (LC 124, 337, 968) defers to chapter 9.13. The chapter ships with `ladder_curation_flag: core-emh-via-stretch`, the formal escape hatch from the E/M/H span requirement when no Hard problem fits the chapter's vocabulary.[^1]
 

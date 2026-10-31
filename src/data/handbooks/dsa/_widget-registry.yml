@@ -1,4 +1,4 @@
-# DSA Handbook — Cross-chapter widget registry (thin index)
+# DSA Handbook: Cross-chapter widget registry (thin index)
 #
 # Thin index of every widget id, the file that holds its runtime spec, and
 # the chapters that mount it. The full per-widget spec (panels, presets,
@@ -21,9 +21,9 @@
 #                                                    # where primary_chapter
 #                                                    # uses the full path form.
 #     status: <complete | scaffold | pending>
-#     # `complete`  — spec file has a full keyframe trace
-#     # `scaffold`  — spec file exists with empty keyframes
-#     # `pending`   — no spec file yet
+#     # `complete`: spec file has a full keyframe trace
+#     # `scaffold`: spec file exists with empty keyframes
+#     # `pending`: no spec file yet
 #     notes: <free-form>                             # optional
 #
 # Naming conventions:
@@ -41,7 +41,7 @@
 # Version: 1.0
 
 # =============================================================================
-# Part 0 — Foundations
+# Part 0: Foundations
 # =============================================================================
 
 w-01-recursion-call-stack:
@@ -53,14 +53,14 @@ w-01-recursion-call-stack:
     Panel-a (chapter 0.2) animates the push/base/pop trace of factorial(n)
     so the call stack is visible as a physical artifact. Canonical input
     n=4; 12 steps; cap n=8 (19 steps under the 25-step ceiling).
-    Panel-b (chapter 7.0) shows three call-stack panels side-by-side —
+    Panel-b (chapter 7.0) shows three call-stack panels side-by-side,
     linear (fib_linear(3)), tree (fib_tree(3)), divide-and-conquer
-    (merge_sort([3,1,2])) — at the same instant. Combined panel-b trace
+    (merge_sort([3,1,2])): at the same instant. Combined panel-b trace
     is 30 events (8 + 10 + 12) so the reader sees three shapes of
     recursion as physically distinct stack behaviors.
 
 # =============================================================================
-# Part 1 — Linear Data Structures
+# Part 1: Linear Data Structures
 # =============================================================================
 
 w-02-hash-table:
@@ -75,8 +75,8 @@ w-02-hash-table:
     a hit lookup on banana and a miss lookup on grape that scans
     bucket 3's single-entry chain.
     Panel-b (chapter 1.4, collision storm + load-factor-triggered
-    resize): 12 steps. Canonical input inserts 5, 1, 9, 13, 17 — every
-    key hashes to bucket 1 at capacity 4 — drives the table past load
+    resize): 12 steps. Canonical input inserts 5, 1, 9, 13, 17: every
+    key hashes to bucket 1 at capacity 4: drives the table past load
     factor 0.75 on the fourth insert, doubles to capacity 8, and
     rehashes so the chain at bucket 1 falls from length 4 back to
     length 3. Combined: 26/50 steps under cap.
@@ -97,7 +97,7 @@ w-03-matrix-rotation:
     same permutation (i, j) -> (j, n-1-i).
 
 # =============================================================================
-# Part 2 — Search & Sort
+# Part 2: Search & Sort
 # =============================================================================
 
 w-04-binary-search:
@@ -149,7 +149,7 @@ w-07-quickselect:
     Algorithm-level (Level 1) view of quickselect: pivot pick,
     partition, pivot place, recurse-decide, answer. Where w-06 zooms
     in on a single Lomuto pass (Level 2 i/j sweep), this widget shows
-    the across-recursion behavior — one side per level is the entire
+    the across-recursion behavior: one side per level is the entire
     reason expected linear holds. Canonical input
     nums = [3, 2, 1, 5, 6, 4], k = 2; 14 steps under the 50-step cap.
     Pivot rule frozen to deterministic pivot=lo for trace
@@ -159,7 +159,7 @@ w-07-quickselect:
     smallest (extreme target).
 
 # =============================================================================
-# Part 3 — Pointers, Window, Prefix
+# Part 3: Pointers, Window, Prefix
 # =============================================================================
 
 w-08-two-pointers-3sum:
@@ -182,7 +182,7 @@ w-09-sliding-window-expansion:
     (3.2). Panel-a: canonical input nums = [2, 1, 5, 1, 3, 2, 1, 4],
     k = 3; 13 steps. Panel-b: canonical input s = "pwwkew", predicate
     = all chars distinct; 23 steps animating the SHRINK-LOOP form so
-    the per-char shrink work is visible — the editorial widget
+    the per-char shrink work is visible: the editorial widget
     e-LC003-longest-substring then shows the last-index-jump on the
     same input as the optimization payoff.
 
@@ -211,7 +211,7 @@ w-35-prefix-sum-hash-combo:
     would stay at 0 instead of reaching the correct 2).
 
 # =============================================================================
-# Part 4 — Stack & Queue Patterns
+# Part 4: Stack & Queue Patterns
 # =============================================================================
 
 w-11-monotonic-stack:
@@ -224,7 +224,7 @@ w-11-monotonic-stack:
     Temperatures on the canonical 8-day input
     [73, 74, 75, 71, 69, 72, 76, 73]; 24 steps under the 30-step cap.
     The dramatic moment is step 19 where index 2 (value 75) resolves
-    after waiting four days — the visual payoff that justifies storing
+    after waiting four days: the visual payoff that justifies storing
     indices rather than values. LC 84's sentinel-pop variant gets a
     separate editorial widget (e-LC084-largest-rect) at the Appendix C
     editorial; not yet scaffolded.
@@ -248,9 +248,9 @@ w-12-amortized-queue-via-stacks:
     transfer pre-paid by accumulated credits).
 
 # =============================================================================
-# Part 5 — Linked Lists (pending)
+# Part 5: Linked Lists (pending)
 # =============================================================================
-# Part 5 — Linked Lists (pending)
+# Part 5: Linked Lists (pending)
 # =============================================================================
 
 w-13-linked-list-pointer-rewiring:
@@ -281,7 +281,7 @@ w-14-floyd-cycle:
     Trace generated by instrumenting the verified Python reference in
     ; deterministic re-runs yield byte-identical output
     . Distinct from any future editorial widget
-    e-LC142-* — this is the chapter widget.
+    e-LC142-*, and this is the chapter widget.
 
 w-15-lru-cache:
   spec: content/dsa/widgets/w-15-lru-cache.yml
@@ -290,12 +290,12 @@ w-15-lru-cache:
   status: complete
   notes: |
     Dual-panel-shared. Panel `default` (chapter 5.5) animates LC 146 on
-    the canonical capacity=2 sequence — pointer-rewiring mechanics with
+    the canonical capacity=2 sequence: pointer-rewiring mechanics with
     both hash map (key -> node-pointer) and doubly linked list views;
     10 steps. Panel `design_framing` (chapter 13.0) animates LC 146 on
     a capacity=3, 9-op sequence chosen to surface every public-API
     outcome: hit, miss, evict, in-place update (no evict), post-evict
-    miss, repeat-evict, final miss. Same algorithm; different framing —
+    miss, repeat-evict, final miss. Same algorithm; different framing,
     panel-default foregrounds pointer choreography, design_framing
     foregrounds the API headline + capacity counter + eviction events.
     9 + 10 = 19 steps total, well under both panels' 30-step caps.
@@ -304,7 +304,7 @@ w-15-lru-cache:
     byte-for-byte.
 
 # =============================================================================
-# Part 6 — Trees & Heaps (pending)
+# Part 6: Trees & Heaps (pending)
 # =============================================================================
 
 w-16-tree-traversal-animator:
@@ -372,7 +372,7 @@ w-21-segment-tree:
      confirms byte-identical re-runs).
 
 # =============================================================================
-# Part 7 — Recursion & Backtracking
+# Part 7: Recursion & Backtracking
 # =============================================================================
 
 w-22-backtracking-tree:
@@ -386,7 +386,7 @@ w-22-backtracking-tree:
     "23". 19 steps; every choose has a matching unchoose at the same
     depth, making the path-restoration invariant visible. Panel-
     canonical (7.2, scaffolded): subsets/permutations/combinations on
-    [1, 2, 3]; keyframes pending — owned by 7.2's research/writer.
+    [1, 2, 3]; keyframes pending: owned by 7.2's research/writer.
     Status flips to `complete` once 7.2 fills panel-canonical.
 
 w-23-n-queens:
@@ -401,7 +401,7 @@ w-23-n-queens:
     + 1 done), transcribed verbatim step buffer
     (deterministic; recursion enumerates columns 0..n-1 in fixed
     order). Bitmask state (cols, diag1, diag2) is the chapter's
-    central teaching artifact — at step 3 the three masks union to
+    central teaching artifact: at step 3 the three masks union to
     5 | 12 | 2 = 15 = 0b1111, blocking every column at row 2 and
     triggering the first dead-end. Reduced-motion fallback uses
     keyframes [0, 3, 14, 15, 23, 24]: empty / first dead-end /
@@ -410,7 +410,7 @@ w-23-n-queens:
     n=5 with more pruning, n=6 with the anomalous 4-solution count).
 
 # =============================================================================
-# Part 7 — Recursion & Backtracking
+# Part 7: Recursion & Backtracking
 # =============================================================================
 
 w-22-backtracking-tree:
@@ -430,7 +430,7 @@ w-22-backtracking-tree:
     chapter author). Status flips to `complete` when 7.1's panel ships.
 
 # =============================================================================
-# Part 8 — Graphs (pending)
+# Part 8: Graphs (pending)
 # =============================================================================
 
 w-26-graph-dfs:
@@ -473,7 +473,7 @@ w-29-dijkstra:
     27-step trace generated from the verified §2.2 Python reference
     . Two deterministic
     stale-skip events at steps 18 and 25 surface the lazy-deletion
-    idiom — the chapter's signature implementation move. n=12 hard cap
+    idiom: the chapter's signature implementation move. n=12 hard cap
     keeps graph layout legible; trace stays well under the 1000-step
     animation ceiling. Reduced-motion fallback uses keyframes
     [0, 8, 18, 26].
@@ -514,7 +514,7 @@ w-37-bellman-ford:
     diverges based on whether any edge still relaxes.
 
 # =============================================================================
-# Part 9 — Dynamic Programming (pending)
+# Part 9: Dynamic Programming (pending)
 # =============================================================================
 
 w-33-lis-patience:
@@ -531,7 +531,7 @@ w-33-lis-patience:
     critical moments: step 15 (the first replace that freezes a smaller
     tail at length 2; primes the invariant), step 21 (length 4 reached
     with tail 101), step 24 (the same-length-but-smaller-tail moment
-    where 101 is overwritten by 18 — the chapter's headline frame for
+    where 101 is overwritten by 18: the chapter's headline frame for
     why the visible tails array is not the LIS subsequence). Three
     presets: canonical n=8, all-equal n=7 (degenerate, LIS=1),
     non-strict n=5 (bisect_right toggle, LIS=4). Reduced-motion fallback
@@ -591,14 +591,14 @@ w-34-bitmask-dp:
     [[1],[0,2],[1]]); 8-step BFS trace from node 0 reaches the
     goal state (2, 0b111) at dist 2. Constructed from the verified
     LC 847 reference at 9.14/lc-847/sol.py. had
-    animations: [] — the widget is a Phase-2 addition per the
+    animations: [], the widget is a Phase-2 addition per the
     chapter spec, which asks for a small-input mask-transition demo
     even though research declined a Tier-1 widget at LC 847's
     n = 12 production scale (trace would exceed buffer cap). The
     n = 3 widget here is a teaching cut, not a full LC 847 trace.
 
 # =============================================================================
-# Part 10 — Greedy
+# Part 10: Greedy
 # =============================================================================
 
 w-36-interval-scheduling:
@@ -610,7 +610,7 @@ w-36-interval-scheduling:
     Chapter 10.1 mechanics widget. Panel-non-overlap: 11-step trace on the
     LC 435 canonical input [[1,2],[2,3],[3,4],[1,3]] showing sort-by-end +
     drop-on-overlap; drop counter ends at 1. The pedagogically critical step
-    is 5, where [1,3] overlaps the kept [1,2] and is dropped — the exchange
+    is 5, where [1,3] overlaps the kept [1,2] and is dropped: the exchange
     argument rendered as a single visible event. A second preset
     [[1,100],[2,3],[3,4]] surfaces the sort-by-start trap (greedy on
     sort-by-start would drop both shorter intervals; sort-by-end keeps them
@@ -648,7 +648,7 @@ w-39-huffman-encoding:
     as w-39 (w-37 was already claimed by Bellman-Ford in chapter 8.10).
 
 # =============================================================================
-# Part 12 — Strings & Pattern Matching
+# Part 12: Strings & Pattern Matching
 # =============================================================================
 
 w-38-kmp:
@@ -700,9 +700,9 @@ w-40-z-array:
     w-40 because w-39 was claimed by Huffman encoding in 10.3.
 
 # =============================================================================
-# Editorial widgets — one per signature LC problem
+# Editorial widgets: one per signature LC problem
 # =============================================================================
-# Editorial widgets — one per signature LC problem
+# Editorial widgets: one per signature LC problem
 # =============================================================================
 
 e-LC001-two-sum:
@@ -723,7 +723,7 @@ e-LC003-longest-substring:
     and the inside-window jump again at r=5 (w at index 2, l: 2->3),
     with step 7 explicitly demoing the now-stale last['p']=0 entry
     that the `prev >= l` guard would skip. Distinct from w-09 panel-b
-    (same input, but panel-b animates the SHRINK-LOOP form — the
+    (same input, but panel-b animates the SHRINK-LOOP form: the
     pairing teaches why the jump is the right answer).
 
 e-LC011-container:
@@ -747,7 +747,7 @@ e-LC005-longest-palindrome:
     Expand-around-centers on LC 5. Walks all 2n-1 centers (odd and
     even) on a small input, expanding outward while characters match.
     Teaches why both center types must be tried and why the algorithm
-    runs in O(n²) time, O(1) extra space — the practical optimum
+    runs in O(n²) time, O(1) extra space: the practical optimum
     over the O(n²) DP table.
 
 e-LC015-3sum:
@@ -764,7 +764,7 @@ e-LC015-3sum:
 
 
 # =============================================================================
-# Registry sync (post-ship verification pass) — entries for widgets whose
+# Registry sync (post-ship verification pass): entries for widgets whose
 # spec files exist on disk but were never indexed.
 # =============================================================================
 
@@ -778,7 +778,7 @@ w-12-monotonic-deque:
     Window Maximum on the canonical input
     [1, 3, -1, -3, 5, 3, 6, 7] with k=3.
     The dramatic moment is the dominance-rule eviction at step 5
-    where value 5 sweeps the entire deque clean — visual payoff for
+    where value 5 sweeps the entire deque clean: visual payoff for
     why "values strictly less than the new arrival never come back."
 
 w-17-morris-thread:

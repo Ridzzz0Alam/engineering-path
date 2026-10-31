@@ -45,7 +45,7 @@ The 2D form is the textbook shape stated in CLRS §14 and Erickson §3.6.[^2] Th
 Try every subset. Sum it. Check if it hits the target.
 
 ```python
-# Brute force: O(2^n) — what we're replacing
+# Brute force: O(2^n), what we're replacing
 def can_partition_brute(nums):
     total = sum(nums)
     if total & 1:
@@ -86,7 +86,7 @@ def can_partition(nums):
     return dp[target]
 ```
 
-**Solution** — Python ([Java](./04-knapsack-01/lc-416/sol.java) · [C++](./04-knapsack-01/lc-416/sol.cpp) · [Go](./04-knapsack-01/lc-416/sol.go))
+**Solution** in Python ([Java](./04-knapsack-01/lc-416/sol.java) · [C++](./04-knapsack-01/lc-416/sol.cpp) · [Go](./04-knapsack-01/lc-416/sol.go))
 
 ```python
 # LC 416. Partition Equal Subset Sum
@@ -150,12 +150,12 @@ The same code, the same data, two different answers, separated by the direction 
 The side-by-side, with the difference highlighted:
 
 ```python
-# 0/1 knapsack — each item AT MOST once
+# 0/1 knapsack: each item AT MOST once
 for x in items:
     for j in range(target, x - 1, -1):       # right-to-left
         dp[j] = dp[j] or dp[j - x]
 
-# Unbounded knapsack — each item ANY number of times
+# Unbounded knapsack: each item ANY number of times
 for x in items:
     for j in range(x, target + 1):           # left-to-right
         dp[j] = dp[j] or dp[j - x]
@@ -169,11 +169,11 @@ Total is 22 (even). Target is 11. Allocate `dp` of length 12 with `dp[0] = True`
 
 **Item 0, x = 1.** Inner loop sweeps `j = 11, 10, ..., 2`. Each cell reads `dp[j - 1]`, all of which are `False` from the initial state, so nothing flips. At `j = 1`, `dp[1] = dp[1] or dp[0] = True`. The state after this pass: subset `{1}` reaches 1.
 
-**Item 1, x = 5.** Inner loop sweeps `j = 11, 10, ..., 5`. At `j = 6`, the cell reads `dp[1]`, which holds `True` from the previous outer-loop iteration — that's the right-to-left contract paying off. `dp[6]` flips to `True`. At `j = 5`, the cell reads `dp[0] = True`, so `dp[5]` flips. The pass leaves `dp = [T, T, F, F, F, T, T, F, F, F, F, F]`. Subsets `{5}` and `{1, 5}` reach 5 and 6.
+**Item 1, x = 5.** Inner loop sweeps `j = 11, 10, ..., 5`. At `j = 6`, the cell reads `dp[1]`, which holds `True` from the previous outer-loop iteration: that's the right-to-left contract paying off. `dp[6]` flips to `True`. At `j = 5`, the cell reads `dp[0] = True`, so `dp[5]` flips. The pass leaves `dp = [T, T, F, F, F, T, T, F, F, F, F, F]`. Subsets `{5}` and `{1, 5}` reach 5 and 6.
 
 **Item 2, x = 11.** Inner loop sweeps `j = 11`. The cell reads `dp[0] = True`. `dp[11]` flips to `True`. The early-exit fires: `dp[target]` is now `True`, the answer is `True`, item 3 (the trailing `5`) is never processed.
 
-> **Interactive widget:** [Knapsack DP table fill (0/1 vs unbounded)](../widgets/w-32-knapsack-fill.yml) (panel `panel-01`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Knapsack DP table fill (0/1 vs unbounded)](../widgets/w-32-knapsack-fill.yml) (panel `panel-01`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: dp evolves through four states. Init `[T,F,F,F,F,F,F,F,F,F,F,F]`. After x=1: `[T,T,F,F,F,F,F,F,F,F,F,F]`. After x=5: `[T,T,F,F,F,T,T,F,F,F,F,F]`. After x=11: `[T,T,F,F,F,T,T,F,F,F,F,T]`. The cell `dp[11]` flips on the third item by reading the seeded `dp[0]`; the early-exit returns `True` without touching item 3.*
 
@@ -274,14 +274,14 @@ A third one worth naming briefly: confusing "reach exactly k" with "reach at mos
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 416 — Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/) [Medium] • knapsack-01-subset-sum ★
-- [LC 494 — Target Sum](https://leetcode.com/problems/target-sum/) [Medium] • knapsack-01-count-subsets
-- [LC 879 — Profitable Schemes](https://leetcode.com/problems/profitable-schemes/) [Hard] • knapsack-01-3d-two-constraints
+- [LC 416: Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/) [Medium] • knapsack-01-subset-sum ★
+- [LC 494: Target Sum](https://leetcode.com/problems/target-sum/) [Medium] • knapsack-01-count-subsets
+- [LC 879: Profitable Schemes](https://leetcode.com/problems/profitable-schemes/) [Hard] • knapsack-01-3d-two-constraints
 
 ### STRETCH (optional)
 
-- [LC 474 — Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/) [Medium] • knapsack-01-2d-axes
-- [LC 1049 — Last Stone Weight II](https://leetcode.com/problems/last-stone-weight-ii/) [Medium] • knapsack-01-min-difference
+- [LC 474: Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/) [Medium] • knapsack-01-2d-axes
+- [LC 1049: Last Stone Weight II](https://leetcode.com/problems/last-stone-weight-ii/) [Medium] • knapsack-01-min-difference
 
 LC 416 is the chapter's signature problem (★) and the reference instance for the 1D DP. The CORE three exercise the three load-bearing variations: pure boolean reachability (LC 416), counting via integer-add (LC 494), and the 3D extension with two simultaneous constraints (LC 879). 0/1 knapsack admits no canonical Easy LeetCode problem; every meaningful subset-sum / take-or-skip variant LC has tagged is graded Medium or harder. The CORE+STRETCH set spans Medium and Hard; the Easy slot is empty by topic, not by oversight.
 

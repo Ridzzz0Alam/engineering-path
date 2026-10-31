@@ -184,7 +184,7 @@ class LFUCache:
         self.size += 1
 ```
 
-**Solution** — Python ([Java](./01-lfu-cache/lc-460/sol.java) · [C++](./01-lfu-cache/lc-460/sol.cpp) · [Go](./01-lfu-cache/lc-460/sol.go))
+**Solution** in Python ([Java](./01-lfu-cache/lc-460/sol.java) · [C++](./01-lfu-cache/lc-460/sol.cpp) · [Go](./01-lfu-cache/lc-460/sol.go))
 
 ```python
 # LC 460. LFU Cache
@@ -256,13 +256,13 @@ The clean expression of the Matani invariant is `get(3)`. Key 3 detaches from `f
 
 | Op | Returns | `keyMap` summary | `freqMap` | `minFreq` |
 |---|---|---|---|---|
-| `put(1,1)` | — | `{1:(1,1)}` | `{1:[1]}` | 1 |
-| `put(2,2)` | — | `{1:(1,1), 2:(2,1)}` | `{1:[1,2]}` | 1 |
+| `put(1,1)` | n/a | `{1:(1,1)}` | `{1:[1]}` | 1 |
+| `put(2,2)` | n/a | `{1:(1,1), 2:(2,1)}` | `{1:[1,2]}` | 1 |
 | `get(1)` | 1 | `{1:(1,2), 2:(2,1)}` | `{1:[2], 2:[1]}` | 1 |
-| `put(3,3)` | — | `{1:(1,2), 3:(3,1)}` | `{1:[3], 2:[1]}` | 1 |
+| `put(3,3)` | n/a | `{1:(1,2), 3:(3,1)}` | `{1:[3], 2:[1]}` | 1 |
 | `get(2)` | -1 | unchanged | unchanged | 1 |
 | `get(3)` | 3 | `{1:(1,2), 3:(3,2)}` | `{2:[1,3]}` | **2** |
-| `put(4,4)` | — | `{3:(3,2), 4:(4,1)}` | `{1:[4], 2:[3]}` | 1 |
+| `put(4,4)` | n/a | `{3:(3,2), 4:(4,1)}` | `{1:[4], 2:[3]}` | 1 |
 | `get(1)` | -1 | unchanged | unchanged | 1 |
 | `get(3)` | 3 | `{3:(3,3), 4:(4,1)}` | `{1:[4], 3:[3]}` | 1 |
 | `get(4)` | 4 | `{3:(3,3), 4:(4,2)}` | `{2:[4], 3:[3]}` | **2** |
@@ -278,7 +278,7 @@ The clean expression of the Matani invariant is `get(3)`. Key 3 detaches from `f
 | `put(key, value)` (insert, no evict) | O(1) average | O(1) per op | One hash insert + one DLL push |
 | `put(key, value)` (insert, with evict) | O(1) average | O(1) per op | One DLL pop_front + two hash deletes + one hash insert + one DLL push |
 | `put(key, value)` (update existing) | O(1) average | O(1) per op | Same shape as `get` |
-| Total cache space for n items | — | O(n) | One `keyMap` entry + one list node per item; bucket count ≤ n[^1] |
+| Total cache space for n items | n/a | O(n) | One `keyMap` entry + one list node per item; bucket count ≤ n[^1] |
 
 The hash-map operations are O(1) **expected** under simple uniform hashing per CLRS Theorem 11.1.[^3] The doubly-linked-list operations are O(1) **worst-case** per CLRS §10.2. The Matani contribution is the data layout that pins the *eviction* step to O(1): without the freq-bucket structure, finding the LFU key requires scanning either the entire `keyMap` (O(n)) or a sorted heap (O(log n)).[^1] That is the brute-force baseline NeetCode's editorial walks first, before introducing the freq-bucket layout.[^7]
 
@@ -318,12 +318,12 @@ LC 460 does not ask for any of these. Mention them only if the interviewer pushe
 
 ### CORE (solve to claim chapter mastery)
 
-- [LC 460 — LFU Cache](https://leetcode.com/problems/lfu-cache/) [Hard] • hash-map-plus-frequency-bucketed-dll ★
+- [LC 460: LFU Cache](https://leetcode.com/problems/lfu-cache/) [Hard] • hash-map-plus-frequency-bucketed-dll ★
 
 ### STRETCH (optional)
 
-- [LC 1472 — Design Browser History](https://leetcode.com/problems/design-browser-history/) [Medium] • doubly-linked-list-with-cursor
-- [LC 2227 — Encrypt and Decrypt Strings](https://leetcode.com/problems/encrypt-and-decrypt-strings/) [Hard] • hash-table-bidirectional-with-precompute *(reference: Python only)*
+- [LC 1472: Design Browser History](https://leetcode.com/problems/design-browser-history/) [Medium] • doubly-linked-list-with-cursor
+- [LC 2227: Encrypt and Decrypt Strings](https://leetcode.com/problems/encrypt-and-decrypt-strings/) [Hard] • hash-table-bidirectional-with-precompute *(reference: Python only)*
 
 LC 1472 isolates the doubly-linked-list-with-cursor half of the dual-structure pattern from the hash-map half: same composition discipline, different secondary axis. LC 2227 tests the same "amortize the work into the constructor" mental shape that LFU uses to amortize frequency tracking into every operation.
 
@@ -349,6 +349,6 @@ For readers who want the production-grade modern variant of this chapter, Caffei
 
 [^6]: Oracle, Java SE 21 documentation, `LinkedHashSet`. The Java analogue of Python's `OrderedDict` for the freq-bucket role. <https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/LinkedHashSet.html>.
 
-[^7]: NeetCode, "460. LFU Cache — Explanation." Walks the brute-force O(n)-per-`put` baseline and the doubly-linked-list O(1) construction; lists the five canonical bugs that the warning callouts above mirror. <https://neetcode.io/solutions/lfu-cache>.
+[^7]: NeetCode, "460. LFU Cache: Explanation." Walks the brute-force O(n)-per-`put` baseline and the doubly-linked-list O(1) construction; lists the five canonical bugs that the warning callouts above mirror. <https://neetcode.io/solutions/lfu-cache>.
 
 [^8]: labuladong, "Implementing LFU Cache like Building a Lego." Top-down build of the LFU layout in seven sub-steps; calls out the `minFreq` update as the single most error-prone step in the algorithm. <https://labuladong.online/algo/en/frequency-interview/lfu/>.

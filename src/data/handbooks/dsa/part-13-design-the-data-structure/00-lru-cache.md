@@ -24,7 +24,7 @@ ladder:
 
 The LRU cache scares interview candidates twice. First when the prompt says `O(1) get and put with eviction` and they have to compose two data structures. Then again when the interviewer says `now make it thread-safe and tell me how you'd run it across three tiers of memory`. Caffeine, the JVM cache library that backs Spring, Kafka Streams, and most of the Java ecosystem since around 2014, ships [~30,000 lines of Java](https://github.com/ben-manes/caffeine) for exactly this second question. The first question is a 30-line warm-up; the second is the chapter.
 
-[The pointer-rewiring half of LC 146](../part-5-linked-lists/05-lru-cache.md) is the prerequisite. That chapter taught the doubly linked list and the four-pointer splice that puts a node at the head in O(1). This chapter assumes the reader can already write that code from memory, and asks the next question: what does an interviewer actually want to hear when they say "design an LRU cache"? The answer is rarely the algorithm — that they took for granted the moment they wrote the words "O(1) get and put". The answer is the API contract, the policy choices around it, the concurrency story, and the tier of memory the cache lives in.
+[The pointer-rewiring half of LC 146](../part-5-linked-lists/05-lru-cache.md) is the prerequisite. That chapter taught the doubly linked list and the four-pointer splice that puts a node at the head in O(1). This chapter assumes the reader can already write that code from memory, and asks the next question: what does an interviewer actually want to hear when they say "design an LRU cache"? The answer is rarely the algorithm: that they took for granted the moment they wrote the words "O(1) get and put". The answer is the API contract, the policy choices around it, the concurrency story, and the tier of memory the cache lives in.
 
 ## What the API has to deliver
 
@@ -107,7 +107,7 @@ class LRUCache:
         self._insert_at_front(new_node)
 ```
 
-> **Interactive widget:** [LRU cache (hash map + doubly linked list)](../widgets/w-15-lru-cache.yml) (panel `design_framing`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [LRU cache (hash map + doubly linked list)](../widgets/w-15-lru-cache.yml) (panel `design_framing`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: capacity 3 over a 9-op sequence. After three fills the cache holds [3,2,1]; `get(1)` promotes 1 to the front and key 2 falls to LRU; `put(4)` evicts 2; `get(2)` returns -1; `put(1, 999)` updates and refreshes (no eviction; key 4 falls to LRU); `put(5)` evicts 3; `get(3)` returns -1.*
 
@@ -128,7 +128,7 @@ class LRUCache:
     def get(self, key):
         if key not in self.cache:
             return -1
-        self.cache.move_to_end(key)         # O(1) — internally a DLL splice
+        self.cache.move_to_end(key)         # O(1): internally a DLL splice
         return self.cache[key]
 
     def put(self, key, value):
@@ -192,11 +192,11 @@ class UndergroundSystem:
         return total / n
 ```
 
-**Solution** — Python ([Java](./00-lru-cache/lc-1396/sol.java) · [C++](./00-lru-cache/lc-1396/sol.cpp) · [Go](./00-lru-cache/lc-1396/sol.go))
+**Solution** in Python ([Java](./00-lru-cache/lc-1396/sol.java) · [C++](./00-lru-cache/lc-1396/sol.cpp) · [Go](./00-lru-cache/lc-1396/sol.go))
 
 ```python
 # LC 1396. Design Underground System
-# Two cooperating hash maps — the same skeleton as LRU's index_+order_,
+# Two cooperating hash maps: the same skeleton as LRU's index_+order_,
 # stripped to its essence. checkIns is keyed by passenger id (lookup
 # the open trip); checkOuts is keyed by (start, end) station pair
 # (aggregate completed trips for an average).
@@ -308,7 +308,7 @@ LRU is the design-interview canonical and the right starting answer. It is rarel
 | **SIEVE** | Single FIFO queue with a moving "hand"; hits set a `visited` bit; eviction sweeps for the first unvisited entry. | Web workloads with high one-hit-wonder ratios. Newer (HOTOS 2023, NSDI 2024); not yet design-interview canonical, but cite when the interviewer asks "what's after LRU?"[^10] |
 | **PLRU / CLOCK-Pro** | Approximate LRU with one bit per entry. | Hardware caches where true LRU's per-line bookkeeping is too expensive. CPU L1/L2 caches and the Linux page cache run variants of this.[^9] |
 
-The chapter's argument lands here: LRU is the simplest member of a family, the one with the cleanest dual-structure proof, and the right thing to teach first because every more sophisticated policy is a refinement of the same underlying machinery — a hash map plus an ordering structure that the policy interrogates on eviction. ARC has four lists where LRU has one. LFU has a doubly linked list of frequency buckets where each bucket is a doubly linked list of entries. W-TinyLFU has a sketch on top of an LRU. The chapter teaches the chassis; the family extends it.
+The chapter's argument lands here: LRU is the simplest member of a family, the one with the cleanest dual-structure proof, and the right thing to teach first because every more sophisticated policy is a refinement of the same underlying machinery, a hash map plus an ordering structure that the policy interrogates on eviction. ARC has four lists where LRU has one. LFU has a doubly linked list of frequency buckets where each bucket is a doubly linked list of entries. W-TinyLFU has a sketch on top of an LRU. The chapter teaches the chassis; the family extends it.
 
 ## Two pitfalls that bite
 
@@ -322,23 +322,23 @@ The chapter's argument lands here: LRU is the simplest member of a family, the o
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 1396 — Design Underground System](https://leetcode.com/problems/design-underground-system/) [Medium] • hash-map-keyed-pair-aggregation ★
-- [LC 588 — Design In-Memory File System](https://leetcode.com/problems/design-in-memory-file-system/) [Hard] • trie-with-file-vs-dir-flag
+- [LC 1396: Design Underground System](https://leetcode.com/problems/design-underground-system/) [Medium] • hash-map-keyed-pair-aggregation ★
+- [LC 588: Design In-Memory File System](https://leetcode.com/problems/design-in-memory-file-system/) [Hard] • trie-with-file-vs-dir-flag
 
 ### STRETCH (optional)
 
-- [LC 535 — Encode and Decode TinyURL](https://leetcode.com/problems/encode-and-decode-tinyurl/) [Medium] • hash-map-bidirectional *(reference: Python only)*
-- [LC 1352 — Product of the Last K Numbers](https://leetcode.com/problems/product-of-the-last-k-numbers/) [Medium] • data-stream-with-prefix-product *(reference: Python only)*
+- [LC 535: Encode and Decode TinyURL](https://leetcode.com/problems/encode-and-decode-tinyurl/) [Medium] • hash-map-bidirectional *(reference: Python only)*
+- [LC 1352: Product of the Last K Numbers](https://leetcode.com/problems/product-of-the-last-k-numbers/) [Medium] • data-stream-with-prefix-product *(reference: Python only)*
 
-[LC 146 — LRU Cache](https://leetcode.com/problems/lru-cache/) is owned by [the Part 5 mechanics chapter](../part-5-linked-lists/05-lru-cache.md); the worked-example anchor for this chapter's API and concurrency framing, but not a CORE seat. The Easy band is structurally absent: design-interview problems with the multi-container framing canonicalize at Medium and above, and the patterns library carries this as the `core-emh-via-stretch` curation flag rather than padding the ladder with a single-container Easy that doesn't teach the chapter's pattern.
+[LC 146: LRU Cache](https://leetcode.com/problems/lru-cache/) is owned by [the Part 5 mechanics chapter](../part-5-linked-lists/05-lru-cache.md); the worked-example anchor for this chapter's API and concurrency framing, but not a CORE seat. The Easy band is structurally absent: design-interview problems with the multi-container framing canonicalize at Medium and above, and the patterns library carries this as the `core-emh-via-stretch` curation flag rather than padding the ladder with a single-container Easy that doesn't teach the chapter's pattern.
 
 ## Where this leads
 
-The frequency-axis generalization is [LFU cache](./01-lfu-cache.md) — same dual-structure chassis, doubly linked list of frequency buckets where each bucket is itself a doubly linked list of entries. Past that, [the hit-counter and rate-limiter chapter](./03-hit-counter-rate-limiter.md) takes the same "design with two cooperating containers" idea into stream-processing problems where the auxiliary structure is a bucket array rather than a linked list. The pattern is the same; the eviction question is what changes.
+The frequency-axis generalization is [LFU cache](./01-lfu-cache.md): same dual-structure chassis, doubly linked list of frequency buckets where each bucket is itself a doubly linked list of entries. Past that, [the hit-counter and rate-limiter chapter](./03-hit-counter-rate-limiter.md) takes the same "design with two cooperating containers" idea into stream-processing problems where the auxiliary structure is a bucket array rather than a linked list. The pattern is the same; the eviction question is what changes.
 
 ## References
 
-[^1]: Hello Interview Community, "Leetcode 146. LRU Cache — Common Mistakes and Constraints," `hellointerview.com/community/questions/lru-cache/cm5eh7nrh04r2838os7lk8nwf` (fetched 2026-05-20).
+[^1]: Hello Interview Community, "Leetcode 146. LRU Cache: Common Mistakes and Constraints," `hellointerview.com/community/questions/lru-cache/cm5eh7nrh04r2838os7lk8nwf` (fetched 2026-05-20).
 
 [^2]: Python documentation, [`collections.OrderedDict`](https://docs.python.org/3/library/collections.html#collections.OrderedDict).
 

@@ -1,14 +1,14 @@
-# Editorial widget — LC 1 Two Sum
+# Editorial widget: LC 1 Two Sum
 # Editorial widgets animate ONE specific signature problem at fixed input.
 # Preset-only; no randomize, no edit.
 
 id: e-LC001-two-sum
-title: "Two Sum (LC 1) — optimal one-pass hash map"
+title: "Two Sum (LC 1), optimal one-pass hash map"
 type: editorial-single-panel
 level: 1
 modes: [preset]
 
-# Editorial widgets do not expose user input — the canonical input is the lesson.
+# Editorial widgets do not expose user input: the canonical input is the lesson.
 caps:
   array_length: { fixed: 2 }       # exactly the canonical input length
 
@@ -32,7 +32,7 @@ panels:
   default:
     chapter: "1.3"
     primary_chapter: part-1-linear-data-structures/03-hash-maps
-    label: "Two Sum — one-pass hash"
+    label: "Two Sum, one-pass hash"
     canonical_input: |
       nums = [3, 3]
       target = 6
@@ -77,4 +77,4 @@ algorithm: hash-map-complement-lookup
 notes: |
   Animates the optimal one-pass hash-map.
   Brute force is NOT animated.
-  Reference editorial widget — every other editorial widget mirrors this shape.
+  Reference editorial widget: every other editorial widget mirrors this shape.

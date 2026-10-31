@@ -144,7 +144,7 @@ def find_cheapest_price(n, flights, src, dst, k):
     return -1 if dist[dst] == INF else int(dist[dst])
 ```
 
-**Solution** — Python ([Java](./10-bellman-ford/lc-787/sol.java) · [C++](./10-bellman-ford/lc-787/sol.cpp) · [Go](./10-bellman-ford/lc-787/sol.go))
+**Solution** in Python ([Java](./10-bellman-ford/lc-787/sol.java) · [C++](./10-bellman-ford/lc-787/sol.cpp) · [Go](./10-bellman-ford/lc-787/sol.go))
 
 ```python
 # LC 787. Cheapest Flights Within K Stops
@@ -190,7 +190,7 @@ Note the path `0 -> 1 -> 2 -> 3` costing `400` exists in the graph, but it uses 
 
 The widget animates this two-edge trace plus a richer five-vertex graph that lets you watch the early-termination optimization fire and the `|V|`-th pass clear or trigger.
 
-> **Interactive widget:** [Bellman-Ford with negative-cycle detection](../widgets/w-37-bellman-ford.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Bellman-Ford with negative-cycle detection](../widgets/w-37-bellman-ford.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: on the canonical 5-node CLRS graph, the run terminates after `|V| - 1 = 4` passes with `dist = [0, 2, 7, 4, -2]`; pass 3 relaxes nothing, so a smart implementation breaks the loop on convergence, but the textbook version runs all four passes; the V-th pass relaxes nothing and confirms no negative cycle is reachable from `0`.*
 
@@ -204,9 +204,9 @@ The `|V|`-th pass, the fourth, relaxes the edge `(1, 2, 2)` again, dropping `dis
 
 The widget's second panel (`neg_cycle`) animates this exact 20-step trace; the same code that printed a clean `dist` on the canonical input now halts at step 18 with a vermilion banner.
 
-> **Interactive widget:** [Bellman-Ford with negative-cycle detection](../widgets/w-37-bellman-ford.yml) (panel `neg_cycle`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Bellman-Ford with negative-cycle detection](../widgets/w-37-bellman-ford.yml) (panel `neg_cycle`), rendered on the website; the YAML spec describes the keyframes.
 
-*Static fallback: 4-vertex graph with the negative triangle `1 -> 2 -> 3 -> 1` (sum -2). Three passes show `dist` diverging — `[0, 1, 3, -2]`, `[0, -3, 1, -4]`, `[0, -5, -1, -6]` — instead of converging. The `|V|`-th pass detects a still-relaxing edge and returns the negative-cycle flag in lieu of distances.*
+*Static fallback: 4-vertex graph with the negative triangle `1 -> 2 -> 3 -> 1` (sum -2). Three passes show `dist` diverging (`[0, 1, 3, -2]`, `[0, -3, 1, -4]`, `[0, -5, -1, -6]`) instead of converging. The `|V|`-th pass detects a still-relaxing edge and returns the negative-cycle flag in lieu of distances.*
 
 ## SPFA: Bellman-Ford with a queue
 
@@ -230,13 +230,13 @@ A third pitfall worth naming briefly: integer overflow when computing `dist[u] +
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 787 — Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) [Medium] • bellman-ford-k-edge-bound ★
-- [LC 1786 — Number of Restricted Paths From First to Last Node](https://leetcode.com/problems/number-of-restricted-paths-from-first-to-last-node/) [Medium] • bellman-ford-on-distance-DAG *(reference: Python only)*
-- [LC 1928 — Minimum Cost to Reach Destination in Time](https://leetcode.com/problems/minimum-cost-to-reach-destination-in-time/) [Hard] • bellman-ford-with-time-state *(reference: Python only)*
+- [LC 787: Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) [Medium] • bellman-ford-k-edge-bound ★
+- [LC 1786: Number of Restricted Paths From First to Last Node](https://leetcode.com/problems/number-of-restricted-paths-from-first-to-last-node/) [Medium] • bellman-ford-on-distance-DAG *(reference: Python only)*
+- [LC 1928: Minimum Cost to Reach Destination in Time](https://leetcode.com/problems/minimum-cost-to-reach-destination-in-time/) [Hard] • bellman-ford-with-time-state *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 882 — Reachable Nodes In Subdivided Graph](https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/) [Hard] • dijkstra-with-budget *(reference: Python only)*
+- [LC 882: Reachable Nodes In Subdivided Graph](https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/) [Hard] • dijkstra-with-budget *(reference: Python only)*
 
 LC 787 is the chapter's signature problem and the one the worked example and widget animate. LC 1786 generalizes the relaxation-as-DP framing: Dijkstra computes shortest distances from the target, the distances induce a DAG, and a Bellman-Ford-flavored DP counts paths over that DAG modulo `10^9 + 7`. LC 1928 stretches LC 787's "pass `i` corresponds to edges-used = `i`" mapping to a `(city, time-used)` lattice and is the hardest single bit in the chapter. LC 882 is the adjacent-pattern Hard: not pure Bellman-Ford, but the "relaxation under a budget" mental model from LC 787 transfers wholesale to its Dijkstra-with-max-moves solution.
 
@@ -250,8 +250,8 @@ Bellman-Ford itself is a dynamic program over edge count, which is why Part 9 on
 
 [^1]: Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022, Chapter 22 §22.1 "The Bellman-Ford algorithm", pp.
 
-[^2]: Ivanov et al., "Bellman-Ford — finding shortest paths with negative weights," CP-Algorithms, last updated 2025-09-10. <https://cp-algorithms.com/graph/bellman_ford.html>.
+[^2]: Ivanov et al., "Bellman-Ford: finding shortest paths with negative weights," CP-Algorithms, last updated 2025-09-10. <https://cp-algorithms.com/graph/bellman_ford.html>.
 
-[^3]: Wong, Ka Wai (@wkw), "0787 — Cheapest Flights Within K Stops (Medium)," LeetCodeTheHardWay, retrieved 2026-05-20. <http://leetcodethehardway.com/solutions/0700-0799/cheapest-flights-within-k-stops-medium>.
+[^3]: Wong, Ka Wai (@wkw), "0787, Cheapest Flights Within K Stops (Medium)," LeetCodeTheHardWay, retrieved 2026-05-20. <http://leetcodethehardway.com/solutions/0700-0799/cheapest-flights-within-k-stops-medium>.
 
 [^4]: leetcode.ca mirror of LC 787, "Cheapest Flights Within K Stops," retrieved 2026-05-20. <https://leetcode.ca/all/787.html>.

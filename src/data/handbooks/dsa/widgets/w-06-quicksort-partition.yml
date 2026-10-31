@@ -1,4 +1,4 @@
-# Quicksort partition (Lomuto) — chapter 2.4 dedicated widget
+# Quicksort partition (Lomuto): chapter 2.4 dedicated widget
 # Level 2 zoom-in on a single Lomuto partition pass. Where w-05 panel-b shows
 # the recursion tree at speed (one step per partition), this widget freezes
 # on one partition and animates the i/j sweep cell-by-cell so the loop

@@ -32,7 +32,7 @@ flowchart TD
     Q1 -- "the input value itself" --> A1[Kth-largest by value<br/>LC 215]
     Q1 -- "a derived frequency<br/>computed from the input" --> A2[K-most-frequent<br/>LC 347, LC 692]
     Q1 -- "a derived numeric key<br/>under a custom comparator" --> A3[K-closest by distance<br/>LC 973]
-    A1 -.streaming source?.-> S[Streaming variant<br/>LC 703 — same recipe, online]
+    A1 -.streaming source?.-> S[Streaming variant<br/>LC 703 - same recipe, online]
     A2 -.bounded key range?.-> B[Bucket-sort alternative<br/>O&#40;n&#41; when frequencies fit in n+1 buckets]
     A3 -.no built-in tuple order?.-> C[Custom comparator<br/>per-language idiom]
 ```
@@ -108,28 +108,28 @@ Owns this variant: [Quickselect: linear-time selection](../part-2-search-sort/07
 | Rank key | The element itself | A derived count over the input | A derived numeric score on a compound object |
 | Comparator | Natural `<` on the value type | Compare on the frequency slot of `(freq, value)` | Compare on the score slot of `(score, payload)` |
 | Heap orientation for top-K-largest | Min-heap of size `K`, root evicts | Min-heap of size `K` keyed on frequency, root evicts | Max-heap of size `K` keyed on score (closest = smallest distance, so a max-heap holds the K-smallest) |
-| Reduction step | None — input is already the candidate | Hash-map count over `n` elements | Score per candidate cached once |
+| Reduction step | None: input is already the candidate | Hash-map count over `n` elements | Score per candidate cached once |
 | Heap-recipe complexity | `O(n log K)` time, `O(K)` space | `O(n)` reduce + `O(d log K)` heap | `O(n log K)` time, `O(K)` space |
 | Quickselect-recipe complexity | `O(n)` expected | `O(d)` expected on the reduced pairs | `O(n)` expected on cached scores |
-| Canonical problem | LC 215 — Kth Largest Element in an Array | LC 347 — Top K Frequent Elements | LC 973 — K Closest Points to Origin |
+| Canonical problem | LC 215: Kth Largest Element in an Array | LC 347: Top K Frequent Elements | LC 973: K Closest Points to Origin |
 
 The orientation row is the load-bearing column. K-closest *looks* like top-K-largest because it's still "the K with the highest priority," but the priority is *smallness* on the distance axis, which inverts the heap polarity. Get the polarity wrong and the algorithm evicts the K answers and keeps the rest.
 
 ## Three signature problems
 
-### LC 215 — Kth Largest Element in an Array
+### LC 215: Kth Largest Element in an Array
 
 [https://leetcode.com/problems/kth-largest-element-in-an-array/](https://leetcode.com/problems/kth-largest-element-in-an-array/) (Medium).
 
 The Kth-largest-by-value canonical. Given `nums = [3, 2, 1, 5, 6, 4], K = 2`, return `5`. Heap recipe: walk the array, push each element into a min-heap, pop the root whenever size exceeds 2; final `heap[0]` is `5`. Quickselect recipe: target index `n - K = 4`, partition around a random pivot, recurse on the side containing index 4. Both submit; the editorial answer in interview settings leads with the heap as the readable solution and offers quickselect as the optimization the interviewer can pull on.[^1]
 
-### LC 347 — Top K Frequent Elements
+### LC 347: Top K Frequent Elements
 
 [https://leetcode.com/problems/top-k-frequent-elements/](https://leetcode.com/problems/top-k-frequent-elements/) (Medium).
 
 The K-most-frequent canonical. Given `nums = [1, 1, 1, 2, 2, 3], K = 2`, return `[1, 2]`. Stage one: `Counter(nums)` produces `{1: 3, 2: 2, 3: 1}`. Stage two: push `(freq, value)` pairs into a size-`K` min-heap on the frequency slot; the final heap holds `[(2, 2), (3, 1)]`, and the answer set is the value column. The problem statement explicitly asks for better than `O(n log n)`, which the bucket-sort variant satisfies at `O(n)` worst case.[^6]
 
-### LC 973 — K Closest Points to Origin
+### LC 973: K Closest Points to Origin
 
 [https://leetcode.com/problems/k-closest-points-to-origin/](https://leetcode.com/problems/k-closest-points-to-origin/) (Medium).
 

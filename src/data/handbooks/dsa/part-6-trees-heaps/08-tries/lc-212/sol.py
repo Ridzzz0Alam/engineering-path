@@ -6,7 +6,7 @@
 # Trie-accelerated backtracking: insert all words into a trie keyed by
 # board characters; DFS from each cell advances both the cell pointer
 # AND the trie node pointer. A missing trie child is an instant
-# backtrack — the entire subtree of patterns sharing that prefix is
+# backtrack: the entire subtree of patterns sharing that prefix is
 # pruned in O(1). After finding a word, set is_end = False to suppress
 # re-finding; prune leaf nodes upward to shrink the trie on the fly.
 from typing import Dict, List

@@ -98,15 +98,15 @@ The crossover where the two break even is roughly when `log K` matches quicksele
 
 The three problems most-asked at FAANG-tier loops, with which algorithm fits and why.
 
-### LC 215 — Kth Largest Element in an Array (Medium)
+### LC 215: Kth Largest Element in an Array (Medium)
 
 Both algorithms apply. The official LeetCode editorial walks heap first, then quickselect.[^8] [LC 215](https://leetcode.com/problems/kth-largest-element-in-an-array/) is the chapter signature for [Quickselect: linear-time selection](../part-2-search-sort/07-quickselect.md), where the quickselect path lives in full. The interview play is to state the heap solution as the readable answer, then offer quickselect as the optimization: "if you want `O(n)` expected, I can replace this with quickselect; the trade-off is `O(n^2)` against adversarial input, mitigatable with a random pivot or introselect."
 
-### LC 347 — Top K Frequent Elements (Medium)
+### LC 347: Top K Frequent Elements (Medium)
 
 Heap-natural. The first stage is a hash map of `(value, count)` pairs in `O(n)`; the second stage runs a size-K min-heap on the count dimension. Quickselect on the `(value, count)` pairs is also valid and gives `O(n)` expected, but the heap reads cleaner and the count-keyed comparator transfers directly into the heap API. [LC 347](https://leetcode.com/problems/top-k-frequent-elements/).
 
-### LC 973 — K Closest Points to Origin (Medium)
+### LC 973: K Closest Points to Origin (Medium)
 
 Both algorithms apply, with the same calculus as LC 215. The key is the squared distance from origin; the comparator runs on the key, the swap moves the compound `(x, y)` object. Quickselect on the derived key is the chapter signature for the quickselect chapter; the heap version with `(squared_distance, x, y)` tuples is the safe interview default. [LC 973](https://leetcode.com/problems/k-closest-points-to-origin/).
 
@@ -130,7 +130,7 @@ Half right. Plain Lomuto-with-fixed-pivot is `O(n^2)` worst case, and an adversa
 
 ### "A heap of size K means K elements at all times."
 
-Some implementations push first, then pop on overflow, so the heap briefly holds K+1 elements. Others use `heappushpop` in a single call when the heap is already at K — the new value displaces the root only if it beats the threshold, and the heap stays at exactly K. Both are correct; the K+1 transient is fine because the asymptotic bound is the same (`O(log K)` per arrival in either form). The one place this matters is space-tight environments where you genuinely cannot allocate a K+1-th slot, and there `heappushpop` is the right primitive. `heapq.heappushpop` in Python and the equivalent in libc++'s `priority_queue` adapter are the canonical references.
+Some implementations push first, then pop on overflow, so the heap briefly holds K+1 elements. Others use `heappushpop` in a single call when the heap is already at K: the new value displaces the root only if it beats the threshold, and the heap stays at exactly K. Both are correct; the K+1 transient is fine because the asymptotic bound is the same (`O(log K)` per arrival in either form). The one place this matters is space-tight environments where you genuinely cannot allocate a K+1-th slot, and there `heappushpop` is the right primitive. `heapq.heappushpop` in Python and the equivalent in libc++'s `priority_queue` adapter are the canonical references.
 
 ### "Quickselect on a streaming input."
 

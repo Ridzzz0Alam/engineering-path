@@ -1,4 +1,4 @@
-// LC linear search — Knuth Algorithm B (The Art of Computer Programming Vol 3 §6.1).
+// LC linear search: Knuth Algorithm B (The Art of Computer Programming Vol 3 §6.1).
 // Primitive int[] (not Integer[]) per the four-language idiom contract: avoids
 // boxing on the hot path. Returns the first index where nums[i] == target,
 // or -1 if no such index exists.

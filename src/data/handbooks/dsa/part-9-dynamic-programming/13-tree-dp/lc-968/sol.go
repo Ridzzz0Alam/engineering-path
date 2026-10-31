@@ -28,16 +28,16 @@ func minCameraCover(root *TreeNode) int {
 		}
 		l := dfs(node.Left)
 		r := dfs(node.Right)
-		// Any child unmonitored — place a camera here.
+		// Any child unmonitored: place a camera here.
 		if l == needsCover || r == needsCover {
 			cameras++
 			return hasCamera
 		}
-		// Any child holds a camera — this node is covered by it.
+		// Any child holds a camera, and this node is covered by it.
 		if l == hasCamera || r == hasCamera {
 			return covered
 		}
-		// Both children covered, none has a camera — this node needs cover.
+		// Both children covered, none has a camera, and this node needs cover.
 		return needsCover
 	}
 	if dfs(root) == needsCover {

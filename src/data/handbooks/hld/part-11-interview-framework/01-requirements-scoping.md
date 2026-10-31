@@ -13,7 +13,7 @@ date_updated: 2026-05-10
 
 # Requirements Scoping: Functional, Non-Functional, and MoSCoW
 
-> **TL;DR**: The first five minutes of a system design interview decide the next forty. Requirements scoping splits an ambiguous prompt into three artifacts: functional requirements (what the system does), non-functional requirements (how well it does it), and a MoSCoW prioritization that commits you to a scope you can actually design in the remaining time. Candidates who skip scoping frequently fail to deliver a complete design--the most common reason mid-level candidates fail these interviews[^1]. Three questions are always worth their time: scale (DAU, QPS), latency SLO, and consistency model. Everything else is contingency.
+> **TL;DR**: The first five minutes of a system design interview decide the next forty. Requirements scoping splits an ambiguous prompt into three artifacts: functional requirements (what the system does), non-functional requirements (how well it does it), and a MoSCoW prioritization that commits you to a scope you can actually design in the remaining time. Candidates who skip scoping frequently fail to deliver a complete design: the most common reason mid-level candidates fail these interviews[^1]. Three questions are always worth their time: scale (DAU, QPS), latency SLO, and consistency model. Everything else is contingency.
 
 ## Learning Objectives
 

@@ -1,4 +1,4 @@
-// LC: none — chapter mechanic (AVL insert with rebalance)
+// LC: none, chapter mechanic (AVL insert with rebalance)
 public final class Sol {
 
     static class Node {

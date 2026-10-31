@@ -362,7 +362,7 @@ panels:
         kind: pushChoice
         payload: { value: 3, depth: 2 }
         state: { path: [2, 2, 3], remaining: 0, emitted: 0, current_node: "[2,2,3]" }
-        narration: "Choose 3. remaining = 0 — target hit exactly."
+        narration: "Choose 3. remaining = 0: target hit exactly."
       - step: 7
         kind: snapshot
         payload: { path: [2, 2, 3] }
@@ -412,7 +412,7 @@ panels:
         kind: pushChoice
         payload: { value: 7, depth: 0 }
         state: { path: [7], remaining: 0, emitted: 1, current_node: "[7]" }
-        narration: "Skipping 6 (subtree explored and pruned similarly), choose 7 at root. remaining = 0 — target hit."
+        narration: "Skipping 6 (subtree explored and pruned similarly), choose 7 at root. remaining = 0: target hit."
       - step: 17
         kind: snapshot
         payload: { path: [7] }
@@ -426,7 +426,7 @@ panels:
 
   panel-template:
     chapter: "7.1"
-    label: "Backtracking template (LC 17 — Letter Combinations of a Phone Number)"
+    label: "Backtracking template (LC 17 - Letter Combinations of a Phone Number)"
     canonical_input: |
       digits = "23"
       keypad = {2: "abc", 3: "def"}
@@ -614,13 +614,13 @@ notes: |
   snapshot rule and the next-available-element rule change.
 
   Pedagogically critical moments per panel:
-  - Subsets: step 0 (root snapshot — the empty subset is the FIRST one
-    emitted, not the last) and step 7 (first backtrack — pop AFTER the
+  - Subsets: step 0 (root snapshot, the empty subset is the FIRST one
+    emitted, not the last) and step 7 (first backtrack: pop AFTER the
     leaf snapshot, not before).
   - Permutations: step 1 (used[0] = true, the structural difference
     from subsets) and step 12 (used[0] = false on backtrack, the
     "unchoose" half of choose-explore-unchoose).
-  - Combination Sum: step 2 (reuse — the same value 2 chosen twice in
+  - Combination Sum: step 2 (reuse, the same value 2 chosen twice in
     a row, possible because recursion advances i not i+1) and step 4
-    (the first prune — the branch-and-bound cut that keeps the search
+    (the first prune: the branch-and-bound cut that keeps the search
     tree finite even when reuse is allowed).

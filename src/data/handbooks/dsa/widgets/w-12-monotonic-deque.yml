@@ -135,7 +135,7 @@ panels:
         kind: popTail
         payload: { popped_index: 4, popped_value: 5 }
         state: { i: 6, deque_indices: [], deque_values: [], output: [3, 3, 5, 5] }
-        narration: "i=6, x=6: tail value 5 <= 6. Dominated. Pop. Deque empty. The previous max is gone — but it was about to age out anyway."
+        narration: "i=6, x=6: tail value 5 <= 6. Dominated. Pop. Deque empty. The previous max is gone, but it was about to age out anyway."
       - step: 17
         kind: push
         payload: { index: 6, value: 6 }

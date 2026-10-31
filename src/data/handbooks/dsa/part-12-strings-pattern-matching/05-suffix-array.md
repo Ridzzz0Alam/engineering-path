@@ -89,7 +89,7 @@ def build_suffix_array(s):
     return sa
 ```
 
-**Solution** — Python ([Java](./05-suffix-array/build-suffix-array/sol.java) · [C++](./05-suffix-array/build-suffix-array/sol.cpp) · [Go](./05-suffix-array/build-suffix-array/sol.go))
+**Solution** in Python ([Java](./05-suffix-array/build-suffix-array/sol.java) · [C++](./05-suffix-array/build-suffix-array/sol.cpp) · [Go](./05-suffix-array/build-suffix-array/sol.go))
 
 ```python
 # Suffix array via prefix doubling, plus Kasai LCP. O(n log^2 n) build, O(n) LCP.
@@ -254,8 +254,8 @@ This chapter is foundation/framework-exempt: the LeetCode catalogue under-emphas
 
 ### Anchor problems (illustrative; not graded as CORE)
 
-- [LC 1163 — Last Substring in Lexicographical Order](https://leetcode.com/problems/last-substring-in-lexicographical-order/) [Hard] • suffix-array-conceptual
-- [LC 1062 — Longest Repeating Substring](https://leetcode.com/problems/longest-repeating-substring/) [Medium, Premium] • suffix-array + LCP *(reference: Python only)*
+- [LC 1163: Last Substring in Lexicographical Order](https://leetcode.com/problems/last-substring-in-lexicographical-order/) [Hard] • suffix-array-conceptual
+- [LC 1062: Longest Repeating Substring](https://leetcode.com/problems/longest-repeating-substring/) [Medium, Premium] • suffix-array + LCP *(reference: Python only)*
 
 LC 1163 asks for the lexicographically largest suffix; the textbook solve builds the SA and returns `s[SA[n - 1]:]`. The accepted O(n) editorial uses two pointers without an SA, but the SA framing is the version this chapter prepares you to write. LC 1062's textbook solve is `max(LCP)` after Kasai; the published editorial leans on binary-search-on-length plus rolling hashes because the Premium tier was not optimised for SA exposition. The free alternative LC 1044 *Longest Duplicate Substring* admits the same SA + LCP solution.
 

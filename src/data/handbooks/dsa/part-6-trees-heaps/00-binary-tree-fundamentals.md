@@ -123,7 +123,7 @@ flowchart TD
 
 *A complete tree stored in a flat array `[50, 30, 40, 10, 20, 15, 25]`. The pointers are computed, not stored: parent of index 4 is `(4-1)/2 = 1`, children of index 1 are `2*1+1 = 3` and `2*1+2 = 4`. CLRS §6.1 uses indices starting at 1 with `2*i` and `2*i+1`; modern code uses 0-indexing with `2*i+1` and `2*i+2`.*[^6]
 
-Array-backed wins when the tree is dense and you only ever push to the next free slot or pop from the last filled slot. That's exactly the heap contract. Chapter 6.4 will use this representation in earnest. For everything else in Part 6 — BSTs, AVL trees, tries, segment trees — you want pointers, because their balance properties don't keep the tree complete.
+Array-backed wins when the tree is dense and you only ever push to the next free slot or pop from the last filled slot. That's exactly the heap contract. Chapter 6.4 will use this representation in earnest. For everything else in Part 6 (BSTs, AVL trees, tries, segment trees) you want pointers, because their balance properties don't keep the tree complete.
 
 ## The post-order recursion template
 
@@ -151,7 +151,7 @@ def height(node):
     return 1 + max(lh, rh)                    # canonical post-order combine
 ```
 
-**Solution** — Python ([Java](./00-binary-tree-fundamentals/lc-110/sol.java) · [C++](./00-binary-tree-fundamentals/lc-110/sol.cpp) · [Go](./00-binary-tree-fundamentals/lc-110/sol.go))
+**Solution** in Python ([Java](./00-binary-tree-fundamentals/lc-110/sol.java) · [C++](./00-binary-tree-fundamentals/lc-110/sol.cpp) · [Go](./00-binary-tree-fundamentals/lc-110/sol.go))
 
 ```python
 # LC 110. Balanced Binary Tree
@@ -216,7 +216,7 @@ def lowest_common_ancestor(node, p, q):
     return left if left else right            # propagate the one we found
 ```
 
-The decision at each node is exactly the same shape as the height-or-sentinel: post-order, combine at the parent. Only the carrier — what each call returns — has changed. Sentinel integers, node references, tuples of multiple facts, mutable globals threaded through the helper: every variant in the rest of Part 6 swaps the carrier and keeps the post-order spine.
+The decision at each node is exactly the same shape as the height-or-sentinel: post-order, combine at the parent. Only the carrier (what each call returns) has changed. Sentinel integers, node references, tuples of multiple facts, mutable globals threaded through the helper: every variant in the rest of Part 6 swaps the carrier and keeps the post-order spine.
 
 ## What it actually costs
 
@@ -226,8 +226,8 @@ The decision at each node is exactly the same shape as the height-or-sentinel: p
 | Naive LC 110 (recompute height per node) | O(n √n) worst | O(h) | Tighter than the commonly-cited O(n²).[^7] |
 | LC 104 max depth | O(n) | O(h) | Pure post-order combine.[^4] |
 | LC 236 LCA | O(n) | O(h) | Single tree walk; propagate found targets up.[^5] |
-| Balanced tree height | h = ⌊log₂ n⌋ | — | Recursion stack stays logarithmic.[^6] |
-| Skewed tree (left-only chain) | h = n - 1 | — | Recursion stack matches input depth; this is where Python trips.[^11] |
+| Balanced tree height | h = ⌊log₂ n⌋ | n/a | Recursion stack stays logarithmic.[^6] |
+| Skewed tree (left-only chain) | h = n - 1 | n/a | Recursion stack matches input depth; this is where Python trips.[^11] |
 
 Two of those rows deserve a closer look.
 
@@ -271,14 +271,14 @@ Java, C++, and Go don't need this; their default thread stacks tolerate the dept
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 110 — Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/) [Easy] • tree-recursion-divide-and-conquer ★
-- [LC 104 — Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) [Easy] • tree-recursion-divide-and-conquer
-- [LC 236 — Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) [Medium] • tree-recursion-with-combine-flags
+- [LC 110: Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/) [Easy] • tree-recursion-divide-and-conquer ★
+- [LC 104: Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) [Easy] • tree-recursion-divide-and-conquer
+- [LC 236: Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) [Medium] • tree-recursion-with-combine-flags
 
 ### STRETCH (optional)
 
-- [LC 543 — Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) [Easy] • tree-recursion-with-global-state
-- [LC 100 — Same Tree](https://leetcode.com/problems/same-tree/) [Easy] • tree-recursion-on-two-trees
+- [LC 543: Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) [Easy] • tree-recursion-with-global-state
+- [LC 100: Same Tree](https://leetcode.com/problems/same-tree/) [Easy] • tree-recursion-on-two-trees
 
 LC 543 and LC 100 are STRETCH because they extend the post-order template in two specific directions: LC 543 threads a mutable global through the height helper (the shape that scales up to LC 124 *Maximum Path Sum* in tree DP), and LC 100 walks two trees in lockstep (the shape that scales up to BST structural validation at chapter 6.5).
 

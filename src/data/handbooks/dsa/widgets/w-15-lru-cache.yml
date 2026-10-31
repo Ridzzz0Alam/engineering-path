@@ -1,4 +1,4 @@
-# LRU Cache — chapter widget for 5.5
+# LRU Cache: chapter widget for 5.5
 # Single-panel widget with two synchronized sub-views (hash map + doubly linked list)
 # animating LC 146 on the canonical capacity=2 sequence.
 
@@ -209,7 +209,7 @@ panels:
              put(4,400), get(2), put(1,999), put(5,500), get(3)]
     presets:
       - id: design_canonical
-        label: "Design framing — cap=3, 9 ops surfacing every API outcome"
+        label: "Design framing, cap=3, 9 ops surfacing every API outcome"
         input:
           capacity: 3
           ops:
@@ -302,7 +302,7 @@ panels:
         state:
           phase: "update"
           op: "put(1,999)"
-          header: "[capacity 3 | size 3/3 | last op: put(1,999) — update, no evict]"
+          header: "[capacity 3 | size 3/3 | last op: put(1,999), update, no evict]"
           dll_view: [1, 4, 3]
           mru: 1
           lru: 3

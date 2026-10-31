@@ -3,7 +3,7 @@ package main
 
 // Shape 2 of tree DP: post-order returns subtree sum; counts map captures
 // every sum the recursion produces. Go's closure over `counts` and `best`
-// is the natural idiom — no array wrapper, no class field.
+// is the natural idiom: no array wrapper, no class field.
 func findFrequentTreeSum(root *TreeNode) []int {
 	if root == nil {
 		return []int{}

@@ -1,4 +1,4 @@
-"""LC linear search — scan an unsorted sequence, return first match index.
+"""LC linear search: scan an unsorted sequence, return first match index.
 
 The contract: walk the array left to right, return the index of the first
 element equal to target, or -1 if none. This is Knuth Algorithm B from

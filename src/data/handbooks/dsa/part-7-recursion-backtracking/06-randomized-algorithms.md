@@ -1,6 +1,6 @@
 ---
 title: "Randomized algorithms: Fisher-Yates, reservoir sampling, rejection sampling"
-description: "Three randomized recipes — Fisher-Yates shuffle, reservoir sampling, rejection sampling — whose proofs of uniform correctness are the actual lesson, not the code."
+description: "Three randomized recipes (Fisher-Yates shuffle, reservoir sampling, rejection sampling) whose proofs of uniform correctness are the actual lesson, not the code."
 slug: 06-randomized-algorithms
 part: 7
 chapter: 6
@@ -28,7 +28,7 @@ Three problems from three different families share that property in this chapter
 
 ## The taxonomy: Las Vegas versus Monte Carlo
 
-Randomized algorithms split into two families along a single axis: when the random coins betray you, what fails — the answer or the runtime?[^1]
+Randomized algorithms split into two families along a single axis: when the random coins betray you, what fails, the answer or the runtime?[^1]
 
 A **Las Vegas algorithm** always returns a correct answer. The randomness affects how long it takes; on a bad coin sequence, the algorithm runs longer, but the output stays right. Randomized quicksort and quickselect from [Quickselect: linear-time selection](../part-2-search-sort/07-quickselect.md) are the canonical examples. The pivot is uniform-random; a streak of bad pivots costs you `Theta(n^2)` work in the worst case, but the answer at the end is the k-th element either way.
 
@@ -77,7 +77,7 @@ class Solution:
         return arr
 ```
 
-**Solution** — Python ([Java](./06-randomized-algorithms/lc-384/sol.java) · [C++](./06-randomized-algorithms/lc-384/sol.cpp) · [Go](./06-randomized-algorithms/lc-384/sol.go))
+**Solution** in Python ([Java](./06-randomized-algorithms/lc-384/sol.java) · [C++](./06-randomized-algorithms/lc-384/sol.cpp) · [Go](./06-randomized-algorithms/lc-384/sol.go))
 
 ```python
 # LC 384. Shuffle an Array
@@ -125,7 +125,7 @@ The complexity is `Theta(n)` time and `O(1)` extra space, both tight. Every unif
 
 ## Reservoir sampling: pick from a stream you cannot rewind
 
-LeetCode 398 (Random Pick Index) sets the trap. Given `nums` and a target value, return a uniformly random index where the value appears. The array can be huge; calls to `pick(target)` are frequent. The clean answer — bucket every value at construction time, then index uniformly into the bucket — works when the array fits in memory. When it does not, when the array arrives as a stream you cannot index, the bucket approach collapses.
+LeetCode 398 (Random Pick Index) sets the trap. Given `nums` and a target value, return a uniformly random index where the value appears. The array can be huge; calls to `pick(target)` are frequent. The clean answer: bucket every value at construction time, then index uniformly into the bucket, works when the array fits in memory. When it does not, when the array arrives as a stream you cannot index, the bucket approach collapses.
 
 Reservoir sampling is the streaming analogue. Keep a single slot. As the stream arrives, replace what is in the slot with probability `1/i` on the `i`-th item; keep the current pick with probability `1 - 1/i`. After processing the entire stream of length `n`, the slot holds a uniformly random item; every input item ended up there with probability exactly `1/n`. The algorithm runs in one pass with `O(1)` extra space. It is the algorithm Knuth's confession was about.[^6]
 
@@ -233,7 +233,7 @@ LeetCode 470 (Implement Rand10() Using Rand7()) is the cleanest rejection-sampli
 
 The naive answer ignores this. Combine two `rand7()` calls into a number in `{0, ..., 48}` and take the result modulo 10. This is wrong. Residues 0 through 8 each appear five times in `{0, ..., 48}` (count: `0, 10, 20, 30, 40` for residue 0) but residue 9 appears only four times (`9, 19, 29, 39`; the candidate at 49 is missing because the sum maxes at 48). Probability of `rand10 == 1` is approximately `5/49 = 0.102`, not `0.1`. The bias is small but visible across millions of draws and large enough that any platform that needs uniformity (cryptographic shuffles, Monte Carlo simulations, fair-coin experiments) cannot ship it.
 
-Rejection sampling fixes the bias by throwing the bad outcomes out. Two `rand7()` calls form 49 equally-likely outcomes. Map them to the integers `{1, 2, ..., 49}`. Accept the first 40, project them onto `{1, ..., 10}` (four 1s, four 2s, ..., four 10s — uniform), and *reject* the last 9, redrawing from scratch. The rejected region is the algorithm's safety valve; throwing those outcomes away is what makes the surviving distribution uniform.
+Rejection sampling fixes the bias by throwing the bad outcomes out. Two `rand7()` calls form 49 equally-likely outcomes. Map them to the integers `{1, 2, ..., 49}`. Accept the first 40, project them onto `{1, ..., 10}` (four 1s, four 2s, ..., four 10s: uniform), and *reject* the last 9, redrawing from scratch. The rejected region is the algorithm's safety valve; throwing those outcomes away is what makes the surviving distribution uniform.
 
 ```python
 def rand10() -> int:
@@ -248,7 +248,7 @@ def rand10() -> int:
 
 
 def rand7() -> int:
-    """Stub — interview problem provides this as a black box returning
+    """Stub: interview problem provides this as a black box returning
     a uniform integer in 1..7. The real harness injects the LC version.
     """
     raise NotImplementedError
@@ -303,14 +303,14 @@ The randomized-algorithm canonical pool on LeetCode is Medium-or-Hard; no Easy p
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 384 — Shuffle an Array](https://leetcode.com/problems/shuffle-an-array/) [Medium] • randomized-shuffle ★
-- [LC 398 — Random Pick Index](https://leetcode.com/problems/random-pick-index/) [Medium] • reservoir-sampling *(reference: Python only)*
-- [LC 710 — Random Pick with Blacklist](https://leetcode.com/problems/random-pick-with-blacklist/) [Hard] • rejection-sampling-with-remap *(reference: Python only)*
+- [LC 384: Shuffle an Array](https://leetcode.com/problems/shuffle-an-array/) [Medium] • randomized-shuffle ★
+- [LC 398: Random Pick Index](https://leetcode.com/problems/random-pick-index/) [Medium] • reservoir-sampling *(reference: Python only)*
+- [LC 710: Random Pick with Blacklist](https://leetcode.com/problems/random-pick-with-blacklist/) [Hard] • rejection-sampling-with-remap *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 470 — Implement Rand10() Using Rand7()](https://leetcode.com/problems/implement-rand10-using-rand7/) [Medium] • rejection-sampling *(reference: Python only)*
-- [LC 382 — Linked List Random Node](https://leetcode.com/problems/linked-list-random-node/) [Medium] • reservoir-sampling-streaming
+- [LC 470: Implement Rand10() Using Rand7()](https://leetcode.com/problems/implement-rand10-using-rand7/) [Medium] • rejection-sampling *(reference: Python only)*
+- [LC 382: Linked List Random Node](https://leetcode.com/problems/linked-list-random-node/) [Medium] • reservoir-sampling-streaming
 
 LC 710 is the hardest of the three and pairs rejection sampling with a hash-remap trick: instead of redrawing on a blacklisted index, remap each blacklisted position in `[0, n - |B|)` to a non-blacklisted position in `[n - |B|, n)`, yielding `O(1)` per pick after `O(|B|)` construction. The naive draw-and-reject solution is `O(|B|)` per call and times out on the largest test cases. LC 380 (Insert/Delete/GetRandom O(1)) is locked at chapter 1.4 hash-collisions and not part of this chapter's ladder; the array-of-keys + hash-of-positions structure underpins LC 710's optimal solution but the chapter cites it only in passing.
 

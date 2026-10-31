@@ -154,10 +154,10 @@ def insert(root, key):
     return root
 ```
 
-**Solution** — Python ([Java](./06-avl-rotations/avl-insert/sol.java) · [C++](./06-avl-rotations/avl-insert/sol.cpp) · [Go](./06-avl-rotations/avl-insert/sol.go))
+**Solution** in Python ([Java](./06-avl-rotations/avl-insert/sol.java) · [C++](./06-avl-rotations/avl-insert/sol.cpp) · [Go](./06-avl-rotations/avl-insert/sol.go))
 
 ```python
-# LC: none — chapter mechanic (AVL insert with rebalance)
+# LC: none, chapter mechanic (AVL insert with rebalance)
 from typing import Optional
 
 
@@ -241,7 +241,7 @@ The three pointer rewires inside each rotation are the entire mechanic. Memorize
 
 The widget animates all four rotation cases on hand-tuned 3-node insert sequences. Each preset starts empty, performs three inserts, and the third insert triggers exactly one rotation case. All four cases converge to the same balanced shape (root 20, 10 on the left, 30 on the right, height 2), which is the cleanest visual demonstration that the rotation cases are four routes to one outcome.
 
-> **Interactive widget:** [BST operations and AVL rotations](../widgets/w-19-bst-rotations.yml) (panel `panel-avl`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [BST operations and AVL rotations](../widgets/w-19-bst-rotations.yml) (panel `panel-avl`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: four 7-step sequences, one per case. RR (insert 10, 20, 30): one `rotate_left` around 10 lifts 20 to root. LL (insert 30, 20, 10): mirror, one `rotate_right`. RL (insert 10, 30, 20): two rotations, `rotate_right(30)` then `rotate_left(10)`. LR (insert 30, 10, 20): mirror, `rotate_left(10)` then `rotate_right(30)`. All four end with root=20, left=10, right=30, BF(root)=0.*
 
@@ -305,7 +305,7 @@ The two pitfalls beyond these are easy to remember once you've seen the rotation
 
 The AVL machinery in this chapter is the foundation for the next one. [Red-black trees](./07-red-black-overview.md) replaces the height-based invariant with a color-based one and trades a slightly looser balance for cheaper writes; the rotation primitives are exactly `_rotate_left` and `_rotate_right` from this chapter, unchanged. Past that, the production sorted-map APIs you actually call from application code (Java `TreeMap`, C++ `std::map`, Python `sortedcontainers`) hide red-black mechanics behind operations like `floorKey`, `ceilingKey`, `subMap`. Those operations get exercised in [Cache and design problems](../part-13-design-the-data-structure/00-lru-cache.md) once that chapter ships.
 
-This is a foundation-and-mechanics chapter, so it ships with no problem ladder. AVL trees have no direct LeetCode problem; the closest is [LC 110 — Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/) (Easy), which tests whether a given tree *is* AVL-balanced rather than asking you to maintain the invariant under inserts. That problem is owned by [Binary tree fundamentals](./00-binary-tree-fundamentals.md). Mastery of this chapter is demonstrated by deriving the four rotation cases on a fresh 3-node insert sequence and explaining the height bound, not by solving an LC.
+This is a foundation-and-mechanics chapter, so it ships with no problem ladder. AVL trees have no direct LeetCode problem; the closest is [LC 110: Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/) (Easy), which tests whether a given tree *is* AVL-balanced rather than asking you to maintain the invariant under inserts. That problem is owned by [Binary tree fundamentals](./00-binary-tree-fundamentals.md). Mastery of this chapter is demonstrated by deriving the four rotation cases on a fresh 3-node insert sequence and explaining the height bound, not by solving an LC.
 
 ## References
 

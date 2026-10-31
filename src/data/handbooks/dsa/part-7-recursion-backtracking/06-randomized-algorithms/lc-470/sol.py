@@ -2,7 +2,7 @@
 
 
 def rand7() -> int:
-    """Stub — interview problem provides this as a black box returning
+    """Stub: interview problem provides this as a black box returning
     a uniform integer in 1..7. The real harness injects the LC version.
     """
     raise NotImplementedError

@@ -70,7 +70,7 @@ class Trie:
         return node
 ```
 
-**Solution** — Python ([Java](./08-tries/lc-208/sol.java) · [C++](./08-tries/lc-208/sol.cpp) · [Go](./08-tries/lc-208/sol.go))
+**Solution** in Python ([Java](./08-tries/lc-208/sol.java) · [C++](./08-tries/lc-208/sol.cpp) · [Go](./08-tries/lc-208/sol.go))
 
 ```python
 # LC 208. Implement Trie (Prefix Tree)
@@ -120,7 +120,7 @@ Three things to read off the code. The walk is shared between `search` and `star
 
 The widget animates inserting `car`, `cat`, `card` into an empty trie, then walking the prefix `ca`. The shared `ca` chain is the chapter's central image:
 
-> **Interactive widget:** [Trie — insert + prefix walk + frequency autocomplete](../widgets/w-20-trie.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Trie: insert + prefix walk + frequency autocomplete](../widgets/w-20-trie.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the trie starts as a lone root. Inserting car creates the chain root → c → a → r and flags r as is_end. Inserting cat reuses the c and a nodes already on the path, then creates a t-branch off n_ca; only one new node was allocated. Inserting card reuses c, a, and r; r already had is_end set (from car), and now also gains a d-child that is_end (for card). The walk on ca follows two edges and reports startsWith = true; cost is independent of how many words are in the trie.*
 
@@ -180,7 +180,7 @@ def _dfs(self, node, word, i):
     return self._dfs(nxt, word, i + 1)
 ```
 
-**Solution** — Python ([Java](./08-tries/lc-211/sol.java) · [C++](./08-tries/lc-211/sol.cpp) · [Go](./08-tries/lc-211/sol.go))
+**Solution** in Python ([Java](./08-tries/lc-211/sol.java) · [C++](./08-tries/lc-211/sol.cpp) · [Go](./08-tries/lc-211/sol.go))
 
 ```python
 # LC 211. Design Add and Search Words Data Structure
@@ -278,7 +278,7 @@ def findWords(self, board, words):
     return found
 ```
 
-**Solution** — Python ([Java](./08-tries/lc-212/sol.java) · [C++](./08-tries/lc-212/sol.cpp) · [Go](./08-tries/lc-212/sol.go))
+**Solution** in Python ([Java](./08-tries/lc-212/sol.java) · [C++](./08-tries/lc-212/sol.cpp) · [Go](./08-tries/lc-212/sol.go))
 
 ```python
 # LC 212. Word Search II
@@ -289,7 +289,7 @@ def findWords(self, board, words):
 # Trie-accelerated backtracking: insert all words into a trie keyed by
 # board characters; DFS from each cell advances both the cell pointer
 # AND the trie node pointer. A missing trie child is an instant
-# backtrack — the entire subtree of patterns sharing that prefix is
+# backtrack: the entire subtree of patterns sharing that prefix is
 # pruned in O(1). After finding a word, set is_end = False to suppress
 # re-finding; prune leaf nodes upward to shrink the trie on the fly.
 from typing import Dict, List
@@ -393,14 +393,14 @@ The compressed trie matters often enough that it deserves the explicit cross-ref
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 208 — Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) [Medium] • trie-fundamentals-insert-search-startswith ★
-- [LC 720 — Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) [Easy] • trie-bfs-or-sort-prefix-incremental
-- [LC 212 — Word Search II](https://leetcode.com/problems/word-search-ii/) [Hard] • trie-accelerated-backtracking-on-grid
+- [LC 208: Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) [Medium] • trie-fundamentals-insert-search-startswith ★
+- [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) [Easy] • trie-bfs-or-sort-prefix-incremental
+- [LC 212: Word Search II](https://leetcode.com/problems/word-search-ii/) [Hard] • trie-accelerated-backtracking-on-grid
 
 ### STRETCH (optional)
 
-- [LC 211 — Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) [Medium] • trie-with-wildcard-dfs
-- [LC 1268 — Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/) [Medium] • trie-prefix-with-sorted-collection
+- [LC 211: Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) [Medium] • trie-with-wildcard-dfs
+- [LC 1268: Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/) [Medium] • trie-prefix-with-sorted-collection
 
 LC 211 lives in STRETCH despite carrying its own worked-example treatment in the prose because the wildcard mechanic is a *natural follow-on* to LC 208 rather than an independent skill. Most readers who get LC 208 right get LC 211 right on the next sitting.
 
@@ -412,7 +412,7 @@ LC 211 lives in STRETCH despite carrying its own worked-example treatment in the
 
 [^1]: Wikipedia contributors, "Trie," last edited March 2026, [en.wikipedia.org/wiki/Trie](https://en.wikipedia.org/wiki/Trie).
 
-[^2]: Wikipedia's "Radix tree" article documents the compressed-trie variant and credits Donald R. Morrison, "PATRICIA — Practical Algorithm to Retrieve Information Coded in Alphanumeric," *Journal of the ACM* 15(4), October 1968, pp. 514-534, doi:[10.1145/321479.321481](https://doi.org/10.1145/321479.321481).
+[^2]: Wikipedia's "Radix tree" article documents the compressed-trie variant and credits Donald R. Morrison, "PATRICIA: Practical Algorithm to Retrieve Information Coded in Alphanumeric," *Journal of the ACM* 15(4), October 1968, pp. 514-534, doi:[10.1145/321479.321481](https://doi.org/10.1145/321479.321481).
 
 [^3]: Robert Sedgewick and Kevin Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011, §5.2 Tries. Online supplement at [algs4.cs.princeton.edu/52trie](https://algs4.cs.princeton.edu/52trie/).
 

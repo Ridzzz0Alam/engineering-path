@@ -65,6 +65,8 @@ npm run import-content -- ../engineering-handbook
 npm run build
 ```
 
+The import also runs `scripts/remove-em-dashes.mjs`, so newly imported lessons don't bring em dashes back.
+
 Lessons rewritten for this site live in `src/data/rewrites/`, using the same paths as `src/data/handbooks/`. The import copies them over the handbook originals, so edit a rewritten lesson there and in `src/data/handbooks/`, or re-run the import. Add `rewritten: true` to the lesson's frontmatter so its credit line says it was rewritten.
 
 If the handbook adds a new part (folder), the build stops with a message telling you which folder to add to a

@@ -139,7 +139,7 @@ panels:
         narration: |
           Try edge 1 -> 0. New mask = 0b011 | (1<<0) = 0b011 (bit 0 was
           already set; revisiting node 0 doesn't add information). State
-          (0, 0b011) was unseen — enqueue at dist 2. Revisits ARE allowed
+          (0, 0b011) was unseen: enqueue at dist 2. Revisits ARE allowed
           on this problem; the (node, mask) keying just prevents looping
           through identical states.
       - step: 6
@@ -148,7 +148,7 @@ panels:
           from_node: 1
           to_node: 2
           old_mask: 3     # 0b011
-          new_mask: 7     # 0b111 — FULL
+          new_mask: 7     # 0b111 - FULL
           dist: 2
           visited: false
         state:
@@ -156,7 +156,7 @@ panels:
           visited: { "(0,001)": true, "(1,011)": true, "(0,011)": true, "(2,111)": true }
           frontier: [{ node: 2, mask: "111" }]
         narration: |
-          Try edge 1 -> 2. New mask = 0b011 | (1<<2) = 0b111 — every
+          Try edge 1 -> 2. New mask = 0b011 | (1<<2) = 0b111: every
           node visited. State (2, 0b111) is unseen, enqueue at dist 2.
           The mask is full but we don't return yet; the answer is the
           dist of the FIRST popped full-mask state.
@@ -169,8 +169,8 @@ panels:
           answer: 2
         narration: |
           BFS pops in FIFO order. (0, 0b011, 2) comes off first but its
-          mask isn't full, so it would expand neighbors (no new states —
-          all destinations already seen). Next pop is (2, 0b111, 2) —
+          mask isn't full, so it would expand neighbors (no new states,
+          all destinations already seen). Next pop is (2, 0b111, 2),
           full mask, return dist 2. The walk is 0 -> 1 -> 2, length 2
           edges, every node visited.
 
@@ -184,7 +184,7 @@ notes: |
   all four state classes (start, partial-mask non-goal, partial-mask
   visited-revisit, full-mask goal).
 
-   ships `animations: []` — the chapter widget is a Phase 2
+   ships `animations: []`, the chapter widget is a Phase 2
   addition per the user spec for chapter 9.14, which calls for a small-
   graph mask-transition demo. The 8-step trace above is constructed from
   the verified LC 847 reference at part-9-dynamic-programming/14-

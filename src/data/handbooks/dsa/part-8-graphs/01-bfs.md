@@ -94,7 +94,7 @@ def oranges_rotting(grid):
     return minutes if fresh == 0 else -1
 ```
 
-**Solution** — Python ([Java](./01-bfs/lc-994/sol.java) · [C++](./01-bfs/lc-994/sol.cpp) · [Go](./01-bfs/lc-994/sol.go))
+**Solution** in Python ([Java](./01-bfs/lc-994/sol.java) · [C++](./01-bfs/lc-994/sol.cpp) · [Go](./01-bfs/lc-994/sol.go))
 
 ```python
 # LC 994. Rotting Oranges
@@ -147,7 +147,7 @@ Seed the queue with `(0, 0, 0)`. Pop it. Mark `(1, 0)` and `(0, 1)` as visited a
 
 The widget animates the same trace. Watch the queue column on the right and the per-cell minute label that gets stamped on each cell at the moment it's marked visited.
 
-> **Interactive widget:** [Graph BFS — frontier expansion (multi-source on a grid)](../widgets/w-25-graph-bfs.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Graph BFS: frontier expansion (multi-source on a grid)](../widgets/w-25-graph-bfs.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: minute 0 has one source at (0, 0); minute 1 has (1, 0) and (0, 1) visited; minute 2 adds (1, 1) and (0, 2); minute 3 adds (1, 2) and the fresh count hits zero. Answer = 3.*
 
@@ -242,14 +242,14 @@ The specific case of 0-1 weights is the exception that proves the rule: BFS-with
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 994 — Rotting Oranges](https://leetcode.com/problems/rotting-oranges/) [Medium] • bfs-multi-source-grid ★
-- [LC 542 — 01 Matrix](https://leetcode.com/problems/01-matrix/) [Medium] • bfs-multi-source-grid
-- [LC 1091 — Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/) [Medium] • bfs-shortest-path-grid
+- [LC 994: Rotting Oranges](https://leetcode.com/problems/rotting-oranges/) [Medium] • bfs-multi-source-grid ★
+- [LC 542: 01 Matrix](https://leetcode.com/problems/01-matrix/) [Medium] • bfs-multi-source-grid
+- [LC 1091: Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/) [Medium] • bfs-shortest-path-grid
 
 ### STRETCH (optional)
 
-- [LC 127 — Word Ladder](https://leetcode.com/problems/word-ladder/) [Hard] • bfs-implicit-graph-state
-- [LC 752 — Open the Lock](https://leetcode.com/problems/open-the-lock/) [Medium] • bfs-implicit-graph-state
+- [LC 127: Word Ladder](https://leetcode.com/problems/word-ladder/) [Hard] • bfs-implicit-graph-state
+- [LC 752: Open the Lock](https://leetcode.com/problems/open-the-lock/) [Medium] • bfs-implicit-graph-state
 
 LC 994 is the chapter's signature problem (★) and the one the worked example and widget animate. The CORE three cluster at Medium because the canonical pure-BFS pattern admits no clean Easy LC. LC 102 binary tree level-order is owned by [Level-order traversal](../part-6-trees-heaps/03-level-order-traversal.md), where the tree-vs-graph distinction is the teaching point. The Hard rung is satisfied by LC 127 in STRETCH, which is also the cleanest bridge from grid BFS to state-space BFS.
 

@@ -50,7 +50,7 @@ flowchart TD
 Decode Ways' obvious first attempt enumerates every cut. Try to split off one digit; recurse. Try to split off two digits; recurse. Add the counts.
 
 ```python
-# Brute force: O(2^n) — what we're replacing
+# Brute force: O(2^n), what we're replacing
 def num_decodings_brute(s):
     if not s:
         return 1
@@ -66,7 +66,7 @@ Correct on every input. Catastrophic on length. The recursion tree has roughly t
 
 The waste is visible by hand. Run the recursion on `"22622"`. The string `"622"` is computed when the algorithm takes one digit from `"22622"` and recurses, *and* it's computed again when the algorithm takes two digits (`"22"`) and recurses on `"622"`. Same suffix, two arrival paths, two full subtree expansions. Generalize that to every position and the explosion is the algorithm doing the same subproblem `O(phi^k)` times for each suffix of length `k`.
 
-The fix is the move every chapter in Part 9 makes. Stop recomputing. Cache each suffix's answer the first time you compute it, and reuse the cached value forever after. The recursion tree collapses to a DAG with `n + 1` nodes (one per suffix length) and the runtime drops to `O(n)`. [Part 9.0 — recursion to memoisation](./00-dp-recursion-to-memo.md) walks the lift formally; here we go straight to the bottom-up form, which is what every interview answer wants.
+The fix is the move every chapter in Part 9 makes. Stop recomputing. Cache each suffix's answer the first time you compute it, and reuse the cached value forever after. The recursion tree collapses to a DAG with `n + 1` nodes (one per suffix length) and the runtime drops to `O(n)`. [Part 9.0: recursion to memoisation](./00-dp-recursion-to-memo.md) walks the lift formally; here we go straight to the bottom-up form, which is what every interview answer wants.
 
 ## The recurrence, written once
 
@@ -110,7 +110,7 @@ def num_decodings(s: str) -> int:
     return prev1
 ```
 
-**Solution** — Python ([Java](./03-dp-decode-word-break/lc-91/sol.java) · [C++](./03-dp-decode-word-break/lc-91/sol.cpp) · [Go](./03-dp-decode-word-break/lc-91/sol.go))
+**Solution** in Python ([Java](./03-dp-decode-word-break/lc-91/sol.java) · [C++](./03-dp-decode-word-break/lc-91/sol.cpp) · [Go](./03-dp-decode-word-break/lc-91/sol.go))
 
 ```python
 # LC 91. Decode Ways
@@ -164,7 +164,7 @@ def word_break(s: str, word_dict: list[str]) -> bool:
     return dp[n]
 ```
 
-**Solution** — Python ([Java](./03-dp-decode-word-break/lc-139/sol.java) · [C++](./03-dp-decode-word-break/lc-139/sol.cpp) · [Go](./03-dp-decode-word-break/lc-139/sol.go))
+**Solution** in Python ([Java](./03-dp-decode-word-break/lc-139/sol.java) · [C++](./03-dp-decode-word-break/lc-139/sol.cpp) · [Go](./03-dp-decode-word-break/lc-139/sol.go))
 
 ```python
 # LC 139. Word Break
@@ -297,14 +297,14 @@ LC 1043 partitions an array (not a string) into contiguous blocks of length at m
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 91 — Decode Ways](https://leetcode.com/problems/decode-ways/) [Medium] • string-prefix-decision-dp ★
-- [LC 139 — Word Break](https://leetcode.com/problems/word-break/) [Medium] • string-prefix-decision-dp
-- [LC 1043 — Partition Array for Maximum Sum](https://leetcode.com/problems/partition-array-for-maximum-sum/) [Medium] • prefix-decision-dp-over-array
+- [LC 91: Decode Ways](https://leetcode.com/problems/decode-ways/) [Medium] • string-prefix-decision-dp ★
+- [LC 139: Word Break](https://leetcode.com/problems/word-break/) [Medium] • string-prefix-decision-dp
+- [LC 1043: Partition Array for Maximum Sum](https://leetcode.com/problems/partition-array-for-maximum-sum/) [Medium] • prefix-decision-dp-over-array
 
 ### STRETCH (optional)
 
-- [LC 140 — Word Break II](https://leetcode.com/problems/word-break-ii/) [Hard] • string-prefix-decision-dp + memoized-backtracking
-- [LC 472 — Concatenated Words](https://leetcode.com/problems/concatenated-words/) [Hard] • string-prefix-decision-dp + outer-iteration
+- [LC 140: Word Break II](https://leetcode.com/problems/word-break-ii/) [Hard] • string-prefix-decision-dp + memoized-backtracking
+- [LC 472: Concatenated Words](https://leetcode.com/problems/concatenated-words/) [Hard] • string-prefix-decision-dp + outer-iteration
 
 LC 91 is the chapter's signature problem (★) for the cleanest closed-form alphabet and the rolling-window `O(1)` lift. LC 139 layers the runtime dictionary and the `L_max` bound. LC 1043 ports the same shape to a numeric array with an arithmetic transition, which is what makes the pattern a *shape* and not a string trick. The pattern's canonical Easy LC problems (LC 70 climbing stairs, LC 198 house robber) are claimed by [1D DP: Fibonacci-like](./02-dp-1d.md) as its CORE; the `ladder_curation_flag: complete` records that this chapter's three Mediums occupy the natural difficulty band, with the Hard rung supplied by the two STRETCH problems.
 

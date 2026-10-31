@@ -1,9 +1,9 @@
-# Editorial widget — LC 15 3Sum
+# Editorial widget: LC 15 3Sum
 # Editorial widgets animate ONE specific signature problem at fixed input.
 # Preset-only; no randomize, no edit.
 
 id: e-LC015-3sum
-title: "3Sum (LC 15) — sort + anchor + opposite-ends with duplicate-skip"
+title: "3Sum (LC 15), sort + anchor + opposite-ends with duplicate-skip"
 type: editorial-single-panel
 level: 1
 modes: [preset]
@@ -43,12 +43,12 @@ panels:
   default:
     chapter: "3.0"
     primary_chapter: part-3-pointers-window-prefix/00-two-pointers-opposite
-    label: "3Sum — sort, anchor, two-pointer, skip duplicates"
+    label: "3Sum, sort, anchor, two-pointer, skip duplicates"
     canonical_input: |
       nums = [-1, 0, 1, 2, -1, -4]
     # Why this input: LC's standard example. After sort, two valid triplets
     # exist: [-1,-1,2] and [-1,0,1]. The duplicate -1 in the array is the
-    # exact thing readers blow on the first pass — the widget makes the
+    # exact thing readers blow on the first pass: the widget makes the
     # anchor-skip explicit on step 12 (i=2 grayed out).
     presets: []
     n_steps: 15
@@ -121,7 +121,7 @@ panels:
         kind: setAnchor
         payload: { i: 4, value: 1, target: -1 }
         state: { nums: [-4, -1, -1, 0, 1, 2], i: 4, l: null, r: null, result: [[-1, -1, 2], [-1, 0, 1]] }
-        narration: "Anchor i=4 (value 1). Outer loop ends here — the early-exit rule (nums[i] > 0 → break) fires because no positive anchor can sum to zero with two larger positives."
+        narration: "Anchor i=4 (value 1). Outer loop ends here: the early-exit rule (nums[i] > 0 → break) fires because no positive anchor can sum to zero with two larger positives."
       - step: 14
         kind: terminate
         state: { nums: [-4, -1, -1, 0, 1, 2], i: null, l: null, r: null, result: [[-1, -1, 2], [-1, 0, 1]] }
@@ -135,7 +135,7 @@ notes: |
   Animates LC 15 specifically. The sort step is shown explicitly because
   forgetting to sort is one of the recurring pitfalls. The
   duplicate-skip on the anchor (step 10) is the highest-leverage moment in
-  the trace — the bug it prevents is the most-asked beginner question on
+  the trace: the bug it prevents is the most-asked beginner question on
   Stack Overflow's LC 15 thread.
 
   Distinct from chapter widget w-08-two-pointers-3sum, which is the

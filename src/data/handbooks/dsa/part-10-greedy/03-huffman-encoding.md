@@ -56,7 +56,7 @@ flowchart TD
 
 ## The algorithm
 
-The procedure is `n - 1` rounds of the same three-step loop. Initialize a min-heap holding all `n` leaf nodes keyed by frequency. Repeatedly extract the two smallest, fuse them under a fresh internal node whose weight is the sum, push the new node back. After `n - 1` rounds the heap holds one node — the root.
+The procedure is `n - 1` rounds of the same three-step loop. Initialize a min-heap holding all `n` leaf nodes keyed by frequency. Repeatedly extract the two smallest, fuse them under a fresh internal node whose weight is the sum, push the new node back. After `n - 1` rounds the heap holds one node: the root.
 
 ```mermaid
 flowchart LR
@@ -141,7 +141,7 @@ The single most important visual moment is the fifth merge. `f` sits in the heap
 
 The codeword walk is a DFS pre-order. From the root, descend left to `f`: codeword `0`. Back to the root, descend right to `#9`, then left to `#7`, then left to `c`: codeword `100`. Continue: `d` is `101`, `e` is `111`, `a` is `1100`, `b` is `1101`. The codeword *length* multiset `{1, 3, 3, 3, 4, 4}` is unique; the bit assignments are not, because swapping any pair of siblings produces an equally optimal code with different bits.[^4]
 
-> **Interactive widget:** [Huffman encoding (heap + tree assembly + codeword walk)](../widgets/w-39-huffman-encoding.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Huffman encoding (heap + tree assembly + codeword walk)](../widgets/w-39-huffman-encoding.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: phase-banner transitions through init, extract-2-merge, tree-built, codeword-walk. The 38-step trace shows the heap shrinking from 6 entries down to 1 (the root) over five merges, then the DFS walk emitting six codewords. Final weighted path length 224 bits.*
 
@@ -187,7 +187,7 @@ def lastStoneWeight(stones: list[int]) -> int:
     return -heap[0] if heap else 0
 ```
 
-**Solution** — Python ([Java](./03-huffman-encoding/lc-1046/sol.java) · [C++](./03-huffman-encoding/lc-1046/sol.cpp) · [Go](./03-huffman-encoding/lc-1046/sol.go))
+**Solution** in Python ([Java](./03-huffman-encoding/lc-1046/sol.java) · [C++](./03-huffman-encoding/lc-1046/sol.cpp) · [Go](./03-huffman-encoding/lc-1046/sol.go))
 
 ```python
 # LC 1046. Last Stone Weight
@@ -250,13 +250,13 @@ A fourth pitfall worth naming briefly: max-heap versus min-heap. Java's `Priorit
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 1046 — Last Stone Weight](https://leetcode.com/problems/last-stone-weight/) [Easy] • heap-pair-merge ★
-- [LC 502 — IPO](https://leetcode.com/problems/ipo/) [Hard] • two-heap-greedy
-- [LC 1675 — Minimize Deviation in Array](https://leetcode.com/problems/minimize-deviation-in-array/) [Hard] • heap-greedy-extremum-tracking
+- [LC 1046: Last Stone Weight](https://leetcode.com/problems/last-stone-weight/) [Easy] • heap-pair-merge ★
+- [LC 502: IPO](https://leetcode.com/problems/ipo/) [Hard] • two-heap-greedy
+- [LC 1675: Minimize Deviation in Array](https://leetcode.com/problems/minimize-deviation-in-array/) [Hard] • heap-greedy-extremum-tracking
 
 ### STRETCH (optional)
 
-- [LC 1167 — Minimum Cost to Connect Sticks](https://leetcode.com/problems/minimum-cost-to-connect-sticks/) [Medium] • huffman-tree-construction *(LC Premium; LC 1046 is the free Huffman-shape stand-in)*
+- [LC 1167: Minimum Cost to Connect Sticks](https://leetcode.com/problems/minimum-cost-to-connect-sticks/) [Medium] • huffman-tree-construction *(LC Premium; LC 1046 is the free Huffman-shape stand-in)*
 
 LC 1046 is the chapter's signature problem (★) and the cleanest demonstration of the Huffman heap choreography on a free LC problem: extract two extremes, push back the combined result, repeat. The combine rule differs (subtraction here, addition in true Huffman), but the heap pattern is identical. LC 502 generalizes the lesson to two heaps advancing together. LC 1675 swaps the extremum direction (act on the largest, halve it) but keeps the structure. LC 1167 is the literal Huffman tree-construction problem on connected sticks; it sits in STRETCH because it is Premium-locked, with LC 1046 as the free CORE equivalent.
 

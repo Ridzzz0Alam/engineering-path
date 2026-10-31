@@ -22,7 +22,7 @@ func CombinationSum(candidates []int, target int) [][]int {
 				break // sorted: no later candidate fits either
 			}
 			path = append(path, candidates[i])
-			dfs(i, remaining-candidates[i]) // i, not i+1 — reuse same element
+			dfs(i, remaining-candidates[i]) // i, not i+1: reuse same element
 			path = path[:len(path)-1]       // undo for backtrack
 		}
 	}

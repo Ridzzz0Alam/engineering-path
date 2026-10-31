@@ -17,7 +17,7 @@ def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
             if candidates[i] > remaining:
                 break                           # sorted: no later candidate fits either
             path.append(candidates[i])
-            dfs(i, remaining - candidates[i])   # i, not i+1 — reuse same element
+            dfs(i, remaining - candidates[i])   # i, not i+1: reuse same element
             path.pop()                          # undo for backtrack
 
     dfs(0, target)

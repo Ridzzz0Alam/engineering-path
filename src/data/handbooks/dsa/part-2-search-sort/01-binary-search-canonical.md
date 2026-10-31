@@ -21,7 +21,7 @@ ladder:
 
 # Binary search: the canonical version
 
-In June 2006, Joshua Bloch posted a notice on the Google Research blog with a long title: *Extra, Extra — Read All About It: Nearly All Binary Searches and Mergesorts are Broken.* The bug he described had been sitting in `java.util.Arrays.binarySearch` for nine years. Bentley's *Programming Pearls* had carried the same bug since 1986, in a chapter where the author had taught the algorithm and *proved it correct* in front of a CMU class. The proof was right. The implementation was wrong. The disagreement was one line:
+In June 2006, Joshua Bloch posted a notice on the Google Research blog with a long title: *Extra, Extra, Read All About It: Nearly All Binary Searches and Mergesorts are Broken.* The bug he described had been sitting in `java.util.Arrays.binarySearch` for nine years. Bentley's *Programming Pearls* had carried the same bug since 1986, in a chapter where the author had taught the algorithm and *proved it correct* in front of a CMU class. The proof was right. The implementation was wrong. The disagreement was one line:
 
 ```text
 int mid = (low + high) / 2;
@@ -84,22 +84,22 @@ A single canonical run on `nums = [1, 3, 5, 7, 9, 11, 13]`, `target = 7`:
 
 | Step | lo | hi | mid | nums[mid] | Decision |
 |---|---|---|---|---|---|
-| 0 | 0 | 6 | — | — | Closed `[0, 6]`. Target lives here if anywhere. |
+| 0 | 0 | 6 | n/a | n/a | Closed `[0, 6]`. Target lives here if anywhere. |
 | 1 | 0 | 6 | 3 | 7 | Hit. Return 3. |
 
 One iteration on a seven-element array, because the median sits exactly on the answer. Switch the target to a value that isn't there to see the algorithm work. Try `target = 4`:
 
 | Step | lo | hi | mid | nums[mid] | Decision |
 |---|---|---|---|---|---|
-| 0 | 0 | 6 | — | — | Closed `[0, 6]` |
+| 0 | 0 | 6 | n/a | n/a | Closed `[0, 6]` |
 | 1 | 0 | 6 | 3 | 7 | 7 > 4. Discard right half: `hi = 2`. |
 | 2 | 0 | 2 | 1 | 3 | 3 < 4. Discard left half: `lo = 2`. |
 | 3 | 2 | 2 | 2 | 5 | 5 > 4. Singleton: `hi = 1`. |
-| 4 | 2 | 1 | — | — | `lo > hi`. Interval empty. Return -1. |
+| 4 | 2 | 1 | n/a | n/a | `lo > hi`. Interval empty. Return -1. |
 
 Three comparisons on `n = 7`. The bound is `ceil(log_2 8) = 3` comparisons, plus one iteration where the empty-interval guard fires. The widget below animates this exact trace; scrub through it with the absent preset selected.
 
-> **Interactive widget:** [Binary search (exact-match + rotated)](../widgets/w-04-binary-search.yml) (panel `panel-a`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Binary search (exact-match + rotated)](../widgets/w-04-binary-search.yml) (panel `panel-a`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: four keyframes drawn from the absent-target preset, showing the closed interval shrinking from `[0, 6]` to `[0, 2]` to `[2, 2]` to empty.*
 
@@ -181,7 +181,7 @@ Template C is the bridge from "binary search on a sorted array" to "binary searc
 
 ## Idioms across four languages
 
-**Solution** — Python ([Java](./01-binary-search-canonical/sol.java) · [C++](./01-binary-search-canonical/sol.cpp) · [Go](./01-binary-search-canonical/sol.go))
+**Solution** in Python ([Java](./01-binary-search-canonical/sol.java) · [C++](./01-binary-search-canonical/sol.cpp) · [Go](./01-binary-search-canonical/sol.go))
 
 ```python
 # LC 704. Binary Search. Exact-match closed-interval template.
@@ -287,20 +287,20 @@ The three CORE problems are all Easy on LeetCode, and that is structural rather 
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 704 — Binary Search](https://leetcode.com/problems/binary-search/) [Easy] • binary-search-template-1 ★
-- [LC 35 — Search Insert Position](https://leetcode.com/problems/search-insert-position/) [Easy] • binary-search-leftmost-insertion
-- [LC 278 — First Bad Version](https://leetcode.com/problems/first-bad-version/) [Easy] • binary-search-on-monotone-predicate
+- [LC 704: Binary Search](https://leetcode.com/problems/binary-search/) [Easy] • binary-search-template-1 ★
+- [LC 35: Search Insert Position](https://leetcode.com/problems/search-insert-position/) [Easy] • binary-search-leftmost-insertion
+- [LC 278: First Bad Version](https://leetcode.com/problems/first-bad-version/) [Easy] • binary-search-on-monotone-predicate
 
 ### STRETCH (optional)
 
-- [LC 540 — Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/) [Medium] • binary-search-template-1 with a clever monotone predicate on parity
-- [LC 4 — Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • binary-search-on-partition-index *(reference: Python only)*
+- [LC 540: Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/) [Medium] • binary-search-template-1 with a clever monotone predicate on parity
+- [LC 4: Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • binary-search-on-partition-index *(reference: Python only)*
 
 LC 540 is the cleanest extension of Template A inside this chapter's scope: the predicate is "at the leftmost unpaired index, even-indexed elements no longer have a duplicate on the right", and the same closed-interval invariant from §"Template A" carries the proof.[^4] LC 4 is the canonical Hard binary-search problem; despite the deceptively simple statement it requires `Theta(log(min(m, n)))` binary search on the partition position of one array, which uses Template A's invariant on a non-trivial comparison.[^5]
 
 ## References
 
-[^1]: Joshua Bloch, "Extra, Extra — Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://blog.research.google/2006/06/extra-extra-read-all-about-it-nearly.html>.
+[^1]: Joshua Bloch, "Extra, Extra, Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://blog.research.google/2006/06/extra-extra-read-all-about-it-nearly.html>.
 
 [^2]: Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022, exercise 2.
 

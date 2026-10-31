@@ -111,7 +111,7 @@ def min_distance(word1, word2):
     return dp[m][n]
 ```
 
-**Solution** — Python ([Java](./07-edit-distance/lc-72/sol.java) · [C++](./07-edit-distance/lc-72/sol.cpp) · [Go](./07-edit-distance/lc-72/sol.go))
+**Solution** in Python ([Java](./07-edit-distance/lc-72/sol.java) · [C++](./07-edit-distance/lc-72/sol.cpp) · [Go](./07-edit-distance/lc-72/sol.go))
 
 ```python
 # LC 72. Edit Distance
@@ -188,7 +188,7 @@ The decisive moment is `dp[2][2]`. The trailing characters are `o` and `o`. They
 
 The widget animates every cell write, with the chosen predecessor arrow drawn into each new cell. Step 13 is the `o`-equals-`o` match. Step 23 is the final fill at `(5, 3)`, where the cheapest predecessor is the cell directly above and the operation is a delete of the trailing `e`.
 
-> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-d`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-d`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the answer cell `dp[5][3] = 3` sits at the bottom-right corner of the 6 × 4 table. Three of the 15 interior cells are matches (where `o`, `r`, or `s` appear in both strings); the rest are filled by `1 + min(diag, top, left)`. The cheapest path from `(0, 0)` to `(5, 3)` includes one replace and two deletes, in some order. The cost is unique; the alignment is not.*
 
@@ -270,12 +270,12 @@ For full alignments on long inputs, Hirschberg's 1975 algorithm recovers the ope
 
 ### CORE (solve to claim chapter mastery)
 
-- [LC 72 — Edit Distance](https://leetcode.com/problems/edit-distance/) [Medium] • dp-2d-edit-distance ★
+- [LC 72: Edit Distance](https://leetcode.com/problems/edit-distance/) [Medium] • dp-2d-edit-distance ★
 
 ### STRETCH (optional)
 
-- [LC 161 — One Edit Distance](https://leetcode.com/problems/one-edit-distance/) [Medium] • dp-2d-edit-distance-bounded *(reference: Python only; LC Premium. Solve via LC 72 with `dp[m][n] <= 1` early-exit.)*
-- [LC 1771 — Maximize Palindrome Length From Subsequences](https://leetcode.com/problems/maximize-palindrome-length-from-subsequences/) [Hard] • dp-2d-edit-distance-cousin *(reference: Python only)*
+- [LC 161: One Edit Distance](https://leetcode.com/problems/one-edit-distance/) [Medium] • dp-2d-edit-distance-bounded *(reference: Python only; LC Premium. Solve via LC 72 with `dp[m][n] <= 1` early-exit.)*
+- [LC 1771: Maximize Palindrome Length From Subsequences](https://leetcode.com/problems/maximize-palindrome-length-from-subsequences/) [Hard] • dp-2d-edit-distance-cousin *(reference: Python only)*
 
 LC 72 is the chapter's signature problem and the canonical Wagner-Fischer instance. The pattern admits no canonical Easy LC variant; the simplest LC variant is LC 161, itself Medium, and the chapter records that with the `no-easy-canonical` curation flag. LC 1771 closes the family with the `LCS on s + reverse(t)` reduction, which is edit-distance-shaped DP with a different cost function and a constraint on which palindrome characters come from which substring.
 

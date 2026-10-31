@@ -53,7 +53,7 @@ In unbounded knapsack, you *want* to use item `i` repeatedly. When deciding what
 
 The widget below renders both panels on the same canonical input so the direction flip is the headline visual. Same array, same item set, same recurrence body. Only the inner sweep direction changes, and the answer changes accordingly.
 
-> **Interactive widget:** [Knapsack DP table fill (0/1 vs unbounded)](../widgets/w-32-knapsack-fill.yml) (panel `panel-unbounded`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Knapsack DP table fill (0/1 vs unbounded)](../widgets/w-32-knapsack-fill.yml) (panel `panel-unbounded`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a row of cells `dp[0..11]` initialised `[0, INF, INF, ...]`. Coin 1 fills cells left-to-right, then coin 2 sweeps over them updating where it improves, then coin 5, the dramatic moment, drops `dp[5]` from 3 to 1, and `dp[10]` from 3 to 2 because `dp[5] = 1` has already been written and now feeds back. Final `dp[11] = 3`, the answer (5 + 5 + 1).*
 
@@ -96,7 +96,7 @@ def coin_change(coins, amount):
     return dp[amount] if dp[amount] != INF else -1
 ```
 
-**Solution** — Python ([Java](./05-knapsack-unbounded/lc-322/sol.java) · [C++](./05-knapsack-unbounded/lc-322/sol.cpp) · [Go](./05-knapsack-unbounded/lc-322/sol.go))
+**Solution** in Python ([Java](./05-knapsack-unbounded/lc-322/sol.java) · [C++](./05-knapsack-unbounded/lc-322/sol.cpp) · [Go](./05-knapsack-unbounded/lc-322/sol.go))
 
 ```python
 # LC 322. Coin Change
@@ -148,7 +148,7 @@ def change(amount, coins):
     return dp[amount]
 ```
 
-**Solution** — Python ([Java](./05-knapsack-unbounded/lc-518/sol.java) · [C++](./05-knapsack-unbounded/lc-518/sol.cpp) · [Go](./05-knapsack-unbounded/lc-518/sol.go))
+**Solution** in Python ([Java](./05-knapsack-unbounded/lc-518/sol.java) · [C++](./05-knapsack-unbounded/lc-518/sol.cpp) · [Go](./05-knapsack-unbounded/lc-518/sol.go))
 
 ```python
 # LC 518. Coin Change II
@@ -203,7 +203,7 @@ def combination_sum4(nums, target):
     return dp[target]
 ```
 
-**Solution** — Python ([Java](./05-knapsack-unbounded/lc-377/sol.java) · [C++](./05-knapsack-unbounded/lc-377/sol.cpp) · [Go](./05-knapsack-unbounded/lc-377/sol.go))
+**Solution** in Python ([Java](./05-knapsack-unbounded/lc-377/sol.java) · [C++](./05-knapsack-unbounded/lc-377/sol.cpp) · [Go](./05-knapsack-unbounded/lc-377/sol.go))
 
 ```python
 # LC 377. Combination Sum IV
@@ -259,14 +259,14 @@ A fourth small one worth flagging: `dp[0] = 0` for min-coins versus `dp[0] = 1` 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 322 — Coin Change](https://leetcode.com/problems/coin-change/) [Medium] • unbounded-knapsack-min ★
-- [LC 518 — Coin Change II](https://leetcode.com/problems/coin-change-ii/) [Medium] • unbounded-knapsack-count-combinations
-- [LC 377 — Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/) [Medium] • unbounded-knapsack-count-permutations
+- [LC 322: Coin Change](https://leetcode.com/problems/coin-change/) [Medium] • unbounded-knapsack-min ★
+- [LC 518: Coin Change II](https://leetcode.com/problems/coin-change-ii/) [Medium] • unbounded-knapsack-count-combinations
+- [LC 377: Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/) [Medium] • unbounded-knapsack-count-permutations
 
 ### STRETCH (optional)
 
-- [LC 983 — Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/) [Medium] • unbounded-knapsack-min-fixed-shifts
-- [LC 638 — Shopping Offers](https://leetcode.com/problems/shopping-offers/) [Medium] • unbounded-knapsack-multi-state
+- [LC 983: Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/) [Medium] • unbounded-knapsack-min-fixed-shifts
+- [LC 638: Shopping Offers](https://leetcode.com/problems/shopping-offers/) [Medium] • unbounded-knapsack-multi-state
 
 LC 322 is the chapter's signature problem and the cleanest min-aggregation demonstration. The CORE three exercise the three load-bearing variations on the recurrence: minimum coins (LC 322, `min` with `+1`), unordered count (LC 518, `+=` with outer = items), ordered count (LC 377, `+=` with outer = amounts). All five problems sit at Medium because the unbounded-knapsack pattern admits no canonical Easy or Hard problem in interview rotation without poaching from adjacent chapters; LC 70 (Climbing Stairs) is structurally LC 377 with `nums = [1, 2]` but is owned by [Fibonacci-shaped DP](./01-dp-bottom-up-tabulation.md) for its prerequisite role, and LC 416 (Partition Equal Subset Sum) is owned by [0/1 knapsack](./04-knapsack-01.md). The chapter's `single-difficulty-band` curation flag in the problem registry records that this is a property of the pattern, not a gap.
 

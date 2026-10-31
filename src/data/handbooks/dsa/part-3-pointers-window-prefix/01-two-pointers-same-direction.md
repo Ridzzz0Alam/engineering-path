@@ -34,7 +34,7 @@ The honest first attempt allocates an output array, walks the input, copies the 
 def remove_duplicates_brute(nums):
     if not nums:
         return 0
-    out = [nums[0]]                         # extra O(n) array — the rule says no
+    out = [nums[0]]                         # extra O(n) array: the rule says no
     for i in range(1, len(nums)):
         if nums[i] != nums[i - 1]:
             out.append(nums[i])
@@ -58,7 +58,7 @@ def remove_duplicates(nums):
     return write
 ```
 
-**Solution** — Python ([Java](./01-two-pointers-same-direction/lc-26/sol.java) · [C++](./01-two-pointers-same-direction/lc-26/sol.cpp) · [Go](./01-two-pointers-same-direction/lc-26/sol.go))
+**Solution** in Python ([Java](./01-two-pointers-same-direction/lc-26/sol.java) · [C++](./01-two-pointers-same-direction/lc-26/sol.cpp) · [Go](./01-two-pointers-same-direction/lc-26/sol.go))
 
 ```python
 # LC 26. Remove Duplicates from Sorted Array
@@ -93,10 +93,10 @@ The single-write-pointer template fills four slots: seed the prefix, scan, decid
 
 | Problem | `init` | `keep(read, write)` | `commit` | `tail-fixup` |
 |---|---|---|---|---|
-| LC 26 — drop adjacent duplicates | `write = 1` | `nums[read] != nums[write - 1]` | `nums[write] = nums[read]; write++` | none |
-| LC 27 — drop a target value | `write = 0` | `nums[read] != val` | same | none |
-| LC 283 — move zeros | `write = 0` | `nums[read] != 0` | same | tail-fill `nums[write..n) = 0` |
-| LC 80 — at-most-twice dedup | `write = 0` | `write < 2 or nums[read] != nums[write - 2]` | same | none |
+| LC 26: drop adjacent duplicates | `write = 1` | `nums[read] != nums[write - 1]` | `nums[write] = nums[read]; write++` | none |
+| LC 27: drop a target value | `write = 0` | `nums[read] != val` | same | none |
+| LC 283: move zeros | `write = 0` | `nums[read] != 0` | same | tail-fill `nums[write..n) = 0` |
+| LC 80: at-most-twice dedup | `write = 0` | `write < 2 or nums[read] != nums[write - 2]` | same | none |
 
 When you meet a new same-direction problem, the work is filling those four cells. The skeleton stays. The Dutch national flag (LC 75) is the genuine generalization to three regions, and it earns its own loop shape, covered below.[^1]
 
@@ -117,12 +117,12 @@ Three branches: seed, duplicate-skip, new-value-commit. Every iteration is one o
 
 ```mermaid
 flowchart LR
-    subgraph Prefix["nums[0..write) — committed kept elements"]
+    subgraph Prefix["nums[0..write) - committed kept elements"]
         A0[1]:::kept
         A1[2]:::kept
         AW[3]:::kept
     end
-    subgraph Tail["nums[write..n) — scratch / unspecified"]
+    subgraph Tail["nums[write..n) - scratch / unspecified"]
         AR1[2]:::tail
         AR2[3]:::tail
     end
@@ -224,20 +224,20 @@ First Missing Positive lives in the same family ("in-place rearrangement, O(1) e
 > **`mid` advancing on a high-swap (LC 75).** Writing `if nums[mid] == 2: swap(nums[mid], nums[high]); --high; ++mid;` advances `mid` past a value that has never been examined. Adversarial inputs like `[2, 1, 0]` then output `[1, 0, 2]` instead of `[0, 1, 2]`. Treat the two swap branches asymmetrically: low-swap advances `mid`; high-swap does not. The Dijkstra 1976 pseudocode is precise on this point.[^4]
 
 > [!WARNING]
-> **Wrong empty-array seed for LC 26.** Writing `int write = 0; for (int read = 0; ...)` accesses `nums[write - 1] = nums[-1]` on the first iteration. Undefined in C++ and Go, `IndexError` in Python (with negative-index wrapping that produces wrong answers, not crashes), `ArrayIndexOutOfBoundsException` in Java. Seed `write = 1` and start the read loop at `read = 1`. The empty-prefix sentinel — *a length-1 prefix is always distinct, so commit it without comparison* — removes the edge case by construction.
+> **Wrong empty-array seed for LC 26.** Writing `int write = 0; for (int read = 0; ...)` accesses `nums[write - 1] = nums[-1]` on the first iteration. Undefined in C++ and Go, `IndexError` in Python (with negative-index wrapping that produces wrong answers, not crashes), `ArrayIndexOutOfBoundsException` in Java. Seed `write = 1` and start the read loop at `read = 1`. The empty-prefix sentinel: *a length-1 prefix is always distinct, so commit it without comparison*, removes the edge case by construction.
 
 ## Problem ladder
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 26 — Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) [Easy] • read-write-pointer-deduplication ★
-- [LC 283 — Move Zeroes](https://leetcode.com/problems/move-zeroes/) [Easy] • read-write-pointer-stable-partition
-- [LC 75 — Sort Colors](https://leetcode.com/problems/sort-colors/) [Medium] • dutch-national-flag-three-pointer
+- [LC 26: Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) [Easy] • read-write-pointer-deduplication ★
+- [LC 283: Move Zeroes](https://leetcode.com/problems/move-zeroes/) [Easy] • read-write-pointer-stable-partition
+- [LC 75: Sort Colors](https://leetcode.com/problems/sort-colors/) [Medium] • dutch-national-flag-three-pointer
 
 ### STRETCH (optional)
 
-- [LC 27 — Remove Element](https://leetcode.com/problems/remove-element/) [Easy] • read-write-pointer-drop-value
-- [LC 41 — First Missing Positive](https://leetcode.com/problems/first-missing-positive/) [Hard] • cyclic-sort-index-as-hash
+- [LC 27: Remove Element](https://leetcode.com/problems/remove-element/) [Easy] • read-write-pointer-drop-value
+- [LC 41: First Missing Positive](https://leetcode.com/problems/first-missing-positive/) [Hard] • cyclic-sort-index-as-hash
 
 LC 26 is the chapter's signature problem (★) and the cleanest one-page demonstration of the read/write template. The CORE three span Easy/Easy/Medium; no Hard exists in the strict read/write family because the algorithmic core fits in one short loop. LC 41 fills the Hard rung in STRETCH via the adjacent cyclic-sort mechanic: same family ("in-place, O(1) extra"), different specific shape.[^6]
 
@@ -259,4 +259,4 @@ The slow-and-fast variant lives in the linked-list chapters: Floyd's cycle detec
 
 [^5]: Sedgewick, Robert and Kevin Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011, §2.3. The `Quick3way` implementation at <https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/Quick3way.java.html>
 
-[^6]: webcoderspeed, "Remove Duplicates from Sorted Array — Write Pointer Pattern Explained," fetched 2026-05-19. <https://webcoderspeed.com/blog/dsa-arrays-strings/08-remove-duplicates-sorted-array>.
+[^6]: webcoderspeed, "Remove Duplicates from Sorted Array, Write Pointer Pattern Explained," fetched 2026-05-19. <https://webcoderspeed.com/blog/dsa-arrays-strings/08-remove-duplicates-sorted-array>.

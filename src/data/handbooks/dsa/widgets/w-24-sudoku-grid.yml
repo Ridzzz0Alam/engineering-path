@@ -1,5 +1,5 @@
 # Sudoku grid (constraint-propagation backtracking with bitmask + MRV)
-# Single-panel chapter widget — chapter 7.4 mounts panel-default.
+# Single-panel chapter widget: chapter 7.4 mounts panel-default.
 
 id: w-24-sudoku-grid
 title: "Sudoku solver (constraint propagation + MRV)"

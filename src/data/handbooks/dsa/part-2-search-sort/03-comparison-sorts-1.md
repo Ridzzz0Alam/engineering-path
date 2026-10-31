@@ -86,7 +86,7 @@ def _merge(arr, aux, lo, mid, hi):
         arr[k] = aux[j]; j += 1; k += 1
 ```
 
-**Solution** — Python ([Java](./03-comparison-sorts-1/lc-912/sol.java) · [C++](./03-comparison-sorts-1/lc-912/sol.cpp) · [Go](./03-comparison-sorts-1/lc-912/sol.go))
+**Solution** in Python ([Java](./03-comparison-sorts-1/lc-912/sol.java) · [C++](./03-comparison-sorts-1/lc-912/sol.cpp) · [Go](./03-comparison-sorts-1/lc-912/sol.go))
 
 ```python
 # LC 912. Sort an Array (canonical merge sort, top-down with shared aux buffer)
@@ -212,7 +212,7 @@ flowchart TD
 
 The top-level merge is the one that exposes stability. Left half is `[2, 4, 5, 7]`; right half is `[1, 2, 3, 6]`. The two `2`s collide at the second emission slot. Because the merge uses `<=`, the left-half `2` (originally at input index 1) emits before the right-half `2` (originally at input index 6). The output preserves their relative order from the input: `[1, 2_left, 2_right, 3, 4, 5, 6, 7]`. Replace `<=` with strict `<` and the order flips. Stability lost, silently.
 
-> **Interactive widget:** [Sorting visualizer (merge sort + quicksort)](../widgets/w-05-sorting-visualizer.yml) (panel `panel-a`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Sorting visualizer (merge sort + quicksort)](../widgets/w-05-sorting-visualizer.yml) (panel `panel-a`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the recursion tree above plus a freeze-frame at step 16 showing the duplicate-2 tie resolved left-first.*
 
@@ -239,13 +239,13 @@ Merge sort's canonical applications are intrinsically Medium or Hard once the tr
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 912 — Sort an Array](https://leetcode.com/problems/sort-an-array/) [Medium] • merge-sort ★
-- [LC 148 — Sort List](https://leetcode.com/problems/sort-list/) [Medium] • merge-sort + linked-list-mid
-- [LC 315 — Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) [Hard] • merge-sort + inversion-counting
+- [LC 912: Sort an Array](https://leetcode.com/problems/sort-an-array/) [Medium] • merge-sort ★
+- [LC 148: Sort List](https://leetcode.com/problems/sort-list/) [Medium] • merge-sort + linked-list-mid
+- [LC 315: Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) [Hard] • merge-sort + inversion-counting
 
 ### STRETCH (optional)
 
-- [LC 493 — Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) [Hard] • merge-sort + inversion-counting
+- [LC 493: Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) [Hard] • merge-sort + inversion-counting
 
 The inversion-counting payoff is the chapter's deepest reward. An *inversion* is a pair `(i, j)` with `i < j` and `nums[i] > nums[j]`; LC 315 asks for the count of such pairs ending at each index. The naive `O(n^2)` solution counts every pair directly. The merge-sort solution decorates the merge step: when an element from the right half emits before all left-half elements at the current cursor have emitted, every remaining left element is `>` than the right element and sits at a smaller index in the original input, so each remaining left element contributes one inversion against the emitted right element. The counter increments by `mid - i + 1` at that step. Total counter work across all merges is `O(n)` per level times `log n` levels, so the algorithm runs in `O(n log n)` overall. LC 493 changes the predicate to `nums[i] > 2 * nums[j]` and needs a separate pre-merge counting pass (the predicate is no longer monotone in the merge order alone), but the substrate is the same algorithm. Once the merge counter idiom clicks, the entire family of "count pairs satisfying a monotone predicate" problems collapses to one template.
 
@@ -259,6 +259,6 @@ The chapter after that, [Heap sort and the n log n lower bound](./05-heap-sort.m
 
 [^1]: Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022.
 
-[^2]: Joshua Bloch, "Extra, Extra — Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/>.
+[^2]: Joshua Bloch, "Extra, Extra, Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/>.
 
 [^3]: Robert Sedgewick and Kevin Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011, §2.2 "Mergesort". §2.2.2 covers the practical optimisations: shared auxiliary array, the already-sorted short-circuit, and the insertion-sort cutoff for small subarrays. Online at <https://algs4.cs.princeton.edu/22mergesort/>.

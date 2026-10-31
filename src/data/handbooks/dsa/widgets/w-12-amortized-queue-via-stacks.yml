@@ -1,4 +1,4 @@
-# Amortized queue via two stacks — chapter 4.4 worked example: LC 232.
+# Amortized queue via two stacks: chapter 4.4 worked example: LC 232.
 # Animates the inbox/outbox composition so the lazy transfer fires
 # visibly only when outbox is empty AND a serve-side op is requested.
 # The credit-balance badge makes the amortized accounting visible:

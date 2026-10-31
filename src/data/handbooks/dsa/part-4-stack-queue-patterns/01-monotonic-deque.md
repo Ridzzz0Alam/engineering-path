@@ -29,7 +29,7 @@ LC 239 (Sliding Window Maximum, Hard) ships with constraints `1 <= nums.length <
 Brute force first.
 
 ```python
-# Brute force: O(n*k) — what we're replacing
+# Brute force: O(n*k), what we're replacing
 def max_sliding_window_brute(nums, k):
     out = []
     for i in range(len(nums) - k + 1):
@@ -95,7 +95,7 @@ def max_sliding_window(nums, k):
     return out
 ```
 
-**Solution** — Python ([Java](./01-monotonic-deque/lc-239/sol.java) · [C++](./01-monotonic-deque/lc-239/sol.cpp) · [Go](./01-monotonic-deque/lc-239/sol.go))
+**Solution** in Python ([Java](./01-monotonic-deque/lc-239/sol.java) · [C++](./01-monotonic-deque/lc-239/sol.cpp) · [Go](./01-monotonic-deque/lc-239/sol.go))
 
 ```python
 # LC 239. Sliding Window Maximum
@@ -141,7 +141,7 @@ The interesting moment is the third emit, at `i = 4`, value `5`. Three things ha
 
 Across the eight iterations: 8 pushes, 6 pops from the back, 2 drops from the front, 6 emits. Sixteen O(1) operations total. The widget below replays each step.
 
-> **Interactive widget:** [Monotonic deque (sliding window maximum)](../widgets/w-12-monotonic-deque.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Monotonic deque (sliding window maximum)](../widgets/w-12-monotonic-deque.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the deque trajectory across the run is `[1] → [3] → [3,-1] → [3,-1,-3] → [-1,-3] → [-1] → [] → [5] → [5,3] → [3] → [] → [6] → [] → [7]`, with emits at i = 2, 3, 4, 5, 6, 7 producing `[3, 3, 5, 5, 6, 7]`. Each index appears in the deque exactly once.*
 
@@ -211,12 +211,12 @@ A third pitfall worth naming briefly: in C++, indexing the deque with an unsigne
 
 ### CORE (solve to claim chapter mastery)
 
-- [LC 239 — Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) [Hard] • monotonic-deque-window-extremum ★
+- [LC 239: Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) [Hard] • monotonic-deque-window-extremum ★
 
 ### STRETCH (optional)
 
-- [LC 1696 — Jump Game VI](https://leetcode.com/problems/jump-game-vi/) [Medium] • monotonic-deque-over-dp
-- [LC 862 — Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) [Hard] • monotonic-deque-over-prefix-sums
+- [LC 1696: Jump Game VI](https://leetcode.com/problems/jump-game-vi/) [Medium] • monotonic-deque-over-dp
+- [LC 862: Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) [Hard] • monotonic-deque-over-prefix-sums
 
 LC 239 is the chapter's signature problem (★) and the one the worked example and widget animate; the pattern admits no canonical Easy instance, so the CORE rung is solo by design (`ladder_curation_flag: no-easy-canonical`). LC 1696 is the cleanest second pass: write the DP recurrence, recognise the inner `max` is a sliding-window-maximum on the `dp` array, drop in this chapter's algorithm. LC 862 is the prefix-sum twist: same machine, different array, plus the monotone-increasing variant for window minimum.
 
@@ -226,7 +226,7 @@ The next pattern in the part is [Min/max stack](./02-min-max-stack.md), which so
 
 ## References
 
-[^1]: cp-algorithms, "Minimum stack / Minimum queue — Queue modification (method 2)." <https://cp-algorithms.com/data_structures/stack_queue_modification.html>.
+[^1]: cp-algorithms, "Minimum stack / Minimum queue, Queue modification (method 2)." <https://cp-algorithms.com/data_structures/stack_queue_modification.html>.
 
 [^2]: Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022, Chapter 16 §16.1 (Aggregate analysis).
 

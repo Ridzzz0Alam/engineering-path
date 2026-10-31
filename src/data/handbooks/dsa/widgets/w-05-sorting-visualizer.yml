@@ -1,4 +1,4 @@
-# Sorting visualizer — merge sort (chapter 2.3) + quicksort (chapter 2.4)
+# Sorting visualizer: merge sort (chapter 2.3) + quicksort (chapter 2.4)
 # Dual-panel shared widget. Chapter 2.3 authors panel-a (merge sort);
 # chapter 2.4 authors panel-b (quicksort + partition). This is the canonical
 # "comparison sorts compared" widget where both panels animate the same input
@@ -89,7 +89,7 @@ panels:
       - step: 0
         kind: init
         state: { arr: [5, 2, 4, 7, 1, 3, 2, 6], n: 8 }
-        narration: "Input array of 8 elements. Note the two 2s at indices 1 and 6 — they will collide during the top-level merge."
+        narration: "Input array of 8 elements. Note the two 2s at indices 1 and 6, and they will collide during the top-level merge."
 
       - step: 1
         kind: divide
@@ -242,7 +242,7 @@ panels:
       - step: 0
         kind: init
         state: { arr: [5, 2, 4, 7, 1, 3, 2, 6], n: 8 }
-        narration: "Input array of 8 elements, sort range [0..7]. Same input as panel-a so the structural contrast — partition vs merge — is visible at every step."
+        narration: "Input array of 8 elements, sort range [0..7]. Same input as panel-a so the structural contrast (partition vs merge) is visible at every step."
 
       - step: 1
         kind: pivotSelect
@@ -363,7 +363,7 @@ notes: |
   (quicksort) on the same canonical input [5,2,4,7,1,3,2,6]. Synchronised
   step-through advances both panels by one step on each click; whichever
   algorithm finishes first sits in its terminal state until the other catches
-  up. The structural contrast — merge sort decomposes top-down then merges
-  back up; quicksort partitions in place and recurses without a merge step —
+  up. The structural contrast: merge sort decomposes top-down then merges
+  back up; quicksort partitions in place and recurses without a merge step,
   is the chapter pair's central teaching device.
   Reduced-motion fallback: four static keyframes (init, mid, near-done, final).

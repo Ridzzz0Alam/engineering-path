@@ -31,7 +31,7 @@ def count_freqs(s: str) -> dict[str, int]:
     return dict(Counter(s))
 ```
 
-**Solution** — Python ([Java](./05-language-idioms/sol.java) · [C++](./05-language-idioms/sol.cpp) · [Go](./05-language-idioms/sol.go))
+**Solution** in Python ([Java](./05-language-idioms/sol.java) · [C++](./05-language-idioms/sol.cpp) · [Go](./05-language-idioms/sol.go))
 
 ```python
 from collections import Counter
@@ -53,7 +53,7 @@ Twelve idioms across four languages.
 | Idiom | Python | Java | C++ | Go |
 |---|---|---|---|---|
 | **Counter / frequency map** | `Counter(s)` | `m.getOrDefault(c, 0) + 1` then `put` | `++freq[c]` (zero-init) | `freq[c]++` (zero value) |
-| **Stack / LIFO** | `list` with `append`/`pop` | `ArrayDeque` (`push`/`pop`) — never `Stack`[^4] | `std::stack` or `vector::push_back`/`pop_back` | `[]T` slice with `append` and `s = s[:len(s)-1]` |
+| **Stack / LIFO** | `list` with `append`/`pop` | `ArrayDeque` (`push`/`pop`): never `Stack`[^4] | `std::stack` or `vector::push_back`/`pop_back` | `[]T` slice with `append` and `s = s[:len(s)-1]` |
 | **Queue / FIFO** | `collections.deque` (`popleft`) | `ArrayDeque` (`offer`/`poll`) | `std::queue` (adapter over `std::deque`) | `[]T` slice or ring buffer |
 | **Min-heap** | `heapq` (min by default) | `PriorityQueue` (min by default) | `std::priority_queue` is **MAX**; pass `std::greater<>` for min | `container/heap` with explicit `Less` |
 | **Max-heap** | negate values into `heapq` | `PriorityQueue<>(Comparator.reverseOrder())` | `std::priority_queue` (default) | `container/heap` with reversed `Less` |
@@ -103,13 +103,13 @@ Every chapter from Part 1 onward consumes this page's idiom rules. When [Arrays:
 
 [^2]: The Go Authors, *The Go Programming Language Specification*, "Map types," [go.dev/ref/spec](https://go.dev/ref/spec#Map_types)
 
-[^3]: van Rossum, G., Warsaw, B., and Coghlan, A., "PEP 8 — Style Guide for Python Code," [peps.python.org/pep-0008](https://peps.python.org/pep-0008/). Naming conventions, comprehensions, docstring style.
+[^3]: van Rossum, G., Warsaw, B., and Coghlan, A., "PEP 8: Style Guide for Python Code," [peps.python.org/pep-0008](https://peps.python.org/pep-0008/). Naming conventions, comprehensions, docstring style.
 
 [^4]: Oracle, *ArrayDeque (Java SE 21)*, [docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ArrayDeque.html](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ArrayDeque.html)
 
 [^5]: Oracle, *Comparator (Java SE 21)*, [docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Comparator.html](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Comparator.html)
 
-[^6]: Zadka, M. and van Rossum, G., "PEP 237 — Unifying Long Integers and Integers," [peps.python.org/pep-0237](https://peps.python.org/pep-0237/).
+[^6]: Zadka, M. and van Rossum, G., "PEP 237: Unifying Long Integers and Integers," [peps.python.org/pep-0237](https://peps.python.org/pep-0237/).
 
 [^7]: Java Language Specification, JLS 21, §4.2.2 "Integer Operations," [docs.oracle.com/javase/specs/jls/se21/html/jls-4.html](https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.2.2).
 

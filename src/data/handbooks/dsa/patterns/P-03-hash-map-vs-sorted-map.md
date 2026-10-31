@@ -112,13 +112,13 @@ The "not supported" cells aren't slow; they're absent from the API. The workarou
 
 One per main strategy. Each surfaces a single property of the workload that flips the choice.
 
-- [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/) [Easy] • hash map ★
+- [LC 1: Two Sum](https://leetcode.com/problems/two-sum/) [Easy] • hash map ★
   Walk the array once; for each `nums[i]`, ask the hash map "have I seen `target - nums[i]`?" Constant-time complement lookup turns the O(n²) brute force into O(n). The signal is exact-key membership: no relationship between keys, no in-order iteration, no range query. A sorted map solves the problem too, but pays O(n log n) for nothing; at n = 10⁴ that's a measurable ~13x slowdown for zero benefit.[^4]
 
-- [LC 729 — My Calendar I](https://leetcode.com/problems/my-calendar-i/) [Medium] • sorted map (`floorKey` / `ceilingKey`)
+- [LC 729: My Calendar I](https://leetcode.com/problems/my-calendar-i/) [Medium] • sorted map (`floorKey` / `ceilingKey`)
   Book a half-open interval `[start, end)`; reject the booking if it overlaps any existing one. The TreeMap solution maintains `start -> end` for each booking; on each `book(start, end)` call, `floorKey(start)` finds the latest booking that begins at or before `start`, and `ceilingKey(start)` finds the earliest that begins at or after. Those are the only two candidates that could overlap. Both queries are O(log n); total work is `O(n log n)` for `n` bookings. A hash-map version scans every existing booking on every call: O(n) per call, O(n²) overall, TLE at n = 10⁴.
 
-- [LC 146 — LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium] • insertion-order map (or hash map + doubly linked list)
+- [LC 146: LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium] • insertion-order map (or hash map + doubly linked list)
   `get` and `put` must both run in O(1) average. The canonical solution pairs a hash map (key → node) with a doubly linked list (most-recently-used at the head, oldest at the tail). Eviction is "drop the tail node" in O(1); promotion on a cache hit is "unlink and reinsert at the head" in O(1). Java's `LinkedHashMap` with `accessOrder = true` collapses both halves into one structure; Python's `collections.OrderedDict` plus `move_to_end` does the same. A plain hash map can't give O(1) eviction because finding the LRU entry requires scanning every value; a sorted map by `last_used_tick` adds an O(log n) factor on every access.[^8]
 
 ## Common misconceptions
@@ -145,8 +145,8 @@ One per main strategy. Each surfaces a single property of the workload that flip
 
 [^5]: cppreference, "std::map." https://en.cppreference.com/w/cpp/container/map
 
-[^6]: Jenks, "sortedcontainers — SortedDict." https://grantjenks.com/docs/sortedcontainers/sorteddict.html
+[^6]: Jenks, "sortedcontainers, SortedDict." https://grantjenks.com/docs/sortedcontainers/sorteddict.html
 
-[^7]: Python 3 docs, "bisect — Array bisection algorithm." https://docs.python.org/3/library/bisect.html
+[^7]: Python 3 docs, "bisect, Array bisection algorithm." https://docs.python.org/3/library/bisect.html
 
 [^8]: LeetCode, "146. LRU Cache." https://leetcode.com/problems/lru-cache/

@@ -82,14 +82,14 @@ Reference: [Bottom-up tabulation, from memo to iterative DP](../part-9-dynamic-p
 
 ### Iterative with a lazy table (the hybrid)
 
-The two clean options assume a regular state space. Some problems break that assumption: indices look dense (knapsack with `W = 10^9`, coin-change amounts up to `10^4` where most are unreachable) but reachability is sparse. The recursion would be safe-ish but slow on the cache; the dense bottom-up table won't fit; rolling arrays don't help when the dependency isn't a constant window. The hybrid is bottom-up iteration over a *lazy* or *guarded* table — a hash map keyed on reachable states, or a dense array gated by a sentinel that says "this state was never touched, skip it."
+The two clean options assume a regular state space. Some problems break that assumption: indices look dense (knapsack with `W = 10^9`, coin-change amounts up to `10^4` where most are unreachable) but reachability is sparse. The recursion would be safe-ish but slow on the cache; the dense bottom-up table won't fit; rolling arrays don't help when the dependency isn't a constant window. The hybrid is bottom-up iteration over a *lazy* or *guarded* table: a hash map keyed on reachable states, or a dense array gated by a sentinel that says "this state was never touched, skip it."
 
 Reach for it when:
 
 - Indices are **dense by definition** but most cells are **never reached at runtime**. Knapsack with capacity `W = 10^9`, items' weights at most 100, at most 50 items: reachable `(i, w)` states are bounded by `50 * (50 * 100) = 250{,}000`, while the dense table needs `~5 * 10^{10}` entries. A bottom-up iteration over a hash-map memo keyed on `(i, w)` solves the reachable states only.[^3] You get the iteration's `O(1)` stack and the memoization's sparse-state savings in one structure.
 - The recurrence is **bottom-up by nature** but some transitions are guarded. Coin Change iterates amounts `1..N`, but if `dp[a - coin]` was never reached (still at the sentinel `infinity`), the parent transition is invalid and you skip. The skip is what makes the iteration sparse without changing the loop structure.
 
-The cost: hash-map iteration has worse cache behaviour than array iteration, and the guarded-array form needs the sentinel check on every read. Both are still better than the worst alternative — either the dense array you can't allocate, or the recursion that overflows.
+The cost: hash-map iteration has worse cache behaviour than array iteration, and the guarded-array form needs the sentinel check on every read. Both are still better than the worst alternative: either the dense array you can't allocate, or the recursion that overflows.
 
 | | Time | Space |
 |---|---|---|
@@ -119,19 +119,19 @@ One per primary form. Each shows the form's pattern signal in one canonical inte
 
 ### Memoization wins: Word Break
 
-[LC 139 — Word Break](https://leetcode.com/problems/word-break/) [Medium]
+[LC 139: Word Break](https://leetcode.com/problems/word-break/) [Medium]
 
 The recurrence is `canBreak(i) = any(canBreak(i + len(w)) for w in dict if s.startswith(w, i))`. The state is the suffix start index `i`, ranging over `0..n`, but the reachable indices are only those that lie at the end of some valid word boundary. On `s = "leetcodecodingisfun"` with a small dictionary, fewer than half the candidate indices are even checked. A dense `dp[0..n]` table fills every cell whether reachable or not; a top-down memo with `@cache` on `canBreak(i)` only computes cells the recursion actually descends into. The recursion's depth is bounded by `n`, well inside Python's raised limit on LC's input bounds. This is the case CLRS 4e §14.3 names: top-down is more efficient when the natural recursive algorithm only solves a small subset of the subproblems.[^1]
 
 ### Tabulation wins: House Robber
 
-[LC 198 — House Robber](https://leetcode.com/problems/house-robber/) [Medium]
+[LC 198: House Robber](https://leetcode.com/problems/house-robber/) [Medium]
 
 Recurrence: `dp[i] = max(dp[i-1], dp[i-2] + nums[i])`. The dependency is a constant window of two prior cells, which makes the rolling-pair compression mechanical: replace the full array with two scalars, update in lockstep, return the second.[^5] Space drops from `O(n)` to `O(1)`. Python's recursion overhead is roughly three times the iterative loop on this size class even before the stack-limit risk for `n = 10^5`. The interview expectation on this problem is the rolling-pair form; producing the recursive memoised version is correct but does not earn the space-optimisation mark. House Robber II reduces to two linear sub-passes (skip first OR skip last) of this same primitive.[^5]
 
 ### Hybrid wins: Coin Change
 
-[LC 322 — Coin Change](https://leetcode.com/problems/coin-change/) [Medium]
+[LC 322: Coin Change](https://leetcode.com/problems/coin-change/) [Medium]
 
 The bottom-up form iterates amounts `1..amount`, computing `dp[a] = min(dp[a - c] + 1 for c in coins if a - c >= 0 and dp[a - c] != INF)`. The state space looks dense (`amount + 1` cells, the outer loop touches all of them), but at runtime most transitions are gated by the `dp[a - c] != INF` guard. On `coins = [3, 7]` and `amount = 100`, more than half the candidate `dp[a]` values are unreachable; the guard prunes the work without changing the loop structure. The iteration runs in `O(1)` stack regardless of `amount`, the array is dense and cache-friendly, and the guarded transition is what makes the access pattern sparse. This is the structure that keeps both the memoization win (skip the unreachable) and the tabulation win (no stack, contiguous memory) in the same implementation.
 

@@ -1,7 +1,7 @@
 # KMP failure function and matching pass
 # Single-panel chapter widget for 12.2. Animates two phases:
-#   Phase A — failure-function (LPS) construction on P = "ABABCABAB" (11 steps)
-#   Phase B — matching pass on T = "ABABDABACDABABCABAB" (25 steps to first match)
+#   Phase A: failure-function (LPS) construction on P = "ABABCABAB" (11 steps)
+#   Phase B: matching pass on T = "ABABDABACDABABCABAB" (25 steps to first match)
 # 36 total steps, well under the 1000-step cap.
 #
 # Trace transcribed verbatim step buffer; deterministic
@@ -62,7 +62,7 @@ static_fallback:
 panels:
   default:
     chapter: "12.2"
-    label: "KMP on ABABCABAB / ABABDABACDABABCABAB — failure function then matching"
+    label: "KMP on ABABCABAB / ABABDABACDABABCABAB, failure function then matching"
     canonical_input: |
       pattern = "ABABCABAB"
       text    = "ABABDABACDABABCABAB"
@@ -70,7 +70,7 @@ panels:
       expected_first_match_index = 10
     presets:
       - id: canonical
-        label: "ABABCABAB / ABABDABACDABABCABAB — exercises both fallback paths"
+        label: "ABABCABAB / ABABDABACDABABCABAB, exercises both fallback paths"
         input:
           pattern: "ABABCABAB"
           text: "ABABDABACDABABCABAB"
@@ -390,7 +390,7 @@ panels:
           j: 4
           compare: [14, 4]
           result: "match"
-        narration: "T[14]='C' == P[4]='C'; advance both. The C that earlier was a D — we never re-scanned the prefix."
+        narration: "T[14]='C' == P[4]='C'; advance both. The C that earlier was a D, and we never re-scanned the prefix."
       - step_id: 31
         action: matchAdvance
         highlights: ["text-cell-15", "pattern-cell-5"]

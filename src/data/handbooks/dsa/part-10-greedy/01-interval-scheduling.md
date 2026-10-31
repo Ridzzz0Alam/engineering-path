@@ -22,7 +22,7 @@ ladder:
 
 You are scheduling a conference room. Forty meeting requests are sitting in a queue, each one a `[start, end]` pair, many of them overlapping. The room can host one meeting at a time. You want to keep as many requests as you can; the rest will be told to find another room. Drop one too many and your boss notices. Skip a real conflict and the algorithm crashes the room. Which meeting do you drop first?
 
-The instinct most readers reach for is *the longest one*, or *the one that starts latest*, or *the one with the most conflicts* — every plausible-sounding rule that takes a paragraph to refute. The correct rule is one character long. Sort by `end`, not by `start`. The whole chapter lives inside that swap.
+The instinct most readers reach for is *the longest one*, or *the one that starts latest*, or *the one with the most conflicts*: every plausible-sounding rule that takes a paragraph to refute. The correct rule is one character long. Sort by `end`, not by `start`. The whole chapter lives inside that swap.
 
 ## Locating this pattern
 
@@ -92,7 +92,7 @@ def erase_overlap_intervals(intervals: List[List[int]]) -> int:
     return removed
 ```
 
-**Solution** — Python ([Java](./01-interval-scheduling/lc-435/sol.java) · [C++](./01-interval-scheduling/lc-435/sol.cpp) · [Go](./01-interval-scheduling/lc-435/sol.go))
+**Solution** in Python ([Java](./01-interval-scheduling/lc-435/sol.java) · [C++](./01-interval-scheduling/lc-435/sol.cpp) · [Go](./01-interval-scheduling/lc-435/sol.go))
 
 ```python
 # LC 435. Non-overlapping Intervals
@@ -102,7 +102,7 @@ def erase_overlap_intervals(intervals: List[List[int]]) -> int:
 # otherwise keep it and update the cursor. Return the drop count.
 #
 # Why sort-by-end and not sort-by-start: see the chapter's exchange-argument
-# section. Sort-by-start fails on inputs like [[1,100],[2,3],[3,4]] — it
+# section. Sort-by-start fails on inputs like [[1,100],[2,3],[3,4]], and it
 # greedily keeps [1,100], drops both shorter intervals, returns 2; the
 # optimum is to keep [2,3] and [3,4], drop [1,100], for a count of 1.
 from typing import List
@@ -134,7 +134,7 @@ The strict `<` in `start < current_end` is doing real work. LC 435 treats touchi
 
 The greedy algorithm being correct is a stronger claim than the brute force being wrong. Showing one algorithm fails on one input does not prove a different algorithm always succeeds. Here is the proof, which is one of the cleanest exchange arguments in algorithms.[^1]
 
-Let `G` be the set of intervals the greedy keeps. Let `OPT` be any optimal set — there may be several. The claim is `|G| = |OPT|`.
+Let `G` be the set of intervals the greedy keeps. Let `OPT` be any optimal set, and there may be several. The claim is `|G| = |OPT|`.
 
 Order the intervals of `G` and `OPT` by their end times. Compare them position by position:
 
@@ -142,7 +142,7 @@ Order the intervals of `G` and `OPT` by their end times. Compare them position b
 
 - Inductively, suppose `G` and `OPT` agree on the first `k` intervals. The greedy's choice at position `k+1` is the earliest-ending interval whose start is at or after `g_k.end`. `OPT`'s `(k+1)`-th interval must also start at or after `g_k.end` (because `OPT` is non-overlapping and the first `k` agree), so `o_{k+1}.end >= g_{k+1}.end` by the greedy's choice. Same swap argument; same conclusion.
 
-The greedy never falls behind. If `G` were strictly smaller than `OPT`, there would be a position where `OPT` had an interval and `G` did not — but the swap argument shows the greedy could have taken that interval, so it would have. `|G| = |OPT|`.
+The greedy never falls behind. If `G` were strictly smaller than `OPT`, there would be a position where `OPT` had an interval and `G` did not, but the swap argument shows the greedy could have taken that interval, so it would have. `|G| = |OPT|`.
 
 What does this mean for LC 435? The maximum number you can *keep* without overlap is `|G|`, so the minimum number you must *remove* is `n - |G|`. The two questions are duals; the same algorithm answers both.
 
@@ -152,9 +152,9 @@ The argument generalizes immediately to LC 452 *Minimum Number of Arrows to Burs
 
 Sort by end: `[[1,2], [1,3], [2,3], [3,4]]`. The order of `[1,3]` and `[2,3]` is a tie at end-time 3; the algorithm is correct under either tie-break. Initialize `current_end = -∞`, `removed = 0`. The walk hits its only drop on the second iteration when `[1,3]` overlaps the kept `[1,2]`. Two more keeps follow at `[2,3]` and `[3,4]` because the touches at 2 and 3 are not strict overlaps. Final answer: `1`.
 
-> **Interactive widget:** [Interval scheduling: non-overlap and min-arrows](../widgets/w-36-interval-scheduling.yml) (panel `panel-non-overlap`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Interval scheduling: non-overlap and min-arrows](../widgets/w-36-interval-scheduling.yml) (panel `panel-non-overlap`), rendered on the website; the YAML spec describes the keyframes.
 
-*Static fallback: four intervals enter sorted by end. The first kept interval `[1,2]` pins the cursor at 2. `[1,3]` arrives next and is dropped because its start 1 is left of the cursor — the exchange argument rendered as a single visible event. `[2,3]` and `[3,4]` are kept; the cursor finishes at 4. One drop, three kept.*
+*Static fallback: four intervals enter sorted by end. The first kept interval `[1,2]` pins the cursor at 2. `[1,3]` arrives next and is dropped because its start 1 is left of the cursor: the exchange argument rendered as a single visible event. `[2,3]` and `[3,4]` are kept; the cursor finishes at 4. One drop, three kept.*
 
 ## What it actually costs
 
@@ -200,7 +200,7 @@ LC 57 *Insert Interval* is LC 56's input-already-sorted specialization. The exis
 
 LC 452 *Minimum Number of Arrows* hides the same algorithm under different language. You have balloons drawn on the x-axis as intervals; an arrow shot at coordinate `x` bursts every balloon whose interval contains `x`. Find the minimum number of arrows to burst all balloons. Same sort-by-end loop. The answer is the count of intervals the greedy *keeps* (each keep is the interval that anchors a fresh arrow), which is `n - removed` from the LC 435 algorithm. Two LeetCode problems, one algorithm, two different return values.
 
-> **Interactive widget:** [Interval scheduling: non-overlap and min-arrows](../widgets/w-36-interval-scheduling.yml) (panel `panel-min-arrows`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Interval scheduling: non-overlap and min-arrows](../widgets/w-36-interval-scheduling.yml) (panel `panel-min-arrows`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: four balloons sort by end into `[[1,6], [2,8], [7,12], [10,16]]`; the greedy shoots arrow #1 at x = 6 (bursting [1,6] and [2,8]); arrow #2 at x = 12 (bursting [7,12] and [10,16]). Answer: 2 arrows. Same partition as LC 435 reports as `dropped = 2`.*
 
@@ -218,20 +218,20 @@ A third pitfall worth a single sentence: in Go, `merged := [][]int{intervals[0]}
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 435 — Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) [Medium] • sort-by-end-greedy-max-compatible ★
-- [LC 56 — Merge Intervals](https://leetcode.com/problems/merge-intervals/) [Medium] • sort-by-start-merge-overlapping
-- [LC 57 — Insert Interval](https://leetcode.com/problems/insert-interval/) [Medium] • sorted-intervals-three-phase-splice
+- [LC 435: Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) [Medium] • sort-by-end-greedy-max-compatible ★
+- [LC 56: Merge Intervals](https://leetcode.com/problems/merge-intervals/) [Medium] • sort-by-start-merge-overlapping
+- [LC 57: Insert Interval](https://leetcode.com/problems/insert-interval/) [Medium] • sorted-intervals-three-phase-splice
 
 ### STRETCH (optional)
 
-- [LC 1851 — Minimum Interval to Include Each Query](https://leetcode.com/problems/minimum-interval-to-include-each-query/) [Hard] • sort-and-heap-for-coverage-query
-- [LC 252 — Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) [Easy] • overlap-detection-on-sorted-pairs *(Premium; free alternative is LC 56)*
+- [LC 1851: Minimum Interval to Include Each Query](https://leetcode.com/problems/minimum-interval-to-include-each-query/) [Hard] • sort-and-heap-for-coverage-query
+- [LC 252: Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) [Easy] • overlap-detection-on-sorted-pairs *(Premium; free alternative is LC 56)*
 
 The CORE three force the reader to switch comparators inside one chapter: LC 435 trains the sort-by-end reflex, LC 56 trains the sort-by-start mirror, and LC 57 strips the sort entirely. Anyone who can write all three from scratch has internalized the toolkit's split. LC 1851 lifts to a heap-keyed-by-width reframing; the heap mechanics are owned by [Heaps and priority queues](../part-6-trees-heaps/04-heaps-priority-queues.md) and the chapter cross-links rather than re-deriving. LC 252 is Premium but every paid LeetCode mirror confirms the algorithm reduces to LC 56's first-conflict check.[^4]
 
 ## Where this leads
 
-The sort-by-end greedy is a one-pattern that solves several. Apply it again with a different return value and you have the points-and-arrows family — *minimum points to hit every interval* is the same loop reporting `kept` instead of `dropped`. Capacity tracking on intervals (LC 253 *Meeting Rooms II*, LC 1094 *Car Pooling*) sits one branch over: when the answer is "how many overlapping intervals at any moment", you decompose each interval into a `+1` event at start and a `-1` event at end, sort the events, sweep. That family is taught in [Prefix sums and difference arrays](../part-3-pointers-window-prefix/04-prefix-sums.md) because the sweep state is a running counter, not an interval object.
+The sort-by-end greedy is a one-pattern that solves several. Apply it again with a different return value and you have the points-and-arrows family: *minimum points to hit every interval* is the same loop reporting `kept` instead of `dropped`. Capacity tracking on intervals (LC 253 *Meeting Rooms II*, LC 1094 *Car Pooling*) sits one branch over: when the answer is "how many overlapping intervals at any moment", you decompose each interval into a `+1` event at start and a `-1` event at end, sort the events, sweep. That family is taught in [Prefix sums and difference arrays](../part-3-pointers-window-prefix/04-prefix-sums.md) because the sweep state is a running counter, not an interval object.
 
 Two patterns away, the sort-by-end greedy generalizes to *weighted* interval scheduling, where each interval carries a value and the goal is the maximum total value of a non-overlapping subset. The greedy stops working at the moment a weight is attached; the problem becomes a dynamic-programming exercise over the sorted intervals. That story is in [Interval DP](../part-9-dynamic-programming/11-interval-dp.md).
 

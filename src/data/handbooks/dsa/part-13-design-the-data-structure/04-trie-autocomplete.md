@@ -119,7 +119,7 @@ class AutocompleteTrie:
         return [w for (_s, w) in node.top[:k]]
 ```
 
-**Solution** — Python ([Java](./04-trie-autocomplete/lc-642/sol.java) · [C++](./04-trie-autocomplete/lc-642/sol.cpp) · [Go](./04-trie-autocomplete/lc-642/sol.go))
+**Solution** in Python ([Java](./04-trie-autocomplete/lc-642/sol.java) · [C++](./04-trie-autocomplete/lc-642/sol.cpp) · [Go](./04-trie-autocomplete/lc-642/sol.go))
 
 ```python
 # LC 642. Design Search Autocomplete System (Premium)
@@ -190,11 +190,11 @@ class AutocompleteTrie:
         return [w for (_s, w) in node.top[:k]]
 ```
 
-Three things are worth pointing out about the order of work inside `input`. The root cache is refreshed *first*, before any descent — that's why `topk("", k)` (empty prefix, global top-K) is correct without a special case. The refresh runs *after* descending to each child, so the cache at every node summarizes the prefix terminating at that node. And the `is_end` flip happens *last*, only on the terminal node; it's orthogonal to whether that node has children, a point the trie chapter made and the autocomplete extension inherits unchanged.[^4]
+Three things are worth pointing out about the order of work inside `input`. The root cache is refreshed *first*, before any descent: that's why `topk("", k)` (empty prefix, global top-K) is correct without a special case. The refresh runs *after* descending to each child, so the cache at every node summarizes the prefix terminating at that node. And the `is_end` flip happens *last*, only on the terminal node; it's orthogonal to whether that node has children, a point the trie chapter made and the autocomplete extension inherits unchanged.[^4]
 
 The widget animates the full `input` cycle on three commits, then the matching `topk`. Watch the cache at `n_ca` fill from `[(30, car)]` to `[(30, car), (20, cat)]` to `[(30, car), (20, cat), (10, card)]` as the three inserts complete:
 
-> **Interactive widget:** [Trie — insert + prefix walk + frequency autocomplete](../widgets/w-20-trie.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Trie: insert + prefix walk + frequency autocomplete](../widgets/w-20-trie.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the trie starts empty. Inserting (car, 30) creates the chain root → c → a → r and refreshes the cache `[(30, car)]` at every node on the path; inserting (cat, 20) reuses c and a, creates t-branch, and updates the c-cache and a-cache to `[(30, car), (20, cat)]`; inserting (card, 10) reuses c, a, and r, creates a d-child of r, and the cache at n_ca becomes `[(30, car), (20, cat), (10, card)]`. The terminal `topk("ca", 2)` walks two edges to n_ca and returns `n_ca.top[:2] = ["car", "cat"]`. No DFS, no heap.*
 
@@ -252,14 +252,14 @@ A fourth pitfall worth one sentence: **`is_end` is not "this node is a leaf."** 
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 1023 — Camelcase Matching](https://leetcode.com/problems/camelcase-matching/) [Medium] • trie-conditional-walk-with-skip *(reference: Python only)*
-- [LC 676 — Implement Magic Dictionary](https://leetcode.com/problems/implement-magic-dictionary/) [Medium] • trie-fuzzy-deviation-dfs ★ *(reference: Python only)*
-- [LC 745 — Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/) [Hard] • trie-dual-key-prefix-suffix *(reference: Python only)*
+- [LC 1023: Camelcase Matching](https://leetcode.com/problems/camelcase-matching/) [Medium] • trie-conditional-walk-with-skip *(reference: Python only)*
+- [LC 676: Implement Magic Dictionary](https://leetcode.com/problems/implement-magic-dictionary/) [Medium] • trie-fuzzy-deviation-dfs ★ *(reference: Python only)*
+- [LC 745: Prefix and Suffix Search](https://leetcode.com/problems/prefix-and-suffix-search/) [Hard] • trie-dual-key-prefix-suffix *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 720 — Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) [Easy] • trie-build-incremental-bfs
-- [LC 642 — Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/) [Hard] • trie-with-frequency-topk-cache *(LeetCode Premium; the AutocompleteTrie reference in `04-trie-autocomplete/lc-642/sol.{py,java,cpp,go}` satisfies this contract verbatim. The free alternative is [LC 1268 — Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/), owned by [Tries](../part-6-trees-heaps/08-tries.md) as STRETCH; layer the per-node frequency cache from this chapter to recover the LC 642 contract.)*
+- [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) [Easy] • trie-build-incremental-bfs
+- [LC 642: Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/) [Hard] • trie-with-frequency-topk-cache *(LeetCode Premium; the AutocompleteTrie reference in `04-trie-autocomplete/lc-642/sol.{py,java,cpp,go}` satisfies this contract verbatim. The free alternative is [LC 1268: Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/), owned by [Tries](../part-6-trees-heaps/08-tries.md) as STRETCH; layer the per-node frequency cache from this chapter to recover the LC 642 contract.)*
 
 LC 745 is PRIMARY-locked to [Aho-Corasick string matching](../part-12-strings-pattern-matching/04-aho-corasick.md), which uses it to teach bidirectional multi-key indexing. It earns a CORE seat here because the per-node max-index cache it builds is structurally the chapter's per-node top-K cache with `K = 1`.
 

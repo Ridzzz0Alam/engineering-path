@@ -31,7 +31,7 @@ Verbatim wording at [LC 11 Container With Most Water](https://leetcode.com/probl
 Translate the statement directly. Loop over every unordered pair `i < j`, compute the area, keep the best.
 
 ```python
-# Brute force: O(n²) — what we're replacing
+# Brute force: O(n²), what we're replacing
 def max_area_brute(height):
     n = len(height)
     best = 0
@@ -64,7 +64,7 @@ def max_area(height):
     return best
 ```
 
-**Solution** — Python ([Java](./LC-011-container-with-most-water/lc-11/sol.java) · [C++](./LC-011-container-with-most-water/lc-11/sol.cpp) · [Go](./LC-011-container-with-most-water/lc-11/sol.go))
+**Solution** in Python ([Java](./LC-011-container-with-most-water/lc-11/sol.java) · [C++](./LC-011-container-with-most-water/lc-11/sol.cpp) · [Go](./LC-011-container-with-most-water/lc-11/sol.go))
 
 ```python
 # LC 11. Container With Most Water
@@ -99,9 +99,9 @@ def max_area(height: List[int]) -> int:
     return best
 ```
 
-> **Interactive widget:** [Container With Most Water (LC 11) — greedy two-pointer shrink](../widgets/e-LC011-container.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Container With Most Water (LC 11): greedy two-pointer shrink](../widgets/e-LC011-container.yml), rendered on the website; the YAML spec describes the keyframes.
 
-*Static fallback: on `[1, 8, 6, 2, 5, 4, 8, 3, 7]`, step 1 places pointers at indices 0 and 8 (heights 1 and 7) and computes area 8. Step 2 advances `l` to 1 (height 8) and computes `min(8, 7) * 7 = 49` — the optimal answer. The remaining six steps sweep `r` leftward and never beat 49; the loop terminates when the pointers cross.*
+*Static fallback: on `[1, 8, 6, 2, 5, 4, 8, 3, 7]`, step 1 places pointers at indices 0 and 8 (heights 1 and 7) and computes area 8. Step 2 advances `l` to 1 (height 8) and computes `min(8, 7) * 7 = 49`: the optimal answer. The remaining six steps sweep `r` leftward and never beat 49; the loop terminates when the pointers cross.*
 
 The loop runs at most `n - 1` iterations because each step advances exactly one pointer by one. Time `O(n)`, space `O(1)`. On `n = 10⁵` it finishes in single-digit milliseconds.[^2]
 
@@ -148,7 +148,7 @@ This is the same exchange-argument shape that makes activity-selection greedy co
 
 ## Interview follow-ups
 
-**What about Trapping Rain Water?** The natural Hard follow-up is [LC 42](https://leetcode.com/problems/trapping-rain-water/), which looks like the same problem and is not. LC 42 sums the water trapped *above each individual cell*, not the water held between two specific walls. The two-pointer scaffold carries over — pointers at the ends, advance the shorter side — but the per-cell formula is `min(left_max, right_max) - height[i]`, with running maxes maintained as the pointers walk inward. Same family, harder bookkeeping; the LC 11 proof is the warm-up for the LC 42 proof.[^2]
+**What about Trapping Rain Water?** The natural Hard follow-up is [LC 42](https://leetcode.com/problems/trapping-rain-water/), which looks like the same problem and is not. LC 42 sums the water trapped *above each individual cell*, not the water held between two specific walls. The two-pointer scaffold carries over (pointers at the ends, advance the shorter side) but the per-cell formula is `min(left_max, right_max) - height[i]`, with running maxes maintained as the pointers walk inward. Same family, harder bookkeeping; the LC 11 proof is the warm-up for the LC 42 proof.[^2]
 
 **How would you return the actual indices, not just the area?** Maintain `best_l` and `best_r` alongside `best`, updating them on every strict improvement. The algorithm's structure does not change; the bookkeeping does. Most interviewers ask this version after you finish the area version, to check whether you understand which pair you found.
 

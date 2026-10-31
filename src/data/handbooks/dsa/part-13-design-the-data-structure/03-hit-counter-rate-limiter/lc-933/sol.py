@@ -3,7 +3,7 @@ from collections import deque
 
 
 class RecentCounter:
-    """LC 933 — sliding-window-on-stream, deque of timestamps.
+    """LC 933: sliding-window-on-stream, deque of timestamps.
 
     ping(t) records timestamp t (strictly increasing) and returns the
     count of pings inside the inclusive window [t - 3000, t]. Every

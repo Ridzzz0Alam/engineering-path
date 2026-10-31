@@ -89,7 +89,7 @@ sequenceDiagram
 
 *The item tower precomputes embeddings offline; at request time only the user tower runs, querying the ANN index in milliseconds.*
 
-**Hard-negative mining** improves retrieval quality by replacing random negatives with items the model scores highly but the user did not engage with. PinSage (Ying et al. 2018), a GCN-based embedding method, demonstrates hard-negative mining at Pinterest scale: 3 billion nodes and 7.5 billion training examples with progressively harder negatives during training[^4]. Pinterest has since published several production successors — PinnerFormer (2022, batch sequential user embeddings), TransAct (KDD 2023, transformer-based real-time user-action ranking), and PinRec (2025, outcome-conditioned multi-token generative retrieval) — that are worth tracking if you operate Pinterest-scale systems.
+**Hard-negative mining** improves retrieval quality by replacing random negatives with items the model scores highly but the user did not engage with. PinSage (Ying et al. 2018), a GCN-based embedding method, demonstrates hard-negative mining at Pinterest scale: 3 billion nodes and 7.5 billion training examples with progressively harder negatives during training[^4]. Pinterest has since published several production successors: PinnerFormer (2022, batch sequential user embeddings), TransAct (KDD 2023, transformer-based real-time user-action ranking), and PinRec (2025, outcome-conditioned multi-token generative retrieval), that are worth tracking if you operate Pinterest-scale systems.
 
 ### DLRM: sparse embeddings meet dense features
 

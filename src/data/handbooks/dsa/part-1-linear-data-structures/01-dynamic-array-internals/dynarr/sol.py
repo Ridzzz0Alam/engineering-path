@@ -1,4 +1,4 @@
-# DynArr — geometric-resize dynamic array reference template.
+# DynArr: geometric-resize dynamic array reference template.
 # Parameterized growth factor (growth_num / growth_den) for studying the
 # amortized-O(1) push proof; tracks reallocation count to make the
 # geometric pattern observable. Not an LC problem.

@@ -81,7 +81,7 @@ def eval_rpn(tokens):
     return stack[0]
 ```
 
-**Solution** — Python ([Java](./03-expression-evaluation/lc-150/sol.java) · [C++](./03-expression-evaluation/lc-150/sol.cpp) · [Go](./03-expression-evaluation/lc-150/sol.go))
+**Solution** in Python ([Java](./03-expression-evaluation/lc-150/sol.java) · [C++](./03-expression-evaluation/lc-150/sol.cpp) · [Go](./03-expression-evaluation/lc-150/sol.go))
 
 ```python
 # LC 150. Evaluate Reverse Polish Notation
@@ -158,7 +158,7 @@ def calculate(s):
     return sum(stack)
 ```
 
-**Solution** — Python ([Java](./03-expression-evaluation/lc-227/sol.java) · [C++](./03-expression-evaluation/lc-227/sol.cpp) · [Go](./03-expression-evaluation/lc-227/sol.go))
+**Solution** in Python ([Java](./03-expression-evaluation/lc-227/sol.java) · [C++](./03-expression-evaluation/lc-227/sol.cpp) · [Go](./03-expression-evaluation/lc-227/sol.go))
 
 ```python
 # LC 227. Basic Calculator II
@@ -240,7 +240,7 @@ def calculate(s):
     return result
 ```
 
-**Solution** — Python ([Java](./03-expression-evaluation/lc-224/sol.java) · [C++](./03-expression-evaluation/lc-224/sol.cpp) · [Go](./03-expression-evaluation/lc-224/sol.go))
+**Solution** in Python ([Java](./03-expression-evaluation/lc-224/sol.java) · [C++](./03-expression-evaluation/lc-224/sol.cpp) · [Go](./03-expression-evaluation/lc-224/sol.go))
 
 ```python
 # LC 224. Basic Calculator
@@ -317,14 +317,14 @@ A small warning about LC 224's stack depth in Python: the iterative shape uses a
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 150 — Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) [Medium] • stack-postfix-evaluation
-- [LC 227 — Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) [Medium] • stack-precedence-deferral
-- [LC 224 — Basic Calculator](https://leetcode.com/problems/basic-calculator/) [Hard] • stack-sign-state ★
+- [LC 150: Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) [Medium] • stack-postfix-evaluation
+- [LC 227: Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) [Medium] • stack-precedence-deferral
+- [LC 224: Basic Calculator](https://leetcode.com/problems/basic-calculator/) [Hard] • stack-sign-state ★
 
 ### STRETCH (optional)
 
-- [LC 394 — Decode String](https://leetcode.com/problems/decode-string/) [Medium] • stack-recursive-on-stack
-- [LC 1106 — Parsing A Boolean Expression](https://leetcode.com/problems/parsing-a-boolean-expression/) [Hard] • recursive-descent
+- [LC 394: Decode String](https://leetcode.com/problems/decode-string/) [Medium] • stack-recursive-on-stack
+- [LC 1106: Parsing A Boolean Expression](https://leetcode.com/problems/parsing-a-boolean-expression/) [Hard] • recursive-descent
 
 There is no Easy in the CORE set. The simplest stack-based parser problem, LC 20 Valid Parentheses, is a degenerate parser without operator semantics and lives in [Stacks and the call stack analogy](../part-1-linear-data-structures/05-stacks.md), not here. LC 224 is the chapter's star (★) because it's where the three Shapes' patterns converge. LC 772 Basic Calculator III is the natural extension (parens plus all four operators) but is paywalled on LeetCode; the free-alternative path is to solve LC 224 and LC 227 and fuse them mechanically.
 

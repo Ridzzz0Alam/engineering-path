@@ -63,7 +63,7 @@ function sift_down(a, root, end):
         root = child                            # follow the value down
 ```
 
-Two details earn their lines. The choice of larger child matters: swapping with the smaller child can leave a parent that is still smaller than its other child, which violates the heap property at the next step. The `>=` short-circuit (not `>`) is what makes equal-key inputs cost Theta(n) instead of Theta(n log n) — the loop exits the first time it sees a non-strict violation, so an all-equal heap does no work after the first comparison.
+Two details earn their lines. The choice of larger child matters: swapping with the smaller child can leave a parent that is still smaller than its other child, which violates the heap property at the next step. The `>=` short-circuit (not `>`) is what makes equal-key inputs cost Theta(n) instead of Theta(n log n): the loop exits the first time it sees a non-strict violation, so an all-equal heap does no work after the first comparison.
 
 The precondition is the part most readers skip and pay for. CLRS §6.2 names it explicitly: MAX-HEAPIFY assumes the binary trees rooted at LEFT(i) and RIGHT(i) are max-heaps, but A[i] may be smaller than its children.[^2] If you call `siftDown` on a node whose children are not yet heaps, the routine fixes the violation at `root` but ignores deeper violations; the resulting structure is not a heap. This is why phase 1 below visits internal nodes right-to-left, not left-to-right. The order is not stylistic.
 
@@ -145,10 +145,10 @@ def _sift_down(a, root, end):
         root = child
 ```
 
-**Solution** — Python ([Java](./05-heap-sort/lc-912/sol.java) · [C++](./05-heap-sort/lc-912/sol.cpp) · [Go](./05-heap-sort/lc-912/sol.go))
+**Solution** in Python ([Java](./05-heap-sort/lc-912/sol.java) · [C++](./05-heap-sort/lc-912/sol.cpp) · [Go](./05-heap-sort/lc-912/sol.go))
 
 ```python
-# LC 912. Sort an Array — heap-sort reference (in-place, O(n log n) worst case)
+# LC 912. Sort an Array: heap-sort reference (in-place, O(n log n) worst case)
 from typing import List
 
 
@@ -181,7 +181,7 @@ def _sift_down(a: List[int], root: int, end: int) -> None:
         root = child
 ```
 
-The four implementations are written without standard-library heap support: no `heapq`, no `PriorityQueue`, no `std::priority_queue`, no `container/heap`. Once `siftDown` is unboxed, swapping in language-stdlib heaps is a one-line refactor — Python's `heapify` *is* Floyd's build, and CPython's `heapq._siftup` and `_siftdown` are written iteratively for the same reason this chapter writes them iteratively.[^3]
+The four implementations are written without standard-library heap support: no `heapq`, no `PriorityQueue`, no `std::priority_queue`, no `container/heap`. Once `siftDown` is unboxed, swapping in language-stdlib heaps is a one-line refactor: Python's `heapify` *is* Floyd's build, and CPython's `heapq._siftup` and `_siftdown` are written iteratively for the same reason this chapter writes them iteratively.[^3]
 
 ```mermaid
 flowchart LR
@@ -238,7 +238,7 @@ Quicksort's partition step is a linear scan over a contiguous range. The CPU pre
 
 Heap sort's `siftDown` step does the opposite. Following an index `i` to its child at `2i + 1` is a long jump in physical memory: for n = 10^6, the root's children are 4 bytes away, but at depth 20 the children are megabytes apart. The prefetcher cannot guess where the next read will land because the jumps follow data, not address arithmetic. Every level of the sift may miss the cache. A microbenchmark on random integer input from the Wikipedia "Heapsort" comparison-with-quicksort entry pegs the slowdown at the same two-to-three-times factor regardless of n, attributable almost entirely to the locality difference.[^7]
 
-This is the honest answer about heap sort: it is rarely the right algorithm in practice. Quicksort wins on cache. Merge sort wins on stability and parallelism. Heap sort wins exactly where it must — when the worst case has to be `O(n log n)` deterministically and the memory budget is `O(1)`. Two contexts where both constraints bind, and heap sort ships:
+This is the honest answer about heap sort: it is rarely the right algorithm in practice. Quicksort wins on cache. Merge sort wins on stability and parallelism. Heap sort wins exactly where it must, when the worst case has to be `O(n log n)` deterministically and the memory budget is `O(1)`. Two contexts where both constraints bind, and heap sort ships:
 
 | System | Use of heap sort | Why |
 |---|---|---|
@@ -283,8 +283,8 @@ The build-vs-extract decomposition is worth keeping in mind even when the build-
 
 This chapter teaches the heap-sort algorithm and the n log n decision-tree bound; it does not stake a claim on heap-as-data-structure problems. The interview-canonical heap problems (LC 215 Kth Largest, LC 23 Merge k Sorted Lists, LC 295 Find Median from Data Stream, LC 703 Kth Largest in a Stream) are owned by [Heaps and the top-K pattern](../part-6-trees-heaps/04-heaps-priority-queues.md) and [Quickselect](./07-quickselect.md), where heaps are framed as a priority-queue data structure rather than a sort. Two warm-ups below land the phase-2 mechanics (build a max-heap, repeatedly extract, modify, push back) on a smaller surface; both are optional.
 
-- [LC 1962 — Remove Stones to Minimize the Total](https://leetcode.com/problems/remove-stones-to-minimize-the-total/) [Medium] • heap-extract
-- [LC 1046 — Last Stone Weight](https://leetcode.com/problems/last-stone-weight/) [Easy] • heap-extract
+- [LC 1962: Remove Stones to Minimize the Total](https://leetcode.com/problems/remove-stones-to-minimize-the-total/) [Medium] • heap-extract
+- [LC 1046: Last Stone Weight](https://leetcode.com/problems/last-stone-weight/) [Easy] • heap-extract
 
 ## Where this leads
 

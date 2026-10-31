@@ -68,7 +68,7 @@ def rotate(matrix):
         row.reverse()
 ```
 
-**Solution** — Python ([Java](./07-matrix-manipulation/lc-48/sol.java) · [C++](./07-matrix-manipulation/lc-48/sol.cpp) · [Go](./07-matrix-manipulation/lc-48/sol.go))
+**Solution** in Python ([Java](./07-matrix-manipulation/lc-48/sol.java) · [C++](./07-matrix-manipulation/lc-48/sol.cpp) · [Go](./07-matrix-manipulation/lc-48/sol.go))
 
 ```python
 # LC 48. Rotate Image
@@ -93,7 +93,7 @@ The transpose loop must start at `j = i + 1`. Starting at `j = 0` swaps each off
 
 The widget animates a different decomposition because animation has a different goal than memorization. Process the matrix in concentric rings (outer first, then inner). Within each ring, a 4-cell cycle relates corners by 4-fold rotational symmetry: `(i, j) -> (j, n - 1 - i) -> (n - 1 - i, n - 1 - j) -> (n - 1 - j, i)`. Save one corner in a temporary, rotate the other three around the cycle, write the saved value into the last slot. For an `n x n` matrix, the outer ring has `n - 1` cycles, the next ring `n - 3`, and so on inward.
 
-> **Interactive widget:** [Matrix rotation (layered 4-cycle)](../widgets/w-03-matrix-rotation.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Matrix rotation (layered 4-cycle)](../widgets/w-03-matrix-rotation.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a 4x4 matrix with the four cells of one corner cycle highlighted; the next keyframe shows them after one rotation step, and the matrix one ring closer to its final orientation.*
 
@@ -130,7 +130,7 @@ def spiral_order(matrix):
     return out
 ```
 
-**Solution** — Python ([Java](./07-matrix-manipulation/lc-54/sol.java) · [C++](./07-matrix-manipulation/lc-54/sol.cpp) · [Go](./07-matrix-manipulation/lc-54/sol.go))
+**Solution** in Python ([Java](./07-matrix-manipulation/lc-54/sol.java) · [C++](./07-matrix-manipulation/lc-54/sol.cpp) · [Go](./07-matrix-manipulation/lc-54/sol.go))
 
 ```python
 # LC 54. Spiral Matrix
@@ -223,14 +223,14 @@ def set_zeroes(matrix):
             matrix[i][0] = 0
 ```
 
-**Solution** — Python ([Java](./07-matrix-manipulation/lc-73/sol.java) · [C++](./07-matrix-manipulation/lc-73/sol.cpp) · [Go](./07-matrix-manipulation/lc-73/sol.go))
+**Solution** in Python ([Java](./07-matrix-manipulation/lc-73/sol.java) · [C++](./07-matrix-manipulation/lc-73/sol.cpp) · [Go](./07-matrix-manipulation/lc-73/sol.go))
 
 ```python
 # LC 73. Set Matrix Zeroes
 # In place, O(1) extra space. Use row 0 and column 0 as the marker arrays;
 # two booleans capture whether row 0 or column 0 originally contained a
 # zero (the marker pass overwrites cell (0, 0) and loses that information).
-# Read the flags BEFORE the marker pass — that ordering is the bug fix.
+# Read the flags BEFORE the marker pass: that ordering is the bug fix.
 # O(m*n) time, O(1) extra space.
 from typing import List
 
@@ -297,14 +297,14 @@ Each cell changes value (or is read) a constant number of times. The lower bound
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 48 — Rotate Image](https://leetcode.com/problems/rotate-image/) [Medium] • matrix-in-place ★
-- [LC 54 — Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) [Medium] • matrix-traversal
-- [LC 73 — Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) [Medium] • matrix-in-place
+- [LC 48: Rotate Image](https://leetcode.com/problems/rotate-image/) [Medium] • matrix-in-place ★
+- [LC 54: Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) [Medium] • matrix-traversal
+- [LC 73: Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) [Medium] • matrix-in-place
 
 ### STRETCH (optional)
 
-- [LC 867 — Transpose Matrix](https://leetcode.com/problems/transpose-matrix/) [Easy] • matrix-traversal
-- [LC 41 — First Missing Positive](https://leetcode.com/problems/first-missing-positive/) [Hard] • in-place-array-as-hash
+- [LC 867: Transpose Matrix](https://leetcode.com/problems/transpose-matrix/) [Easy] • matrix-traversal
+- [LC 41: First Missing Positive](https://leetcode.com/problems/first-missing-positive/) [Hard] • in-place-array-as-hash
 
 The CORE three are all officially Medium because no canonical Hard exists for pure 2D matrix manipulation without bleeding into backtracking, DP, or graphs (LC 37 Sudoku Solver, LC 64 Min Path Sum, LC 200 Number of Islands all live elsewhere). LC 867 isolates the transpose half of LC 48's identity for a non-square matrix; LC 41 is the 1D analogue of LC 73's row-and-column-marker reuse. Together, CORE plus STRETCH spans Easy, Medium, and Hard.
 

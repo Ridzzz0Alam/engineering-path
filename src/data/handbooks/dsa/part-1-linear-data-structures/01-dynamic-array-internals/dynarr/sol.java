@@ -1,4 +1,4 @@
-// DynArr<T> — geometric-resize dynamic array reference template.
+// DynArr<T>: geometric-resize dynamic array reference template.
 // Parameterized growth factor (growthNum / growthDen) for studying the
 // amortized-O(1) push proof; tracks reallocation count. Not an LC problem.
 import java.util.Arrays;

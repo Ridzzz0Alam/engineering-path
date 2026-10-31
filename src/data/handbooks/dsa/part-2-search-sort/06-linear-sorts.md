@@ -72,7 +72,7 @@ def counting_sort(nums):
     return out
 ```
 
-**Solution** — Python ([Java](./06-linear-sorts/sol.java) · [C++](./06-linear-sorts/sol.cpp) · [Go](./06-linear-sorts/sol.go))
+**Solution** in Python ([Java](./06-linear-sorts/sol.java) · [C++](./06-linear-sorts/sol.cpp) · [Go](./06-linear-sorts/sol.go))
 
 ```python
 # LC 274. H-Index (Medium)
@@ -365,13 +365,13 @@ The CORE three span Easy/Medium/Hard. LC 274 is the chapter's signature problem;
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 1122 — Relative Sort Array](https://leetcode.com/problems/relative-sort-array/) [Easy] • counting-sort
-- [LC 274 — H-Index](https://leetcode.com/problems/h-index/) [Medium] • counting-sort ★
-- [LC 164 — Maximum Gap](https://leetcode.com/problems/maximum-gap/) [Hard] • bucket-sort
+- [LC 1122: Relative Sort Array](https://leetcode.com/problems/relative-sort-array/) [Easy] • counting-sort
+- [LC 274: H-Index](https://leetcode.com/problems/h-index/) [Medium] • counting-sort ★
+- [LC 164: Maximum Gap](https://leetcode.com/problems/maximum-gap/) [Hard] • bucket-sort
 
 ### STRETCH (optional)
 
-- [LC 451 — Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/) [Medium] • bucket-sort
+- [LC 451: Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/) [Medium] • bucket-sort
 
 ## Where this leads
 

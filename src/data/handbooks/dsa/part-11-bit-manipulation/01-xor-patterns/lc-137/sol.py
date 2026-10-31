@@ -8,7 +8,7 @@ from typing import List
 
 
 def single_number(nums: List[int]) -> int:
-    """LC 137 — element appearing once when every other element appears three times."""
+    """LC 137: element appearing once when every other element appears three times."""
     result = 0
     for i in range(32):
         bit_sum = 0

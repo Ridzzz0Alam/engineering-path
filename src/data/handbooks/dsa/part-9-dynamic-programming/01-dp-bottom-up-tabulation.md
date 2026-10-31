@@ -128,7 +128,7 @@ def _rob_linear(houses):
     return prev1
 ```
 
-**Solution** — Python ([Java](./01-dp-bottom-up-tabulation/lc-213/sol.java) · [C++](./01-dp-bottom-up-tabulation/lc-213/sol.cpp) · [Go](./01-dp-bottom-up-tabulation/lc-213/sol.go))
+**Solution** in Python ([Java](./01-dp-bottom-up-tabulation/lc-213/sol.java) · [C++](./01-dp-bottom-up-tabulation/lc-213/sol.cpp) · [Go](./01-dp-bottom-up-tabulation/lc-213/sol.go))
 
 ```python
 # LC 213. House Robber II
@@ -182,7 +182,7 @@ Trace the whole thing on `nums = [2, 7, 9, 3, 1]`. The skip-last sub-pass runs `
 
 The widget below animates the inner primitive, bottom-up Fibonacci on `n = 8`, because Fibonacci is the cleanest two-state recurrence in DP and the side-by-side rolling-pair view makes the space-collapse argument visible in pixels. The chapter 9.0 panel of the same widget shows the same input solved by memoized recursion; flipping between the two panels is the lesson.
 
-> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: dp[0..8] starts empty; the base cases dp[0] = 0 and dp[1] = 1 fill in; the loop fills dp[2] through dp[8] left-to-right, each cell reading the two cells immediately to its left. A two-cell rolling-pair strip below the array tracks (dp[i-1], dp[i]) at every step. Both the full array and the two-cell strip end at 21.*
 
@@ -252,9 +252,9 @@ A third trap, less dramatic but worth flagging: in LC 740 Delete and Earn, the i
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 213 — House Robber II](https://leetcode.com/problems/house-robber-ii/) [Medium] • dp-1d-rolling ★
-- [LC 740 — Delete and Earn](https://leetcode.com/problems/delete-and-earn/) [Medium] • dp-1d-rolling
-- [LC 1937 — Maximum Number of Points with Cost](https://leetcode.com/problems/maximum-number-of-points-with-cost/) [Medium] • dp-1d-rolling *(reference: Python only)*
+- [LC 213: House Robber II](https://leetcode.com/problems/house-robber-ii/) [Medium] • dp-1d-rolling ★
+- [LC 740: Delete and Earn](https://leetcode.com/problems/delete-and-earn/) [Medium] • dp-1d-rolling
+- [LC 1937: Maximum Number of Points with Cost](https://leetcode.com/problems/maximum-number-of-points-with-cost/) [Medium] • dp-1d-rolling *(reference: Python only)*
 
 LC 213 is the chapter signature (★) and the cleanest demonstration of a structural twist riding on the rolling-pair primitive. LC 740 teaches the meta-skill of recognizing a 1D-DP shape under a non-obvious surface form. LC 1937 generalizes the rolling-pair from "previous two cells" to "previous row," previewing the rolling-row variant that lands properly in [DP: 2D problems on grids](./06-lcs.md).
 

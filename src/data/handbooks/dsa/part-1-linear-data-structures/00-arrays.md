@@ -54,7 +54,7 @@ The lower bound for the three in-place algorithms is straightforward. Any cell t
 
 The rest of the chapter is three LeetCode problems that distill the chapter's three signature techniques: back-merge, two-pointer compaction, three-reverse rotation. Each is in-place. Each is O(n). Each is the reflex you should reach for whenever the problem says "in-place" or "O(1) extra space."
 
-### LC 88 — Merge Sorted Array, the back-merge
+### LC 88: Merge Sorted Array, the back-merge
 
 You have two sorted arrays. The first, `nums1`, has length `m + n` but only the first `m` slots are valid; the trailing `n` slots are filled with sentinel zeros. The second, `nums2`, has length `n`. Merge `nums2` into `nums1` in place, keeping the result sorted.
 
@@ -75,7 +75,7 @@ def merge(nums1, m, nums2, n):
         k -= 1
 ```
 
-**Solution** — Python ([Java](./00-arrays/lc-88/sol.java) · [C++](./00-arrays/lc-88/sol.cpp) · [Go](./00-arrays/lc-88/sol.go))
+**Solution** in Python ([Java](./00-arrays/lc-88/sol.java) · [C++](./00-arrays/lc-88/sol.cpp) · [Go](./00-arrays/lc-88/sol.go))
 
 ```python
 # LC 88. Merge Sorted Array
@@ -99,7 +99,7 @@ def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
 
 The whole algorithm is six lines. Each position is written once. Total work: O(m + n). Extra space: O(1). The loop's exit condition is `j < 0`, which means `nums2` is exhausted; whatever is left in `nums1[0..i]` is already in the right place because it was sorted to begin with.
 
-### LC 27 — Remove Element, the two-pointer compaction
+### LC 27: Remove Element, the two-pointer compaction
 
 Given `nums` and a value `val`, remove every occurrence of `val` from `nums` in place. Return the new logical length `k`; the first `k` entries of `nums` should hold the kept values. Whatever sits in `nums[k:]` is irrelevant; the grader doesn't inspect it.
 
@@ -115,7 +115,7 @@ def remove_element(nums, val):
     return k
 ```
 
-**Solution** — Python ([Java](./00-arrays/lc-27/sol.java) · [C++](./00-arrays/lc-27/sol.cpp) · [Go](./00-arrays/lc-27/sol.go))
+**Solution** in Python ([Java](./00-arrays/lc-27/sol.java) · [C++](./00-arrays/lc-27/sol.cpp) · [Go](./00-arrays/lc-27/sol.go))
 
 ```python
 # LC 27. Remove Element
@@ -135,7 +135,7 @@ def remove_element(nums: List[int], val: int) -> int:
 
 `k` is both the next write index and the final length, which is the cleanest version of the contract: returning `k` returns both pieces of information at once. The pattern is more general than this single problem suggests. LC 26 (Remove Duplicates from Sorted Array) keeps `nums[i]` when it differs from `nums[k-1]`. LC 283 (Move Zeroes) keeps the non-zero values. LC 75 (Sort Colors) extends to three pointers. The full template lives in [Two pointers, same direction](../part-3-pointers-window-prefix/01-two-pointers-same-direction.md).
 
-### LC 189 — Rotate Array, the three-reverse trick
+### LC 189: Rotate Array, the three-reverse trick
 
 Rotate `nums` right by `k` steps, in place, in O(1) extra space. Constraints: `1 ≤ n ≤ 10^5`, `0 ≤ k ≤ 10^5`, so `k` may exceed `n`.
 
@@ -169,7 +169,7 @@ def rotate(nums, k):
     _reverse(k, n - 1)
 ```
 
-**Solution** — Python ([Java](./00-arrays/lc-189/sol.java) · [C++](./00-arrays/lc-189/sol.cpp) · [Go](./00-arrays/lc-189/sol.go))
+**Solution** in Python ([Java](./00-arrays/lc-189/sol.java) · [C++](./00-arrays/lc-189/sol.cpp) · [Go](./00-arrays/lc-189/sol.go))
 
 ```python
 # LC 189. Rotate Array
@@ -233,13 +233,13 @@ Five failure modes show up in practice, one per problem cluster. Each has the sa
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 88 — Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/) [Easy] • back-merge ★
-- [LC 27 — Remove Element](https://leetcode.com/problems/remove-element/) [Easy] • two-pointer-compaction
-- [LC 189 — Rotate Array](https://leetcode.com/problems/rotate-array/) [Medium] • three-reverse-rotation
+- [LC 88: Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/) [Easy] • back-merge ★
+- [LC 27: Remove Element](https://leetcode.com/problems/remove-element/) [Easy] • two-pointer-compaction
+- [LC 189: Rotate Array](https://leetcode.com/problems/rotate-array/) [Medium] • three-reverse-rotation
 
 ### STRETCH (optional)
 
-- [LC 4 — Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • binary-search-on-partition
+- [LC 4: Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • binary-search-on-partition
 
 LC 4 is owned in [Binary search variants](../part-2-search-sort/02-binary-search-variants.md); the deep treatment lives there. It's listed here as the chapter's only Hard so the CORE+STRETCH set spans Easy/Medium/Hard.
 

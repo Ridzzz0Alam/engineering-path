@@ -32,9 +32,9 @@ Interval DP shows up whenever the input is a linear sequence (an array, a string
 ```mermaid
 flowchart TD
     A[Interval-shaped DP problem] --> B{Recurrence shape}
-    B -- "split [i..j] at k,<br/>combine two halves" --> C[Interval DP — this chapter]
-    B -- "shrink [i..j] by one,<br/>endpoint equality test" --> D[Palindrome DP — chapter 9.10]
-    B -- "match indices in two<br/>sequences i in s1, j in s2" --> E[LCS / edit distance — chapters 9.6, 9.7]
+    B -- "split [i..j] at k,<br/>combine two halves" --> C[Interval DP, and this chapter]
+    B -- "shrink [i..j] by one,<br/>endpoint equality test" --> D[Palindrome DP - chapter 9.10]
+    B -- "match indices in two<br/>sequences i in s1, j in s2" --> E[LCS / edit distance - chapters 9.6, 9.7]
     C --> F{What does the<br/>combine cost depend on?}
     F -- "values at i, k, j" --> G["Last-operation max/min<br/>(LC 312, matrix-chain, LC 1547)"]
     F -- "+ pile count after merge" --> H["3D state<br/>(LC 1000)"]
@@ -48,7 +48,7 @@ flowchart TD
 Try the obvious phrasing. Pick an array of balloons. Pick any balloon `k` to burst first. Earn `nums[k-1] * nums[k] * nums[k+1]` coins. Recurse on the smaller array.
 
 ```python
-# Brute force: O(n!) — what we're replacing
+# Brute force: O(n!): what we're replacing
 def max_coins_brute(nums):
     if not nums:
         return 0
@@ -95,7 +95,7 @@ def max_coins(nums):
     return dp[0][n - 1]
 ```
 
-**Solution** — Python ([Java](./11-interval-dp/lc-312/sol.java) · [C++](./11-interval-dp/lc-312/sol.cpp) · [Go](./11-interval-dp/lc-312/sol.go))
+**Solution** in Python ([Java](./11-interval-dp/lc-312/sol.java) · [C++](./11-interval-dp/lc-312/sol.cpp) · [Go](./11-interval-dp/lc-312/sol.go))
 
 ```python
 # LC 312. Burst Balloons
@@ -259,14 +259,14 @@ Every problem on this ladder is rated Hard. That is a property of the pattern, n
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 312 — Burst Balloons](https://leetcode.com/problems/burst-balloons/) [Hard] • interval-dp-last-operation ★
-- [LC 1547 — Minimum Cost to Cut a Stick](https://leetcode.com/problems/minimum-cost-to-cut-a-stick/) [Hard] • interval-dp-last-operation
-- [LC 1000 — Minimum Cost to Merge Stones](https://leetcode.com/problems/minimum-cost-to-merge-stones/) [Hard] • interval-dp-with-extra-state
+- [LC 312: Burst Balloons](https://leetcode.com/problems/burst-balloons/) [Hard] • interval-dp-last-operation ★
+- [LC 1547: Minimum Cost to Cut a Stick](https://leetcode.com/problems/minimum-cost-to-cut-a-stick/) [Hard] • interval-dp-last-operation
+- [LC 1000: Minimum Cost to Merge Stones](https://leetcode.com/problems/minimum-cost-to-merge-stones/) [Hard] • interval-dp-with-extra-state
 
 ### STRETCH (optional)
 
-- [LC 664 — Strange Printer](https://leetcode.com/problems/strange-printer/) [Hard] • interval-dp-coalesce-equal-ends
-- [LC 87 — Scramble String](https://leetcode.com/problems/scramble-string/) [Hard] • interval-dp-three-dimensional
+- [LC 664: Strange Printer](https://leetcode.com/problems/strange-printer/) [Hard] • interval-dp-coalesce-equal-ends
+- [LC 87: Scramble String](https://leetcode.com/problems/scramble-string/) [Hard] • interval-dp-three-dimensional
 
 LC 312 is the chapter's signature problem and the cleanest expression of the "last operation" frame. LC 1547 swaps the multiplicative cost for an additive one and confirms the pattern is not Burst-Balloons-specific. LC 1000 introduces the third state dimension. The two stretch problems extend the pattern in different directions: LC 664 with the endpoint-coalescing rule, LC 87 with the three-dimensional state.
 
@@ -284,7 +284,7 @@ LC 312 is the chapter's signature problem and the cleanest expression of the "la
 
 [^3]: Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022, Chapter 14 §14.2 ("Matrix-chain multiplication").
 
-[^4]: LeetCode, "312. Burst Balloons" — Example 1: `nums = [3, 1, 5, 8]` produces 167 via the burst sequence `1, 5, 3, 8`. https://leetcode.com/problems/burst-balloons/
+[^4]: LeetCode, "312. Burst Balloons": Example 1: `nums = [3, 1, 5, 8]` produces 167 via the burst sequence `1, 5, 3, 8`. https://leetcode.com/problems/burst-balloons/
 
 [^5]: LC 312 constraint analysis.
 

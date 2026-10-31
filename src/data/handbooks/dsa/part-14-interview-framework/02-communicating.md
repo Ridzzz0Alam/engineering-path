@@ -88,7 +88,7 @@ flowchart TD
 
 ## What to do this week
 
-Pick two of the five inflection points above — restate, brute-then-optimize, invariant, quiet-chunk announcement, dry-run — and force them into every problem you solve this week, talking out loud to an empty room. Record one or two reps a day on your phone and listen back the next morning. The first listen is uncomfortable. By rep ten the templates compress to two or three words and stop sounding scripted.
+Pick two of the five inflection points above: restate, brute-then-optimize, invariant, quiet-chunk announcement, dry-run, and force them into every problem you solve this week, talking out loud to an empty room. Record one or two reps a day on your phone and listen back the next morning. The first listen is uncomfortable. By rep ten the templates compress to two or three words and stop sounding scripted.
 
 [Time and space complexity discussions](./03-complexity-discussions.md) is the deep dive into the optimize phase and the natural follow-up to this chapter.
 

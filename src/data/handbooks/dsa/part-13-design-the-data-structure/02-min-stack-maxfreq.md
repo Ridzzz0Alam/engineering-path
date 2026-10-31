@@ -30,10 +30,10 @@ The interviewer hands you a contract. Four operations, all O(1), and one of them
 
 | LC 155 contract | LC 895 contract |
 |---|---|
-| `push(val)` — O(1) | `push(val)` — O(1) |
-| `pop()` — O(1) | `pop()` returns *and removes* the most-frequent element, ties broken by recency — O(1) |
-| `top()` — O(1) | (no `top`) |
-| `getMin()` returns the smallest currently on the stack — O(1) | |
+| `push(val)`: O(1) | `push(val)`, O(1) |
+| `pop()`: O(1) | `pop()` returns *and removes* the most-frequent element, ties broken by recency, O(1) |
+| `top()`: O(1) | (no `top`) |
+| `getMin()` returns the smallest currently on the stack: O(1) | |
 
 The question is not "implement a stack." A stack is one line of code in any of the four reference languages. The question is "what extra state do I carry on push and pop so that the augmented operation does not have to scan?"
 
@@ -113,14 +113,14 @@ def pop(self):
     return val
 ```
 
-**Solution** — Python ([Java](./02-min-stack-maxfreq/lc-895/sol.java) · [C++](./02-min-stack-maxfreq/lc-895/sol.cpp) · [Go](./02-min-stack-maxfreq/lc-895/sol.go))
+**Solution** in Python ([Java](./02-min-stack-maxfreq/lc-895/sol.java) · [C++](./02-min-stack-maxfreq/lc-895/sol.cpp) · [Go](./02-min-stack-maxfreq/lc-895/sol.go))
 
 ```python
 # LC 895. Maximum Frequency Stack
 # A pop returns the most-frequent element pushed so far, breaking ties by
 # recency. Carry two parallel structures: count[v] tracks v's current count;
 # buckets[f] is a stack of every value that has ever reached count f. A
-# push of v at new count f appends v to buckets[f] alone — earlier pushes
+# push of v at new count f appends v to buckets[f] alone: earlier pushes
 # placed v into buckets[1..f-1]. A pop reads buckets[max_freq], which
 # returns the most-frequent value and (by stack LIFO inside the bucket)
 # the most-recent among ties. O(1) per push, O(1) per pop.
@@ -234,12 +234,12 @@ Watch for the signal at design time. *Reads* the augmented value or *removes the
 
 ### CORE (solve to claim chapter mastery)
 
-- [LC 1762 — Buildings With an Ocean View](https://leetcode.com/problems/buildings-with-an-ocean-view/) [Medium] • design-monotonic-stack-as-aggregate ★
+- [LC 1762: Buildings With an Ocean View](https://leetcode.com/problems/buildings-with-an-ocean-view/) [Medium] • design-monotonic-stack-as-aggregate ★
 
 ### STRETCH (optional, primary treatment lives in chapter 4.2)
 
-- [LC 155 — Min Stack](https://leetcode.com/problems/min-stack/) [Medium] • design-stack-with-aux-min-stack *(primary: [Min and max stacks](../part-4-stack-queue-patterns/02-min-max-stack.md))*
-- [LC 895 — Maximum Frequency Stack](https://leetcode.com/problems/maximum-frequency-stack/) [Hard] • design-stack-with-frequency-buckets *(primary: [Min and max stacks](../part-4-stack-queue-patterns/02-min-max-stack.md); four-language reference here)*
+- [LC 155: Min Stack](https://leetcode.com/problems/min-stack/) [Medium] • design-stack-with-aux-min-stack *(primary: [Min and max stacks](../part-4-stack-queue-patterns/02-min-max-stack.md))*
+- [LC 895: Maximum Frequency Stack](https://leetcode.com/problems/maximum-frequency-stack/) [Hard] • design-stack-with-frequency-buckets *(primary: [Min and max stacks](../part-4-stack-queue-patterns/02-min-max-stack.md); four-language reference here)*
 
 The pattern admits no canonical Easy that this chapter owns natively. LC 155 (Medium per LC) and LC 895 (Hard) cover the design-spectrum span at the cost of a difficulty cluster on the chapter's PRIMARY claim; the registry flag is `no-easy-canonical`, the same flag chapter 4.2 carries for the algorithmic family.
 

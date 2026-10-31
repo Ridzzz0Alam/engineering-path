@@ -83,10 +83,10 @@ class DynArr:
         self._cap = new_cap
 ```
 
-**Solution** — Python ([Java](./01-dynamic-array-internals/dynarr/sol.java) · [C++](./01-dynamic-array-internals/dynarr/sol.cpp) · [Go](./01-dynamic-array-internals/dynarr/sol.go))
+**Solution** in Python ([Java](./01-dynamic-array-internals/dynarr/sol.java) · [C++](./01-dynamic-array-internals/dynarr/sol.cpp) · [Go](./01-dynamic-array-internals/dynarr/sol.go))
 
 ```python
-# DynArr — geometric-resize dynamic array reference template.
+# DynArr: geometric-resize dynamic array reference template.
 # Parameterized growth factor (growth_num / growth_den) for studying the
 # amortized-O(1) push proof; tracks reallocation count to make the
 # geometric pattern observable. Not an LC problem.
@@ -185,8 +185,8 @@ How much of that benefit is real depends on the allocator. Modern size-class all
 |---|---|---|---|---|
 | `get(i)` random access | O(1) | O(1) | O(1) | Address arithmetic.[^11] |
 | `push(x)` no-grow case | O(1) | O(1) | O(1) | One write. |
-| `push(x)` grow-triggering case | O(n) | — | O(n) transient | The single push copies everything. |
-| `push(x)` over a sequence of n | — | O(1) per push | O(n) peak | The proof above.[^3] |
+| `push(x)` grow-triggering case | O(n) | n/a | O(n) transient | The single push copies everything. |
+| `push(x)` over a sequence of n | n/a | O(1) per push | O(n) peak | The proof above.[^3] |
 | `pop()` no-shrink | O(1) | O(1) | O(1) | One write to `size`. |
 | Insert or delete near the front | O(n) | O(n) | O(1) | Every following element shifts. |
 
@@ -221,9 +221,9 @@ This chapter is depth-on-mechanics, not a pattern chapter. The canonical Easy an
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 1146 — Snapshot Array](https://leetcode.com/problems/snapshot-array/) [Medium] • array-design-per-cell-version-list ★
-- [LC 919 — Complete Binary Tree Inserter](https://leetcode.com/problems/complete-binary-tree-inserter/) [Medium] • array-backed-tree-with-index-arithmetic
-- [LC 622 — Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) [Medium] • array-buffer-bounded-with-modular-indexing
+- [LC 1146: Snapshot Array](https://leetcode.com/problems/snapshot-array/) [Medium] • array-design-per-cell-version-list ★
+- [LC 919: Complete Binary Tree Inserter](https://leetcode.com/problems/complete-binary-tree-inserter/) [Medium] • array-backed-tree-with-index-arithmetic
+- [LC 622: Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) [Medium] • array-buffer-bounded-with-modular-indexing
 
 ## Where this leads
 
@@ -243,7 +243,7 @@ Every chapter from here on quietly cites this one whenever it claims `append`, `
 
 [^6]: LLVM libc++, `libcxx/include/__vector/vector.h`, member `vector::__recommend(size_type)` returns `std::max(2 * __cap, __new_size)`, capped at `max_size()`. [github.com/llvm/llvm-project/.../vector.h](https://github.com/llvm/llvm-project/blob/main/libcxx/include/__vector/vector.h).
 
-[^7]: Microsoft STL, `stl/inc/vector`, member `vector::_Calculate_growth(const size_type)` returns `_Oldcapacity + _Oldcapacity / 2` — that is, 1.5x — falling back to the requested size when geometric growth is insufficient. [github.com/microsoft/STL/.../vector](https://github.com/microsoft/STL/blob/main/stl/inc/vector).
+[^7]: Microsoft STL, `stl/inc/vector`, member `vector::_Calculate_growth(const size_type)` returns `_Oldcapacity + _Oldcapacity / 2`, that is, 1.5x: falling back to the requested size when geometric growth is insufficient. [github.com/microsoft/STL/.../vector](https://github.com/microsoft/STL/blob/main/stl/inc/vector).
 
 [^8]: Facebook Folly, `folly/docs/FBVector.md`, section on memory-allocation strategy: "It can be mathematically proven that a growth factor of 2 is rigorously the worst possible because it never allows the vector to reuse any of its previously-allocated memory." Folly's chosen factor is 1.5x. [github.com/facebook/folly/.../FBVector.md](https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md).
 

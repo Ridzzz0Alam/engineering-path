@@ -95,7 +95,7 @@ def inorderTraversal(root):
     return out
 ```
 
-**Solution** — Python ([Java](./01-tree-traversals/lc-94/sol.java) · [C++](./01-tree-traversals/lc-94/sol.cpp) · [Go](./01-tree-traversals/lc-94/sol.go))
+**Solution** in Python ([Java](./01-tree-traversals/lc-94/sol.java) · [C++](./01-tree-traversals/lc-94/sol.cpp) · [Go](./01-tree-traversals/lc-94/sol.go))
 
 ```python
 # LC 94. Binary Tree Inorder Traversal
@@ -278,7 +278,7 @@ class Codec:
         return build()
 ```
 
-**Solution** — Python ([Java](./01-tree-traversals/lc-297/sol.java) · [C++](./01-tree-traversals/lc-297/sol.cpp) · [Go](./01-tree-traversals/lc-297/sol.go))
+**Solution** in Python ([Java](./01-tree-traversals/lc-297/sol.java) · [C++](./01-tree-traversals/lc-297/sol.cpp) · [Go](./01-tree-traversals/lc-297/sol.go))
 
 ```python
 # LC 297. Serialize and Deserialize Binary Tree
@@ -333,7 +333,7 @@ On the canonical six-node tree, serialize produces `1,2,4,#,#,5,#,#,3,#,6,#,#`. 
 
 ## The widget
 
-> **Interactive widget:** [Tree traversal animator (DFS pre/in/post + BFS level-order)](../widgets/w-16-tree-traversal-animator.yml) (panel `panel-a`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Tree traversal animator (DFS pre/in/post + BFS level-order)](../widgets/w-16-tree-traversal-animator.yml) (panel `panel-a`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the canonical n = 6 tree with three sequential phases. Phase 1 (preorder) emits `[1, 2, 4, 5, 3, 6]`; root before subtrees, top-down. Phase 2 (inorder) emits `[4, 2, 5, 1, 3, 6]`; left subtree, root, right subtree, which is the BST sorted-projection shape. Phase 3 (postorder) emits `[4, 5, 2, 6, 3, 1]`; both subtrees, then root, with the root visited last. The recursion-stack column rises and falls with the descent depth in every phase.*
 
@@ -374,15 +374,15 @@ A third pitfall worth a sentence: a recursive helper that returns a fresh list f
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 94 — Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) [Easy] • dfs-inorder-recursive-and-iterative
-- [LC 105 — Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) [Medium] • preorder-driven-tree-construction-with-inorder-index ★
-- [LC 297 — Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) [Hard] • preorder-with-null-markers
+- [LC 94: Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) [Easy] • dfs-inorder-recursive-and-iterative
+- [LC 105: Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) [Medium] • preorder-driven-tree-construction-with-inorder-index ★
+- [LC 297: Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) [Hard] • preorder-with-null-markers
 
 ### STRETCH (optional)
 
-- [LC 144 — Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/) [Easy] • dfs-preorder-recursive-and-iterative
-- [LC 145 — Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/) [Easy] • dfs-postorder-iterative-two-stack-or-reverse
-- [LC 106 — Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) [Medium] • postorder-driven-tree-construction-with-inorder-index
+- [LC 144: Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/) [Easy] • dfs-preorder-recursive-and-iterative
+- [LC 145: Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/) [Easy] • dfs-postorder-iterative-two-stack-or-reverse
+- [LC 106: Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) [Medium] • postorder-driven-tree-construction-with-inorder-index
 
 LC 105 is the chapter's signature problem (★) because it's the one that forces you to state explicitly what each ordering encodes and use that statement to rebuild a tree. LC 94 anchors the iterative-with-stack template; LC 297 puts preorder into a serialization role and shows why null markers are load-bearing.
 

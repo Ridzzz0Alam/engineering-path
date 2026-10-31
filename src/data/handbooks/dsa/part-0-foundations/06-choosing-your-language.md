@@ -27,7 +27,7 @@ Default to **Python** if you don't already have a strong incumbent. Yangshun Tay
 
 Python wins on three concrete axes. A sliding-window medium runs 15 to 25 lines in Python and 30 to 50 lines in Java. The standard library covers `Counter`, `deque`, `heapq`, `bisect`, `itertools`, and `lru_cache` out of the box. The whiteboard is forgiving: no type declarations, no class wrapper, slicing notation that compresses to one line.
 
-Python loses on integer overflow only in the trick-question sense — it doesn't overflow, because `int` is arbitrary-precision per PEP 237.[^3] Java, C++, and Go all carry the overflow tax. See [Math for interviews](./04-math-for-interviews.md) and [Language idioms](./05-language-idioms.md) for the receipts.
+Python loses on integer overflow only in the trick-question sense, and it doesn't overflow, because `int` is arbitrary-precision per PEP 237.[^3] Java, C++, and Go all carry the overflow tax. See [Math for interviews](./04-math-for-interviews.md) and [Language idioms](./05-language-idioms.md) for the receipts.
 
 The cases where you'd pick something else:
 
@@ -106,7 +106,7 @@ If you don't have an incumbent: open this chapter again, write `count_freqs("abr
 
 If you do have an incumbent: stay with it. The 40 to 80 hours you'd spend learning a new language don't pay back unless your incumbent is on Yangshun's avoid list (Haskell, Erlang, Perl, C, MATLAB) or your only target is Google and you currently write Go.
 
-[Language idioms](./05-language-idioms.md) is the cross-language reference you'll come back to. [Part 14 — Interview framework](../part-14-interview-framework/00-pattern-recognition.md) is the broader prep mental model. The language is decided. The next 100 to 400 hours of practice are the part that actually matters.
+[Language idioms](./05-language-idioms.md) is the cross-language reference you'll come back to. [Part 14: Interview framework](../part-14-interview-framework/00-pattern-recognition.md) is the broader prep mental model. The language is decided. The next 100 to 400 hours of practice are the part that actually matters.
 
 ## References
 
@@ -114,6 +114,6 @@ If you do have an incumbent: stay with it. The 40 to 80 hours you'd spend learni
 
 [^2]: Tay, Y., "Which programming language to use for coding interviews," *Tech Interview Handbook*, [techinterviewhandbook.org/programming-languages-for-coding-interviews](https://www.techinterviewhandbook.org/programming-languages-for-coding-interviews/).
 
-[^3]: Zadka, M. and van Rossum, G., "PEP 237 — Unifying Long Integers and Integers," [peps.python.org/pep-0237](https://peps.python.org/pep-0237/).
+[^3]: Zadka, M. and van Rossum, G., "PEP 237: Unifying Long Integers and Integers," [peps.python.org/pep-0237](https://peps.python.org/pep-0237/).
 
 [^4]: Per-company defaults synthesized from candidate reports and recruiter conversations on interviewing.io's company-specific guides (refreshed Q4 2025 / Q1 2026) and the krishnadey30/LeetCode-Questions-CompanyWise community tags.

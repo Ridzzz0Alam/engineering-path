@@ -56,7 +56,7 @@ The Go case is where the slice idiom bends. For short-lived deques bounded by a 
 
 ## The deque adds the back end
 
-A deque is a queue that loosened a constraint: pushes and pops are cheap at *both* ends. CLRS Exercise 10.1-5 defines four primitives — `HEAD-ENQUEUE`, `TAIL-ENQUEUE`, `HEAD-DEQUEUE`, `TAIL-DEQUEUE` — each O(1) on a circular-array implementation.[^4] The name (pronounced "deck") comes from Knuth's TAOCP Volume 1 §2.2.1 as a contraction of "double-ended queue."[^5]
+A deque is a queue that loosened a constraint: pushes and pops are cheap at *both* ends. CLRS Exercise 10.1-5 defines four primitives (`HEAD-ENQUEUE`, `TAIL-ENQUEUE`, `HEAD-DEQUEUE`, `TAIL-DEQUEUE`) each O(1) on a circular-array implementation.[^4] The name (pronounced "deck") comes from Knuth's TAOCP Volume 1 §2.2.1 as a contraction of "double-ended queue."[^5]
 
 The reason the deque earns its own chapter is that several patterns that feel like sliding windows actually need both ends hot. The canonical case is the monotonic deque used by [Sliding window maximum and the monotonic deque](../part-4-stack-queue-patterns/01-monotonic-deque.md): store indices in a deque maintaining a strict monotone invariant, evict expired indices from the front, evict dominated indices from the back, achieve O(n) total. A queue can't do this; a stack can't do this; a deque is exactly what the algorithm needs.
 
@@ -85,7 +85,7 @@ flowchart LR
 
 *The buffer is a fixed-length array; the producer advances `tail` modulo capacity and the consumer advances `head` modulo capacity. Empty and full both reduce to `head == tail`, which is why the disambiguation strategy matters.*
 
-The interview problem the chapter centers on is LC 641 Design Circular Deque: insert and delete at both front and back, fixed capacity, every operation O(1). The pure modular indexing — `head` and `tail` advance modulo `cap` — is correct for *positioning* but ambiguous for *state*. When `head == tail`, the buffer is either empty (just constructed, nothing in it) or full (every slot written, both indices have lapped). Two canonical fixes:
+The interview problem the chapter centers on is LC 641 Design Circular Deque: insert and delete at both front and back, fixed capacity, every operation O(1). The pure modular indexing (`head` and `tail` advance modulo `cap`) is correct for *positioning* but ambiguous for *state*. When `head == tail`, the buffer is either empty (just constructed, nothing in it) or full (every slot written, both indices have lapped). Two canonical fixes:
 
 1. **Keep an explicit `count` field.** Empty is `count == 0`; full is `count == cap`. One extra integer of state, self-documenting, no edge cases.
 2. **Reserve one slot.** Empty is `head == tail`; full is `(tail + 1) % cap == head`. Costs one usable slot per buffer, but means the indices alone tell the truth.
@@ -131,7 +131,7 @@ class MyCircularQueue:
         return self._count == self._cap
 ```
 
-**Solution** — Python ([Java](./06-queues-deques/lc-622/sol.java) · [C++](./06-queues-deques/lc-622/sol.cpp) · [Go](./06-queues-deques/lc-622/sol.go))
+**Solution** in Python ([Java](./06-queues-deques/lc-622/sol.java) · [C++](./06-queues-deques/lc-622/sol.cpp) · [Go](./06-queues-deques/lc-622/sol.go))
 
 ```python
 # LC 622. Design Circular Queue
@@ -184,19 +184,19 @@ A trace on `cap = 3`, then `enQueue(1)`, `enQueue(2)`, `enQueue(3)`, `enQueue(4)
 
 ```mermaid
 flowchart TD
-    Init["init cap=3 — buf=[_,_,_] head=0 tail=0 count=0"] --> S1
-    S1["enQueue 1 — buf=[1,_,_] head=0 tail=1 count=1 → true"] --> S2
-    S2["enQueue 2 — buf=[1,2,_] head=0 tail=2 count=2 → true"] --> S3
-    S3["enQueue 3 — buf=[1,2,3] head=0 tail=0 count=3 → true (tail wrapped)"] --> S4
-    S4["enQueue 4 — count==cap, reject → false"] --> S5
-    S5["Rear() — buf[(0-1) mod 3] = buf[2] = 3"] --> S6
+    Init["init cap=3 - buf=[_,_,_] head=0 tail=0 count=0"] --> S1
+    S1["enQueue 1 - buf=[1,_,_] head=0 tail=1 count=1 → true"] --> S2
+    S2["enQueue 2 - buf=[1,2,_] head=0 tail=2 count=2 → true"] --> S3
+    S3["enQueue 3 - buf=[1,2,3] head=0 tail=0 count=3 → true (tail wrapped)"] --> S4
+    S4["enQueue 4 - count==cap, reject → false"] --> S5
+    S5["Rear() - buf[(0-1) mod 3] = buf[2] = 3"] --> S6
     S6["isFull() → true"] --> S7
-    S7["deQueue() — head=1 count=2 → true"] --> S8
-    S8["enQueue 4 — buf=[1,2,3]→buf[0]=4, head=1 tail=1 count=3 → true"] --> S9
-    S9["Rear() — buf[(1-1) mod 3] = buf[0] = 4"]
+    S7["deQueue() - head=1 count=2 → true"] --> S8
+    S8["enQueue 4 - buf=[1,2,3]→buf[0]=4, head=1 tail=1 count=3 → true"] --> S9
+    S9["Rear() - buf[(1-1) mod 3] = buf[0] = 4"]
 ```
 
-*The third enQueue lands at `buf[2]` and wraps `tail` to 0; the fourth is rejected; after one deQueue advances `head` to 1, the wrapped slot accepts the next value at `buf[0]`. Empty and full both report `head == tail` here — the `count` field is what disambiguates.*
+*The third enQueue lands at `buf[2]` and wraps `tail` to 0; the fourth is rejected; after one deQueue advances `head` to 1, the wrapped slot accepts the next value at `buf[0]`. Empty and full both report `head == tail` here: the `count` field is what disambiguates.*
 
 The `Rear()` call has one bracket worth flagging. `(self._tail - 1) % self._cap` works in Python because Python's `%` returns a non-negative result for negative dividends; in Java, C++, and Go it doesn't. The Java and C++ references write `(tail - 1 + cap) % cap` for that reason. Same algorithm, different defensive arithmetic per language. That's the kind of inline bug that costs you ten minutes in an interview if you don't see it in advance.
 
@@ -247,19 +247,19 @@ This chapter's CORE picks center on the data structures themselves. The pattern 
 
 ### CORE (solve both to claim chapter mastery)
 
-- [LC 933 — Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/) [Easy] • queue-on-stream
-- [LC 641 — Design Circular Deque](https://leetcode.com/problems/design-circular-deque/) [Medium] • ring-buffer-deque ★
+- [LC 933: Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/) [Easy] • queue-on-stream
+- [LC 641: Design Circular Deque](https://leetcode.com/problems/design-circular-deque/) [Medium] • ring-buffer-deque ★
 
 ### STRETCH (optional)
 
-- [LC 622 — Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) [Medium] • ring-buffer
-- [LC 1670 — Design Front Middle Back Queue](https://leetcode.com/problems/design-front-middle-back-queue/) [Medium] • two-deque
+- [LC 622: Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) [Medium] • ring-buffer
+- [LC 1670: Design Front Middle Back Queue](https://leetcode.com/problems/design-front-middle-back-queue/) [Medium] • two-deque
 
 LC 933 demonstrates the queue's role as a sliding window over a stream: maintain a queue of recent timestamps, evict from the front when the oldest falls out of the 3000ms window, return the queue's length. It's the simplest possible application of the FIFO contract on a streaming input. LC 641 is the chapter's signature problem and the reason the four-primitive deque exists: the wrap-around arithmetic must be symmetric at both ends, and `head` decrement wraps to `cap - 1`, which is the canonical interview-style off-by-one. LC 622 is the one-ended sibling and lives here as STRETCH because [Dynamic array internals](./01-dynamic-array-internals.md) teaches it as the capacity-versus-length design exercise; readers who reach this chapter for ring-buffer mechanics specifically benefit from a second pass on LC 622 with the deque framing in hand. LC 1670 extends the contract to three insertion points (front, middle, back) and is solved cleanly by two deques whose lengths differ by at most one, a small problem with a surprisingly elegant invariant.
 
 ## Where this leads
 
-[Queue from stacks](../part-4-stack-queue-patterns/04-queue-from-stacks.md) develops LC 232 and LC 225 with the amortization argument worked end-to-end. [Monotonic stack and deque](../part-4-stack-queue-patterns/01-monotonic-deque.md) is where LC 239 lives — the sliding-window maximum with the deque internals taught here. [BFS and DFS](../part-8-graphs/01-bfs.md) is where the queue-as-graph-frontier pattern cashes in for the LC 200, 994, 542 family. [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md) is the priority-queue alternative — same FIFO contract bent so that the dequeue order is by priority rather than by arrival.
+[Queue from stacks](../part-4-stack-queue-patterns/04-queue-from-stacks.md) develops LC 232 and LC 225 with the amortization argument worked end-to-end. [Monotonic stack and deque](../part-4-stack-queue-patterns/01-monotonic-deque.md) is where LC 239 lives: the sliding-window maximum with the deque internals taught here. [BFS and DFS](../part-8-graphs/01-bfs.md) is where the queue-as-graph-frontier pattern cashes in for the LC 200, 994, 542 family. [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md) is the priority-queue alternative: same FIFO contract bent so that the dequeue order is by priority rather than by arrival.
 
 ## References
 

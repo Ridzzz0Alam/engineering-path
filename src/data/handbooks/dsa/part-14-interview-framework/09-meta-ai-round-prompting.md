@@ -70,7 +70,7 @@ Two techniques, both small, both visible to the interviewer.
 
 The first is **pipelining**. While the AI generates, you do something else: review the previous chunk, narrate the next step to the interviewer, or pre-write the next prompt.[^4][^9] Coditioning calls it "AI drafts function X while you review function X-1."[^1] You are never idle, and the interviewer sees you reading and thinking on every turn. Idle time during AI generation is the silent killer of the Communication score.
 
-The second is the **dry-run trace**. After an implementation lands in the editor, ask the AI: "Trace this function line by line with input `[concrete small example]`. State the value of every variable after each line." Then read the trace and mentally run the same input. Where the AI's trace diverges from your mental model, you have either a real bug or an AI hallucination — both are worth investigating before you run the test.[^5] The trace is a verification step that doubles as a teaching demo to the interviewer: you are explaining the code you didn't write, in your own words.
+The second is the **dry-run trace**. After an implementation lands in the editor, ask the AI: "Trace this function line by line with input `[concrete small example]`. State the value of every variable after each line." Then read the trace and mentally run the same input. Where the AI's trace diverges from your mental model, you have either a real bug or an AI hallucination: both are worth investigating before you run the test.[^5] The trace is a verification step that doubles as a teaching demo to the interviewer: you are explaining the code you didn't write, in your own words.
 
 Defend every line. If you cannot say what a line does and why it's there, delete it. The E5 candidate who got an offer described her exact rule: "I would tell the AI, let's just create the core logic first. I would say, for now I want to start from a very basic single function so I can review it easily."[^3]
 
@@ -90,7 +90,7 @@ Pick three problems that look like Meta's pool: one BFS-on-grid (LC 200 *Number 
 
 The goal is not to pass the tests. The goal is to feel the four-phase hierarchy with a real clock running, so that on the day, the order is automatic and the prompts are bounded.
 
-[Pattern recognition: the fastest skill to develop](./00-pattern-recognition.md) is the prerequisite for the strategy phase — you cannot announce an algorithm you cannot name. The companion chapter on the round's failure modes catalogs the rejection patterns this hierarchy is designed to avoid.
+[Pattern recognition: the fastest skill to develop](./00-pattern-recognition.md) is the prerequisite for the strategy phase, and you cannot announce an algorithm you cannot name. The companion chapter on the round's failure modes catalogs the rejection patterns this hierarchy is designed to avoid.
 
 ## References
 
@@ -110,6 +110,6 @@ The goal is not to pass the tests. The goal is to feel the four-phase hierarchy 
 
 [^8]: Anthropic, "Prompting best practices" (Claude 4.5 / 4.6 / Sonnet 4.6), Anthropic developer documentation, 2026, [docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices).
 
-[^9]: Rafay Abbasi, "Meta's New Coding Round Uses AI — Here's Exactly How to Handle It," Cracking the Tech Interview (Substack), 2026-04-29, [dglearning.substack.com/p/how-to-prepare-for-the-meta-ai-assisted](https://dglearning.substack.com/p/how-to-prepare-for-the-meta-ai-assisted).
+[^9]: Rafay Abbasi, "Meta's New Coding Round Uses AI, Here's Exactly How to Handle It," Cracking the Tech Interview (Substack), 2026-04-29, [dglearning.substack.com/p/how-to-prepare-for-the-meta-ai-assisted](https://dglearning.substack.com/p/how-to-prepare-for-the-meta-ai-assisted).
 
-[^10]: Each problem is a Meta-pool staple confirmed via multiple secondary sources. Solo practice only; this chapter is foundation/framework-exempt and ships no chapter mastery ladder. [LC 200 — Number of Islands](https://leetcode.com/problems/number-of-islands/)
+[^10]: Each problem is a Meta-pool staple confirmed via multiple secondary sources. Solo practice only; this chapter is foundation/framework-exempt and ships no chapter mastery ladder. [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/)

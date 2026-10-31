@@ -80,7 +80,7 @@ flowchart TD
 Before the heuristics, consider the simplest possible implementation, the one Sedgewick teaches first to make the cost of doing nothing visible[^6]. Skip the parent-pointer forest entirely. Use a flat array where `id[i]` is the set's representative directly, no walking required:
 
 ```python
-# Quick-find: O(1) find, O(n) union — what we're replacing
+# Quick-find: O(1) find, O(n) union, what we're replacing
 class QuickFind:
     def __init__(self, n):
         self.id = list(range(n))
@@ -237,7 +237,7 @@ def find_redundant_connection(edges):
     return []
 ```
 
-**Solution** — Python ([Java](./08-union-find/lc-684/sol.java) · [C++](./08-union-find/lc-684/sol.cpp) · [Go](./08-union-find/lc-684/sol.go))
+**Solution** in Python ([Java](./08-union-find/lc-684/sol.java) · [C++](./08-union-find/lc-684/sol.cpp) · [Go](./08-union-find/lc-684/sol.go))
 
 ```python
 # LC 684. Redundant Connection
@@ -295,11 +295,11 @@ expected_redundant = [4, 5]
 
 The first edge `(1, 2)` finds two roots at rank 0; one wins arbitrarily, the other attaches under it, and the winner's rank bumps to 1. The second edge `(3, 4)` does the same on a parallel pair, leaving the forest as two depth-1 trees and one singleton at 5. The interesting moment is the third edge.
 
-> **Interactive widget:** [Union-Find: parent forest with path compression and union by rank](../widgets/w-28-union-find.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Union-Find: parent forest with path compression and union by rank](../widgets/w-28-union-find.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a 23-step trace on the canonical input. Step 12 is the equal-rank merge that builds the chapter's first depth-2 tree. Step 18 is the headline frame: `find(4)` walks `4 → 3 → 1`, and on the return path, path compression rewires `parent[4]` from 3 directly to 1. Step 21 is the cycle detection: both endpoints of `(4, 5)` resolve to root 1, so the edge is rejected as redundant.*
 
-Step 18 is the moment to watch twice. Before that step, the tree under root 1 has depth 2: nodes 2 and 5 are at depth 1, and node 4 lives at depth 2 through node 3. After step 18, every non-root in the tree points directly at 1. The next find on any of the four children is one parent-pointer dereference. That is the working definition of "amortized constant" — not that every operation is fast, but that an expensive operation (the depth-2 walk at step 18) pays for the cheaper future operations it enables.
+Step 18 is the moment to watch twice. Before that step, the tree under root 1 has depth 2: nodes 2 and 5 are at depth 1, and node 4 lives at depth 2 through node 3. After step 18, every non-root in the tree points directly at 1. The next find on any of the four children is one parent-pointer dereference. That is the working definition of "amortized constant", not that every operation is fast, but that an expensive operation (the depth-2 walk at step 18) pays for the cheaper future operations it enables.
 
 The animation also surfaces the negative case. Toggle the `compression: off` preset and step 18's flatten disappears; the next find on the same depth-2 chain walks the same two hops every single time. Toggle `union_by: none` and the trees never balance during construction; on a sorted-input chain of `n` unions the tree builds into a linked list, and find degrades to `O(n)` before compression has a chance to help. Both heuristics are doing real work; either one alone is not enough.
 
@@ -312,7 +312,7 @@ The animation also surfaces the negative case. Toggle the `compression: off` pre
 | Union by rank only | `O(log n)` | `O(n)` | rank-`r` root has ≥ `2^r` descendants[^1] |
 | Path compression only | `O((1 + log_{2+f/n} n))` per find on average | `O(n)` | [^1] |
 | **Union by rank + path compression** | **`O(α(n))` amortized** | `O(n)` | **Tarjan 1975[^4]** |
-| Lower bound (any pointer-machine algorithm) | `Ω(α(n))` amortized | — | Tarjan 1979[^5] |
+| Lower bound (any pointer-machine algorithm) | `Ω(α(n))` amortized | n/a | Tarjan 1979[^5] |
 
 The two amortized bounds at the top of the table are the two failure modes you avoid by combining the heuristics. Quick-find pushes all the cost into `union`; the parent-pointer forest pushes it into `find`. The combined data structure spreads it everywhere and the worst case never lands.
 
@@ -494,20 +494,20 @@ The `make_set` step is the one easy thing to miss. With integer keys, the constr
 > **Recursive `find` overflowing the stack on `n ≥ 10⁵`.** Python's default recursion limit is 1,000 frames; C++'s default 8 MB stack tops out at roughly the same depth for typical frame sizes. LC 684's `n ≤ 1000` is well within bounds, but transferring the same code to a competitive-programming or MST workload at `n = 10⁶` will crash the interpreter or segfault the binary before the algorithm has a chance to run. The two-pass iterative form (walk to the root, then re-walk and rewire) uses constant scratch memory and has the same `O(α(n))` bound[^2].
 
 > [!WARNING]
-> **Counting components by reading `parent` directly.** After a series of unions, `len(set(parent))` undercounts the components: a node that was unioned into a deeper tree may still hold a stale parent pointer that points at an intermediate, not at the root. The actual component count is `len({find(i) for i in range(n)})` — derive every root explicitly, then count[^10]. Wikipedia spells out the underlying invariant: "once a node becomes a child, its rank is never accessed again," and the same is true of intermediate parent pointers[^1].
+> **Counting components by reading `parent` directly.** After a series of unions, `len(set(parent))` undercounts the components: a node that was unioned into a deeper tree may still hold a stale parent pointer that points at an intermediate, not at the root. The actual component count is `len({find(i) for i in range(n)})`: derive every root explicitly, then count[^10]. Wikipedia spells out the underlying invariant: "once a node becomes a child, its rank is never accessed again," and the same is true of intermediate parent pointers[^1].
 
 ## Problem ladder
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 684 — Redundant Connection](https://leetcode.com/problems/redundant-connection/) [Medium] • union-find-cycle-detection ★
-- [LC 685 — Redundant Connection II](https://leetcode.com/problems/redundant-connection-ii/) [Hard] • union-find-directed-twist *(reference: Python only)*
-- [LC 990 — Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) [Medium] • union-find-equivalence-classes *(reference: Python only)*
+- [LC 684: Redundant Connection](https://leetcode.com/problems/redundant-connection/) [Medium] • union-find-cycle-detection ★
+- [LC 685: Redundant Connection II](https://leetcode.com/problems/redundant-connection-ii/) [Hard] • union-find-directed-twist *(reference: Python only)*
+- [LC 990: Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) [Medium] • union-find-equivalence-classes *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 721 — Accounts Merge](https://leetcode.com/problems/accounts-merge/) [Medium] • union-find-string-keyed *(reference: Python only)*
-- [LC 1319 — Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) [Medium] • union-find-component-count
+- [LC 721: Accounts Merge](https://leetcode.com/problems/accounts-merge/) [Medium] • union-find-string-keyed *(reference: Python only)*
+- [LC 1319: Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) [Medium] • union-find-component-count
 
 LC 685 is the directed sibling of LC 684 and the chapter's hardest problem. The case-split is non-trivial: a node may have two parents, the graph may have a cycle, both, or just a cycle. The data structure is the same; what changes is a pre-scan for any node with in-degree 2, after which the algorithm runs LC 684's logic over a carefully chosen subset of edges. Algomap's explainer documents the case-split[^7].
 
@@ -539,6 +539,6 @@ The DFS-based framing of cycle detection on undirected and directed graphs lives
 
 [^10]: *1319. Number of Operations to Make Network Connected*, walkccc.me. <https://walkccc.me/LeetCode/problems/1319/>.
 
-[^11]: *Minimum Spanning Tree — Kruskal with Disjoint Set Union*, CP-Algorithms. <https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html>.
+[^11]: *Minimum Spanning Tree, Kruskal with Disjoint Set Union*, CP-Algorithms. <https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html>.
 
 [^12]: *684. Redundant Connection*, dev.to (samuelhinchliffe), 14 July 2022. <https://dev.to/samuelhinchliffe/684-redundant-connection-33i5>.

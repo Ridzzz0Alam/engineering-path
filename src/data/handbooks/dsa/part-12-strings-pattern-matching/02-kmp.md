@@ -108,7 +108,7 @@ def str_str(haystack: str, needle: str) -> int:
     return -1
 ```
 
-**Solution** — Python ([Java](./02-kmp/lc-28/sol.java) · [C++](./02-kmp/lc-28/sol.cpp) · [Go](./02-kmp/lc-28/sol.go))
+**Solution** in Python ([Java](./02-kmp/lc-28/sol.java) · [C++](./02-kmp/lc-28/sol.cpp) · [Go](./02-kmp/lc-28/sol.go))
 
 ```python
 # LC 28. Find the Index of the First Occurrence in a String
@@ -175,7 +175,7 @@ The matching pass starts on the left and moves to the right. The first four char
 
 The matcher meanders through positions 5..9 doing more falls and skips, picks up another partial match at position 10, and this time the partial match is the real one: positions 10..18 of the text are `ABABCABAB`, exactly the pattern. The match is reported at start index 10. The widget shows the full 36-step trace: 11 steps for the failure-function build, 25 steps for the matching pass.
 
-> **Interactive widget:** [KMP failure-function build and matching pass](../widgets/w-38-kmp.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [KMP failure-function build and matching pass](../widgets/w-38-kmp.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the failure function is `[0, 0, 1, 2, 0, 1, 2, 3, 4]`. The matching pass falls back twice (at text indices 4 and 8), skips through `D` and `CD`, picks up the run starting at index 10, and reports the match at index 10. Total work: 36 algorithmic steps, 19 text characters scanned.*
 
@@ -204,8 +204,8 @@ flowchart TD
 | LPS construction (Phase A) | Θ(m) | Θ(m) | One pass over the pattern. CLRS 4e §32.4.[^3] |
 | Matching pass (Phase B) | Θ(n) | Θ(1) aux | One pass over the text after LPS is built. |
 | Total | Θ(n + m) | Θ(m) | The KMP 1977 abstract.[^1] |
-| Comparisons (worst) | ≤ 2n | -- | Each text character is compared at most twice: once on a match attempt, once on a fallback. |
-| DFA-form variant | Θ(n + m·R) time, Θ(m·R) space | -- | Alphabet size R; trades memory for true O(1) per text char. |
+| Comparisons (worst) | ≤ 2n | n/a | Each text character is compared at most twice: once on a match attempt, once on a fallback. |
+| DFA-form variant | Θ(n + m·R) time, Θ(m·R) space | n/a | Alphabet size R; trades memory for true O(1) per text char. |
 
 The 2n comparison bound is the cleanest way to state KMP's worst case. The proof is a potential argument: in any iteration of the matching loop, at least one of `i` or `i - j` strictly increases. `i` increases on a match or a `j == 0` skip. `i - j` increases on a fallback (`j` decreases, `i` stays). Both quantities are bounded above by `n`. Sum of increases is at most `2n`, which bounds the total iterations.[^4]
 
@@ -337,13 +337,13 @@ A third pitfall worth flagging: writing `compute_lps` with the inner fallback as
 
 ### CORE (solve both to claim chapter mastery)
 
-- [LC 459 — Repeated Substring Pattern](https://leetcode.com/problems/repeated-substring-pattern/) [Easy] • failure-function-trick ★ *(reference: Python only)*
-- [LC 1392 — Longest Happy Prefix](https://leetcode.com/problems/longest-happy-prefix/) [Hard] • failure-function-direct *(reference: Python only)*
+- [LC 459: Repeated Substring Pattern](https://leetcode.com/problems/repeated-substring-pattern/) [Easy] • failure-function-trick ★ *(reference: Python only)*
+- [LC 1392: Longest Happy Prefix](https://leetcode.com/problems/longest-happy-prefix/) [Hard] • failure-function-direct *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 1668 — Maximum Repeating Substring](https://leetcode.com/problems/maximum-repeating-substring/) [Easy] • failure-function-trick (owned by [Z-algorithm](./03-z-algorithm.md); KMP-applicable variant)
-- [LC 214 — Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/) [Hard] • kmp-on-concatenated (owned by [Z-algorithm](./03-z-algorithm.md); KMP-applicable variant)
+- [LC 1668: Maximum Repeating Substring](https://leetcode.com/problems/maximum-repeating-substring/) [Easy] • failure-function-trick (owned by [Z-algorithm](./03-z-algorithm.md); KMP-applicable variant)
+- [LC 214: Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/) [Hard] • kmp-on-concatenated (owned by [Z-algorithm](./03-z-algorithm.md); KMP-applicable variant)
 
 LC 459 is the chapter's signature problem (★), the canonical "use the failure function for something other than matching" exercise. LC 1392 is the cleanest LPS-only Hard on the platform; the entire problem reduces to one application of `compute_lps`. The CORE pair spans Easy and Hard natively. The Medium band is structurally absent: KMP's natural Medium substring problems (LC 686, LC 187, LC 3034) are claimed by sister chapters under primary-ownership rules, and the chapter's `ladder_curation_flag` is `no-medium-canonical`. The canonical Easy where KMP's O(n + m) framing lands is [LC 28 (Find the Index of the First Occurrence)](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/), owned by [Naive string matching](./00-naive-string-matching.md) and reused here as the chapter's worked-example vehicle.
 
@@ -363,6 +363,6 @@ The sibling algorithm is the [Z-algorithm](./03-z-algorithm.md). Same O(n + m) b
 
 [^5]: Stack Overflow, "Leetcode 459 proof for KMP." <https://stackoverflow.com/questions/65468603/leetcode-459-proof-for-kmp>.
 
-[^6]: WebCoderSpeed, "Shortest Palindrome — KMP on Reversed String." <https://www.webcoderspeed.com/blog/dsa-string-algorithms/13-shortest-palindrome>.
+[^6]: WebCoderSpeed, "Shortest Palindrome, KMP on Reversed String." <https://www.webcoderspeed.com/blog/dsa-string-algorithms/13-shortest-palindrome>.
 
 [^7]: Sedgewick, Robert; Wayne, Kevin. *Algorithms*, 4th ed., Addison-Wesley, 2011, Chapter 5 §5.3 "Substring Search." Companion site at <https://algs4.cs.princeton.edu/53substring/>.

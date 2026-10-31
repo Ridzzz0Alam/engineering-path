@@ -19,7 +19,7 @@ const (
 	sepTok  = ","
 )
 
-// Serialize — preorder DFS; emit value or null token for each slot.
+// Serialize: preorder DFS; emit value or null token for each slot.
 func Serialize(root *TreeNode) string {
 	parts := []string{}
 	var dfs func(n *TreeNode)
@@ -36,7 +36,7 @@ func Serialize(root *TreeNode) string {
 	return strings.Join(parts, sepTok)
 }
 
-// Deserialize — same preorder shape; consume one token per slot.
+// Deserialize: same preorder shape; consume one token per slot.
 func Deserialize(data string) *TreeNode {
 	tokens := strings.Split(data, sepTok)
 	idx := 0

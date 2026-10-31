@@ -14,7 +14,7 @@ editorial_widget: e-LC005-longest-palindrome
 
 LC 5 is the cleanest illustration of why two algorithms with identical Big-O can ship to wildly different production fates. The 2D DP table and expand-around-centers are both O(n²); only one of them allocates a million booleans on the way. At LC 5's stated `n <= 1000` ceiling[^1], the brute-force O(n³) approach hits ~10⁹ operations and times out; the two O(n²) approaches hit ~10⁶ and finish in well under a millisecond. The choice between the two `O(n²)`s is what the chapter is about.
 
-The lesson is one sentence. Every palindrome has a center — either one character (odd length) or the gap between two adjacent characters (even length) — so iterating over the `2n - 1` candidate centers and pushing outward at each is sufficient. No table, no allocation, no by-length fill order to remember.
+The lesson is one sentence. Every palindrome has a center: either one character (odd length) or the gap between two adjacent characters (even length), so iterating over the `2n - 1` candidate centers and pushing outward at each is sufficient. No table, no allocation, no by-length fill order to remember.
 
 ## The problem
 
@@ -34,7 +34,7 @@ LC 5 wants the substring itself, not its length. It is a small detail that costs
 Translate the statement directly. Enumerate every `(i, j)` with `i <= j`, check the substring for palindromicity in O(j - i), and track the longest hit.
 
 ```python
-# Brute force: O(n^3) — what we're replacing
+# Brute force: O(n^3), what we're replacing
 def longest_palindrome_brute(s: str) -> str:
     n = len(s)
     best_l, best_r = 0, 0
@@ -98,7 +98,7 @@ def longest_palindrome(s: str) -> str:
     return s[best_l:best_r + 1]
 ```
 
-**Solution** — Python ([Java](./LC-005-longest-palindromic-substring/lc-5/sol.java) · [C++](./LC-005-longest-palindromic-substring/lc-5/sol.cpp) · [Go](./LC-005-longest-palindromic-substring/lc-5/sol.go))
+**Solution** in Python ([Java](./LC-005-longest-palindromic-substring/lc-5/sol.java) · [C++](./LC-005-longest-palindromic-substring/lc-5/sol.cpp) · [Go](./LC-005-longest-palindromic-substring/lc-5/sol.go))
 
 ```python
 # LC 5. Longest Palindromic Substring
@@ -135,13 +135,13 @@ def longest_palindrome(s: str) -> str:
     return s[best_l:best_r + 1]
 ```
 
-> **Interactive widget:** [Longest Palindromic Substring (LC 5) — expand around centers](../widgets/e-LC005-longest-palindrome.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Longest Palindromic Substring (LC 5): expand around centers](../widgets/e-LC005-longest-palindrome.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: on `s = "babad"`, the algorithm walks 9 centers (5 odd, 4 even). At i=1 the odd expansion finds `"bab"` and updates the running best to length 3. At i=2 the odd expansion finds `"aba"`, also length 3; strict `>` rejects the tie, so the answer stays `"bab"`. The remaining centers find nothing longer.*
 
 The `expand` helper is the load-bearing piece. Its loop terminates when the pointers either disagree or fall off the string, which means the *last valid match* was the iteration before. Returning `(left + 1, right - 1)` corrects for that one over-step. The dual call `expand(i, i)` and `expand(i, i + 1)` is what handles odd-length and even-length centers without the input-doubling trick that Manacher's algorithm and the textbook "Slower algorithm" both use[^4].
 
-Time `O(n²)`: each of `2n - 1` centers expands at most `n/2` steps, and the total work across all centers is bounded by `n²/2` by an arithmetic-series argument.[^4] Space `O(1)` extra. The widget animates the `"babad"` trace because that input surfaces the strict-vs-non-strict update guard — the tie at i=2 disappears on shorter inputs.
+Time `O(n²)`: each of `2n - 1` centers expands at most `n/2` steps, and the total work across all centers is bounded by `n²/2` by an arithmetic-series argument.[^4] Space `O(1)` extra. The widget animates the `"babad"` trace because that input surfaces the strict-vs-non-strict update guard: the tie at i=2 disappears on shorter inputs.
 
 ### Why this wins in practice over the table
 
@@ -171,7 +171,7 @@ Manacher's algorithm gets to O(n) by exploiting palindrome mirroring: when a lon
 
 **What if you need to count all palindromic substrings instead of returning the longest?** That's [LC 647](https://leetcode.com/problems/palindromic-substrings/). Same expand-around-centers template. For each center, increment a counter on every successful match instead of tracking the longest. `O(n²)` time, `O(1)` space, two-line modification of the reference. Amazon asks this one a lot.[^4]
 
-**What about the longest palindromic *subsequence*?** Different problem despite the name collision: [LC 516](https://leetcode.com/problems/longest-palindromic-subsequence/). The substring (LC 5) requires endpoints to match AND the inner range to be a palindrome — strict AND, propagating "no" along the chain. The subsequence relaxes to `max(dp[i+1][j], dp[i][j-1])` when the endpoints disagree, because skipping one endpoint is allowed. On `"bbbab"`, LC 5 returns `"bbb"` (length 3, contiguous); LC 516 returns 4 (`"bbbb"`, skipping the `'a'`). LC 516 is the canonical CLRS Problem 14-2 / 15-2 setup[^3] and does NOT yield to expand-around-centers. The disambiguation is the question's whole point.
+**What about the longest palindromic *subsequence*?** Different problem despite the name collision: [LC 516](https://leetcode.com/problems/longest-palindromic-subsequence/). The substring (LC 5) requires endpoints to match AND the inner range to be a palindrome: strict AND, propagating "no" along the chain. The subsequence relaxes to `max(dp[i+1][j], dp[i][j-1])` when the endpoints disagree, because skipping one endpoint is allowed. On `"bbbab"`, LC 5 returns `"bbb"` (length 3, contiguous); LC 516 returns 4 (`"bbbb"`, skipping the `'a'`). LC 516 is the canonical CLRS Problem 14-2 / 15-2 setup[^3] and does NOT yield to expand-around-centers. The disambiguation is the question's whole point.
 
 **How would you partition the string into palindromes?** That's [LC 131](https://leetcode.com/problems/palindrome-partitioning/), backtracking on top of a palindrome check. Precompute the `is_palin[i][j]` table from Approach 2 in O(n²), then enumerate partitions by recursing from each position to every later position where the prefix is a palindrome. The expensive piece is the partition enumeration (exponentially many in the worst case), not the palindrome predicate; this is where the table earns its keep.
 

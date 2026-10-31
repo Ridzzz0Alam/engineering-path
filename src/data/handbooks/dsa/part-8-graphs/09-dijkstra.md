@@ -105,7 +105,7 @@ def network_delay_time(times, n, k):
     return -1 if longest == INF else longest
 ```
 
-**Solution** — Python ([Java](./09-dijkstra/lc-743/sol.java) · [C++](./09-dijkstra/lc-743/sol.cpp) · [Go](./09-dijkstra/lc-743/sol.go))
+**Solution** in Python ([Java](./09-dijkstra/lc-743/sol.java) · [C++](./09-dijkstra/lc-743/sol.cpp) · [Go](./09-dijkstra/lc-743/sol.go))
 
 ```python
 # LC 743. Network Delay Time
@@ -190,7 +190,7 @@ Pop `(20, D)`, settle D at 20, relax D->E (candidate 26, current 20, skip). Pop 
 
 Final distances from A: `[A:0, B:7, C:9, D:20, E:20, F:11]`. The two stale entries, `(14, F)` and `(22, D)`, are exactly the cost of pushing duplicates instead of decrease-key. The widget below animates every step; the two stale-skip events at steps 18 and 25 are deterministic on this input.
 
-> **Interactive widget:** [Dijkstra's shortest-path algorithm](../widgets/w-29-dijkstra.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Dijkstra's shortest-path algorithm](../widgets/w-29-dijkstra.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: priority queue, dist[] array, and graph state at four keyframes (init / B-settled / first lazy-skip fires on (14, F) / all six nodes settled). The lazy-skip event is the chapter's central teaching moment; reduced-motion readers see the stale entry highlighted in the third still.*
 
@@ -236,7 +236,7 @@ LC 1631 (*Path With Minimum Effort*) and LC 778 (*Swim in Rising Water*) ask a d
 Dijkstra still works. The relaxation changes from `dist[v] = dist[u] + w(u, v)` to `dist[v] = max(dist[u], cost(u, v))`. The settled-once invariant survives because `max` is monotone non-decreasing in the path prefix. Extending a path can only keep or increase the running max. That's the same property that makes `+` admissible, and it's all the proof needs.
 
 ```python
-# LC 1631 inner loop — only the relax line differs from §2.
+# LC 1631 inner loop, only the relax line differs from §2.
 nd = max(d, abs(heights[r][c] - heights[nr][nc]))
 if nd < dist[nr][nc]:
     dist[nr][nc] = nd
@@ -272,7 +272,7 @@ def zero_one_bfs(adj, n, source):
 
 LC 1368 (*Minimum Cost to Make at Least One Valid Path in a Grid*) is the canonical 0-1 BFS problem on LC. Each cell carries a directional sign; following the sign costs 0, choosing any other direction costs 1.
 
-**Solution** — Python ([Java](./09-dijkstra/lc-1368/sol.java) · [C++](./09-dijkstra/lc-1368/sol.cpp) · [Go](./09-dijkstra/lc-1368/sol.go))
+**Solution** in Python ([Java](./09-dijkstra/lc-1368/sol.java) · [C++](./09-dijkstra/lc-1368/sol.cpp) · [Go](./09-dijkstra/lc-1368/sol.go))
 
 ```python
 # LC 1368. Minimum Cost to Make at Least One Valid Path in a Grid
@@ -325,13 +325,13 @@ A fourth pitfall worth naming briefly: forgetting the lazy-skip guard `if d > di
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 743 — Network Delay Time](https://leetcode.com/problems/network-delay-time/) [Medium] • dijkstra-shortest-paths ★
-- [LC 1631 — Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/) [Medium] • dijkstra-on-grid-min-max-path
-- [LC 778 — Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water/) [Hard] • dijkstra-on-grid-min-max-path
+- [LC 743: Network Delay Time](https://leetcode.com/problems/network-delay-time/) [Medium] • dijkstra-shortest-paths ★
+- [LC 1631: Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/) [Medium] • dijkstra-on-grid-min-max-path
+- [LC 778: Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water/) [Hard] • dijkstra-on-grid-min-max-path
 
 ### STRETCH (optional)
 
-- [LC 1368 — Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/) [Hard] • 0-1-bfs
+- [LC 1368: Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/) [Hard] • 0-1-bfs
 
 LC 743 is the chapter's signature problem (★) and the one the worked example and widget animate. LC 1631 is the gentlest second pass: same algorithm, one-line change to the relaxation. LC 778 is LC 1631 at Hard with two clean solutions on the same problem (Dijkstra OR binary search on `t` plus BFS reachability), making it the chapter's deep-dive. LC 1368 is the proving ground for the 0-1 BFS specialization; solving it by Dijkstra works but ships the wrong asymptotic.
 

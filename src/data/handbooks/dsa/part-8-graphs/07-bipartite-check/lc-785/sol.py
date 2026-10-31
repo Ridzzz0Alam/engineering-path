@@ -4,7 +4,7 @@ from typing import List
 
 
 def is_bipartite(graph: List[List[int]]) -> bool:
-    """LC 785 — true iff `graph` admits a 2-coloring (no odd cycle)."""
+    """LC 785: true iff `graph` admits a 2-coloring (no odd cycle)."""
     n = len(graph)
     color = [0] * n                       # 0 = unvisited, 1 / -1 = the two color classes
     for start in range(n):

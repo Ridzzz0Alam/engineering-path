@@ -16,7 +16,7 @@ prerequisites:
 
 # Bitmask DP archetypes
 
-Bitmask DP is the right tool when the natural state of a problem is *which subset of `n` items has been visited, covered, chosen, or assigned* and `n` is small enough that the subset fits in a single CPU register. "Small enough" is the load-bearing phrase. At `n = 20`, the state space `2^n` is `1,048,576`, which fits in roughly four megabytes of memo table and runs in under a second on tight code. At `n = 22`, `2^n = 4,194,304`, which is the practical ceiling — past it, the cache misses double the wall-clock time and most contest budgets fall over. By `n = 30`, the table holds a billion entries and the algorithm doesn't run.
+Bitmask DP is the right tool when the natural state of a problem is *which subset of `n` items has been visited, covered, chosen, or assigned* and `n` is small enough that the subset fits in a single CPU register. "Small enough" is the load-bearing phrase. At `n = 20`, the state space `2^n` is `1,048,576`, which fits in roughly four megabytes of memo table and runs in under a second on tight code. At `n = 22`, `2^n = 4,194,304`, which is the practical ceiling: past it, the cache misses double the wall-clock time and most contest budgets fall over. By `n = 30`, the table holds a billion entries and the algorithm doesn't run.
 
 The harder insight, and the one this page exists to make repeatable, is that the bitmask alone is rarely enough state. Every interesting variant of bitmask DP pairs the mask with a second dimension: the most recently visited city in TSP, the current bin index in subset-partition, an implicit position pointer in permutation problems. Picking the right second dimension is the design move; the bit operations are bookkeeping. The companion chapter [Bitmask DP](../part-9-dynamic-programming/14-bitmask-dp.md) carries the full mental-model derivation for one canonical instance (LC 847 *Shortest Path Visiting All Nodes*); this archetype page enumerates the four shapes the family takes and gives the cue that picks one over its siblings.
 
@@ -43,7 +43,7 @@ flowchart TD
 
 ## Variants
 
-### Variant A — TSP-style `(mask, last)`
+### Variant A: TSP-style `(mask, last)`
 
 **Recognition signal.** The prompt asks for a minimum-cost ordering that visits every item once, and the per-step cost depends on the pair `(previous item, next item)`. The signature phrase is *"shortest tour visiting all `n` cities"* (the original travelling-salesman problem) or *"shortest superstring containing all `n` strings"* (where the cost between two strings is the negation of their maximum overlap). Anywhere a function `g(prev, next)` shows up, this row applies.
 
@@ -53,7 +53,7 @@ flowchart TD
 
 **Chapter cite.** [Bitmask DP](../part-9-dynamic-programming/14-bitmask-dp.md) §"Worked example" works through LC 847 (the unweighted special case where BFS suffices) and §"TSP-style: state grows a `last` dimension" sketches the weighted generalisation to LC 943.
 
-### Variant B — Subset-partition (mask the items)
+### Variant B: Subset-partition (mask the items)
 
 **Recognition signal.** Each of `n` unique items must be used exactly once, and the algorithm must distribute them into `k` bins of equal cost (or some fixed-capacity grouping). LC 698 *Partition to K Equal Sum Subsets* is the canonical instance: given `n ≤ 16` integers and a target `k`, decide whether the integers can be partitioned into exactly `k` subsets each summing to `total / k`.[^2] LC 1986 *Minimum Number of Work Sessions to Finish the Tasks* is the bin-packing twin with `n ≤ 14`.
 
@@ -63,7 +63,7 @@ flowchart TD
 
 **Chapter cite.** [Bitmask DP](../part-9-dynamic-programming/14-bitmask-dp.md) §"When the pattern bends" sketches the partition variant; the canonical worked trace lives in the LC 698 ladder entry.
 
-### Variant B' — Set-cover (mask the requirements)
+### Variant B': Set-cover (mask the requirements)
 
 **Recognition signal.** A small set of `m ≤ 16` *requirements* (skills, characters, target positions) must all be covered, and a larger pool of items can each supply some subset of the requirements. The classic instance is LC 1125 *Smallest Sufficient Team*: `m ≤ 16` required skills, `n ≤ 60` candidate people, each person carrying a skill bitmask. Find the smallest team that covers every skill.[^3] LC 691 *Stickers to Spell Word* is the reusable-items variant.
 
@@ -73,7 +73,7 @@ flowchart TD
 
 **Chapter cite.** [Bitmask DP](../part-9-dynamic-programming/14-bitmask-dp.md) §"Set-cover: mask the requirements, iterate the items" is the dedicated treatment; LC 1125 ships as the chapter's stretch problem.
 
-### Variant C — Sum-game minimax over a shared pool
+### Variant C: Sum-game minimax over a shared pool
 
 **Recognition signal.** Two players alternate drawing from a shared pool of `n ≤ 20` integers, the running sum (or some running predicate) decides the win condition, and the question is whether player one can force a win under optimal play. LC 464 *Can I Win* is the canonical instance: maxChoosableInteger up to 20, desiredTotal up to 300, players alternate drawing without replacement, first to push the running total at or above desiredTotal wins.[^4]
 
@@ -83,7 +83,7 @@ flowchart TD
 
 **Chapter cite.** Variant C does not get a dedicated section in chapter 9.14; the chapter's worked example is the unweighted TSP shape and the `last`-dimension extension. LC 464 sits in the chapter's stretch ladder as the canonical minimax-on-a-mask instance.
 
-### Variant D — Assignment / permutation with implicit position
+### Variant D: Assignment / permutation with implicit position
 
 **Recognition signal.** The algorithm constructs a permutation of `1..n` (or assigns the elements of one `n`-set to the elements of another) under per-position predicates or per-pair costs. Each step places exactly one new element. LC 526 *Beautiful Arrangement* counts permutations of `1..n` (with `n ≤ 15`) where for every position `i`, either `perm[i]` is divisible by `i` or `i` is divisible by `perm[i]`. LC 1879 *Minimum XOR Sum* (with `n ≤ 14`) minimises the pairwise XOR sum over all bijections between two `n`-element arrays.
 
@@ -97,25 +97,25 @@ flowchart TD
 
 | Variant | What `mask` represents | Second-state dimension | State count | Time complexity | Canonical problem |
 |---|---|---|---|---|---|
-| A — TSP-style | items visited so far | `last` ∈ `[0, n)` (most recently visited) | `n · 2^n` | `Θ(n^2 · 2^n)` | LC 943 *Find the Shortest Superstring* |
-| B — Subset-partition | items placed (each used once) | residual sum of in-progress bin (or current bin index) | `2^n` | `O(2^n · n)` | LC 698 *Partition to K Equal Sum Subsets* |
-| B' — Set-cover | coverage targets satisfied | none (pure `dp[mask]`) | `2^m` (often `m << n`) | `O(2^m · n)` | LC 1125 *Smallest Sufficient Team* |
-| C — Sum-game minimax | integers drawn from `{1..n}` | none (whose-turn implicit in `popcount`) | `2^n` | `O(n · 2^n)` boolean | LC 464 *Can I Win* |
-| D — Assignment | right-hand-side elements assigned | none (position implicit in `popcount`) | `2^n` | `O(n · 2^n)` | LC 526 *Beautiful Arrangement* |
+| A: TSP-style | items visited so far | `last` ∈ `[0, n)` (most recently visited) | `n · 2^n` | `Θ(n^2 · 2^n)` | LC 943 *Find the Shortest Superstring* |
+| B: Subset-partition | items placed (each used once) | residual sum of in-progress bin (or current bin index) | `2^n` | `O(2^n · n)` | LC 698 *Partition to K Equal Sum Subsets* |
+| B': Set-cover | coverage targets satisfied | none (pure `dp[mask]`) | `2^m` (often `m << n`) | `O(2^m · n)` | LC 1125 *Smallest Sufficient Team* |
+| C: Sum-game minimax | integers drawn from `{1..n}` | none (whose-turn implicit in `popcount`) | `2^n` | `O(n · 2^n)` boolean | LC 464 *Can I Win* |
+| D: Assignment | right-hand-side elements assigned | none (position implicit in `popcount`) | `2^n` | `O(n · 2^n)` | LC 526 *Beautiful Arrangement* |
 
 The single discriminator across the table is what the second dimension is. Variant A pays a factor of `n` in both space and time for the explicit `last`. Variants B', C, and D get away with a pure 1D table of size `2^n` because their second dimension is either absent or implicit (C from `popcount mod 2`, D from `popcount`). The cardinal `n` bound differs row by row: variant A caps tightest because of the `n^2` factor (LC 943 uses `n ≤ 12`); variants C and D run comfortably to `n = 20`; variant B' is bounded by the requirement count rather than the candidate count, so it scales differently.
 
 ## Three signature problems
 
-- [LC 943 — Find the Shortest Superstring](https://leetcode.com/problems/find-the-shortest-superstring/) [Hard] • bitmask-dp-tsp. The canonical TSP-on-strings instance for variant A. Pre-compute pairwise overlaps `g[i][j]` (suffix of `words[i]` matching prefix of `words[j]`), then run Held-Karp's DP with parent pointers for reconstruction. The wrong-direction trap is computing overlap as a symmetric "common substring" instead of the asymmetric suffix-prefix match; the wrong-state trap is dropping the `last` dimension.
-- [LC 698 — Partition to K Equal Sum Subsets](https://leetcode.com/problems/partition-to-k-equal-sum-subsets/) [Medium] • bitmask-dp-partition. The canonical subset-partition instance for variant B. The `n ≤ 16` cap is the signal that the bitmask form is intended; the cleanest encoding uses `dp[mask] = (sum of items in mask) mod target`, with the wrap-to-zero invariant handling bin transitions.[^2] Backtracking with sort-and-prune is competitive on small `n` but loses to the memoized form as the worst case fills out.
-- [LC 1125 — Smallest Sufficient Team](https://leetcode.com/problems/smallest-sufficient-team/) [Hard] • bitmask-dp-set-cover. The textbook set-cover instance for variant B'. The `m ≤ 16` skills cap is the signal; the trap is reaching for `dp[people_mask]` and constructing a `2^60` state space. The fix is the mental switch from "subset of items chosen" to "subset of requirements covered", with reconstruction via a parent-pointer table when the team membership (not just its size) is asked for.[^3]
+- [LC 943: Find the Shortest Superstring](https://leetcode.com/problems/find-the-shortest-superstring/) [Hard] • bitmask-dp-tsp. The canonical TSP-on-strings instance for variant A. Pre-compute pairwise overlaps `g[i][j]` (suffix of `words[i]` matching prefix of `words[j]`), then run Held-Karp's DP with parent pointers for reconstruction. The wrong-direction trap is computing overlap as a symmetric "common substring" instead of the asymmetric suffix-prefix match; the wrong-state trap is dropping the `last` dimension.
+- [LC 698: Partition to K Equal Sum Subsets](https://leetcode.com/problems/partition-to-k-equal-sum-subsets/) [Medium] • bitmask-dp-partition. The canonical subset-partition instance for variant B. The `n ≤ 16` cap is the signal that the bitmask form is intended; the cleanest encoding uses `dp[mask] = (sum of items in mask) mod target`, with the wrap-to-zero invariant handling bin transitions.[^2] Backtracking with sort-and-prune is competitive on small `n` but loses to the memoized form as the worst case fills out.
+- [LC 1125: Smallest Sufficient Team](https://leetcode.com/problems/smallest-sufficient-team/) [Hard] • bitmask-dp-set-cover. The textbook set-cover instance for variant B'. The `m ≤ 16` skills cap is the signal; the trap is reaching for `dp[people_mask]` and constructing a `2^60` state space. The fix is the mental switch from "subset of items chosen" to "subset of requirements covered", with reconstruction via a parent-pointer table when the team membership (not just its size) is asked for.[^3]
 
 ## Common misconceptions
 
 **"Bitmask DP works for any size."** It does not. The state space is `2^n`, and `2^n` punishes growth: at `n = 20` the table is one million entries (4 MB at 4 bytes each), at `n = 22` it is four million (16 MB), at `n = 25` it is thirty-three million (134 MB), at `n = 30` it is over a billion. The chapter's regime is `n ≤ 20-22`, with `n = 22` already requiring careful attention to cache behaviour and constant factors. Past 22, fall through to alternatives: 0/1 knapsack DP if items are independent (only popcount matters, not bit identity), tree decomposition if the problem has structure, or approximation algorithms (set-cover at `(1 + ln n)`-approximation, TSP at 1.5-approximation via Christofides). The reverse-direction trap also bites: a reader who sees `n ≤ 16` and reaches for backtracking misses that memoization amortizes the worst case at the cost of `2^n` memory upfront.[^1]
 
-**"Subset enumeration is `O(2^n)`."** A common-sense reading suggests that iterating every mask and, for each mask, enumerating its submasks should be `O(2^n · 2^n) = O(4^n)`. The actual bound is tighter: iterating all `(mask, submask)` pairs takes `Θ(3^n)` total operations, not `4^n`. The proof is two lines via the binomial theorem: each bit of the universe is in one of three states (in mask only, in mask and submask, in neither), giving `3^n` total configurations. Equivalently, `Σ_k C(n, k) · 2^k = (1 + 2)^n = 3^n`.[^6] This matters because it puts submask-iterating bitmask DPs (the partition-into-two family, the assign-and-recurse family) in a different complexity class than naive thinking suggests. At `n = 16`, `3^n` is about 43 million — borderline feasible. At `n = 20`, `3^n` is over three billion — too slow without further pruning. The submask-enumeration trick `s = (s - 1) & m` is what makes the inner loop iterate exactly the submasks of `m` in decreasing order, with `s == 0` as the loop's natural terminator (and the canonical infinite-loop bug if the test is `s != 0` checked at the bottom rather than the top).
+**"Subset enumeration is `O(2^n)`."** A common-sense reading suggests that iterating every mask and, for each mask, enumerating its submasks should be `O(2^n · 2^n) = O(4^n)`. The actual bound is tighter: iterating all `(mask, submask)` pairs takes `Θ(3^n)` total operations, not `4^n`. The proof is two lines via the binomial theorem: each bit of the universe is in one of three states (in mask only, in mask and submask, in neither), giving `3^n` total configurations. Equivalently, `Σ_k C(n, k) · 2^k = (1 + 2)^n = 3^n`.[^6] This matters because it puts submask-iterating bitmask DPs (the partition-into-two family, the assign-and-recurse family) in a different complexity class than naive thinking suggests. At `n = 16`, `3^n` is about 43 million: borderline feasible. At `n = 20`, `3^n` is over three billion: too slow without further pruning. The submask-enumeration trick `s = (s - 1) & m` is what makes the inner loop iterate exactly the submasks of `m` in decreasing order, with `s == 0` as the loop's natural terminator (and the canonical infinite-loop bug if the test is `s != 0` checked at the bottom rather than the top).
 
 **"Bitmask DP requires bit twiddling."** High-level languages can substitute set or hash-set objects for the bitmask integer, and the algorithm is correct. Python's `frozenset(items)` works as a hashable state key; Java's `BitSet` and Go's slice-backed `map[int]bool` are functional substitutes. The trade-off is performance: bit operations on a 32-bit integer are 10–100× faster than the equivalent set-membership operations, primarily because the bitmask form fits a state in one CPU register and the set form requires hashing or pointer chasing. On contest budgets this gap is the difference between AC and TLE; the chapter's reference implementations use the integer form because the integer form is what makes the `O(n^2 · 2^n)` complexity actually hit its constants.
 

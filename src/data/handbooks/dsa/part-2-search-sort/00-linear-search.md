@@ -73,10 +73,10 @@ def linear_search(nums: list[int], target: int) -> int:
     return -1
 ```
 
-**Solution** — Python ([Java](./00-linear-search/sol.java) · [C++](./00-linear-search/sol.cpp) · [Go](./00-linear-search/sol.go))
+**Solution** in Python ([Java](./00-linear-search/sol.java) · [C++](./00-linear-search/sol.cpp) · [Go](./00-linear-search/sol.go))
 
 ```python
-"""LC linear search — scan an unsorted sequence, return first match index.
+"""LC linear search: scan an unsorted sequence, return first match index.
 
 The contract: walk the array left to right, return the index of the first
 element equal to target, or -1 if none. This is Knuth Algorithm B from
@@ -127,11 +127,11 @@ The constant factor matters in practice and is invisible in the bound. Knuth's A
 
 Three sub-patterns deserve a name because they recur across later chapters.
 
-**Linear scan with a hash set.** When the question shifts from "where is X?" to "is there a pair with property P?" — `LC 217 Contains Duplicate` is the canonical case — the upgrade from O(n²) (nested loop, compare every pair) to O(n) (single pass, carry "all elements seen so far" in a set) is structural, not algorithmic. The scan stays a scan; the per-step state grows from "current element" to a hash set with O(1) membership queries. The set is what the upgrade buys; chapter [Hash maps](../part-1-linear-data-structures/03-hash-maps.md) is where the machinery for that lives.
+**Linear scan with a hash set.** When the question shifts from "where is X?" to "is there a pair with property P?" (`LC 217 Contains Duplicate` is the canonical case) the upgrade from O(n²) (nested loop, compare every pair) to O(n) (single pass, carry "all elements seen so far" in a set) is structural, not algorithmic. The scan stays a scan; the per-step state grows from "current element" to a hash set with O(1) membership queries. The set is what the upgrade buys; chapter [Hash maps](../part-1-linear-data-structures/03-hash-maps.md) is where the machinery for that lives.
 
 **Linear scan with running aggregate.** When the question is not "is X present?" but "what is the best subsequence ending here?", the same loop carries a fixed-size accumulator. `LC 53 Maximum Subarray` (Kadane's algorithm) maintains a running max-sum and a global best. `LC 414 Third Maximum Number` carries three sentinel max values. `LC 485 Max Consecutive Ones` carries one counter that resets on zero. The loop scaffold is identical to linear search; only the work per element changes.
 
-**Ordered-table linear search (Knuth's Algorithm T).** If the array is sorted but small enough that binary search's overhead does not pay off, the scan exits early on the first `A[i] >= target`. For unsuccessful searches this drops expected probes from n to roughly n/2 — still O(n), with a strictly smaller constant.[^2] This is the natural bridge to the next chapter: same input shape, fundamentally different access pattern, and the price for the logarithmic win is paid up-front in the sort.
+**Ordered-table linear search (Knuth's Algorithm T).** If the array is sorted but small enough that binary search's overhead does not pay off, the scan exits early on the first `A[i] >= target`. For unsuccessful searches this drops expected probes from n to roughly n/2: still O(n), with a strictly smaller constant.[^2] This is the natural bridge to the next chapter: same input shape, fundamentally different access pattern, and the price for the logarithmic win is paid up-front in the sort.
 
 ## Pitfalls
 
@@ -150,14 +150,14 @@ The CORE three are all Easy. The ladder is honest about what canonical linear-sc
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 1287 — Element Appearing More Than 25% In Sorted Array](https://leetcode.com/problems/element-appearing-more-than-25-in-sorted-array/) [Easy] • linear-search-with-counter ★
-- [LC 217 — Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) [Easy] • linear-search-with-hash-set
-- [LC 414 — Third Maximum Number](https://leetcode.com/problems/third-maximum-number/) [Easy] • linear-scan-with-fixed-state
+- [LC 1287: Element Appearing More Than 25% In Sorted Array](https://leetcode.com/problems/element-appearing-more-than-25-in-sorted-array/) [Easy] • linear-search-with-counter ★
+- [LC 217: Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) [Easy] • linear-search-with-hash-set
+- [LC 414: Third Maximum Number](https://leetcode.com/problems/third-maximum-number/) [Easy] • linear-scan-with-fixed-state
 
 ### STRETCH (optional)
 
-- [LC 53 — Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) [Medium] • linear-scan-with-running-aggregate
-- [LC 485 — Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/) [Easy] • linear-scan-with-counter
+- [LC 53: Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) [Medium] • linear-scan-with-running-aggregate
+- [LC 485: Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/) [Easy] • linear-scan-with-counter
 
 ## Where this leads
 

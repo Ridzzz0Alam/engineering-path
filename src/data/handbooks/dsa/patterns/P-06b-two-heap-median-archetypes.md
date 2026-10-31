@@ -101,9 +101,9 @@ The middle row is the one that bites. The temptation is to track size with `len(
 
 ## Three signature problems
 
-- [LC 295 — Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) [Hard] • the canonical streaming-median problem; the two-heap implementation is the textbook answer and walks across four languages in chapter 6.4.
-- [LC 480 — Sliding Window Median](https://leetcode.com/problems/sliding-window-median/) [Hard] • the lazy-deletion variant. Multiset solutions exist in C++ via `std::multiset`; Python and Java without third-party libraries reach for the two-heap-plus-stale-counter idiom.
-- [LC 1825 — Finding MK Average](https://leetcode.com/problems/finding-mk-average/) [Hard] • the bucketed cousin: maintain three sorted multisets (or three balanced ordered structures) holding the smallest `k`, middle `m − 2k`, and largest `k` of the last `m` elements, and report the mean of the middle bucket. The data flows like a sliding window, the partition logic is two-heap-flavored, and the structure generalizes to median-of-buckets when you swap in approximate sketches.
+- [LC 295: Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) [Hard] • the canonical streaming-median problem; the two-heap implementation is the textbook answer and walks across four languages in chapter 6.4.
+- [LC 480: Sliding Window Median](https://leetcode.com/problems/sliding-window-median/) [Hard] • the lazy-deletion variant. Multiset solutions exist in C++ via `std::multiset`; Python and Java without third-party libraries reach for the two-heap-plus-stale-counter idiom.
+- [LC 1825: Finding MK Average](https://leetcode.com/problems/finding-mk-average/) [Hard] • the bucketed cousin: maintain three sorted multisets (or three balanced ordered structures) holding the smallest `k`, middle `m − 2k`, and largest `k` of the last `m` elements, and report the mean of the middle bucket. The data flows like a sliding window, the partition logic is two-heap-flavored, and the structure generalizes to median-of-buckets when you swap in approximate sketches.
 
 ## Common misconceptions
 

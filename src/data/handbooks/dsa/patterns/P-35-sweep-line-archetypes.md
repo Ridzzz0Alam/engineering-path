@@ -96,9 +96,9 @@ The first two rows differ on what the active set stores: a scalar versus a heap 
 
 ## Three signature problems
 
-- [LC 253 — Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) [Medium] • sweep-line-event-counting. The cleanest 1D event-sweep introduction. The minimum-rooms reframing — "min rooms equals max concurrent meetings" — is the entire pedagogical content beyond the spine itself. LC 253 is paywalled on LeetCode; the algorithm is mirrored across community write-ups including the labuladong scan-line treatment.[^6]
-- [LC 218 — The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) [Hard] • sweep-line-max-heap-with-lazy-deletion. The heap-as-active-set archetype. Two recurring bugs: forgetting the lazy-deletion sentinel `(0, INF)` so the heap is never empty during the max-read, and getting the negative-height tie-break wrong on simultaneous starts.[^4]
-- [LC 850 — Rectangle Area II](https://leetcode.com/problems/rectangle-area-ii/) [Hard] • sweep-line-coordinate-compression. The 2D measure archetype. Coordinate compression on the y-axis is the engineering step that makes the algorithm tractable on inputs whose coordinates reach `10^9`; without it, a brute force per-cell mark needs O(W * H) memory and is infeasible.[^5]
+- [LC 253: Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) [Medium] • sweep-line-event-counting. The cleanest 1D event-sweep introduction. The minimum-rooms reframing ("min rooms equals max concurrent meetings") is the entire pedagogical content beyond the spine itself. LC 253 is paywalled on LeetCode; the algorithm is mirrored across community write-ups including the labuladong scan-line treatment.[^6]
+- [LC 218: The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) [Hard] • sweep-line-max-heap-with-lazy-deletion. The heap-as-active-set archetype. Two recurring bugs: forgetting the lazy-deletion sentinel `(0, INF)` so the heap is never empty during the max-read, and getting the negative-height tie-break wrong on simultaneous starts.[^4]
+- [LC 850: Rectangle Area II](https://leetcode.com/problems/rectangle-area-ii/) [Hard] • sweep-line-coordinate-compression. The 2D measure archetype. Coordinate compression on the y-axis is the engineering step that makes the algorithm tractable on inputs whose coordinates reach `10^9`; without it, a brute force per-cell mark needs O(W * H) memory and is infeasible.[^5]
 
 ## Common misconceptions
 

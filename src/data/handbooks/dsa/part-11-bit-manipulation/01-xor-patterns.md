@@ -21,7 +21,7 @@ ladder:
 
 LC 136 (Single Number): an array where every value appears twice except one, return the lone value. Sample input `[4, 1, 2, 1, 2]`, expected answer `4`. The first reflex is a hash set: scan once, count, return the key with count 1. That works in O(n) time but O(n) space, and the prompt says O(1) space. The second reflex is to sort and scan adjacent pairs: O(n log n) time, O(1) space if you sort in place. Also rejected, because the prompt says O(n) time.
 
-The accepted answer is one line. XOR every element into an accumulator, return the accumulator. It runs in O(n) time, O(1) space, and works on negatives, on `INT_MIN`, on a single-element array, on every pathological case the grader throws at it. There are no special cases. The reason is one identity: XOR is its own inverse — `a ^ a = 0` and `a ^ 0 = a` — so pairs cancel, single elements survive, and that single property is the entire chapter.
+The accepted answer is one line. XOR every element into an accumulator, return the accumulator. It runs in O(n) time, O(1) space, and works on negatives, on `INT_MIN`, on a single-element array, on every pathological case the grader throws at it. There are no special cases. The reason is one identity: XOR is its own inverse (`a ^ a = 0` and `a ^ 0 = a`) so pairs cancel, single elements survive, and that single property is the entire chapter.
 
 The rest of the chapter is what falls out of that one identity when you bend the problem. Three variants and one warning.
 
@@ -66,7 +66,7 @@ def single_number(nums):
     return result
 ```
 
-**Solution** — Python ([Java](./01-xor-patterns/lc-136/sol.java) · [C++](./01-xor-patterns/lc-136/sol.cpp) · [Go](./01-xor-patterns/lc-136/sol.go))
+**Solution** in Python ([Java](./01-xor-patterns/lc-136/sol.java) · [C++](./01-xor-patterns/lc-136/sol.cpp) · [Go](./01-xor-patterns/lc-136/sol.go))
 
 ```python
 # LC 136. Single Number
@@ -74,7 +74,7 @@ from typing import List
 
 
 def single_number(nums: List[int]) -> int:
-    """LC 136 — element appearing once when every other element appears twice.
+    """LC 136: element appearing once when every other element appears twice.
     O(n) time, O(1) space."""
     result = 0
     for x in nums:
@@ -117,7 +117,7 @@ def single_number_137(nums):
     return result
 ```
 
-**Solution** — Python ([Java](./01-xor-patterns/lc-137/sol.java) · [C++](./01-xor-patterns/lc-137/sol.cpp) · [Go](./01-xor-patterns/lc-137/sol.go))
+**Solution** in Python ([Java](./01-xor-patterns/lc-137/sol.java) · [C++](./01-xor-patterns/lc-137/sol.cpp) · [Go](./01-xor-patterns/lc-137/sol.go))
 
 ```python
 # LC 137. Single Number II
@@ -130,7 +130,7 @@ from typing import List
 
 
 def single_number(nums: List[int]) -> int:
-    """LC 137 — element appearing once when every other element appears three times."""
+    """LC 137: element appearing once when every other element appears three times."""
     result = 0
     for i in range(32):
         bit_sum = 0
@@ -170,7 +170,7 @@ def single_number_260(nums):
     return [a, b]
 ```
 
-**Solution** — Python ([Java](./01-xor-patterns/lc-260/sol.java) · [C++](./01-xor-patterns/lc-260/sol.cpp) · [Go](./01-xor-patterns/lc-260/sol.go))
+**Solution** in Python ([Java](./01-xor-patterns/lc-260/sol.java) · [C++](./01-xor-patterns/lc-260/sol.cpp) · [Go](./01-xor-patterns/lc-260/sol.go))
 
 ```python
 # LC 260. Single Number III
@@ -182,7 +182,7 @@ from typing import List
 
 
 def single_number(nums: List[int]) -> List[int]:
-    """LC 260 — two elements appear once; all others appear twice."""
+    """LC 260: two elements appear once; all others appear twice."""
     xor_all = 0
     for x in nums:
         xor_all ^= x
@@ -254,14 +254,14 @@ The XOR-prefix construction (`prefix[i] = nums[0] ^ ... ^ nums[i-1]`, with range
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 136 — Single Number](https://leetcode.com/problems/single-number/) [Easy] • bit-xor-uniqueness ★
-- [LC 137 — Single Number II](https://leetcode.com/problems/single-number-ii/) [Medium] • bit-position-counting
-- [LC 260 — Single Number III](https://leetcode.com/problems/single-number-iii/) [Medium] • bit-xor-partition
+- [LC 136: Single Number](https://leetcode.com/problems/single-number/) [Easy] • bit-xor-uniqueness ★
+- [LC 137: Single Number II](https://leetcode.com/problems/single-number-ii/) [Medium] • bit-position-counting
+- [LC 260: Single Number III](https://leetcode.com/problems/single-number-iii/) [Medium] • bit-xor-partition
 
 ### STRETCH (optional)
 
-- [LC 421 — Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) [Medium] • bit-xor-trie-prefix *(reference: Python only)*
-- [LC 1707 — Maximum XOR With an Element From Array](https://leetcode.com/problems/maximum-xor-with-an-element-from-array/) [Hard] • bit-xor-trie-offline *(reference: Python only)*
+- [LC 421: Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) [Medium] • bit-xor-trie-prefix *(reference: Python only)*
+- [LC 1707: Maximum XOR With an Element From Array](https://leetcode.com/problems/maximum-xor-with-an-element-from-array/) [Hard] • bit-xor-trie-offline *(reference: Python only)*
 
 LC 268 (Missing Number) and LC 389 (Find the Difference) are strong honorary entries; they're omitted from CORE only to keep the ladder focused on the Single Number family. LC 191 and LC 461 live in [Bit manipulation primer](../part-0-foundations/03-bit-manipulation-primer.md), where they belong.
 

@@ -1,14 +1,14 @@
-# Editorial widget — LC 5 Longest Palindromic Substring
+# Editorial widget: LC 5 Longest Palindromic Substring
 # Editorial widgets animate ONE specific signature problem at fixed input.
 # Preset-only; no randomize, no edit.
 
 id: e-LC005-longest-palindrome
-title: "Longest Palindromic Substring (LC 5) — expand around centers"
+title: "Longest Palindromic Substring (LC 5), expand around centers"
 type: editorial-single-panel
 level: 1
 modes: [preset]
 
-# Editorial widgets do not expose user input — the canonical input is the lesson.
+# Editorial widgets do not expose user input: the canonical input is the lesson.
 caps:
   string_length: { fixed: 5 }       # exactly the canonical "babad"
 
@@ -46,7 +46,7 @@ panels:
   default:
     chapter: "9.10"
     primary_chapter: part-9-dynamic-programming/10-palindrome-dp
-    label: "Longest Palindromic Substring — expand around centers"
+    label: "Longest Palindromic Substring, expand around centers"
     canonical_input: |
       s = "babad"
     # Why "babad" not "cbbd": "babad" exercises both odd-length wins (bab at i=1)

@@ -30,9 +30,9 @@ The reason it scares people is that the obvious answers all almost work. A hash 
 
 Three operations, all expected O(1):
 
-- `LRUCache(capacity)` — create a cache that holds at most `capacity` key-value pairs.
-- `get(key)` — return the value if the key is present, `-1` otherwise. A hit counts as a use.
-- `put(key, value)` — insert or update. If the cache is at capacity and the key is new, evict the entry not touched for the longest time. An update counts as a use.[^3]
+- `LRUCache(capacity)`: create a cache that holds at most `capacity` key-value pairs.
+- `get(key)`: return the value if the key is present, `-1` otherwise. A hit counts as a use.
+- `put(key, value)`: insert or update. If the cache is at capacity and the key is new, evict the entry not touched for the longest time. An update counts as a use.[^3]
 
 Three subtleties make the problem harder than its API suggests. The first: an update on an existing key promotes the entry to most-recently-used. `put(k, v)` is not "write a value"; it is "write a value AND mark this entry as touched". The LC test suite enforces this; miss it, and you fail tests around capacity 1.[^3] The second: eviction picks the entry at the *tail* of the recency order, never an entry the caller just operated on, even if the operation was an update. The third: hits never mutate the value, but they always mutate the recency order. A `get` is a write to the structure even though it looks like a read to the caller.
 
@@ -210,7 +210,7 @@ class LRUCache:
         self._add_to_front(new_node)
 ```
 
-**Solution** — Python ([Java](./05-lru-cache/lc-146/sol.java) · [C++](./05-lru-cache/lc-146/sol.cpp) · [Go](./05-lru-cache/lc-146/sol.go))
+**Solution** in Python ([Java](./05-lru-cache/lc-146/sol.java) · [C++](./05-lru-cache/lc-146/sol.cpp) · [Go](./05-lru-cache/lc-146/sol.go))
 
 ```python
 # LC 146. LRU Cache
@@ -290,7 +290,7 @@ The build is uneventful: `put(1,1)` then `put(2,2)` puts node 2 at the head and 
 
 That promotion is what determines step 4. `put(3,3)` finds the cache full. The tail-prev sentinel hands back the LRU, which is now node 2 because of the step-3 promotion, and step 4 evicts node 2, not node 1. Run the same sequence without step 3, and node 1 evicts instead. The rest of the trace is mechanical: misses on the evicted keys, hits on the live keys, each hit shuffling the recency order one position.
 
-> **Interactive widget:** [LRU cache (hash map + doubly linked list)](../widgets/w-15-lru-cache.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [LRU cache (hash map + doubly linked list)](../widgets/w-15-lru-cache.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: ten keyframes showing the hash-map row and the doubly-linked-list row side by side. Each step highlights the active node, the about-to-evict node when applicable, and the post-op MRU and LRU.*
 
@@ -366,13 +366,13 @@ The shared lesson: any time a problem demands O(1) for two distinct access modes
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 146 — LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium] • hash-map-plus-doubly-linked-list-cache ★
-- [LC 460 — LFU Cache](https://leetcode.com/problems/lfu-cache/) [Hard] • hash-map-plus-frequency-bucketed-dll
-- [LC 1472 — Design Browser History](https://leetcode.com/problems/design-browser-history/) [Medium] • doubly-linked-list-with-current-cursor
+- [LC 146: LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium] • hash-map-plus-doubly-linked-list-cache ★
+- [LC 460: LFU Cache](https://leetcode.com/problems/lfu-cache/) [Hard] • hash-map-plus-frequency-bucketed-dll
+- [LC 1472: Design Browser History](https://leetcode.com/problems/design-browser-history/) [Medium] • doubly-linked-list-with-current-cursor
 
 ### STRETCH (optional)
 
-- [LC 1206 — Design Skiplist](https://leetcode.com/problems/design-skiplist/) [Hard] • probabilistic-multilevel-linked-list
+- [LC 1206: Design Skiplist](https://leetcode.com/problems/design-skiplist/) [Hard] • probabilistic-multilevel-linked-list
 
 The dual-data-structure pattern admits no canonical Easy LC; LC 705 and LC 706 (Design HashSet, Design HashMap) drop the linked-list half, and LC 707 (Design Linked List) is itself Medium. The CORE+STRETCH set spans Medium / Hard / Medium / Hard, and the ladder carries the `core-emh-via-stretch` curation flag to record the absent Easy band. LC 432 (All O\`one Data Structure) is a fourth dual-structure problem with the same shape, registry-locked to [Hash collisions and the load factor](../part-1-linear-data-structures/04-hash-collisions.md); cite it there for the frequency-bucket variant if you want a second pass at the LFU mechanic.
 

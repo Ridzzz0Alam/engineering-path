@@ -98,9 +98,9 @@ Go is the outlier. The standard library has no built-in stack or queue type. For
 
 One problem per structure, chosen for how cleanly it reveals why a different structure would fail.
 
-- [LC 20 — Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) [Easy] • stack. The most recent unmatched opener must match the next closer. A queue would dequeue the *first* opener on the first closer, accepting `"([)]"` as well-formed when it isn't.
-- [LC 102 — Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) [Medium] • queue. The FIFO contract is what produces level-by-level output. A stack would visit the rightmost leaf before its siblings.
-- [LC 239 — Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) [Hard] • monotonic deque. Eviction happens at both ends: at the front when an index leaves the window, at the back when a new value dominates. Neither stack nor queue can do this in O(1).
+- [LC 20: Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) [Easy] • stack. The most recent unmatched opener must match the next closer. A queue would dequeue the *first* opener on the first closer, accepting `"([)]"` as well-formed when it isn't.
+- [LC 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) [Medium] • queue. The FIFO contract is what produces level-by-level output. A stack would visit the rightmost leaf before its siblings.
+- [LC 239: Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) [Hard] • monotonic deque. Eviction happens at both ends: at the front when an index leaves the window, at the back when a new value dominates. Neither stack nor queue can do this in O(1).
 
 ## Common misconceptions
 

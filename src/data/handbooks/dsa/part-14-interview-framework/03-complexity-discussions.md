@@ -65,7 +65,7 @@ Then the bound has two letters. A BFS on a graph with V vertices and E edges is 
 
 State which letter is which the first time. "V is the vertex count, E is the edge count, the BFS visits each vertex once and each edge twice, so it's O(V + E) time and O(V) space for the visited set and queue." If the problem text gave you two array lengths, name them: O(n + m), where n is the length of nums1 and m the length of nums2. Reusing n for both is a bug the interviewer cannot tell from a misunderstanding.
 
-## Expected, amortized, average — which word?
+## Expected, amortized, average, which word?
 
 Three words, three arguments, no overlap. Many candidates use them interchangeably and lose calibration ticks each time.[^1]
 
@@ -83,7 +83,7 @@ This question is rarely about a tighter bound; it's a check on whether you know 
 
 If the comparison-sort lower bound is in play and your bound matches it, say so: "Not for general comparison input; n log n is the comparison-sort lower bound. We could drop it with counting or radix sort if the keys are bounded integers, but the constants make the trade worth it only at large n."[^3] Naming the lower bound moves the conversation from "find a faster algorithm" to "relax the input model," which is the productive next step.
 
-If you traded time for space and the interviewer is hunting for the symmetric trade, give the cost: "I can drop space to O(1) by [in-place modification / two pointers / the three-reverse trick on rotation], but that mutates the input — is that acceptable?" Asking before mutating saves you from a wrong assumption that's hard to walk back.
+If you traded time for space and the interviewer is hunting for the symmetric trade, give the cost: "I can drop space to O(1) by [in-place modification / two pointers / the three-reverse trick on rotation], but that mutates the input, is that acceptable?" Asking before mutating saves you from a wrong assumption that's hard to walk back.
 
 If you genuinely don't know whether you can do better, say so plainly: "I don't see a tighter bound; do you have one in mind?" An honest "I don't know, what am I missing?" reads better than five seconds of stalling.
 

@@ -1,4 +1,4 @@
-# BST operations + AVL rotations — three-way shared widget
+# BST operations + AVL rotations: three-way shared widget
 # Shared between chapter 6.5 (BST insert/search/delete) and chapter 6.6
 # (AVL self-balancing rotations). Authoritative spec at runtime.
 #
@@ -70,7 +70,7 @@ panels:
             - "delete(3)"
             - "delete(5)"
       - id: pathological_sorted_insert
-        label: "Sorted insert 1..7 (degenerates to a linked list — motivates AVL)"
+        label: "Sorted insert 1..7 (degenerates to a linked list: motivates AVL)"
         input:
           ops:
             - "insert(1)"
@@ -96,7 +96,7 @@ panels:
           op: "insert(5)"
           tree: { value: 5 }
           inorder: [5]
-        narration: "Empty tree. insert(5) — the first key always lands as the root. The BST invariant holds vacuously."
+        narration: "Empty tree. insert(5): the first key always lands as the root. The BST invariant holds vacuously."
       - step: 1
         kind: bstInsert
         state:
@@ -168,7 +168,7 @@ panels:
           path: [5, 8]
           current: 9
           inorder: [1, 3, 4, 5, 7, 8, 9]
-        narration: "insert(9): 9 > 5 (right), 9 > 8 (right), null. Land. Build complete; canonical tree assembled. Inorder: [1, 3, 4, 5, 7, 8, 9] — sorted, by Theorem 12.1."
+        narration: "insert(9): 9 > 5 (right), 9 > 8 (right), null. Land. Build complete; canonical tree assembled. Inorder: [1, 3, 4, 5, 7, 8, 9], sorted, by Theorem 12.1."
       - step: 7
         kind: bstSearch
         state:
@@ -230,7 +230,7 @@ panels:
           victim: 3
           path: [5]
           case: "two_children"
-        narration: "3 < 5; go left. Found victim 3. It has two children (1 and 4) — Case 3."
+        narration: "3 < 5; go left. Found victim 3. It has two children (1 and 4): Case 3."
       - step: 12
         kind: bstDelete
         state:
@@ -258,7 +258,7 @@ panels:
           path: [5]
           case: "two_children"
           inorder: [1, 4, 5, 7, 8, 9]
-        narration: "Hibbard delete: copy successor value 4 into the victim slot. Recursively delete the duplicate 4 from the right subtree — Case 2a there (no children below 4), so 4's slot becomes null. Tree now [5, 4, 8, 1, null, 7, 9]. Inorder: [1, 4, 5, 7, 8, 9]."
+        narration: "Hibbard delete: copy successor value 4 into the victim slot. Recursively delete the duplicate 4 from the right subtree: Case 2a there (no children below 4), so 4's slot becomes null. Tree now [5, 4, 8, 1, null, 7, 9]. Inorder: [1, 4, 5, 7, 8, 9]."
       - step: 14
         kind: bstDelete
         state:
@@ -272,7 +272,7 @@ panels:
           path: []
           victim: 5
           case: "two_children"
-        narration: "delete(5): start at root. cur = 5; match. Two children (4 and 8) — Case 3 again."
+        narration: "delete(5): start at root. cur = 5; match. Two children (4 and 8): Case 3 again."
       - step: 15
         kind: bstDelete
         state:
@@ -314,7 +314,7 @@ panels:
           victim: 5
           successor: 7
           case: "two_children"
-        narration: "7 has no left child — successor = 7. (The smallest value larger than 5.)"
+        narration: "7 has no left child, successor = 7. (The smallest value larger than 5.)"
       - step: 18
         kind: bstDelete
         state:
@@ -327,7 +327,7 @@ panels:
           current: 7
           path: []
           case: "two_children"
-        narration: "Value-copy: root.val = 7. The structural pointer to the root node is unchanged; only its label morphs from 5 to 7. Notice the duplicate 7 still hangs in the right subtree — the recursive delete will clean it up next."
+        narration: "Value-copy: root.val = 7. The structural pointer to the root node is unchanged; only its label morphs from 5 to 7. Notice the duplicate 7 still hangs in the right subtree: the recursive delete will clean it up next."
       - step: 19
         kind: bstDelete
         state:
@@ -354,7 +354,7 @@ panels:
           victim: 7
           path: [7, 8]
           case: "leaf"
-        narration: "7 < 8; go left. Match. Victim 7 has zero children — Case 1 (leaf). Return null; 8.left becomes null."
+        narration: "7 < 8; go left. Match. Victim 7 has zero children: Case 1 (leaf). Return null; 8.left becomes null."
       - step: 21
         kind: bstDelete
         state:
@@ -366,7 +366,7 @@ panels:
             right: { value: 8, right: { value: 9 } }
           current: null
           inorder: [1, 4, 7, 8, 9]
-        narration: "Tree fully resettled. Final shape: 7 root, [4, 1] left chain, [8, null, 9] right chain. Inorder: [1, 4, 7, 8, 9] — sorted; invariant survived two deletes including the flagship Case 3."
+        narration: "Tree fully resettled. Final shape: 7 root, [4, 1] left chain, [8, null, 9] right chain. Inorder: [1, 4, 7, 8, 9], sorted; invariant survived two deletes including the flagship Case 3."
       - step: 22
         kind: bstDelete
         state:
@@ -387,7 +387,7 @@ panels:
             right: { value: 8, right: { value: 9 } }
           inorder: [1, 4, 7, 8, 9]
           result: "[1, 4, 7, 8, 9]"
-        narration: "All operations complete. Every step ran in O(h); on this n=7 balanced shape, h=2 throughout. The pathological alternative — sorted insert — would force h=n; that's the gap chapter 6.6 closes with rotations."
+        narration: "All operations complete. Every step ran in O(h); on this n=7 balanced shape, h=2 throughout. The pathological alternative (sorted insert) would force h=n; that's the gap chapter 6.6 closes with rotations."
 
 
   panel-avl:
@@ -403,16 +403,16 @@ panels:
       All four converge to: root=20, left=10, right=30, height=2, BF(root)=0.
     presets:
       - id: single_left_rotation
-        label: "RR — single left rotation (insert 10, 20, 30)"
+        label: "RR, single left rotation (insert 10, 20, 30)"
         input: { sequence: [10, 20, 30] }
       - id: single_right_rotation
-        label: "LL — single right rotation (insert 30, 20, 10)"
+        label: "LL, single right rotation (insert 30, 20, 10)"
         input: { sequence: [30, 20, 10] }
       - id: double_rotation_rl
-        label: "RL — right-then-left double (insert 10, 30, 20)"
+        label: "RL, right-then-left double (insert 10, 30, 20)"
         input: { sequence: [10, 30, 20] }
       - id: double_rotation_lr
-        label: "LR — left-then-right double (insert 30, 10, 20)"
+        label: "LR, left-then-right double (insert 30, 10, 20)"
         input: { sequence: [30, 10, 20] }
     n_steps: 28
     # Trace generated from the verified Python reference (,
@@ -557,7 +557,7 @@ panels:
           case: RL
           phase: detect_imbalance
           tree: { value: 10, right: { value: 30, left: { value: 20 } } }
-        narration: "Insert 20 as right-LEFT (zig-zag). BF(10) = -2 AND BF(right) = +1 — opposite signs mean a single rotation will not fix it."
+        narration: "Insert 20 as right-LEFT (zig-zag). BF(10) = -2 AND BF(right) = +1: opposite signs mean a single rotation will not fix it."
       - step: 18
         kind: rotateRight
         payload: { pivot: 30 }
@@ -610,7 +610,7 @@ panels:
           case: LR
           phase: detect_imbalance
           tree: { value: 30, left: { value: 10, right: { value: 20 } } }
-        narration: "Insert 20 as left-RIGHT (zig-zag). BF(30) = +2 AND BF(left) = -1 — opposite signs again, double rotation needed."
+        narration: "Insert 20 as left-RIGHT (zig-zag). BF(30) = +2 AND BF(left) = -1: opposite signs again, double rotation needed."
       - step: 25
         kind: rotateLeft
         payload: { pivot: 10 }

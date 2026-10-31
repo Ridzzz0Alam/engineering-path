@@ -119,7 +119,7 @@ def max_repeating(sequence: str, word: str) -> int:
     return best
 ```
 
-**Solution** — Python ([Java](./03-z-algorithm/lc-1668/sol.java) · [C++](./03-z-algorithm/lc-1668/sol.cpp) · [Go](./03-z-algorithm/lc-1668/sol.go))
+**Solution** in Python ([Java](./03-z-algorithm/lc-1668/sol.java) · [C++](./03-z-algorithm/lc-1668/sol.cpp) · [Go](./03-z-algorithm/lc-1668/sol.go))
 
 ```python
 # LC 1668. Maximum Repeating Substring
@@ -164,7 +164,7 @@ def max_repeating(sequence: str, word: str) -> int:
 
 The `+ "#" +` matters and is the most-skipped detail in beginner Z code. Without the sentinel, prefix matches in the text could spill across into suffix matches of the pattern, producing Z-values that mix the two boundaries. With the sentinel, no Z-value can reach past it; the pattern and the text are sealed from each other. Pick any character that appears in neither input. For LC's lowercase-letter constraints, `#` is universal.[^2]
 
-> **Interactive widget:** [Z-array construction with the [l, r) match window](../widgets/w-40-z-array.yml) (panel `default`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Z-array construction with the [l, r) match window](../widgets/w-40-z-array.yml) (panel `default`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: on `s = "aabaabcaab"` the Z-algorithm runs through 19 steps. Window slides to `[3, 6)` after step 8 when `z[3] = 3` is computed, and again to `[7, 10)` after step 15. The first mirror reuse is step 9: `z[4] = z[1] = 1` is set with no character comparisons, because step 8's slide proved `s[3..5]` equals `s[0..2]`. Final array: `[0, 1, 0, 3, 1, 0, 0, 3, 1, 0]`. The two non-zero positions at index 3 and index 7 are the prefix `"aab"` reappearing.*
 
@@ -179,7 +179,7 @@ The `+ "#" +` matters and is the most-skipped detail in beginner Z code. Without
 
 The bound is *independent of alphabet size*. The only operation on characters is `==`, so the algorithm runs the same on ASCII, Unicode code points, or arbitrary objects with an equality predicate. KMP shares this property; Boyer-Moore does not, which is why Boyer-Moore tends to lose on small alphabets even when it wins on large ones.[^4]
 
-The space bound is O(n) for the Z-array itself; the `[l, r)` state is two integers. There is no `O(n × m)` matrix anywhere — Z, like KMP, is a *streaming* algorithm dressed up as a table.
+The space bound is O(n) for the Z-array itself; the `[l, r)` state is two integers. There is no `O(n × m)` matrix anywhere: Z, like KMP, is a *streaming* algorithm dressed up as a table.
 
 ## When the pattern bends: three reductions worth knowing
 
@@ -199,7 +199,7 @@ The pattern across the three: if the question can be re-stated in the form *"whe
 > **Forgetting the cap on the mirror value.** Writing `z[i] = z[i - l]` instead of `z[i] = min(r - i, z[i - l])` lets the mirror copy a value that reaches past `r`, where the algorithm has not actually verified the match. The algorithm then claims `z[i]` matches characters at unverified positions and produces wrong answers on inputs like `"aaaabaa"` at `i = 6`.[^2] The cap is the load-bearing correctness step. Always write the `min`.
 
 > [!WARNING]
-> **Off-by-one between half-open `[l, r)` and closed `[L, R]`.** The original Codeforces tutorial mixes both conventions: closed-interval prose, half-open code with an `R--` at the end of each branch.[^7] Implementations that copy the prose into a half-open codebase fail with `i <= r` instead of `i < r`, which makes the mirror branch fire on the boundary where the mirror value is undefined. Pick one convention. The cp-algorithms.com half-open convention used above tests `i < r` and slides with `r = i + z[i]`. Match it everywhere — pseudocode, all four language samples, and any narration of the algorithm. Mixing produces a silent off-by-one that costs an interview.
+> **Off-by-one between half-open `[l, r)` and closed `[L, R]`.** The original Codeforces tutorial mixes both conventions: closed-interval prose, half-open code with an `R--` at the end of each branch.[^7] Implementations that copy the prose into a half-open codebase fail with `i <= r` instead of `i < r`, which makes the mirror branch fire on the boundary where the mirror value is undefined. Pick one convention. The cp-algorithms.com half-open convention used above tests `i < r` and slides with `r = i + z[i]`. Match it everywhere: pseudocode, all four language samples, and any narration of the algorithm. Mixing produces a silent off-by-one that costs an interview.
 
 A third pitfall worth naming briefly: defining `z[0] = n` because the whole string trivially matches itself. The recurrence reads `z[i - l]` when `i < r`; if `i - l` happens to equal 0, the read returns `z[0]`. Setting `z[0] = n` corrupts the mirror initialization. Set `z[0] = 0`; the algorithm never reads it for any other purpose.
 
@@ -230,14 +230,14 @@ The honest closing on the comparison: pick KMP first when teaching yourself stri
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 1668 — Maximum Repeating Substring](https://leetcode.com/problems/maximum-repeating-substring/) [Easy] • z-algorithm
-- [LC 1163 — Last Substring in Lexicographical Order](https://leetcode.com/problems/last-substring-in-lexicographical-order/) [Hard] • z-algorithm *(reference: Python only)*
-- [LC 3008 — Find Beautiful Indices in the Given Array II](https://leetcode.com/problems/find-beautiful-indices-in-the-given-array-ii/) [Hard] • z-algorithm ★ *(reference: Python only)*
+- [LC 1668: Maximum Repeating Substring](https://leetcode.com/problems/maximum-repeating-substring/) [Easy] • z-algorithm
+- [LC 1163: Last Substring in Lexicographical Order](https://leetcode.com/problems/last-substring-in-lexicographical-order/) [Hard] • z-algorithm *(reference: Python only)*
+- [LC 3008: Find Beautiful Indices in the Given Array II](https://leetcode.com/problems/find-beautiful-indices-in-the-given-array-ii/) [Hard] • z-algorithm ★ *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 3034 — Number of Subarrays That Match a Pattern I](https://leetcode.com/problems/number-of-subarrays-that-match-a-pattern-i/) [Medium] • z-algorithm *(reference: Python only)*
-- [LC 214 — Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/) [Hard] • z-algorithm *(reference: Python only)*
+- [LC 3034: Number of Subarrays That Match a Pattern I](https://leetcode.com/problems/number-of-subarrays-that-match-a-pattern-i/) [Medium] • z-algorithm *(reference: Python only)*
+- [LC 214: Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/) [Hard] • z-algorithm *(reference: Python only)*
 
 LC 28 (Find the Index of the First Occurrence in a String) is the canonical "linear-time substring search" problem and intentionally absent from this ladder. Chapter 12.0 owns it as CORE; the framing, Z replaces KMP for an O(n + m) solution via `z(pattern + # + text)`, is a corollary of the worked example above. LC 459 (Repeated Substring Pattern) is owned by [KMP and the failure function](./02-kmp.md) and admits a Z solution from the period reduction.
 
@@ -265,4 +265,4 @@ The other branch leads sideways. [Rabin-Karp](./01-rabin-karp.md) is the third l
 
 [^7]: paladin8, "Z Algorithm." Codeforces blog entry 3107, 2010. <https://codeforces.com/blog/entry/3107>.
 
-[^8]: cp-algorithms.com, "Prefix function — Knuth-Morris-Pratt." <https://cp-algorithms.com/string/prefix-function.html>.
+[^8]: cp-algorithms.com, "Prefix function: Knuth-Morris-Pratt." <https://cp-algorithms.com/string/prefix-function.html>.

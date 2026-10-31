@@ -56,7 +56,7 @@ flowchart TD
 
 The triggers are independent. A problem that fires trigger 2 (XOR) usually does not fire trigger 1 (bitmask state); a problem that fires trigger 3 (popcount) is usually a sub-step inside a larger algorithm. Each subsection below tells you what the trigger looks like at the whiteboard, what the algorithm costs, and which chapter goes deeper.
 
-### Trigger 1 — State as a bitmask, when `|U| ≤ 20–22`
+### Trigger 1: State as a bitmask, when `|U| ≤ 20–22`
 
 **The signal.** The problem has a fixed small universe (the 26 lowercase letters, the 5 vowels, an `n`-element ground set with `n ≤ 20`), and the algorithm needs to track *which subset is currently in play*. The natural state is a `set`; the bit-encoded state is a single integer where bit `i` indicates whether element `i` is in the subset. Set union becomes `m1 | m2`. Set intersection becomes `m1 & m2`. Subset enumeration becomes `for s in range(1 << n)`. Subset-of-subset enumeration becomes Knuth's `s = (s - 1) & m`.[^1][^2]
 
@@ -68,7 +68,7 @@ The triggers are independent. A problem that fires trigger 2 (XOR) usually does 
 
 **Chapter cite.** [Bitmask techniques](../part-11-bit-manipulation/02-bitmask-techniques.md) carries the full enumeration mechanics and the `s = (s - 1) & m` derivation.
 
-### Trigger 2 — XOR for self-cancellation (the LC 136 family)
+### Trigger 2: XOR for self-cancellation (the LC 136 family)
 
 **The signal.** The problem says "every element appears twice except one," "find the missing number in `[0, n]`," "two elements appear once and the rest pair up," or "the answer is the symmetric difference of two sets." The combinatorial structure is that pairs annihilate. XOR is the unique constant-space algorithm because XOR over `{0,1}^n` is an abelian group: `0` is the identity, every element is its own inverse, and the operation is commutative and associative.[^3] Reduce the array under XOR and the pairs cancel to zero; the lone element survives because `0 ^ x = x`.
 
@@ -80,7 +80,7 @@ The triggers are independent. A problem that fires trigger 2 (XOR) usually does 
 
 **Chapter cite.** [XOR patterns](../part-11-bit-manipulation/01-xor-patterns.md) walks the family in full, including LC 136, LC 137, LC 260, LC 268, and the prefix-XOR variant of range queries.
 
-### Trigger 3 — Bit-counting, popcount, and the Brian Kernighan trick
+### Trigger 3: Bit-counting, popcount, and the Brian Kernighan trick
 
 **The signal.** The inner loop needs to count set bits, isolate the lowest set bit, or walk only the set bits of a sparse integer. The naive scan iterates 32 (or 64) times regardless of input. The bit-twiddle alternative iterates `popcount(n)` times, once per set bit. On dense inputs the two are tied; on sparse ones the bit-twiddle wins by a factor of up to 32.
 
@@ -107,11 +107,11 @@ The pattern across the row is that bit manipulation buys you something specific:
 
 One per trigger. Each is the cleanest example of its category, and the trigger is visible from the constraint section in under a minute.
 
-**Bitmask state: [LC 78 — Subsets](https://leetcode.com/problems/subsets/)** (Medium). Given an array of `n` distinct integers with `1 ≤ n ≤ 10`, return all `2^n` subsets. The constraint `n ≤ 10` is the giveaway: that is small-universe territory, and `2^n` enumeration is the canonical encoding. The loop is `for s in range(1 << n)`; for each `s`, bit `i` indicates whether `nums[i]` is included. Same asymptotic cost as recursive backtracking, no stack, trivially parallelizable.
+**Bitmask state: [LC 78: Subsets](https://leetcode.com/problems/subsets/)** (Medium). Given an array of `n` distinct integers with `1 ≤ n ≤ 10`, return all `2^n` subsets. The constraint `n ≤ 10` is the giveaway: that is small-universe territory, and `2^n` enumeration is the canonical encoding. The loop is `for s in range(1 << n)`; for each `s`, bit `i` indicates whether `nums[i]` is included. Same asymptotic cost as recursive backtracking, no stack, trivially parallelizable.
 
-**XOR self-cancellation: [LC 136 — Single Number](https://leetcode.com/problems/single-number/)** (Easy). An array where every element appears twice except one, return the lone element, in O(n) time and O(1) extra space. The accepted solution is `reduce(arr, ^)`, four lines including the function header. Pairs cancel because XOR is self-inverse; the lone element XORed with `0` (the accumulator's initial value) is itself.
+**XOR self-cancellation: [LC 136: Single Number](https://leetcode.com/problems/single-number/)** (Easy). An array where every element appears twice except one, return the lone element, in O(n) time and O(1) extra space. The accepted solution is `reduce(arr, ^)`, four lines including the function header. Pairs cancel because XOR is self-inverse; the lone element XORed with `0` (the accumulator's initial value) is itself.
 
-**Popcount: [LC 191 — Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)** (Easy). Count the set bits of a 32-bit unsigned integer. The Brian Kernighan loop `while n: n &= n - 1; count += 1` runs `popcount(n)` iterations rather than 32, beating the naive scan on every sparse input. In production, call the stdlib intrinsic; in the interview, write Kernighan and mention the intrinsic out loud.
+**Popcount: [LC 191: Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)** (Easy). Count the set bits of a 32-bit unsigned integer. The Brian Kernighan loop `while n: n &= n - 1; count += 1` runs `popcount(n)` iterations rather than 32, beating the naive scan on every sparse input. In production, call the stdlib intrinsic; in the interview, write Kernighan and mention the intrinsic out loud.
 
 ## Common misconceptions
 

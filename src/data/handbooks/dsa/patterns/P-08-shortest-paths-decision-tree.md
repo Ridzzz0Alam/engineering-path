@@ -74,7 +74,7 @@ Three signals point at Bellman-Ford rather than Dijkstra. First, negative edge w
 
 The `V - 1` outer-loop bound is the algorithm's central proof and the most cited claim in the comparison. CLRS Chapter 24 in the third edition (Chapter 22 in the fourth) establishes it as Theorem 24.4: any acyclic shortest path has at most `V - 1` edges, and the algorithm's `i`-th pass is correct for paths up to `i` edges, so `V - 1` passes cover every acyclic shortest path.[^1] The V-th pass adds `O(E)` and is the negative-cycle detector; the total is `O(V * E)`, conventionally rounded up rather than written as `(V - 1) * E + E`.[^4][^5]
 
-Time `O(V * E)`. Space `O(V)`. The price relative to Dijkstra is roughly a factor of `V / log V`, which on `V = 10^4` is a 700x slowdown — the difference between accepted at 100ms and time-limit-exceeded at 70 seconds. Pay this price only when negatives are real or the K-edge bound matches the problem.[^4]
+Time `O(V * E)`. Space `O(V)`. The price relative to Dijkstra is roughly a factor of `V / log V`, which on `V = 10^4` is a 700x slowdown: the difference between accepted at 100ms and time-limit-exceeded at 70 seconds. Pay this price only when negatives are real or the K-edge bound matches the problem.[^4]
 
 The K-edge variant has one load-bearing implementation detail: each pass must read from a `dist` snapshot taken at pass start, otherwise a single relaxation step can propagate two edges in one pass and the K-edge bound collapses. LC 787 will produce wrong answers without the snapshot.[^5]
 
@@ -106,9 +106,9 @@ Three cells deserve a closer read. **The Dijkstra row's "silently wrong" is not 
 
 The problems below sit at the three highest-frequency rows of the rubric. Each one is the canonical interview shape for its algorithm; recognizing the shape is the actual interview skill.
 
-- [LC 743 — Network Delay Time](https://leetcode.com/problems/network-delay-time/) [Medium] • Dijkstra signature
-- [LC 787 — Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) [Medium] • Bellman-Ford with K-edge bound
-- [LC 2290 — Minimum Obstacle Removal to Reach Corner](https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/) [Hard] • 0-1 BFS canonical
+- [LC 743: Network Delay Time](https://leetcode.com/problems/network-delay-time/) [Medium] • Dijkstra signature
+- [LC 787: Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) [Medium] • Bellman-Ford with K-edge bound
+- [LC 2290: Minimum Obstacle Removal to Reach Corner](https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/) [Hard] • 0-1 BFS canonical
 
 LC 743 is the textbook Dijkstra. Hand-built signal propagation across a directed weighted graph; answer is `max(dist[v])` over reachable `v`. Every standard library on the planet runs the lazy-deletion idiom on this input in well under 100ms. LC 787 looks like a Dijkstra problem and isn't: the K-stops constraint defeats Dijkstra's settled-once invariant because a vertex can be revisited along a longer-but-cheaper path that respects the K-bound. The Bellman-Ford "after pass i, correct for paths of at most i edges" lemma is exactly what the constraint asks for. LC 2290 is the cleanest 0-1 BFS shape on LC: every cell has four neighbors, an empty neighbor costs `0` to traverse, an obstacle costs `1`. Push 0-cost relaxations to the front of the deque, 1-cost to the back; total work `O(m * n)`.
 

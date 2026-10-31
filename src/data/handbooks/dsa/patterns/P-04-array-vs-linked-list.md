@@ -119,13 +119,13 @@ The "linked list wins" cells cluster at the front of the sequence and at known-p
 
 One problem per main strategy. Each surfaces a single property of the workload that flips the choice.
 
-- [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/) [Easy] • dynamic array
+- [LC 1: Two Sum](https://leetcode.com/problems/two-sum/) [Easy] • dynamic array
   Random access by index, sequential traversal, hash-map lookup. Linked list is unusable: the indices `i` and `j` returned by the problem don't exist on a linked list, and the hash map maps values to indices, not nodes. The pattern signal is `a[i]` for arbitrary `i`, which is array territory.
 
-- [LC 146 — LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium] • doubly linked list + hash map ★
+- [LC 146: LRU Cache](https://leetcode.com/problems/lru-cache/) [Medium] • doubly linked list + hash map ★
   The canonical exception. The hash map gives the node pointer in O(1); the doubly linked list lets you unlink and reinsert at the head in O(1) because the node carries `prev` and `next`. Singly linked list fails: deleting an arbitrary middle node requires walking to find its predecessor, which is O(n).[^8] [^9] An array attempt with a `last_used_tick` field can't evict in O(1): finding the LRU entry requires scanning or a separate priority queue.
 
-- [LC 25 — Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) [Hard] • singly linked list
+- [LC 25: Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) [Hard] • singly linked list
   In-place rewire of `next` pointers in groups of `k`. The problem hands you a singly linked list and forbids extra space, so the array conversion is disqualified by the spec. The interesting part is that even when the spec allows it, converting to an array, reversing in groups, and rebuilding pays an allocation and a pass that the in-place rewire avoids. Pattern signal: the input is *already* a linked list, the operation is structural rather than positional, and the rewrite is local to each k-window.
 
 ## Common misconceptions

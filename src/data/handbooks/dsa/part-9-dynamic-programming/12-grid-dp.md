@@ -34,7 +34,7 @@ flowchart TD
     A[2D grid problem] --> B{What is the move set?}
     B -- "right + down only" --> C{What is being optimized?}
     B -- "4-directional, monotone score predicate" --> D[Grid DP on implicit DAG<br/>LC 329]
-    B -- "8-directional or unrestricted" --> E[Graph BFS/DFS<br/>chapter 8.x — not this chapter]
+    B -- "8-directional or unrestricted" --> E[Graph BFS/DFS<br/>chapter 8.x, not this chapter]
     C -- "count distinct paths" --> F[Forward count<br/>LC 62 / LC 63]
     C -- "min or max sum along path" --> G[Forward min / max<br/>LC 64 / LC 120 / LC 931]
     C -- "predicate depends on path SUFFIX" --> H[Backward survival<br/>LC 174]
@@ -47,7 +47,7 @@ flowchart TD
 The signature problem is [LC 62, *Unique Paths*](https://leetcode.com/problems/unique-paths/).[^2] An `m x n` grid; a robot at the top-left moves only right or down to reach the bottom-right; return the count of distinct paths. The honest first attempt enumerates them by recursion.
 
 ```python
-# Brute force: O(2^(m+n)) — what we're replacing
+# Brute force: O(2^(m+n)), what we're replacing
 def unique_paths_brute(m, n):
     def paths_from(i, j):
         if i == m - 1 and j == n - 1:
@@ -94,7 +94,7 @@ def unique_paths(m, n):
     return dp[m - 1][n - 1]
 ```
 
-**Solution** — Python ([Java](./12-grid-dp/lc-62/sol.java) · [C++](./12-grid-dp/lc-62/sol.cpp) · [Go](./12-grid-dp/lc-62/sol.go))
+**Solution** in Python ([Java](./12-grid-dp/lc-62/sol.java) · [C++](./12-grid-dp/lc-62/sol.cpp) · [Go](./12-grid-dp/lc-62/sol.go))
 
 ```python
 # LC 62. Unique Paths
@@ -164,7 +164,7 @@ The fifth row is what breaks the family. Look at it.
 Try forward DP first. Define `dp[i][j]` as the minimum HP required to walk from `(0, 0)` to `(i, j)`. The last step came from above or from the left. Recurrence:
 
 ```python
-# WRONG: forward DP for LC 174 — does not work
+# WRONG: forward DP for LC 174: does not work
 dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + ???
 ```
 
@@ -214,7 +214,7 @@ def calculate_minimum_hp(dungeon):
     return dp[0][0]
 ```
 
-**Solution** — Python ([Java](./12-grid-dp/lc-174/sol.java) · [C++](./12-grid-dp/lc-174/sol.cpp) · [Go](./12-grid-dp/lc-174/sol.go))
+**Solution** in Python ([Java](./12-grid-dp/lc-174/sol.java) · [C++](./12-grid-dp/lc-174/sol.cpp) · [Go](./12-grid-dp/lc-174/sol.go))
 
 ```python
 # LC 174. Dungeon Game
@@ -336,14 +336,14 @@ The grid-DP pattern is structurally Medium- and Hard-bound. Every monotone-direc
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 62 — Unique Paths](https://leetcode.com/problems/unique-paths/) [Medium] • grid-dp-path-count ★
-- [LC 64 — Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/) [Medium] • grid-dp-min-path
-- [LC 174 — Dungeon Game](https://leetcode.com/problems/dungeon-game/) [Hard] • grid-dp-backward
+- [LC 62: Unique Paths](https://leetcode.com/problems/unique-paths/) [Medium] • grid-dp-path-count ★
+- [LC 64: Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/) [Medium] • grid-dp-min-path
+- [LC 174: Dungeon Game](https://leetcode.com/problems/dungeon-game/) [Hard] • grid-dp-backward
 
 ### STRETCH (optional)
 
-- [LC 329 — Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/) [Hard] • grid-dp-on-dag-memo
-- [LC 931 — Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/) [Medium] • grid-dp-multi-source
+- [LC 329: Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/) [Hard] • grid-dp-on-dag-memo
+- [LC 931: Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/) [Medium] • grid-dp-multi-source
 
 LC 62 is the chapter's signature problem and the cleanest introduction. The CORE three exercise the three load-bearing variations on the recurrence: counting (LC 62), forward optimization (LC 64), and backward survival (LC 174). The two stretch problems extend the family in different directions: LC 329 with the implicit-DAG framing, LC 931 with the multi-source generalization. LC 63 (Unique Paths II) and LC 120 (Triangle) are covered in the chapter prose as one-line variations on LC 62 and LC 64 respectively; both are worth solving but neither earns a ladder slot under the five-entry cap.
 

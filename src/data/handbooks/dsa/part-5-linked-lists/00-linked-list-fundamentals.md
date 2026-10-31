@@ -133,7 +133,7 @@ class MyLinkedList:
         self.length -= 1
 ```
 
-**Solution** — Python ([Java](./00-linked-list-fundamentals/lc-707/sol.java) · [C++](./00-linked-list-fundamentals/lc-707/sol.cpp) · [Go](./00-linked-list-fundamentals/lc-707/sol.go))
+**Solution** in Python ([Java](./00-linked-list-fundamentals/lc-707/sol.java) · [C++](./00-linked-list-fundamentals/lc-707/sol.cpp) · [Go](./00-linked-list-fundamentals/lc-707/sol.go))
 
 ```python
 # LC 707. Design Linked List
@@ -204,7 +204,7 @@ Trace the LC 707 operation sequence on a fresh list:
 5. `deleteAtIndex(1)`. `prev = dummy`; advance once to node 1. Capture `victim = node 2`; rewire `prev.next = victim.next`; length = 2. Chain: `dummy -> 1 -> 3`.
 6. `get(1)` returns 3.
 
-> **Interactive widget:** [Linked list pointer rewiring](../widgets/w-13-linked-list-pointer-rewiring.yml) (panel `panel-a`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Linked list pointer rewiring](../widgets/w-13-linked-list-pointer-rewiring.yml) (panel `panel-a`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the widget's four key frames render the empty sentinel state, the chain after both head and tail inserts, the chain immediately after the mid-insert with node 2 spliced between nodes 1 and 3, and the chain after the mid-delete reverts to `dummy -> 1 -> 3`.*
 
@@ -232,7 +232,7 @@ def addTwoNumbers(l1, l2):
     return dummy.next
 ```
 
-**Solution** — Python ([Java](./00-linked-list-fundamentals/lc-2/sol.java) · [C++](./00-linked-list-fundamentals/lc-2/sol.cpp) · [Go](./00-linked-list-fundamentals/lc-2/sol.go))
+**Solution** in Python ([Java](./00-linked-list-fundamentals/lc-2/sol.java) · [C++](./00-linked-list-fundamentals/lc-2/sol.cpp) · [Go](./00-linked-list-fundamentals/lc-2/sol.go))
 
 ```python
 # LC 2. Add Two Numbers
@@ -287,7 +287,7 @@ def getDecimalValue(head):
     return result
 ```
 
-**Solution** — Python ([Java](./00-linked-list-fundamentals/lc-1290/sol.java) · [C++](./00-linked-list-fundamentals/lc-1290/sol.cpp) · [Go](./00-linked-list-fundamentals/lc-1290/sol.go))
+**Solution** in Python ([Java](./00-linked-list-fundamentals/lc-1290/sol.java) · [C++](./00-linked-list-fundamentals/lc-1290/sol.cpp) · [Go](./00-linked-list-fundamentals/lc-1290/sol.go))
 
 ```python
 # LC 1290. Convert Binary Number in a Linked List to Integer
@@ -367,17 +367,17 @@ Skip lists and unrolled linked lists are real data structures that show up in Re
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 1290 — Convert Binary Number in a Linked List to Integer](https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/) [Easy] • linked-list-traversal
-- [LC 707 — Design Linked List](https://leetcode.com/problems/design-linked-list/) [Medium] • linked-list-sentinel ★
-- [LC 2 — Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) [Medium] • linked-list-traversal-with-carry
+- [LC 1290: Convert Binary Number in a Linked List to Integer](https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/) [Easy] • linked-list-traversal
+- [LC 707: Design Linked List](https://leetcode.com/problems/design-linked-list/) [Medium] • linked-list-sentinel ★
+- [LC 2: Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) [Medium] • linked-list-traversal-with-carry
 
 ### STRETCH (optional)
 
-- [LC 138 — Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) [Medium] • linked-list-deep-copy
-- [LC 1019 — Next Greater Node In Linked List](https://leetcode.com/problems/next-greater-node-in-linked-list/) [Medium] • linked-list-as-iterator
+- [LC 138: Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) [Medium] • linked-list-deep-copy
+- [LC 1019: Next Greater Node In Linked List](https://leetcode.com/problems/next-greater-node-in-linked-list/) [Medium] • linked-list-as-iterator
 
 > [!NOTE]
-> **No Hard band on this ladder.** The only canonical Hard linked-list-design problem in the LC catalogue is [LC 432 — All O\`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/), which is Premium-locked and cannot be CORE per the chapter-ladder rules. The natural Hard linked-list extensions live elsewhere: [LC 25 — Reverse Nodes in K-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) belongs to [Reverse in groups of K](./02-reverse-in-groups-k.md), [LC 23 — Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) belongs to [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md), and [LC 146 — LRU Cache](https://leetcode.com/problems/lru-cache/) belongs to [LRU cache](./05-lru-cache.md).
+> **No Hard band on this ladder.** The only canonical Hard linked-list-design problem in the LC catalogue is [LC 432: All O\`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/), which is Premium-locked and cannot be CORE per the chapter-ladder rules. The natural Hard linked-list extensions live elsewhere: [LC 25: Reverse Nodes in K-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) belongs to [Reverse in groups of K](./02-reverse-in-groups-k.md), [LC 23: Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) belongs to [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md), and [LC 146: LRU Cache](https://leetcode.com/problems/lru-cache/) belongs to [LRU cache](./05-lru-cache.md).
 
 ## Where this leads
 

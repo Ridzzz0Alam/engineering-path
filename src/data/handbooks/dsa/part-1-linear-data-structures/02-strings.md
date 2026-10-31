@@ -37,9 +37,9 @@ Three of the four are immutable. C++ is the only language where you can write `s
 
 The consequence shows up most clearly in LC 344. The problem says "reverse a string in place with O(1) extra memory." If the input were a string, that would be impossible in three of the four languages. So the LC signature is `List[str]` (Python), `char[]` (Java), `vector<char>` (C++), `[]byte` (Go). The input is a character buffer, not a string.[^5] This is not a stylistic choice; it is the only way the problem can be expressed at all.
 
-The indexing differences matter once you cross out of ASCII. Python `s[3]` for `s = "café"` returns `"é"` as a length-1 string. Go `s[0]` for `s = "日本語"` returns `0xe6`, the first byte of the UTF-8 encoding of "日". Iterating runes in Go requires `for i, r := range s` or `unicode/utf8.DecodeRuneInString(s[i:])`.[^4] For the three CORE problems below the input is ASCII and the distinction is silent. It will not stay silent forever. Pattern matching at scale, in [Part 12 — KMP and friends](../part-12-strings-pattern-matching/02-kmp.md), assumes the reader has internalized that `s[i]` means *byte* in Go and *code point* in Python.
+The indexing differences matter once you cross out of ASCII. Python `s[3]` for `s = "café"` returns `"é"` as a length-1 string. Go `s[0]` for `s = "日本語"` returns `0xe6`, the first byte of the UTF-8 encoding of "日". Iterating runes in Go requires `for i, r := range s` or `unicode/utf8.DecodeRuneInString(s[i:])`.[^4] For the three CORE problems below the input is ASCII and the distinction is silent. It will not stay silent forever. Pattern matching at scale, in [Part 12: KMP and friends](../part-12-strings-pattern-matching/02-kmp.md), assumes the reader has internalized that `s[i]` means *byte* in Go and *code point* in Python.
 
-## LC 14 — vertical scanning
+## LC 14: vertical scanning
 
 Given an array of strings, return the longest common prefix. If there is no common prefix, return `""`.
 
@@ -57,7 +57,7 @@ def longest_common_prefix(strs):
     return shortest
 ```
 
-**Solution** — Python ([Java](./02-strings/lc-14/sol.java) · [C++](./02-strings/lc-14/sol.cpp) · [Go](./02-strings/lc-14/sol.go))
+**Solution** in Python ([Java](./02-strings/lc-14/sol.java) · [C++](./02-strings/lc-14/sol.cpp) · [Go](./02-strings/lc-14/sol.go))
 
 ```python
 # LC 14. Longest Common Prefix
@@ -80,7 +80,7 @@ def longest_common_prefix(strs: List[str]) -> str:
 
 The early-exit pattern is the only thing distinguishing this from a textbook two-loop scan. On `["dog", "racecar", "car"]`, column 0 has three different characters and the function returns `""` after one comparison.
 
-## LC 344 — the in-place reverse, four ways
+## LC 344: the in-place reverse, four ways
 
 Reverse a character buffer in place with O(1) extra memory. The two-pointer swap is mechanical; the interesting thing is what the function signature looks like across the four languages.
 
@@ -93,7 +93,7 @@ def reverse_string(s):
         r -= 1
 ```
 
-**Solution** — Python ([Java](./02-strings/lc-344/sol.java) · [C++](./02-strings/lc-344/sol.cpp) · [Go](./02-strings/lc-344/sol.go))
+**Solution** in Python ([Java](./02-strings/lc-344/sol.java) · [C++](./02-strings/lc-344/sol.cpp) · [Go](./02-strings/lc-344/sol.go))
 
 ```python
 # LC 344. Reverse String
@@ -114,7 +114,7 @@ Python takes `List[str]` because `str` is immutable. Java takes `char[]` because
 
 Python's tuple-swap idiom `s[l], s[r] = s[r], s[l]` deserves a callout. It compiles to a single bytecode that swaps without a temporary variable, and is faster than the three-line `tmp = s[l]; s[l] = s[r]; s[r] = tmp` you would write in Java. C++ `std::swap` is similarly specialized for `vector` element swaps; the call expands to a move-construct + two move-assigns at -O2.
 
-## LC 125 — two pointers with classification
+## LC 125: two pointers with classification
 
 Determine whether a string is a palindrome, considering only alphanumeric characters and ignoring case. The empty string is a valid palindrome.[^7]
 
@@ -141,7 +141,7 @@ def is_palindrome(s):
     return True
 ```
 
-**Solution** — Python ([Java](./02-strings/lc-125/sol.java) · [C++](./02-strings/lc-125/sol.cpp) · [Go](./02-strings/lc-125/sol.go))
+**Solution** in Python ([Java](./02-strings/lc-125/sol.java) · [C++](./02-strings/lc-125/sol.cpp) · [Go](./02-strings/lc-125/sol.go))
 
 ```python
 # LC 125. Valid Palindrome
@@ -240,24 +240,24 @@ This chapter ships an all-Easy CORE. The natural Hard string problems (LC 3, 76,
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 14 — Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) [Easy] • vertical-prefix-scan
-- [LC 344 — Reverse String](https://leetcode.com/problems/reverse-string/) [Easy] • in-place-string-reversal
-- [LC 125 — Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) [Easy] • two-pointer-palindrome-check ★
+- [LC 14: Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) [Easy] • vertical-prefix-scan
+- [LC 344: Reverse String](https://leetcode.com/problems/reverse-string/) [Easy] • in-place-string-reversal
+- [LC 125: Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) [Easy] • two-pointer-palindrome-check ★
 
 ### STRETCH (optional)
 
-- [LC 28 — Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) [Easy] • naive-substring-search
-- [LC 9 — Palindrome Number](https://leetcode.com/problems/palindrome-number/) [Easy] • integer-palindrome
+- [LC 28: Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) [Easy] • naive-substring-search
+- [LC 9: Palindrome Number](https://leetcode.com/problems/palindrome-number/) [Easy] • integer-palindrome
 
-LC 28 is the brute-force naive substring search; the linear-time KMP algorithm is owned by [Part 12 — KMP and friends](../part-12-strings-pattern-matching/02-kmp.md). LC 9 is the same two-pointer palindrome shape applied to integer digits, and is owned primarily by [Math for interviews](../part-0-foundations/04-math-for-interviews.md); it earns a mention here because it's the cleanest test that the two-pointer pattern from LC 125 generalizes beyond strings.
+LC 28 is the brute-force naive substring search; the linear-time KMP algorithm is owned by [Part 12: KMP and friends](../part-12-strings-pattern-matching/02-kmp.md). LC 9 is the same two-pointer palindrome shape applied to integer digits, and is owned primarily by [Math for interviews](../part-0-foundations/04-math-for-interviews.md); it earns a mention here because it's the cleanest test that the two-pointer pattern from LC 125 generalizes beyond strings.
 
 ## Where this leads
 
-Variable-window string problems live in [Sliding window: variable size](../part-3-pointers-window-prefix/03-sliding-window-variable.md), which assumes you have internalized the two-pointer pattern from this chapter. Pattern matching at scale (KMP, Rabin-Karp, suffix arrays) is taught in [Part 12 — KMP and friends](../part-12-strings-pattern-matching/02-kmp.md), and every chapter there assumes you remember that `s += c` is O(n²) in three of the four languages and that `s[i]` returns a byte in Go. Edit-distance and longest-common-subsequence dynamic programs in Part 9 quote this chapter's complexity table whenever they discuss the cost of building intermediate strings.
+Variable-window string problems live in [Sliding window: variable size](../part-3-pointers-window-prefix/03-sliding-window-variable.md), which assumes you have internalized the two-pointer pattern from this chapter. Pattern matching at scale (KMP, Rabin-Karp, suffix arrays) is taught in [Part 12: KMP and friends](../part-12-strings-pattern-matching/02-kmp.md), and every chapter there assumes you remember that `s += c` is O(n²) in three of the four languages and that `s[i]` returns a byte in Go. Edit-distance and longest-common-subsequence dynamic programs in Part 9 quote this chapter's complexity table whenever they discuss the cost of building intermediate strings.
 
 ## References
 
-[^1]: Python Software Foundation, "Built-in Types — Sequence Types," Python 3 documentation. <https://docs.python.org/3/library/stdtypes.html#typesseq>
+[^1]: Python Software Foundation, "Built-in Types, Sequence Types," Python 3 documentation. <https://docs.python.org/3/library/stdtypes.html#typesseq>
 
 [^2]: Java Language Specification §4.3.3 "The Class String." Establishes that `String` instances "represent sequences of Unicode code points" and that "a `String` object has a constant (unchanging) value." String literals are references to interned instances in the constant pool. [docs.oracle.com/javase/specs/jls/se21/html/jls-4.html](https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html).
 
@@ -267,7 +267,7 @@ Variable-window string problems live in [Sliding window: variable size](../part-
 
 [^5]: LeetCode 344, "Reverse String": "Write a function that reverses a string. The input string is given as an array of characters `s`. You must do this by modifying the input array in-place with `O(1)` extra memory." [leetcode.com/problems/reverse-string](https://leetcode.com/problems/reverse-string/).
 
-[^6]: LeetCode 14 official editorial, "Longest Common Prefix." Documents four approaches — horizontal scanning, vertical scanning, divide-and-conquer, binary search — with O(S) bounds for the first three. [leetcode.com/problems/longest-common-prefix/editorial](https://leetcode.com/problems/longest-common-prefix/editorial/)
+[^6]: LeetCode 14 official editorial, "Longest Common Prefix." Documents four approaches: horizontal scanning, vertical scanning, divide-and-conquer, binary search, with O(S) bounds for the first three. [leetcode.com/problems/longest-common-prefix/editorial](https://leetcode.com/problems/longest-common-prefix/editorial/)
 
 [^7]: LeetCode 125, "Valid Palindrome": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers." [leetcode.com/problems/valid-palindrome](https://leetcode.com/problems/valid-palindrome/).
 

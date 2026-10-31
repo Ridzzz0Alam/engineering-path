@@ -5,16 +5,16 @@
 # status line). The shared chassis lets the reader carry intuition from one
 # chapter to the next:
 #
-#   panel-a (9.0): recursion-with-memo — Fibonacci's call-tree collapse
+#   panel-a (9.0): recursion-with-memo, Fibonacci's call-tree collapse
 #                  (scaffold; owned by 9.0 chapter author)
-#   panel-b (9.1): iterative tabulation — Fibonacci, bottom-up
+#   panel-b (9.1): iterative tabulation, Fibonacci, bottom-up
 #                  (scaffold; owned by 9.1 chapter author)
-#   panel-c (9.6): LCS — 2D fill, no replace branch
+#   panel-c (9.6): LCS, 2D fill, no replace branch
 #                  (scaffold; owned by 9.6 chapter author)
-#   panel-d (9.7): Edit distance — 2D fill with three-way recurrence and
+#   panel-d (9.7): Edit distance, 2D fill with three-way recurrence and
 #                  per-cell op labels (insert / delete / replace / match)
 #
-# Status: scaffold — panel-d (9.7) is keyframe-complete; panels a/b/c are
+# Status: scaffold, panel-d (9.7) is keyframe-complete; panels a/b/c are
 # stubbed pending their chapter authors.
 
 id: w-31-dp-table-fill
@@ -248,7 +248,7 @@ panels:
           dp: [null, null, null, null, null, null, null, null, null]
           phase: "init"
           rolling_pair: [null, null]
-        narration: "Empty dp array of length n+1 = 9. dp[i] will hold fib(i). The two-cell rolling pair below tracks (prev2, prev1) — the only state the O(1)-space form actually needs."
+        narration: "Empty dp array of length n+1 = 9. dp[i] will hold fib(i). The two-cell rolling pair below tracks (prev2, prev1): the only state the O(1)-space form actually needs."
       - step: 1
         kind: initCell
         payload: { i: 0, j: 0, value: 0 }
@@ -266,7 +266,7 @@ panels:
           phase: "base-case"
           current: [0, 1]
           rolling_pair: [0, 1]
-        narration: "Base case: dp[1] = 1. fib(1) = 1. The rolling pair is now (0, 1) — both base cases captured. The for-loop body will sweep i = 2..8."
+        narration: "Base case: dp[1] = 1. fib(1) = 1. The rolling pair is now (0, 1): both base cases captured. The for-loop body will sweep i = 2..8."
       - step: 3
         kind: fillCell
         payload: { i: 0, j: 2, op: "sum", predecessor: [0, 1], value: 1 }
@@ -275,7 +275,7 @@ panels:
           phase: "sweep"
           current: [0, 2]
           rolling_pair: [1, 1]
-        narration: "dp[2] = dp[1] + dp[0] = 1 + 0 = 1. The two predecessors sit immediately to the left of the write cell — pure 'read the two recent cells, write one' shape. Rolling pair shifts: (1, 1)."
+        narration: "dp[2] = dp[1] + dp[0] = 1 + 0 = 1. The two predecessors sit immediately to the left of the write cell: pure 'read the two recent cells, write one' shape. Rolling pair shifts: (1, 1)."
       - step: 4
         kind: fillCell
         payload: { i: 0, j: 3, op: "sum", predecessor: [0, 2], value: 2 }
@@ -334,7 +334,7 @@ panels:
           current: [0, 8]
           rolling_pair: [13, 21]
           dead_cells: [0, 1, 2, 3, 4]
-        narration: "dp[8] = dp[7] + dp[6] = 13 + 8 = 21. Loop done. By the time we wrote dp[8], cells dp[0..4] had been dead for several iterations — five cells of memory the O(n)-space form keeps for nothing, and the O(1)-space form drops."
+        narration: "dp[8] = dp[7] + dp[6] = 13 + 8 = 21. Loop done. By the time we wrote dp[8], cells dp[0..4] had been dead for several iterations: five cells of memory the O(n)-space form keeps for nothing, and the O(1)-space form drops."
       - step: 10
         kind: highlightAnswer
         payload: { i: 0, j: 8, value: 21 }
@@ -389,7 +389,7 @@ panels:
             - [0, 0, 0, 0, 0, 0]
             - [0, 0, 0, 0, 0, 0]
           phase: "init"
-        narration: "Initial 8 x 6 grid. Row 0 (empty text1 prefix) and column 0 (empty text2 prefix) are all 0 — LCS with an empty string is 0. Row labels: 0, A, B, C, B, D, A, B (the 7 chars of text1 plus the 0-row). Column labels: 0, B, D, C, A, B."
+        narration: "Initial 8 x 6 grid. Row 0 (empty text1 prefix) and column 0 (empty text2 prefix) are all 0: LCS with an empty string is 0. Row labels: 0, A, B, C, B, D, A, B (the 7 chars of text1 plus the 0-row). Column labels: 0, B, D, C, A, B."
       - step: 1
         kind: fillCell
         payload: { i: 1, j: 4, op: "match", predecessor: [0, 3], value: 1 }
@@ -534,7 +534,7 @@ panels:
           phase: "answer"
           current: [7, 5]
           result: 4
-        narration: "Answer: LCS length = dp[7][5] = 4. 35 interior cell writes; each cell touched three already-computed neighbors; no cell revisited. O(m * n) time, O(m * n) space — the textbook canonical form."
+        narration: "Answer: LCS length = dp[7][5] = 4. 35 interior cell writes; each cell touched three already-computed neighbors; no cell revisited. O(m * n) time, O(m * n) space: the textbook canonical form."
       - step: 10
         kind: highlightAnswer
         payload: { i: 7, j: 5, value: 4 }
@@ -568,7 +568,7 @@ panels:
           phase: "done"
           result: 4
           recovered: "BCAB"
-        narration: "Reverse the collected characters: 'BCAB'. CLRS Figure 14.8 displays exactly this 8 x 6 table with the same recovered string. Strict-> tie-break would have given 'BDAB' instead — both are valid LCSs of length 4."
+        narration: "Reverse the collected characters: 'BCAB'. CLRS Figure 14.8 displays exactly this 8 x 6 table with the same recovered string. Strict-> tie-break would have given 'BDAB' instead: both are valid LCSs of length 4."
 
   panel-d:
     chapter: "9.7"

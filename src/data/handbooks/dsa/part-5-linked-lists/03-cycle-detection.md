@@ -53,7 +53,7 @@ flowchart TD
 Walk LC 141 (Linked List Cycle, Easy) the way an interviewer who's not paying attention would. Keep a `seen` set; for each node you visit, check whether you've been there; if so, return true; if you reach null, return false. It works. It's six lines.
 
 ```python
-# Brute force: O(n) time, O(n) space — the answer interview prep books print first.
+# Brute force: O(n) time, O(n) space, the answer interview prep books print first.
 def has_cycle_brute(head):
     seen = set()
     node = head
@@ -94,7 +94,7 @@ def has_cycle(head):
     return False
 ```
 
-**Solution** — Python ([Java](./03-cycle-detection/lc-141/sol.java) · [C++](./03-cycle-detection/lc-141/sol.cpp) · [Go](./03-cycle-detection/lc-141/sol.go))
+**Solution** in Python ([Java](./03-cycle-detection/lc-141/sol.java) · [C++](./03-cycle-detection/lc-141/sol.cpp) · [Go](./03-cycle-detection/lc-141/sol.go))
 
 ```python
 # LC 141. Linked List Cycle
@@ -151,7 +151,7 @@ def detect_cycle(head):
     return None
 ```
 
-**Solution** — Python ([Java](./03-cycle-detection/lc-142/sol.java) · [C++](./03-cycle-detection/lc-142/sol.cpp) · [Go](./03-cycle-detection/lc-142/sol.go))
+**Solution** in Python ([Java](./03-cycle-detection/lc-142/sol.java) · [C++](./03-cycle-detection/lc-142/sol.cpp) · [Go](./03-cycle-detection/lc-142/sol.go))
 
 ```python
 # LC 142. Linked List Cycle II
@@ -206,7 +206,7 @@ Run it on the chapter's canonical input to feel the algebra: `[1, 3, 2, 0, -4]` 
 
 ## Worked example: LC 142 on `[1, 3, 2, 0, -4]` with `pos = 2`
 
-> **Interactive widget:** [Floyd's tortoise and hare (cycle detection)](../widgets/w-14-floyd-cycle.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Floyd's tortoise and hare (cycle detection)](../widgets/w-14-floyd-cycle.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Floyd's two phases on the canonical input. Step 3 is where Phase 1 ends (pointers meet at index 3, value 0); step 4 resets slow to head; step 6 is the answer (both pointers land at index 2, the cycle entry). Seven steps total. Work through it once before reading the prose below.*
 
@@ -257,14 +257,14 @@ The successor function `f` is the only thing that changes between sub-patterns. 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 141 — Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) [Easy] • floyd-tortoise-hare-existence
-- [LC 142 — Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/) [Medium] • floyd-tortoise-hare-entry ★
-- [LC 287 — Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/) [Medium] • floyd-tortoise-hare-functional-graph
+- [LC 141: Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) [Easy] • floyd-tortoise-hare-existence
+- [LC 142: Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/) [Medium] • floyd-tortoise-hare-entry ★
+- [LC 287: Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/) [Medium] • floyd-tortoise-hare-functional-graph
 
 ### STRETCH (optional)
 
-- [LC 202 — Happy Number](https://leetcode.com/problems/happy-number/) [Easy] • floyd-tortoise-hare-on-number-sequence
-- [LC 457 — Circular Array Loop](https://leetcode.com/problems/circular-array-loop/) [Medium] • floyd-tortoise-hare-with-direction-filter
+- [LC 202: Happy Number](https://leetcode.com/problems/happy-number/) [Easy] • floyd-tortoise-hare-on-number-sequence
+- [LC 457: Circular Array Loop](https://leetcode.com/problems/circular-array-loop/) [Medium] • floyd-tortoise-hare-with-direction-filter
 
 The CORE three span Easy and Medium with no Hard problem. The candidate pool admits no Hard LC whose canonical solution is Floyd's tortoise-and-hare; the closest Hards either lock to a different chapter (LC 23 is heap-based and lives with [heaps](../part-6-trees-heaps/04-heaps-priority-queues.md)) or use a different algorithm entirely (LC 25 is iterative pointer rewiring). The chapter ships under the `no-hard-canonical` curation flag rather than padding with adjacent-pattern problems.
 

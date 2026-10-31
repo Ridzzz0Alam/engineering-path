@@ -1,4 +1,4 @@
-# Trie — insert + prefix walk (+ frequency-extended autocomplete)
+# Trie: insert + prefix walk (+ frequency-extended autocomplete)
 # Dual-panel shared widget. Panel `default` (chapter 6.8 Tries) animates
 # three inserts (car, cat, card) into an empty 26-way trie, then a prefix
 # walk on "ca". Panel `panel-b` (chapter 13.4 Trie autocomplete) renders
@@ -12,7 +12,7 @@
 # references on identical inputs.
 
 id: w-20-trie
-title: "Trie — insert + prefix walk + frequency autocomplete"
+title: "Trie, insert + prefix walk + frequency autocomplete"
 type: dual-panel-shared
 level: 1
 modes: [preset]
@@ -58,7 +58,7 @@ static_fallback:
 panels:
   default:
     chapter: "6.8"
-    label: "Trie — insert(car), insert(cat), insert(card), startsWith(ca)"
+    label: "Trie, insert(car), insert(cat), insert(card), startsWith(ca)"
     canonical_input: |
       inserts = ["car", "cat", "card"]
       walk = "ca"
@@ -217,7 +217,7 @@ panels:
             - ["n_ca", "n_cat", "t"]
           is_end: ["n_car", "n_cat"]
           cursor: "n_cat"
-        narration: "End of cat. Mark n_cat.is_end = true. Inserting cat after car cost only one new node — that is the trie's value proposition."
+        narration: "End of cat. Mark n_cat.is_end = true. Inserting cat after car cost only one new node: that is the trie's value proposition."
       - step: 15
         kind: reuseNode
         payload: { node_id: "n_c", edge_char: "c" }
@@ -298,7 +298,7 @@ panels:
             - ["n_ca", "n_cat", "t"]
           is_end: ["n_car", "n_cat"]
           cursor: "n_car"
-        narration: "Cursor is at n_car — a node that is_end (because car was inserted) AND will gain a child. is_end and leafness are not the same flag."
+        narration: "Cursor is at n_car, a node that is_end (because car was inserted) AND will gain a child. is_end and leafness are not the same flag."
       - step: 21
         kind: createNode
         payload: { parent_id: "n_car", edge_char: "d", new_node_id: "n_card" }

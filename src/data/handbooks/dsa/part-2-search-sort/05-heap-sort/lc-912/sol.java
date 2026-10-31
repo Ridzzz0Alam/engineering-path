@@ -1,4 +1,4 @@
-// LC 912. Sort an Array — heap-sort reference (in-place, O(n log n) worst case)
+// LC 912. Sort an Array: heap-sort reference (in-place, O(n log n) worst case)
 public class Sol {
 
     public static int[] heapSort(int[] nums) {

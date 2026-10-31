@@ -1,4 +1,4 @@
-// Chapter 7.0 — Recursion patterns: linear, tree, and divide-and-conquer
+// Chapter 7.0: Recursion patterns: linear, tree, and divide-and-conquer
 import java.util.HashMap;
 import java.util.Map;
 

@@ -23,9 +23,9 @@ public final class Sol {
         this.count  = new int[n];
         this.answer = new int[n];
         for (int i = 0; i < n; i++) count[i] = 1;
-        // Pass 1: post-order DFS — fill count[] and answer[0].
+        // Pass 1: post-order DFS, fill count[] and answer[0].
         post(0, -1);
-        // Pass 2: pre-order DFS — re-root from u to each child v in O(1).
+        // Pass 2: pre-order DFS, re-root from u to each child v in O(1).
         pre(0, -1);
         return answer;
     }

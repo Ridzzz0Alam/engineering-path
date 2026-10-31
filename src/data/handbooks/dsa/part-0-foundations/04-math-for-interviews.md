@@ -42,7 +42,7 @@ def my_pow(x: float, n: int) -> float:
     return result
 ```
 
-**Solution** — Python ([Java](./04-math-for-interviews/lc-50/sol.java) · [C++](./04-math-for-interviews/lc-50/sol.cpp) · [Go](./04-math-for-interviews/lc-50/sol.go))
+**Solution** in Python ([Java](./04-math-for-interviews/lc-50/sol.java) · [C++](./04-math-for-interviews/lc-50/sol.cpp) · [Go](./04-math-for-interviews/lc-50/sol.go))
 
 ```python
 # LC 50. Pow(x, n)
@@ -127,7 +127,7 @@ The single biggest source of hidden bugs in interview math. The same `result = r
 The canonical case is *Reverse Integer* (LC 7). Constraint: `-2^31 <= x <= 2^31 - 1`, with the additional twist that "the environment does not allow you to store 64-bit integers." The trap reflex is to compute the reversal in 32-bit space and check the bound afterwards:
 
 ```python
-# WRONG — the multiply already overflowed by the time the check runs.
+# WRONG: the multiply already overflowed by the time the check runs.
 result = result * 10 + digit
 if result > INT_MAX or result < INT_MIN:
     return 0
@@ -219,7 +219,7 @@ reversed_so_far = reversed_so_far * 10 + last_digit   # build up
 
 LC 9 *Palindrome Number* explicitly forbids string conversion in its follow-up. The clever solution reverses *only half* the digits: loop while `reversed < x`, with one `// 10` adjustment when the digit count is odd. When the loop exits, equality of the two halves decides palindromicity. Roughly twice as fast as fully reversing, and dodges the overflow that fully reversing might trigger.
 
-LC 7 *Reverse Integer* is the overflow-guard masterclass from the previous section. LC 233 *Number of Digit One* counts occurrences of digit `1` across all integers from `0` to `n`; the optimal solution is digit DP, which decomposes the count by place value (ones contributed by units place, by tens place, by hundreds place...) and runs in `O(log10 n)`. The full digit-DP framework lives in [Part 9 — dynamic programming](../part-9-dynamic-programming/00-dp-recursion-to-memo.md); here the chapter just points at the structure.
+LC 7 *Reverse Integer* is the overflow-guard masterclass from the previous section. LC 233 *Number of Digit One* counts occurrences of digit `1` across all integers from `0` to `n`; the optimal solution is digit DP, which decomposes the count by place value (ones contributed by units place, by tens place, by hundreds place...) and runs in `O(log10 n)`. The full digit-DP framework lives in [Part 9: dynamic programming](../part-9-dynamic-programming/00-dp-recursion-to-memo.md); here the chapter just points at the structure.
 
 > [!CAUTION]
 > Negative numbers in palindrome questions are always `false`: the leading `-` has no matching trailing `-`. Numbers ending in `0` (other than `0` itself) are also always `false`: leading `0` cannot match trailing non-zero. Both edge cases save the half-reverse algorithm from doing unnecessary work.
@@ -247,14 +247,14 @@ This chapter's three CORE problems span Easy/Medium/Hard. The signature is LC 50
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 9 — Palindrome Number](https://leetcode.com/problems/palindrome-number/) [Easy] • digit-manipulation
-- [LC 50 — Pow(x, n)](https://leetcode.com/problems/powx-n/) [Medium] • binary-exponentiation ★
-- [LC 233 — Number of Digit One](https://leetcode.com/problems/number-of-digit-one/) [Hard] • digit-manipulation
+- [LC 9: Palindrome Number](https://leetcode.com/problems/palindrome-number/) [Easy] • digit-manipulation
+- [LC 50: Pow(x, n)](https://leetcode.com/problems/powx-n/) [Medium] • binary-exponentiation ★
+- [LC 233: Number of Digit One](https://leetcode.com/problems/number-of-digit-one/) [Hard] • digit-manipulation
 
 ### STRETCH (optional)
 
-- [LC 7 — Reverse Integer](https://leetcode.com/problems/reverse-integer/) [Medium] • overflow-guard
-- [LC 204 — Count Primes](https://leetcode.com/problems/count-primes/) [Medium] • sieve-of-eratosthenes
+- [LC 7: Reverse Integer](https://leetcode.com/problems/reverse-integer/) [Medium] • overflow-guard
+- [LC 204: Count Primes](https://leetcode.com/problems/count-primes/) [Medium] • sieve-of-eratosthenes
 
 LC 233 reads Hard but flattens once you see it as digit DP. The pattern is "extract digit-by-digit, count contributions per place." Don't try to write digit DP from scratch on first encounter; read LC's editorial, then come back to the chapter and the place-value decomposition makes sense.
 
@@ -271,7 +271,7 @@ LC 233 reads Hard but flattens once you see it as digit DP. The pattern is "extr
 
 ## Where this leads
 
-[Part 9 — dynamic programming](../part-9-dynamic-programming/00-dp-recursion-to-memo.md) is where modular arithmetic and digit DP scale up: counting subarray sums modulo a prime, counting strings without certain substrings, the digit DP that LC 233 hints at. [Bit manipulation primer](./03-bit-manipulation-primer.md) and binary exponentiation share the bit-walk structure; once you've internalised that exponents decompose into binary, the same idea reappears in Fenwick-tree index walks. [Language idioms across Python, Java, C++, Go](./05-language-idioms.md) is next, and pulls the four-language overflow taxonomy into a tabular reference you can come back to without rereading prose.
+[Part 9: dynamic programming](../part-9-dynamic-programming/00-dp-recursion-to-memo.md) is where modular arithmetic and digit DP scale up: counting subarray sums modulo a prime, counting strings without certain substrings, the digit DP that LC 233 hints at. [Bit manipulation primer](./03-bit-manipulation-primer.md) and binary exponentiation share the bit-walk structure; once you've internalised that exponents decompose into binary, the same idea reappears in Fenwick-tree index walks. [Language idioms across Python, Java, C++, Go](./05-language-idioms.md) is next, and pulls the four-language overflow taxonomy into a tabular reference you can come back to without rereading prose.
 
 The math here is small. What's hard is the discipline of remembering that `n * 10 + digit` can overflow, every time, in every language that isn't Python.
 
@@ -279,7 +279,7 @@ The math here is small. What's hard is the discipline of remembering that `n * 1
 
 [^1]: CP-Algorithms, "Binary Exponentiation," [cp-algorithms.com/algebra/binary-exp.html](https://cp-algorithms.com/algebra/binary-exp.html).
 
-[^2]: Zadka, M. and van Rossum, G., "PEP 237 — Unifying Long Integers and Integers," [peps.python.org/pep-0237](https://peps.python.org/pep-0237/).
+[^2]: Zadka, M. and van Rossum, G., "PEP 237: Unifying Long Integers and Integers," [peps.python.org/pep-0237](https://peps.python.org/pep-0237/).
 
 [^3]: cppreference.com, "Arithmetic operators" §"Overflows," [en.cppreference.com/w/cpp/language/operator_arithmetic](https://en.cppreference.com/w/cpp/language/operator_arithmetic)
 

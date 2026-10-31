@@ -6,7 +6,7 @@ from typing import List
 
 
 def garden_no_adj(n: int, paths: List[List[int]]) -> List[int]:
-    """LC 1042 — assign each garden one of 4 flower types such that no
+    """LC 1042: assign each garden one of 4 flower types such that no
     two gardens connected by a path share a type. Max 3 paths per garden,
     so 4 types always suffice (greedy works)."""
     graph = [[] for _ in range(n + 1)]              # 1-indexed

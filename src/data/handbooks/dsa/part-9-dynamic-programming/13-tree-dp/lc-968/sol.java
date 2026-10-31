@@ -28,14 +28,14 @@ public final class Sol {
         if (node == null) return COVERED;
         int l = dfs(node.left);
         int r = dfs(node.right);
-        // Any child unmonitored — place a camera here.
+        // Any child unmonitored: place a camera here.
         if (l == NEEDS_COVER || r == NEEDS_COVER) {
             cameras++;
             return HAS_CAMERA;
         }
-        // Any child holds a camera — this node is covered by it.
+        // Any child holds a camera, and this node is covered by it.
         if (l == HAS_CAMERA || r == HAS_CAMERA) return COVERED;
-        // Both children covered, none has a camera — this node needs cover.
+        // Both children covered, none has a camera, and this node needs cover.
         return NEEDS_COVER;
     }
 }

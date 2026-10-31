@@ -63,7 +63,7 @@ def merge_two_lists_iterative(l1, l2):
     return dummy.next
 ```
 
-**Solution** — Python ([Java](./04-merging-linked-lists/lc-21/sol.java) · [C++](./04-merging-linked-lists/lc-21/sol.cpp) · [Go](./04-merging-linked-lists/lc-21/sol.go))
+**Solution** in Python ([Java](./04-merging-linked-lists/lc-21/sol.java) · [C++](./04-merging-linked-lists/lc-21/sol.cpp) · [Go](./04-merging-linked-lists/lc-21/sol.go))
 
 ```python
 # LC 21. Merge Two Sorted Lists
@@ -202,7 +202,7 @@ def merge_k_lists_divide_conquer(lists):
     return lists[0]
 ```
 
-**Solution** — Python ([Java](./04-merging-linked-lists/lc-23/sol.java) · [C++](./04-merging-linked-lists/lc-23/sol.cpp) · [Go](./04-merging-linked-lists/lc-23/sol.go))
+**Solution** in Python ([Java](./04-merging-linked-lists/lc-23/sol.java) · [C++](./04-merging-linked-lists/lc-23/sol.cpp) · [Go](./04-merging-linked-lists/lc-23/sol.go))
 
 ```python
 # LC 23. Merge k Sorted Lists
@@ -356,14 +356,14 @@ N is the total node count across all *k* input lists. The Θ(N log k) bound is t
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 21 — Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) [Easy] • merge-two-sorted-lists-dummy-node ★
-- [LC 86 — Partition List](https://leetcode.com/problems/partition-list/) [Medium] • partition-list-dual-tail-dummy
-- [LC 1669 — Merge In Between Linked Lists](https://leetcode.com/problems/merge-in-between-linked-lists/) [Medium] • splice-list-into-list-anchor
+- [LC 21: Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) [Easy] • merge-two-sorted-lists-dummy-node ★
+- [LC 86: Partition List](https://leetcode.com/problems/partition-list/) [Medium] • partition-list-dual-tail-dummy
+- [LC 1669: Merge In Between Linked Lists](https://leetcode.com/problems/merge-in-between-linked-lists/) [Medium] • splice-list-into-list-anchor
 
 ### STRETCH (optional)
 
-- [LC 23 — Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) [Hard] • k-way-merge-min-heap-of-cursors
-- [LC 1171 — Remove Zero Sum Consecutive Nodes](https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/) [Medium] • prefix-sum-on-linked-list-with-dummy
+- [LC 23: Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) [Hard] • k-way-merge-min-heap-of-cursors
+- [LC 1171: Remove Zero Sum Consecutive Nodes](https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/) [Medium] • prefix-sum-on-linked-list-with-dummy
 
 LC 23 is the chapter's natural Hard, but its full treatment (with the heap-internals deep dive) lives in [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md). The heap is the lesson there, and we cite it here as STRETCH so the cursor framing isn't duplicated. LC 1171 is a cross-pattern STRETCH that uses [The prefix-sum + hash-map combo](../part-3-pointers-window-prefix/05-prefix-sum-hash.md) on a linked list, with the dummy node anchoring prefix sum 0 at index -1.
 

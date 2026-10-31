@@ -111,23 +111,23 @@ Two cells decide most interview outcomes. **The heap loses on floor/ceiling and 
 
 One problem per row of the rubric, each picked because the wrong structure has a visible failure mode against LeetCode's test bounds.
 
-### LC 215 — Kth Largest Element in an Array (heap)
+### LC 215: Kth Largest Element in an Array (heap)
 
-[LC 215 — Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) is the canonical "extremum, but slightly bent" problem: find the `k`-th largest in an unsorted array. A min-heap of capacity `k`, processed in one pass, gives `O(n log k)` time and `O(k)` space. Each element pushes onto the heap; if the heap exceeds size `k`, pop the root. After one pass, the root is the answer.
+[LC 215: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) is the canonical "extremum, but slightly bent" problem: find the `k`-th largest in an unsorted array. A min-heap of capacity `k`, processed in one pass, gives `O(n log k)` time and `O(k)` space. Each element pushes onto the heap; if the heap exceeds size `k`, pop the root. After one pass, the root is the answer.
 
 The win is the bound on heap size. A naive `O(n log n)` sort uses all `n` slots; the bounded heap uses `k`, which for problems where `k = 10` and `n = 10⁵` is four orders of magnitude smaller in space and roughly `log(n)/log(k) ≈ 5×` faster.
 
 For *this exact problem* with a single static query, quickselect at `O(n)` average beats heap at `O(n log k)`; the decision lives in [Quickselect vs heap for top-K](./P-22-quickselect-vs-heap-top-k.md). The moment the problem becomes "k-th largest after each insert", the heap returns because quickselect requires re-scanning every operation.
 
-### LC 295 — Find Median from Data Stream (two heaps)
+### LC 295: Find Median from Data Stream (two heaps)
 
-[LC 295 — Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) is a streaming problem with an order-statistic query: insert into a stream, return the median of all numbers seen so far. The median is two extrema simultaneously, the largest of the lower half and the smallest of the upper half. A max-heap on the lower half plus a min-heap on the upper half keeps both extrema at their roots. Insert is `O(log n)`; median is `O(1)`.
+[LC 295: Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) is a streaming problem with an order-statistic query: insert into a stream, return the median of all numbers seen so far. The median is two extrema simultaneously, the largest of the lower half and the smallest of the upper half. A max-heap on the lower half plus a min-heap on the upper half keeps both extrema at their roots. Insert is `O(log n)`; median is `O(1)`.
 
 The deeper structure of "one heap is not enough" is the subject of [Two-heap median archetypes](./P-06b-two-heap-median-archetypes.md), which catalogues every pattern that asks for "the middle element under a streaming invariant", including LC 480 (Sliding Window Median), where the two-heap trick competes with `SortedList` and the choice between them is non-obvious.
 
-### LC 480 — Sliding Window Median (sorted set)
+### LC 480: Sliding Window Median (sorted set)
 
-[LC 480 — Sliding Window Median](https://leetcode.com/problems/sliding-window-median/) is LC 295 with deletions. Slide a window of size `k` across the array; report the median at each step. The two-heap trick from LC 295 still works, but deletions are the catch. You can't remove an arbitrary element from a binary heap in `O(log n)` without an indexed-priority-queue augmentation, and that augmentation is implementation-heavy.
+[LC 480: Sliding Window Median](https://leetcode.com/problems/sliding-window-median/) is LC 295 with deletions. Slide a window of size `k` across the array; report the median at each step. The two-heap trick from LC 295 still works, but deletions are the catch. You can't remove an arbitrary element from a binary heap in `O(log n)` without an indexed-priority-queue augmentation, and that augmentation is implementation-heavy.
 
 The simpler answer is `SortedList` (Python) or a multiset (C++ `std::multiset`, Java `TreeMap<Integer, Integer>` counting duplicates). Insert is `O(log k)`; delete is `O(log k)`; median read at `[k/2]` is `O(log k)`. Total `O(n log k)`, no rebalance bookkeeping. The win over the two-heap variant is purely about deletion: when the structure's lifetime overlaps a sliding window with both pushes and pops, sorted-set wins on simplicity.
 
@@ -157,4 +157,4 @@ The four mistakes below show up on interview transcripts more often than the res
 
 [^5]: cppreference, "std::set." https://en.cppreference.com/w/cpp/container/set
 
-[^6]: Jenks, "sortedcontainers — Performance at Scale." https://grantjenks.com/docs/sortedcontainers/performance-scale.html
+[^6]: Jenks, "sortedcontainers, Performance at Scale." https://grantjenks.com/docs/sortedcontainers/performance-scale.html

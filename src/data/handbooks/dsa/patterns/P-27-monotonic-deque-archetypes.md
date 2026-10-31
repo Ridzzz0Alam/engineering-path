@@ -89,11 +89,11 @@ A1 and A2 are mirror images; the only structural difference is the direction of 
 
 ## Three signature problems
 
-[LC 239 — Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) [Hard]. The pattern's signature problem and the chapter's canonical test. Hard not because the algorithm is subtle (the deque invariant is short to state) but because the `O(n)` solution is the only one the constraints accept, and the implementation has two off-by-one traps (the `<=` versus `<` choice on pop-tail; storing indices rather than values).[^2]
+[LC 239: Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) [Hard]. The pattern's signature problem and the chapter's canonical test. Hard not because the algorithm is subtle (the deque invariant is short to state) but because the `O(n)` solution is the only one the constraints accept, and the implementation has two off-by-one traps (the `<=` versus `<` choice on pop-tail; storing indices rather than values).[^2]
 
-[LC 1696 — Jump Game VI](https://leetcode.com/problems/jump-game-vi/) [Medium]. The DP variant of A1. The recurrence is `dp[i] = nums[i] + max(dp[j] for j in [max(0, i-k), i-1])`; the inner `max` over a length-`k` window of computed `dp` values is a sliding-window-maximum on the `dp` array. Drop in A1 with `dp` taking the place of `nums`, and the algorithm is `O(n)`. The diagnostic skill the problem teaches is recognising that the deque applies to the DP table, not the input.
+[LC 1696: Jump Game VI](https://leetcode.com/problems/jump-game-vi/) [Medium]. The DP variant of A1. The recurrence is `dp[i] = nums[i] + max(dp[j] for j in [max(0, i-k), i-1])`; the inner `max` over a length-`k` window of computed `dp` values is a sliding-window-maximum on the `dp` array. Drop in A1 with `dp` taking the place of `nums`, and the algorithm is `O(n)`. The diagnostic skill the problem teaches is recognising that the deque applies to the DP table, not the input.
 
-[LC 862 — Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) [Hard]. The A3 archetype. The problem looks like LC 209 (minimum-size subarray sum) at first glance, but LC 209 requires non-negative `nums` and admits a two-pointer; LC 862 allows negatives and breaks the two-pointer. The fix is the deque-on-prefix-sums, and the moment of insight is realising that the deque has to live one level of indirection above the input.[^3]
+[LC 862: Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) [Hard]. The A3 archetype. The problem looks like LC 209 (minimum-size subarray sum) at first glance, but LC 209 requires non-negative `nums` and admits a two-pointer; LC 862 allows negatives and breaks the two-pointer. The fix is the deque-on-prefix-sums, and the moment of insight is realising that the deque has to live one level of indirection above the input.[^3]
 
 ## Common misconceptions
 

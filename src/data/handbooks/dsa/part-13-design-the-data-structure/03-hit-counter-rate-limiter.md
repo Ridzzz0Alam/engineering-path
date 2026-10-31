@@ -77,7 +77,7 @@ class RecentCounter:
         return len(self.q)
 ```
 
-**Solution** — Python ([Java](./03-hit-counter-rate-limiter/lc-933/sol.java) · [C++](./03-hit-counter-rate-limiter/lc-933/sol.cpp) · [Go](./03-hit-counter-rate-limiter/lc-933/sol.go))
+**Solution** in Python ([Java](./03-hit-counter-rate-limiter/lc-933/sol.java) · [C++](./03-hit-counter-rate-limiter/lc-933/sol.cpp) · [Go](./03-hit-counter-rate-limiter/lc-933/sol.go))
 
 ```python
 # LC 933. Number of Recent Calls
@@ -85,7 +85,7 @@ from collections import deque
 
 
 class RecentCounter:
-    """LC 933 — sliding-window-on-stream, deque of timestamps.
+    """LC 933: sliding-window-on-stream, deque of timestamps.
 
     ping(t) records timestamp t (strictly increasing) and returns the
     count of pings inside the inclusive window [t - 3000, t]. Every
@@ -164,7 +164,7 @@ class HitCounter:
 
 
 class HitCounter:
-    """LC 362 — bucket-array hit counter, fixed memory.
+    """LC 362: bucket-array hit counter, fixed memory.
 
     The window is W = 300 seconds. We pre-allocate 300 slots indexed by
     `t % 300`; each slot stores (bucket_timestamp, count). On hit(t), if
@@ -304,7 +304,7 @@ Every algorithm above lives in memory on one machine. The moment a customer's tr
 |---|---|---|---|
 | Deque `ping(t)` | `O(1)` amortized | `O(W)` peak per key | Worst-case `O(W)` on a single call when one ping evicts everything stored.[^5] |
 | Bucket-array `hit(t)` | `O(1)` worst case | `O(W / granularity)` per key | Constant memory regardless of throughput.[^2] |
-| Bucket-array `getHits(t)` | `O(W / granularity)` | — | The honest answer; calling it `O(1)` is wrong because the slot count is the chapter's calibration knob.[^2] |
+| Bucket-array `getHits(t)` | `O(W / granularity)` | n/a | The honest answer; calling it `O(1)` is wrong because the slot count is the chapter's calibration knob.[^2] |
 | Token bucket | `O(1)` per request | `O(1)` per key | 16 bytes per key in production; refill computed lazily on each request.[^6] |
 | Sliding-log per request | `O(log n)` evict, `O(n)` cleanup | `O(n)` per key over `W` | Never in production; cited by Cloudflare as the strawman they replaced.[^2] |
 | Sliding-window-counter | `O(1)` per request | `O(1)` per key | Two integers per key; 0.003% misclassification on 400M requests.[^2] |
@@ -332,13 +332,13 @@ Two of the bounds need a sentence. The deque's amortized `O(1)` is the standard 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 933 — Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/) [Easy] • sliding-window-on-stream
-- [LC 362 — Design Hit Counter](https://leetcode.com/problems/design-hit-counter/) [Medium] • bucket-array-on-stream ★ *(Premium; reference: Python only)*
-- [LC 1488 — Avoid Flood in The City](https://leetcode.com/problems/avoid-flood-in-the-city/) [Hard] • hashmap-plus-sorted-set-of-free-slots
+- [LC 933: Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/) [Easy] • sliding-window-on-stream
+- [LC 362: Design Hit Counter](https://leetcode.com/problems/design-hit-counter/) [Medium] • bucket-array-on-stream ★ *(Premium; reference: Python only)*
+- [LC 1488: Avoid Flood in The City](https://leetcode.com/problems/avoid-flood-in-the-city/) [Hard] • hashmap-plus-sorted-set-of-free-slots
 
 ### STRETCH (optional)
 
-- [LC 359 — Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/) [Easy] • hashmap-last-emit-timestamp *(Premium; free equivalent: [LC 1396 Design Underground System](https://leetcode.com/problems/design-underground-system/))*
+- [LC 359: Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/) [Easy] • hashmap-last-emit-timestamp *(Premium; free equivalent: [LC 1396 Design Underground System](https://leetcode.com/problems/design-underground-system/))*
 
 ## Where this leads
 

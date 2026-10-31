@@ -2,7 +2,7 @@
 # Single-panel chapter widget. Three synchronized panels per Bostock's
 # Level-2 white-box convention: priority queue (left), dist[] table (top),
 # graph with edge highlight (center). The lazy-deletion idiom is the
-# central teaching artifact — two stale-skip events fire in the canonical
+# central teaching artifact: two stale-skip events fire in the canonical
 # trace (steps 19 and 26).
 
 id: w-29-dijkstra
@@ -188,7 +188,7 @@ panels:
           dist: [0, 7, 9, 20, INF, 14]
           pq: [[14, 5], [20, 3], [22, 3]]
           settled: [true, true, true, false, false, false]
-        narration: "Edge C->D with weight 11: dist[D] improves from 22 to 20. Push (20, D). Now the heap holds TWO entries for D — (20, D) and (22, D). The stale (22, D) will be skipped later."
+        narration: "Edge C->D with weight 11: dist[D] improves from 22 to 20. Push (20, D). Now the heap holds TWO entries for D: (20, D) and (22, D). The stale (22, D) will be skipped later."
       - step_id: 13
         action: relaxImprove
         payload: { from: 2, to: 5, oldDistance: 14, newDistance: 11 }

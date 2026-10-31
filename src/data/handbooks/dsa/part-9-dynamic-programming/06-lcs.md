@@ -22,7 +22,7 @@ ladder:
 
 # Longest common subsequence
 
-Two strings sit on a page. Cross out as many characters as you want from each, in any positions, but never reorder what's left. What's the longest run of characters you can leave standing in *both* strings at once? On `"ABCBDAB"` and `"BDCAB"` the answer is four, and the surviving string is `"BCAB"` — or `"BDAB"`, depending on which valid recovery you pick. There are five common subsequences of length four hiding in those twelve total characters. Find them by hand once and the recurrence becomes obvious. Try to find them by enumeration and you'll be there until lunch: each string of length seven has 128 subsequences, the second has 32, and you'd be checking each pair for a match.
+Two strings sit on a page. Cross out as many characters as you want from each, in any positions, but never reorder what's left. What's the longest run of characters you can leave standing in *both* strings at once? On `"ABCBDAB"` and `"BDCAB"` the answer is four, and the surviving string is `"BCAB"`, or `"BDAB"`, depending on which valid recovery you pick. There are five common subsequences of length four hiding in those twelve total characters. Find them by hand once and the recurrence becomes obvious. Try to find them by enumeration and you'll be there until lunch: each string of length seven has 128 subsequences, the second has 32, and you'd be checking each pair for a match.
 
 This chapter builds the algorithm that finds the answer in 35 cell writes plus a 7-step walk back. The same algorithm is what `git diff` runs to align two versions of a file, what `wdiff` runs to align two versions of a sentence, and what every "minimum edits to make these strings equal" interview question quietly reduces to. Once the recurrence clicks, half of Part 9's hardest-looking string problems become small variations on the same 2D table.
 
@@ -51,7 +51,7 @@ The contrast that bites is the contiguous-match branch. Common subsequence and c
 Take `text1 = "abcde"` and `text2 = "ace"`. The recursive definition writes itself: an LCS of two strings is either the LCS of the two strings with the last character of one (or both) removed, plus that character if it matches. Spelled as a function:
 
 ```python
-# Brute force: O(2^(m+n)) — what we're replacing
+# Brute force: O(2^(m+n)), what we're replacing
 def lcs_brute(text1, text2):
     def go(i, j):
         if i == 0 or j == 0:
@@ -85,7 +85,7 @@ def longest_common_subsequence(text1: str, text2: str) -> int:
     return dp[m][n]
 ```
 
-**Solution** — Python ([Java](./06-lcs/lc-1143/sol.java) · [C++](./06-lcs/lc-1143/sol.cpp) · [Go](./06-lcs/lc-1143/sol.go))
+**Solution** in Python ([Java](./06-lcs/lc-1143/sol.java) · [C++](./06-lcs/lc-1143/sol.cpp) · [Go](./06-lcs/lc-1143/sol.go))
 
 ```python
 # LC 1143. Longest Common Subsequence
@@ -202,9 +202,9 @@ The corner cell `dp[7][5]` is the one to watch. By the time the fill reaches it,
 
 The whole fill is 35 cell writes, each touching three already-computed neighbors. No cell is ever revisited. No backtracking inside the fill. One pass, left-to-right, top-to-bottom, and the answer falls out at the corner.
 
-> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-c`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-c`), rendered on the website; the YAML spec describes the keyframes.
 
-*Static fallback: an 8×6 grid is filled left-to-right, top-to-bottom. Five matches occur on the diagonal — `(1,4)`, `(2,1)`, `(2,5)`, `(3,3)`, `(4,1)`, `(4,5)`, `(5,2)`, `(6,4)`, `(7,1)`, `(7,5)` — each writing a `↖` arrow. Mismatches inherit from the larger of the up/left neighbors. The corner cell `dp[7][5] = 4`. The backtrack pass walks from the corner to `(0, 0)` and collects the four characters `"BCAB"` along the way.*
+*Static fallback: an 8×6 grid is filled left-to-right, top-to-bottom. Five matches occur on the diagonal: `(1,4)`, `(2,1)`, `(2,5)`, `(3,3)`, `(4,1)`, `(4,5)`, `(5,2)`, `(6,4)`, `(7,1)`, `(7,5)`, each writing a `↖` arrow. Mismatches inherit from the larger of the up/left neighbors. The corner cell `dp[7][5] = 4`. The backtrack pass walks from the corner to `(0, 0)` and collects the four characters `"BCAB"` along the way.*
 
 ### Recovering the actual subsequence
 
@@ -236,7 +236,7 @@ def lcs_with_reconstruction(text1, text2):
     return dp[m][n], "".join(out)
 ```
 
-On the canonical input, the path is `(7,5) ↖ → (6,4) ↖ → (5,3) ↑ → (4,3) ↖ → (3,2) ↑ → (2,2) ↖ → (1,1) ↑ → (0,1)`. Four `↖` steps, four characters collected — `B`, `A`, `C`, `B` — reversed at the end into `"BCAB"`. CLRS Figure 14.8 displays exactly this 8×6 table with the same recovered string.[^1]
+On the canonical input, the path is `(7,5) ↖ → (6,4) ↖ → (5,3) ↑ → (4,3) ↖ → (3,2) ↑ → (2,2) ↖ → (1,1) ↑ → (0,1)`. Four `↖` steps, four characters collected (`B`, `A`, `C`, `B`) reversed at the end into `"BCAB"`. CLRS Figure 14.8 displays exactly this 8×6 table with the same recovered string.[^1]
 
 The strict-`>` tie-break (`dp[i - 1][j] > dp[i][j - 1]`) recovers `"BDAB"` instead. Both are valid LCSs of length 4. The non-uniqueness is real and worth naming once: when the interviewer says "give me an LCS", any of them works; when they say "give me *all* LCSs", that's a different problem (exponential output, generally).
 
@@ -400,7 +400,7 @@ def find_length(nums1, nums2):
                 dp[i][j] = dp[i - 1][j - 1] + 1
                 if dp[i][j] > best:
                     best = dp[i][j]
-            # mismatch: dp[i][j] stays 0 — contiguity reset
+            # mismatch: dp[i][j] stays 0, contiguity reset
     return best
 ```
 
@@ -411,7 +411,7 @@ Run LCS code on `("ABCBDAB", "BDCAB")` and you get 4. Run common-substring code 
 ## Pitfalls
 
 > [!WARNING]
-> **Confusing common subsequence with common substring.** The match branch is identical; the mismatch branch is the entire difference. Subsequence inherits from neighbors via `max(up, left)` — the answer is the corner cell. Substring resets to `0` — the answer is the max over all cells. On `("ABCBDAB", "BDCAB")` the buggy code returns 2 instead of 4. Memorize the mismatch branch as the test, not the table shape.[^8]
+> **Confusing common subsequence with common substring.** The match branch is identical; the mismatch branch is the entire difference. Subsequence inherits from neighbors via `max(up, left)`: the answer is the corner cell. Substring resets to `0`: the answer is the max over all cells. On `("ABCBDAB", "BDCAB")` the buggy code returns 2 instead of 4. Memorize the mismatch branch as the test, not the table shape.[^8]
 
 The two recurrences sit on top of the same dependency graph, write to the same shape of table, allocate the same way. They diverge in three lines: the mismatch case (`max(up, left)` vs `0`), the answer location (corner cell vs max over all cells), and the implicit reset (subsequence never resets, substring resets on every mismatch). When code looks right and the answer is wrong on a small input, this is the first place to look.
 
@@ -421,7 +421,7 @@ The two recurrences sit on top of the same dependency graph, write to the same s
 The shifted-by-one bug is silent because the table dimensions still work: `dp[m][n]` is still in bounds, the loop still terminates, the answer is still some integer. It just isn't the right integer. The diagnostic is to run the algorithm on a one-character match like `("a", "a")` and check whether it returns 1; the off-by-one form returns 0 because `text1[1]` (out of bounds, or empty, or the next character) doesn't equal `text2[1]`.
 
 > [!WARNING]
-> **Returning the table corner for the actual LCS string.** The interviewer will pivot from "what's the length" to "give me the string". If the candidate has memorized `dp[m][n]` but not the backtrack pass, the question stalls. The backtrack is a separate algorithm: from `(m, n)`, follow the arrow each cell encodes — diagonal collects a character, up or left does not — until either index hits zero. Practice it on the canonical input once before the interview, not during.
+> **Returning the table corner for the actual LCS string.** The interviewer will pivot from "what's the length" to "give me the string". If the candidate has memorized `dp[m][n]` but not the backtrack pass, the question stalls. The backtrack is a separate algorithm: from `(m, n)`, follow the arrow each cell encodes (diagonal collects a character, up or left does not) until either index hits zero. Practice it on the canonical input once before the interview, not during.
 
 A fourth, subtler pitfall: writing a top-down recursive solution and allocating the memoization cache *inside* the recursive function. The cache resets on every call; the memoization does nothing; the solution times out at `m = n = 1000`. Lift the cache outside the recursion (a closure variable in Python, an instance field in Java, a static member in C++), or use Python's `@functools.cache` decorator on the recursive function, or write the bottom-up form (which sidesteps the problem by construction).
 
@@ -434,14 +434,14 @@ A fifth, situational pitfall: tie-break drift between the fill and the backtrack
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 1143 — Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) [Medium] • dp-2d-lcs ★
-- [LC 1035 — Uncrossed Lines](https://leetcode.com/problems/uncrossed-lines/) [Medium] • dp-2d-lcs-disguised
-- [LC 583 — Delete Operation for Two Strings](https://leetcode.com/problems/delete-operation-for-two-strings/) [Medium] • dp-2d-lcs-reduction
+- [LC 1143: Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) [Medium] • dp-2d-lcs ★
+- [LC 1035: Uncrossed Lines](https://leetcode.com/problems/uncrossed-lines/) [Medium] • dp-2d-lcs-disguised
+- [LC 583: Delete Operation for Two Strings](https://leetcode.com/problems/delete-operation-for-two-strings/) [Medium] • dp-2d-lcs-reduction
 
 ### STRETCH (optional)
 
-- [LC 712 — Minimum ASCII Delete Sum for Two Strings](https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/) [Medium] • dp-2d-weighted-lcs
-- [LC 718 — Maximum Length of Repeated Subarray](https://leetcode.com/problems/maximum-length-of-repeated-subarray/) [Medium] • dp-2d-common-substring
+- [LC 712: Minimum ASCII Delete Sum for Two Strings](https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/) [Medium] • dp-2d-weighted-lcs
+- [LC 718: Maximum Length of Repeated Subarray](https://leetcode.com/problems/maximum-length-of-repeated-subarray/) [Medium] • dp-2d-common-substring
 
 LC 1143 is the chapter's signature problem (★) and the worked example. The CORE three exercise the three load-bearing skills: the prototype recurrence (LC 1143), recognizing LCS through a non-string disguise (LC 1035), and the LCS-subtracted-from-totals reduction (LC 583). The STRETCH pair pushes one variant axis each: weighted alignment (LC 712 swaps `max` for `min` and adds running ASCII costs to the base) and the contiguous-match cousin (LC 718, which lives in the variant tree as a deliberate counter-example to the LCS recurrence).
 

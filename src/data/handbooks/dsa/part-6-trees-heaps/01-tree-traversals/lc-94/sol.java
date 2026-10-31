@@ -17,7 +17,7 @@ public final class Sol {
         }
     }
 
-    /** Recursive inorder — the canonical LC 94 entry point. */
+    /** Recursive inorder: the canonical LC 94 entry point. */
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> out = new ArrayList<>();
         inorder(root, out);

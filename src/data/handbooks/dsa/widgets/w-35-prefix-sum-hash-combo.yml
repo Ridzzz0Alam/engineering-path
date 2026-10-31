@@ -263,6 +263,6 @@ notes: |
   Three stacked rows: input (top), prefix-sum (middle, from w-10), hash map
   of {prefix sum: leftmost index} (bottom, from w-02). Net new code:
   ~180 LOC of join layer + the running-pair counter overlay.
-  The widget's lesson — *the hash insertion happens AFTER the lookup, so
-  we never count a zero-length subarray* — is the visual.
+  The widget's lesson: *the hash insertion happens AFTER the lookup, so
+  we never count a zero-length subarray*, is the visual.
   Edit-mode validator: |k| ≤ Σ|nums[i]|.

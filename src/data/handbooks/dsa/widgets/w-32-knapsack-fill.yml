@@ -1,5 +1,5 @@
 # Knapsack DP table fill (0/1 + unbounded)
-# Dual-panel shared widget — chapter 9.4 owns panel-01 (0/1 knapsack,
+# Dual-panel shared widget: chapter 9.4 owns panel-01 (0/1 knapsack,
 # right-to-left inner sweep), chapter 9.5 owns panel-unbounded (left-to-right).
 # The two panels render the SAME canonical input and the SAME 1D dp[] array;
 # only the inner-loop direction differs. That direction flip IS the lesson.
@@ -107,7 +107,7 @@ panels:
           current_a: 2
         narration: |
           dp[2 - 1] + 1 = dp[1] + 1 = 2. The dp[1] we just wrote in step 2
-          is now feeding back into dp[2] — that is reuse: coin c = 1 is
+          is now feeding back into dp[2]: that is reuse: coin c = 1 is
           being packed twice, once into dp[1] and again into dp[2].
       - step: 5
         kind: relax_cell
@@ -168,7 +168,7 @@ panels:
           current_a: 10
         narration: |
           dp[10 - 5] + 1 = dp[5] + 1 = 2. The dp[5] = 1 we wrote in step 8
-          is feeding back into dp[10] — coin 5 is being packed twice. dp[10]
+          is feeding back into dp[10]: coin 5 is being packed twice. dp[10]
           drops from 3 to 2. Two coins of denomination 5; one of
           denomination 1 nowhere in the picture.
       - step: 11
@@ -200,7 +200,7 @@ panels:
 
   panel-01:
     chapter: "9.4"
-    label: "0/1 knapsack — LC 416 boolean subset-sum (right-to-left inner sweep)"
+    label: "0/1 knapsack, LC 416 boolean subset-sum (right-to-left inner sweep)"
     canonical_input: |
       nums = [1, 5, 11, 5]
       target = 11
@@ -263,7 +263,7 @@ panels:
           current_coin: 5
           current_a: 11
           phase: "x=5"
-        narration: "Item 1: x = 5. Inner sweeps j = 11, 10, ..., 5. The right-to-left direction matters: when we read dp[j - 5], it must still hold the previous-row value (otherwise we'd be reusing item 5 inside one outer iteration — that would make this unbounded knapsack instead)."
+        narration: "Item 1: x = 5. Inner sweeps j = 11, 10, ..., 5. The right-to-left direction matters: when we read dp[j - 5], it must still hold the previous-row value (otherwise we'd be reusing item 5 inside one outer iteration, that would make this unbounded knapsack instead)."
       - step: 5
         kind: relax_cell
         payload: { a: 6, from_a: 1, candidate: true, current: false, updated: true }
@@ -287,7 +287,7 @@ panels:
         state:
           dp: [true, true, false, false, false, true, true, false, false, false, false, false]
           phase: "after-x=5"
-        narration: "After x = 5: dp = [T, T, F, F, F, T, T, F, F, F, F, F]. Reachable subset sums: 0, 1, 5, 6 — exactly the four sums producible from any subset of {1, 5}."
+        narration: "After x = 5: dp = [T, T, F, F, F, T, T, F, F, F, F, F]. Reachable subset sums: 0, 1, 5, 6, exactly the four sums producible from any subset of {1, 5}."
       - step: 8
         kind: pick_item
         payload: { item_index: 2, weight: 11, value: 1 }
@@ -305,7 +305,7 @@ panels:
           current_coin: 11
           current_a: 11
           phase: "x=11"
-        narration: "j = 11: dp[11] = dp[11] OR dp[11 - 11] = F OR dp[0] = T. Flip. The subset {11} reaches 11. dp[target] is now T — the answer is True."
+        narration: "j = 11: dp[11] = dp[11] OR dp[11 - 11] = F OR dp[0] = T. Flip. The subset {11} reaches 11. dp[target] is now T: the answer is True."
       - step: 10
         kind: row_done
         state:
@@ -318,20 +318,20 @@ panels:
           dp: [true, true, false, false, false, true, true, false, false, false, false, true]
           phase: "answer"
           result: true
-        narration: "Answer: True. nums = [1, 5, 11, 5] partitions into [11] and [1, 5, 5] — both sum to 11. The DP found the partition without enumerating subsets; one bit of bookkeeping per (item, capacity) state."
+        narration: "Answer: True. nums = [1, 5, 11, 5] partitions into [11] and [1, 5, 5]: both sum to 11. The DP found the partition without enumerating subsets; one bit of bookkeeping per (item, capacity) state."
       - step: 12
         kind: row_done
         state:
           dp: [true, true, false, false, false, true, true, false, false, false, false, true]
           phase: "compare-direction"
           result: true
-        narration: "Try the same code with the inner loop sweeping LEFT-TO-RIGHT instead. On nums = [3], target = 6 (a no-partition input), the left-to-right pass reads dp[j - 3] AFTER it was already overwritten in this same pass — so dp[6] would flip via dp[3] (just written), effectively packing item 3 twice. That's unbounded knapsack, not 0/1. The direction is the algorithm; not a stylistic choice."
+        narration: "Try the same code with the inner loop sweeping LEFT-TO-RIGHT instead. On nums = [3], target = 6 (a no-partition input), the left-to-right pass reads dp[j - 3] AFTER it was already overwritten in this same pass, so dp[6] would flip via dp[3] (just written), effectively packing item 3 twice. That's unbounded knapsack, not 0/1. The direction is the algorithm; not a stylistic choice."
 
 
 selector_default: panel-unbounded
 
 notes: |
-  Two panels rendering the SAME 1D dp[] array on a stacked layout — input
+  Two panels rendering the SAME 1D dp[] array on a stacked layout: input
   row (item / coin) on top, dp[0..W] grid below, an arrow showing the
   direction of the inner sweep (left-to-right for unbounded, right-to-left
   for 0/1). The direction-of-iteration flip is the only meaningful

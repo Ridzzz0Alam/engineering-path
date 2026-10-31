@@ -30,7 +30,7 @@ What you missed is that most of those slices share characters with their neighbo
 LC 3 (Longest Substring Without Repeating Characters) is the cleanest demonstration. Sample input `s = "pwwkew"`, expected answer `3`. The honest first attempt:
 
 ```python
-# Brute force: O(n^2) worst case — what we're replacing
+# Brute force: O(n^2) worst case, what we're replacing
 def length_of_longest_substring_brute(s):
     best = 0
     for i in range(len(s)):
@@ -89,7 +89,7 @@ def length_of_longest_substring(s):
     return best
 ```
 
-**Solution** — Python ([Java](./03-sliding-window-variable/lc-3/sol.java) · [C++](./03-sliding-window-variable/lc-3/sol.cpp) · [Go](./03-sliding-window-variable/lc-3/sol.go))
+**Solution** in Python ([Java](./03-sliding-window-variable/lc-3/sol.java) · [C++](./03-sliding-window-variable/lc-3/sol.cpp) · [Go](./03-sliding-window-variable/lc-3/sol.go))
 
 ```python
 # LC 3. Longest Substring Without Repeating Characters
@@ -146,10 +146,10 @@ def length_of_longest_substring_shrink(s: str) -> int:
 
 | Problem | `init_state` | `slide_in(state, x)` | `slide_out(state, x)` | `observe(state)` | invariant |
 |---|---|---|---|---|---|
-| LC 3 — longest distinct | `last_index = {}` | `last_index[x] = r` | (jump-based; no shrink loop) | `r - l + 1` | every char distinct in window |
-| LC 209 — min sum ≥ target | `sum = 0` | `sum += x` | `sum -= x` | `sum`, length when met | `sum < target` until valid |
-| LC 76 — min window cover | `freq = Counter()` | `freq[x] += 1` | `freq[x] -= 1` | length when matched | every needed char covered |
-| LC 424 — replacement budget | `freq` map, `mx` | `freq[x] += 1`; bump `mx` | `freq[x] -= 1` | `r - l + 1` | `(r - l + 1) - mx <= k` |
+| LC 3: longest distinct | `last_index = {}` | `last_index[x] = r` | (jump-based; no shrink loop) | `r - l + 1` | every char distinct in window |
+| LC 209: min sum ≥ target | `sum = 0` | `sum += x` | `sum -= x` | `sum`, length when met | `sum < target` until valid |
+| LC 76: min window cover | `freq = Counter()` | `freq[x] += 1` | `freq[x] -= 1` | length when matched | every needed char covered |
+| LC 424: replacement budget | `freq` map, `mx` | `freq[x] += 1`; bump `mx` | `freq[x] -= 1` | `r - l + 1` | `(r - l + 1) - mx <= k` |
 
 The first column lists problems in difficulty order across the chapter, not LC numerical order. The skeleton is identical; the work is filling those five cells.
 
@@ -171,7 +171,7 @@ The window starts empty: `l = 0`, `last = {}`, `best = 0`. The shrink-loop form 
 
 End of string; return 3. The widget animates exactly this trace, with the shrink phases at `r = 2` and `r = 5` rendered as discrete steps so the work that the optimization will replace is visible.
 
-> **Interactive widget:** [Sliding window (fixed + variable size)](../widgets/w-09-sliding-window-expansion.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Sliding window (fixed + variable size)](../widgets/w-09-sliding-window-expansion.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: window grows to length 2 (`"pw"`), then a shrink at `r = 2` collapses it to length 1; grows again to length 3 (`"wke"`) at `r = 4` setting the optimum; one more shrink-and-grow at `r = 5` produces `"kew"` of the same length. Three record events update `best`, climbing 1 → 2 → 3.*
 
@@ -213,7 +213,7 @@ The guard `last[ch] >= l` is mandatory and is where most "almost right" submissi
 
 The complexity argument doesn't change. Both forms are amortized `O(n)` by aggregate analysis: every character is read once and `l` advances at most `n` times in total. What changes is the per-step worst case. The shrink-loop form on a pathological input (say, a 50,000-character string of distinct letters followed by a single duplicate of the first letter) drains the entire window character by character, paying `O(n)` for one duplicate. The last-index-jump form pays `O(1)`. The LeetCode discussion thread for LC 3 documents this exact failure: the naive shrink-loop times out on the hidden adversarial test case; the jump form does not.[^2]
 
-> **Interactive widget:** [Longest Substring Without Repeating Characters (LC 3) — last-index jump](../widgets/e-LC003-longest-substring.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Longest Substring Without Repeating Characters (LC 3): last-index jump](../widgets/e-LC003-longest-substring.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *The widget traces the last-index-jump form on the same `"pwwkew"`, showing the two jumps at `r = 2` and `r = 5` as single hops. Step 7 surfaces the now-stale `last['p'] = 0` entry the guard would protect against on a longer input.*
 
@@ -270,14 +270,14 @@ Each step does at most one map increment, one map decrement, and one integer com
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 3 — Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) [Medium] • variable-window-with-distinct-cap ★
-- [LC 209 — Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) [Medium] • variable-window-monotone-shrink
-- [LC 76 — Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) [Hard] • variable-window-with-counter-map
+- [LC 3: Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) [Medium] • variable-window-with-distinct-cap ★
+- [LC 209: Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) [Medium] • variable-window-monotone-shrink
+- [LC 76: Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) [Hard] • variable-window-with-counter-map
 
 ### STRETCH (optional)
 
-- [LC 424 — Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) [Medium] • variable-window-with-replacement-budget
-- [LC 1004 — Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/) [Medium] • variable-window-with-flip-budget
+- [LC 424: Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) [Medium] • variable-window-with-replacement-budget
+- [LC 1004: Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/) [Medium] • variable-window-with-flip-budget
 
 LC 3 is the chapter's signature problem (★) and the one both widgets animate. LC 209 is the cleanest demonstration of the shrink-while-still-satisfied shape; LC 76 is the algorithmically hardest and the chapter's payoff. The CORE three span Medium, Medium, Hard. The variable-window pattern has no canonical Easy because the "easy" problems on LC's `sliding-window` tag (LC 219, LC 643, LC 1652) are all fixed-window and live in [Sliding window: fixed size](./02-sliding-window-fixed.md). The frontmatter's `no-easy-canonical` curation flag records this honestly; it is not a gap in the ladder, it is a property of the pattern.
 

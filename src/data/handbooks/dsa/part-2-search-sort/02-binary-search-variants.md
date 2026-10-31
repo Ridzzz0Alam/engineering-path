@@ -74,7 +74,7 @@ def upper_bound(nums, target):
     return lo
 ```
 
-**Solution** — Python ([Java](./02-binary-search-variants/sol.java) · [C++](./02-binary-search-variants/sol.cpp) · [Go](./02-binary-search-variants/sol.go))
+**Solution** in Python ([Java](./02-binary-search-variants/sol.java) · [C++](./02-binary-search-variants/sol.cpp) · [Go](./02-binary-search-variants/sol.go))
 
 ```python
 """LC 33, LC 153, LC 162: binary-search variants on non-trivially-sorted input,
@@ -258,14 +258,14 @@ Pivot is between indices 3 and 4. Target lives in the rotated right run. Three i
 
 | Step | lo | hi | mid | nums[mid] | Sorted half | Decision |
 |---|---|---|---|---|---|---|
-| 0 | 0 | 6 | — | — | — | Closed `[0, 6]`. |
+| 0 | 0 | 6 | n/a | n/a | n/a | Closed `[0, 6]`. |
 | 1 | 0 | 6 | 3 | 7 | left `[0..3]` | `nums[lo]=4 <= nums[mid]=7`. Target 0 not in `[4, 7)`. Recurse right. |
 | 2 | 4 | 6 | 5 | 1 | left `[4..5]` | `nums[lo]=0 <= nums[mid]=1`. Target 0 in `[0, 1)`. Recurse left. |
-| 3 | 4 | 4 | 4 | 0 | — | Hit. Return 4. |
+| 3 | 4 | 4 | 4 | 0 | n/a | Hit. Return 4. |
 
 The branch decision flips between iterations. First time around, target is outside the sorted left, so the algorithm jumps to the rotated right. Second time around, target is inside the sorted left of the new range. The widget below scrubs through this trace step by step on panel B; panel A from chapter 2.1 sits beside it and animates the same template on a non-rotated input, so you can see the rotated branch decision as a *layer* on top of the same pointer dance.
 
-> **Interactive widget:** [Binary search (exact-match + rotated)](../widgets/w-04-binary-search.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Binary search (exact-match + rotated)](../widgets/w-04-binary-search.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: four keyframes drawn from the canonical trace at the initial state, the first branch decision (target not in sorted left), the second branch decision (target in sorted left of the new range), and the hit at index 4.*
 
@@ -370,14 +370,14 @@ The CORE for this chapter is structurally three Mediums. Pure binary-search-vari
 
 ### CORE (solve all to claim chapter mastery)
 
-- [LC 33 — Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) [Medium] • binary-search-rotated ★
-- [LC 153 — Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) [Medium] • binary-search-rotation-pivot
-- [LC 162 — Find Peak Element](https://leetcode.com/problems/find-peak-element/) [Medium] • binary-search-on-implicit-monotone
+- [LC 33: Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) [Medium] • binary-search-rotated ★
+- [LC 153: Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) [Medium] • binary-search-rotation-pivot
+- [LC 162: Find Peak Element](https://leetcode.com/problems/find-peak-element/) [Medium] • binary-search-on-implicit-monotone
 
 ### STRETCH (optional)
 
-- [LC 4 — Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • binary-search-on-two-sorted-arrays *(reference: Python only)*
-- [LC 875 — Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) [Medium] • binary-search-on-answer
+- [LC 4: Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • binary-search-on-two-sorted-arrays *(reference: Python only)*
+- [LC 875: Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) [Medium] • binary-search-on-answer
 
 LC 4 is the Hard the chapter spent space on; LC 875 is the cleanest exercise of binary search on the answer outside the Part 9 ladder. Both extend the chapter's premise (*"binary search is whatever comparison you can keep monotonic"*) into the two corners that surprise readers most.
 
@@ -395,4 +395,4 @@ Binary search closes out here. The next chapters of Part 2 move to comparison so
 
 [^4]: Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022, §4.5 master theorem applied to `T(n) = T(n/2) + Theta(1)`, Case 2 with `a = 1`, `b = 2`, `f(n) = Theta(1)`.
 
-[^5]: Joshua Bloch, "Extra, Extra — Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/>.
+[^5]: Joshua Bloch, "Extra, Extra, Read All About It: Nearly All Binary Searches and Mergesorts are Broken," *Google Research blog*, June 2, 2006. <https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/>.

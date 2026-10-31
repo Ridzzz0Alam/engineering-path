@@ -7,7 +7,7 @@ from typing import List
 
 
 def single_number(nums: List[int]) -> List[int]:
-    """LC 260 — two elements appear once; all others appear twice."""
+    """LC 260: two elements appear once; all others appear twice."""
     xor_all = 0
     for x in nums:
         xor_all ^= x

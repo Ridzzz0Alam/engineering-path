@@ -31,7 +31,7 @@ LC 206 (Reverse Linked List) is the canonical signature problem. Input: the head
 The obvious approach is the array detour:
 
 ```python
-# Brute force: O(n) time, O(n) extra space — what we are replacing
+# Brute force: O(n) time, O(n) extra space, what we are replacing
 def reverse_brute(head):
     values = []
     curr = head
@@ -53,7 +53,7 @@ The fix is one extra local variable. Save `n1.next` into a register named `next`
 
 ## The pattern
 
-Three local pointers — `prev`, `curr`, `next` — and four sub-steps per iteration. Each step does exactly one thing; the order is the algorithm.
+Three local pointers (`prev`, `curr`, `next`) and four sub-steps per iteration. Each step does exactly one thing; the order is the algorithm.
 
 ```python
 def reverse_list_iterative(head):
@@ -66,7 +66,7 @@ def reverse_list_iterative(head):
     return prev
 ```
 
-**Solution** — Python ([Java](./01-reversal-patterns/lc-206/sol.java) · [C++](./01-reversal-patterns/lc-206/sol.cpp) · [Go](./01-reversal-patterns/lc-206/sol.go))
+**Solution** in Python ([Java](./01-reversal-patterns/lc-206/sol.java) · [C++](./01-reversal-patterns/lc-206/sol.cpp) · [Go](./01-reversal-patterns/lc-206/sol.go))
 
 ```python
 # LC 206. Reverse Linked List
@@ -121,9 +121,9 @@ The loop invariant says the same thing the four sub-steps say in motion: on entr
 
 The widget animates the LC 206 trace on `head = [1, 2, 3, 4, 5]` step-for-step. Twenty-three steps total: five iterations of the loop body, each split into the four sub-steps, plus three boundary states (init, loop-exit, return). Step through it once before reading on; the dependency between snapshot and mutation is faster to feel than to read.
 
-> **Interactive widget:** [Linked list pointer rewiring](../widgets/w-13-linked-list-pointer-rewiring.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Linked list pointer rewiring](../widgets/w-13-linked-list-pointer-rewiring.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
-*Pointer chips use the Wong palette: prev in sky blue, curr in orange, next in yellow. Reversed edges flip their direction-arrow render at the moment of rewire — steps 2, 6, 10, 14, 18 are the five mutations.*
+*Pointer chips use the Wong palette: prev in sky blue, curr in orange, next in yellow. Reversed edges flip their direction-arrow render at the moment of rewire: steps 2, 6, 10, 14, 18 are the five mutations.*
 
 The sub-step the widget makes most visible is step 2: `n1.next` flips from pointing at `n2` to pointing at `null`. That single edge mutation is the entire algorithm; everything else is bookkeeping. Watch the same pattern fire at steps 6, 10, 14, and 18, each time extending the reversed prefix by exactly one node. By step 18 the list is fully reversed; steps 19-22 are pure bookkeeping that drains the last iteration and returns `prev`.
 
@@ -173,7 +173,7 @@ def reverse_between(head, left, right):
     return dummy.next
 ```
 
-**Solution** — Python ([Java](./01-reversal-patterns/lc-92/sol.java) · [C++](./01-reversal-patterns/lc-92/sol.cpp) · [Go](./01-reversal-patterns/lc-92/sol.go))
+**Solution** in Python ([Java](./01-reversal-patterns/lc-92/sol.java) · [C++](./01-reversal-patterns/lc-92/sol.cpp) · [Go](./01-reversal-patterns/lc-92/sol.go))
 
 ```python
 # LC 92. Reverse Linked List II
@@ -246,10 +246,10 @@ The `O(1)` auxiliary-space bound on the iterative whole-list form is exactly the
 ## Three pitfalls that bite
 
 > [!WARNING]
-> **Forgetting `head.next = None` on the recursive return.** After `head.next.next = head`, the original `head.next` edge has not been overwritten — the recursion did not mutate it on the way down. So `head.next` still points at the next node, while that next node now points back at `head`. Any subsequent traversal loops forever between the two. The fix is two paired lines on the return path: `head.next.next = head` first, then `head.next = None`. AlgoMonster's LC 206 editorial flags this as Common Pitfall #1.[^4]
+> **Forgetting `head.next = None` on the recursive return.** After `head.next.next = head`, the original `head.next` edge has not been overwritten: the recursion did not mutate it on the way down. So `head.next` still points at the next node, while that next node now points back at `head`. Any subsequent traversal loops forever between the two. The fix is two paired lines on the return path: `head.next.next = head` first, then `head.next = None`. AlgoMonster's LC 206 editorial flags this as Common Pitfall #1.[^4]
 
 > [!WARNING]
-> **The LC 92 sentinel off-by-one.** With `left = 2`, the implementer wants `pre` to rest on node 1 (the node *before* the segment), but a natural `for _ in range(left)` loop matches the 1-indexed mental model and lands `pre` on node 2 instead — the first node *of* the segment. The subsequent splice rewires the wrong edge and the segment is reversed off-by-one, returning a wrong answer. The fix is `for _ in range(left - 1)`. The dummy node is the zeroth step, so the loop advances `left - 1` times, not `left`.
+> **The LC 92 sentinel off-by-one.** With `left = 2`, the implementer wants `pre` to rest on node 1 (the node *before* the segment), but a natural `for _ in range(left)` loop matches the 1-indexed mental model and lands `pre` on node 2 instead: the first node *of* the segment. The subsequent splice rewires the wrong edge and the segment is reversed off-by-one, returning a wrong answer. The fix is `for _ in range(left - 1)`. The dummy node is the zeroth step, so the loop advances `left - 1` times, not `left`.
 
 > [!WARNING]
 > **Snapshot after mutation.** Writing `curr.next = prev` *before* `next = curr.next` is the canonical ordering bug. After the first rewire, `curr.next` no longer points at the original next node; it now points at `prev` (which is `null` on the first iteration). The next advance reads the wrong pointer, and the loop either terminates after one node or crashes with a null-pointer dereference. The four sub-steps must run in this exact order: `next = curr.next; curr.next = prev; prev = curr; curr = next`. Reading the loop body as four named sub-steps, with each one rendered separately by the widget, makes the dependency obvious.
@@ -258,13 +258,13 @@ The `O(1)` auxiliary-space bound on the iterative whole-list form is exactly the
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 206 — Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) [Easy] • linked-list-reversal-iterative-three-pointer ★
-- [LC 92 — Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) [Medium] • sub-range-reversal-by-position
-- [LC 234 — Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) [Easy] • linked-list-reversal-as-subroutine
+- [LC 206: Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) [Easy] • linked-list-reversal-iterative-three-pointer ★
+- [LC 92: Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) [Medium] • sub-range-reversal-by-position
+- [LC 234: Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) [Easy] • linked-list-reversal-as-subroutine
 
 ### STRETCH (optional)
 
-- [LC 143 — Reorder List](https://leetcode.com/problems/reorder-list/) [Medium] • linked-list-reversal-and-merge
+- [LC 143: Reorder List](https://leetcode.com/problems/reorder-list/) [Medium] • linked-list-reversal-and-merge
 
 LC 206 is the chapter's signature problem (★) and the one whose canonical test the four-language code panels pass. The CORE three span Easy/Medium only; the natural Hard variant, LC 25 (Reverse Nodes in k-Group), is owned by [Reverse in groups of K](./02-reverse-in-groups-k.md) because the seam-management bookkeeping is what makes it Hard. LC 234 is officially Easy on LC, but the optimal `O(1)`-space form combines three phases (midpoint via fast/slow, reverse the back half, walk in lockstep comparing) and reads closer to Medium for a first-time reader.
 

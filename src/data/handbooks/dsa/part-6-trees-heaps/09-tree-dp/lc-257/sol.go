@@ -11,7 +11,7 @@ type TreeNode struct {
 }
 
 // Shape 1 of tree DP: accumulator on the call stack. Go's immutable strings
-// make backtracking implicit — each recursive call rebinds its own `path`
+// make backtracking implicit: each recursive call rebinds its own `path`
 // local, so siblings naturally see a clean prefix.
 func binaryTreePaths(root *TreeNode) []string {
 	out := []string{}

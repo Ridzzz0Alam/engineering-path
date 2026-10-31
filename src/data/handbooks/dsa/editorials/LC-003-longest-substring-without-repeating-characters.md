@@ -34,7 +34,7 @@ That last row is what most "almost right" submissions die on. Hold it. Verbatim 
 Read the problem literally. Pick every starting index `i`, expand `j` from `i` while uniqueness holds, remember the longest run.
 
 ```python
-# Brute force: O(n^2) — what we're replacing
+# Brute force: O(n^2), what we're replacing
 def length_of_longest_substring_brute(s):
     best = 0
     for i in range(len(s)):
@@ -93,7 +93,7 @@ def length_of_longest_substring(s):
     return best
 ```
 
-**Solution** — Python ([Java](./LC-003-longest-substring-without-repeating-characters/lc-3/sol.java) · [C++](./LC-003-longest-substring-without-repeating-characters/lc-3/sol.cpp) · [Go](./LC-003-longest-substring-without-repeating-characters/lc-3/sol.go))
+**Solution** in Python ([Java](./LC-003-longest-substring-without-repeating-characters/lc-3/sol.java) · [C++](./LC-003-longest-substring-without-repeating-characters/lc-3/sol.cpp) · [Go](./LC-003-longest-substring-without-repeating-characters/lc-3/sol.go))
 
 ```python
 # LC 3. Longest Substring Without Repeating Characters
@@ -123,7 +123,7 @@ def length_of_longest_substring(s: str) -> int:
     return best
 ```
 
-> **Interactive widget:** [Longest Substring Without Repeating Characters (LC 3) — last-index jump](../widgets/e-LC003-longest-substring.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Longest Substring Without Repeating Characters (LC 3): last-index jump](../widgets/e-LC003-longest-substring.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: on `s = "pwwkew"`, the window expands to `"pw"` (best=2), the second `'w'` at `r=2` triggers a jump from `l=0` to `l=2`, the window grows to `"wke"` at `r=4` (best=3, the answer), and the second duplicate `'w'` at `r=5` triggers a second jump from `l=2` to `l=3`, ending on `"kew"` at length 3. Six iterations, two jumps, no inner loop.*
 
@@ -159,13 +159,13 @@ The two equivalent formulations are an explicit `if last[ch] >= l: l = last[ch] 
 
 **How would you return the actual substring, not just its length?** Track `best_l` alongside `best_len`. Update both, but only update `best_l` on a strict-greater hit so the *first* longest substring wins ties; on a `>=` update, the *last* wins. Return `s[best_l : best_l + best_len]`.[^4]
 
-**What if the constraint is "at most K distinct characters" instead of "no repeats"?** The K=1 instance is "no repeats", exactly LC 3 with `len(window) <= K` replacing the duplicate predicate. Generalise: keep a count map plus an integer `distinct` that increments when a key's count crosses `0 -> 1` and decrements when it crosses `1 -> 0`. Shrink while `distinct > K`. Same `O(n)`, same skeleton. The K=2 instance is [LC 904 — Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/); the parameterised LC 340 sits behind a paywall and is the chapter ladder's STRETCH placeholder.
+**What if the constraint is "at most K distinct characters" instead of "no repeats"?** The K=1 instance is "no repeats", exactly LC 3 with `len(window) <= K` replacing the duplicate predicate. Generalise: keep a count map plus an integer `distinct` that increments when a key's count crosses `0 -> 1` and decrements when it crosses `1 -> 0`. Shrink while `distinct > K`. Same `O(n)`, same skeleton. The K=2 instance is [LC 904: Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/); the parameterised LC 340 sits behind a paywall and is the chapter ladder's STRETCH placeholder.
 
 **Can you avoid the hash map entirely for ASCII inputs?** When the alphabet is the LC 3 constraint set (printable ASCII, 128 codepoints), the hash map collapses to a fixed `int[128]` array initialised to -1. The C++ and Go reference implementations above already use this; in Java it's `int[] lastIndex = new int[128]; Arrays.fill(lastIndex, -1)`, and avoids the `HashMap<Character, Integer>` autoboxing on every put and get. Roughly 3x faster on benchmark inputs simply because hashing disappears.
 
 **What if characters arrive one at a time?** The algorithm is already a single forward pass with `O(1)` work per character, so the offline and online versions are the same code. State is `(l, last_index, best)`; expose `next(c)` that updates all three and emits the running `best`. The unbounded-alphabet variant grows `last_index` to `O(n)`; under the LC 3 ASCII constraint, it caps at 128.
 
-The bridge from this problem to its harder cousin is [LC 76 — Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/), which keeps the variable-window scaffold but replaces the duplicate predicate with a cover-set predicate and an integer counter. Same loop shape, harder state.
+The bridge from this problem to its harder cousin is [LC 76: Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/), which keeps the variable-window scaffold but replaces the duplicate predicate with a cover-set predicate and an integer counter. Same loop shape, harder state.
 
 ## References
 

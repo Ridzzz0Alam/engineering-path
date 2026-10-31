@@ -12,7 +12,7 @@ struct TreeNode {
 
 class Solution {
 public:
-    // Recursive inorder — the canonical LC 94 entry point.
+    // Recursive inorder: the canonical LC 94 entry point.
     std::vector<int> inorderTraversal(TreeNode* root) {
         std::vector<int> out;
         inorder(root, out);

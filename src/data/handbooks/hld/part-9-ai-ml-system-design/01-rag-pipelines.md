@@ -75,7 +75,7 @@ An embedding is a fixed-length vector produced by a neural encoder so that seman
 | Voyage voyage-4-large (MoE) | 2048/1024/512/256 | top-tier | $0.12 |
 | OpenAI text-embedding-3-large | 3072 | 64.6% | $0.13 |
 | OpenAI text-embedding-3-small | 1536 | 62.3% | $0.02 |
-| Cohere embed-v4 | 1536 (default) | -- | -- |
+| Cohere embed-v4 | 1536 (default) | n/a | n/a |
 | BGE-M3 (open-source) | 1024 | competitive | free (self-host) |
 
 The [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) benchmarks models across 56+ tasks. But MTEB numbers are aggregate averages; domain match (legal, medical, code) matters more than the leaderboard rank. Note that scores in the table above may come from different MTEB versions (v1 vs. v2) and are not directly comparable across all models.

@@ -106,7 +106,7 @@ def can_jump(nums):
     return True
 ```
 
-**Solution** — Python ([Java](./04-jump-games-gas-station/lc-55/sol.java) · [C++](./04-jump-games-gas-station/lc-55/sol.cpp) · [Go](./04-jump-games-gas-station/lc-55/sol.go))
+**Solution** in Python ([Java](./04-jump-games-gas-station/lc-55/sol.java) · [C++](./04-jump-games-gas-station/lc-55/sol.cpp) · [Go](./04-jump-games-gas-station/lc-55/sol.go))
 
 ```python
 # LC 55. Jump Game
@@ -196,7 +196,7 @@ flowchart LR
 
 ## Gas Station: the second archetype
 
-The second problem of the chapter — LC 134 — is the cleanest demonstration of the exchange argument in the book. The greedy is short. The proof is the chapter.
+The second problem of the chapter: LC 134: is the cleanest demonstration of the exchange argument in the book. The greedy is short. The proof is the chapter.
 
 ```python
 def can_complete_circuit(gas, cost):
@@ -325,13 +325,13 @@ A third pitfall worth a one-liner: LC 871 with a min-heap. Python's `heapq` is a
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 55 — Jump Game](https://leetcode.com/problems/jump-game/) [Medium] • greedy-frontier-sweep ★
-- [LC 45 — Jump Game II](https://leetcode.com/problems/jump-game-ii/) [Medium] • greedy-bfs-layer
-- [LC 134 — Gas Station](https://leetcode.com/problems/gas-station/) [Medium] • greedy-circular-tour-reset *(reference: Python only)*
+- [LC 55: Jump Game](https://leetcode.com/problems/jump-game/) [Medium] • greedy-frontier-sweep ★
+- [LC 45: Jump Game II](https://leetcode.com/problems/jump-game-ii/) [Medium] • greedy-bfs-layer
+- [LC 134: Gas Station](https://leetcode.com/problems/gas-station/) [Medium] • greedy-circular-tour-reset *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 871 — Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops/) [Hard] • greedy-heap-deferred
+- [LC 871: Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops/) [Hard] • greedy-heap-deferred
 
 The CORE three are all Medium per LeetCode's tagging, and the chapter's `core-emh-via-stretch` curation flag in the problem registry records the structural reason: the jump-game-greedy pattern has no canonical Easy in interview rotation. Patterns that arguably resemble this one at the Easy band, such as placing flowers (LC 605) or deleting columns to make sorted (LC 944), sit under different sub-patterns and would dilute the chapter signal. STRETCH supplies the Hard via LC 871, so combined CORE+STRETCH spans Medium plus Hard.
 
@@ -345,14 +345,14 @@ Held-Karp's weighted-TSP generalization is the natural follow-up to LC 845's fro
 
 [^1]: Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022.
 
-[^2]: AlgoMonster, "45. Jump Game II — In-Depth Explanation," <https://algo.monster/liteproblems/45>.
+[^2]: AlgoMonster, "45. Jump Game II: In-Depth Explanation," <https://algo.monster/liteproblems/45>.
 
-[^3]: Cumulative-surplus formulation. Define `surplus[k] = Σ_{j=0..k} (gas[j] - cost[j])`. The argument that starting from `min_i + 1` works whenever `total = surplus[n - 1] ≥ 0` is folklore — it appears in interview prep materials and on the LC editorial — and is reconstructible from prefix-sum reasoning in two lines. The cnblogs treatment by Shepherd Gai (2020) restates the same identity in the algorithmic-loop form.
+[^3]: Cumulative-surplus formulation. Define `surplus[k] = Σ_{j=0..k} (gas[j] - cost[j])`. The argument that starting from `min_i + 1` works whenever `total = surplus[n - 1] ≥ 0` is folklore (it appears in interview prep materials and on the LC editorial) and is reconstructible from prefix-sum reasoning in two lines. The cnblogs treatment by Shepherd Gai (2020) restates the same identity in the algorithmic-loop form.
 
 [^4]: Shepherd Gai, "A detailed explanation of leetcode 134: Gas Station," cnblogs.com, 2020-09-01, <https://www.cnblogs.com/shepherdgai/p/13599262.html>.
 
 [^5]: walkccc, "871. Minimum Number of Refueling Stops," <https://walkccc.me/LeetCode/problems/871/>
 
-[^6]: CLRS 4th ed., §15 (*Greedy Algorithms*), p. 417 onward. The two-property template — greedy-choice plus optimal-substructure — is the standard reference for proving that an exchange argument suffices.
+[^6]: CLRS 4th ed., §15 (*Greedy Algorithms*), p. 417 onward. The two-property template (greedy-choice plus optimal-substructure) is the standard reference for proving that an exchange argument suffices.
 
 [^7]: Jeff Erickson, *Algorithms*, 1st ed., self-published, jeffe.cs.illinois.edu, Chapter 4 (*Greedy Algorithms*), <https://jeffe.cs.illinois.edu/teaching/algorithms/book/04-greedy.pdf>.

@@ -1,4 +1,4 @@
-// Chapter 0.2 — The recursion mental model
+// Chapter 0.2: The recursion mental model
 // Worked example: factorial(n) by direct recursion.
 package main
 

@@ -28,7 +28,7 @@ Two algorithms solve this. Both run in linear time. Either one works on the same
 
 Take the dependency graph as a directed graph: an edge `b -> a` means *b is a prerequisite of a*. The indegree of a vertex is the number of incoming edges, which is the number of prereqs not yet satisfied. A vertex with indegree zero has no unsatisfied prereqs; it is *ready*. Take any such vertex, declare it the next course, and pretend you already finished it: every edge leaving it disappears, and that may free up new indegree-zero vertices for the next round.
 
-Here is the reduction the chapter is built on. **A topological order exists if and only if at every step there is at least one vertex with indegree zero in the remaining subgraph.** Kahn's algorithm makes this constructive by repeatedly extracting such a vertex and decrementing its successors' indegrees. If the loop runs out of indegree-zero vertices before emitting all `|V|` of them, then a cycle is hiding among the leftovers — every vertex on a cycle has at least one prereq sitting on the same cycle, so none of them ever reaches indegree zero.
+Here is the reduction the chapter is built on. **A topological order exists if and only if at every step there is at least one vertex with indegree zero in the remaining subgraph.** Kahn's algorithm makes this constructive by repeatedly extracting such a vertex and decrementing its successors' indegrees. If the loop runs out of indegree-zero vertices before emitting all `|V|` of them, then a cycle is hiding among the leftovers: every vertex on a cycle has at least one prereq sitting on the same cycle, so none of them ever reaches indegree zero.
 
 The dual purpose is the algorithm's quietest virtue. One loop produces a topological order and detects a cycle, exactly, with no extra bookkeeping. LeetCode 207 is just a special case where the boolean `len(order) == numCourses` is the requested output.
 
@@ -56,11 +56,11 @@ def can_finish(num_courses, prerequisites):
     return visited == num_courses
 ```
 
-**Solution** — Python ([Java](./04-topological-sort-kahn/lc-207/sol.java) · [C++](./04-topological-sort-kahn/lc-207/sol.cpp) · [Go](./04-topological-sort-kahn/lc-207/sol.go))
+**Solution** in Python ([Java](./04-topological-sort-kahn/lc-207/sol.java) · [C++](./04-topological-sort-kahn/lc-207/sol.cpp) · [Go](./04-topological-sort-kahn/lc-207/sol.go))
 
 ```python
 # LC 207. Course Schedule
-"""LC 207 Course Schedule — Kahn's algorithm reference."""
+"""LC 207 Course Schedule: Kahn's algorithm reference."""
 from collections import deque
 from typing import List
 
@@ -100,8 +100,8 @@ flowchart TD
     D --> E[For each successor v: indeg of v -= 1; if 0, enqueue]
     E --> C
     C -->|yes| F{visited == V?}
-    F -->|yes| G[Return order — DAG]
-    F -->|no| H[Return failure — cycle]
+    F -->|yes| G[Return order - DAG]
+    F -->|no| H[Return failure - cycle]
 ```
 
 *The cycle decision is at termination, never inside the loop. The queue empties either because all V vertices were emitted (DAG) or because the leftovers are stuck on a cycle.*
@@ -129,7 +129,7 @@ Pop 0, emit 0. Decrement indegrees of 1 and 2; both hit zero, both go into the q
 
 The widget animates each step: indegree array on the left, queue contents in the middle, the emitted order growing at the bottom. Step through it twice. The first pass to see the loop run; the second to notice that vertex 0 and vertex 5 always land at the same positions across every preset, while the middle three permute.
 
-> **Interactive widget:** [Topological sort (Kahn's vs DFS post-order)](../widgets/w-27-topological-sort-kahn.yml) (panel `panel-kahn`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Topological sort (Kahn's vs DFS post-order)](../widgets/w-27-topological-sort-kahn.yml) (panel `panel-kahn`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: indegrees collapse `[0,1,1,2,1,2] → [0,0,1,2,1,2] → [0,0,0,2,1,2] → [0,0,0,0,0,0]` over the 16-step trace; emitted list grows `[] → [0] → [0,1] → [0,1,2,3,4,5]`; the final terminator records `|emitted| == |V|`, valid topological order.*
 
@@ -147,7 +147,7 @@ The space cost is dominated by the indegree array (`O(V)`) and the queue, which 
 
 ## When the pattern bends
 
-The signature shape — graph given, run Kahn, return the answer — covers most of the rotation. Three variants change either the input or the termination condition. Each is its own LC problem, and each is a question about whether the reader can recognize Kahn under a different surface.
+The signature shape (graph given, run Kahn, return the answer) covers most of the rotation. Three variants change either the input or the termination condition. Each is its own LC problem, and each is a question about whether the reader can recognize Kahn under a different surface.
 
 ### Reverse-graph Kahn for "safe nodes"
 
@@ -174,11 +174,11 @@ def eventual_safe_nodes(graph):
     return [v for v in range(n) if safe[v]]
 ```
 
-**Solution** — Python ([Java](./04-topological-sort-kahn/lc-802/sol.java) · [C++](./04-topological-sort-kahn/lc-802/sol.cpp) · [Go](./04-topological-sort-kahn/lc-802/sol.go))
+**Solution** in Python ([Java](./04-topological-sort-kahn/lc-802/sol.java) · [C++](./04-topological-sort-kahn/lc-802/sol.cpp) · [Go](./04-topological-sort-kahn/lc-802/sol.go))
 
 ```python
 # LC 802. Find Eventual Safe States
-"""LC 802 Find Eventual Safe States — reverse-graph Kahn."""
+"""LC 802 Find Eventual Safe States: reverse-graph Kahn."""
 from collections import deque
 from typing import List
 
@@ -219,7 +219,7 @@ LC 269 hands you a list of strings, sorted lexicographically by an unknown alpha
 
 ### Pseudo-Kahn on undirected leaves (LC 310)
 
-LC 310 wants the centroid of an undirected tree: the vertex (or two vertices) you can root at to minimize the tree's height. The trick is to peel leaves layer by layer. Initialize a queue with every vertex of degree 1; pop one, decrement its single neighbor's degree, push the neighbor if its degree drops to 1; stop when fewer than three vertices remain. The leftover one or two are the centroids. The graph is undirected so "indegree" becomes "degree", and the termination condition is `<= 2` rather than zero — but the loop body is the same indegree-reduction loop Kahn runs on a DAG.
+LC 310 wants the centroid of an undirected tree: the vertex (or two vertices) you can root at to minimize the tree's height. The trick is to peel leaves layer by layer. Initialize a queue with every vertex of degree 1; pop one, decrement its single neighbor's degree, push the neighbor if its degree drops to 1; stop when fewer than three vertices remain. The leftover one or two are the centroids. The graph is undirected so "indegree" becomes "degree", and the termination condition is `<= 2` rather than zero, but the loop body is the same indegree-reduction loop Kahn runs on a DAG.
 
 ## Two pitfalls that bite
 
@@ -235,14 +235,14 @@ A third bug is worth naming briefly because it shows up on Java and C++ submissi
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 207 — Course Schedule](https://leetcode.com/problems/course-schedule/) [Medium] • topological-sort-kahn ★
-- [LC 210 — Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) [Medium] • topological-sort-kahn
-- [LC 802 — Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) [Medium] • topological-sort-kahn-reverse-graph
+- [LC 207: Course Schedule](https://leetcode.com/problems/course-schedule/) [Medium] • topological-sort-kahn ★
+- [LC 210: Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) [Medium] • topological-sort-kahn
+- [LC 802: Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) [Medium] • topological-sort-kahn-reverse-graph
 
 ### STRETCH (optional)
 
-- [LC 269 — Alien Dictionary](https://leetcode.com/problems/alien-dictionary/) [Hard] • topological-sort-kahn-char-graph *(LeetCode Premium; the order-output mechanic is in CORE via LC 210)*
-- [LC 310 — Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/) [Medium] • topological-sort-kahn-leaf-trim
+- [LC 269: Alien Dictionary](https://leetcode.com/problems/alien-dictionary/) [Hard] • topological-sort-kahn-char-graph *(LeetCode Premium; the order-output mechanic is in CORE via LC 210)*
+- [LC 310: Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/) [Medium] • topological-sort-kahn-leaf-trim
 
 LC 207 is the chapter's signature problem and the one the worked example and widget animate. LC 210 is a one-line edit on top of LC 207: append to an order list on dequeue, return it when its length matches `numCourses`. LC 802 is the pattern's first non-trivial variant; the reversal step is the entire interview value.
 

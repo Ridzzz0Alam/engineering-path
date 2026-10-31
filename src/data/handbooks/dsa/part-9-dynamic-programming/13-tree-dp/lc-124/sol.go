@@ -22,7 +22,7 @@ func maxPathSum(root *TreeNode) int {
 		}
 		leftGain := max(gain(node.Left), 0)
 		rightGain := max(gain(node.Right), 0)
-		// Bent path through node — compared to global, NOT returned.
+		// Bent path through node: compared to global, NOT returned.
 		if v := node.Val + leftGain + rightGain; v > best {
 			best = v
 		}

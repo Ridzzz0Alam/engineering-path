@@ -47,25 +47,25 @@ static_fallback:
 panels:
   default:
     chapter: "12.3"
-    label: "Z-array on aabaabcaab — trivial init, mirror reuse, window slide"
+    label: "Z-array on aabaabcaab, trivial init, mirror reuse, window slide"
     canonical_input: |
       s = "aabaabcaab"
       expected_z = [0, 1, 0, 3, 1, 0, 0, 3, 1, 0]
     presets:
       - id: canonical
-        label: "aabaabcaab — covers all three branches"
+        label: "aabaabcaab, covers all three branches"
         input:
           s: "aabaabcaab"
       - id: all-equal
-        label: "aaaa — degenerate; mirror-clip branch on every step"
+        label: "aaaa, degenerate; mirror-clip branch on every step"
         input:
           s: "aaaa"
       - id: extension-branch
-        label: "aaabaaaab — triggers mirror-clip with extension past r"
+        label: "aaabaaaab, triggers mirror-clip with extension past r"
         input:
           s: "aaabaaaab"
       - id: lc28-pattern-match
-        label: "ll#hello — pattern matching via concatenation"
+        label: "ll#hello, pattern matching via concatenation"
         input:
           s: "ll#hello"
     n_steps: 19
@@ -272,11 +272,11 @@ panels:
 
 notes: |
   Wong palette assignments (per style-guide.md):
-    sky blue   #56B4E9 — cells inside the current [l, r) window
-    orange     #E69F00 — the active position i
-    bluish grn #009E73 — finalized z values
-    vermilion  #D55E00 — mismatch that stopped extension
-    yellow     #F0E442 — mirror position i - l (transient, only during mirror init)
+    sky blue   #56B4E9: cells inside the current [l, r) window
+    orange     #E69F00: the active position i
+    bluish grn #009E73: finalized z values
+    vermilion  #D55E00: mismatch that stopped extension
+    yellow     #F0E442: mirror position i - l (transient, only during mirror init)
   Reduced-motion fallback samples steps {0, 3, 8, 9, 15, 18} for six stills:
   init / first window slide / longest-match window slide / first mirror reuse /
   last window slide / final answer.

@@ -1,6 +1,6 @@
 ---
 title: "Tree DP: states that travel up the call stack"
-description: "Post-order helpers that return more than one number to the parent — (rob, skip), (diameter, depth) — centered on LC 337 House Robber III and LC 124 Max Path Sum."
+description: "Post-order helpers that return more than one number to the parent ((rob, skip), (diameter, depth)) centered on LC 337 House Robber III and LC 124 Max Path Sum."
 slug: 13-tree-dp
 part: 9
 chapter: 13
@@ -65,7 +65,7 @@ def rob(root):
     return max(helper(root))
 ```
 
-**Solution** — Python ([Java](./13-tree-dp/lc-337/sol.java) · [C++](./13-tree-dp/lc-337/sol.cpp) · [Go](./13-tree-dp/lc-337/sol.go))
+**Solution** in Python ([Java](./13-tree-dp/lc-337/sol.java) · [C++](./13-tree-dp/lc-337/sol.cpp) · [Go](./13-tree-dp/lc-337/sol.go))
 
 ```python
 # LC 337. House Robber III
@@ -156,7 +156,7 @@ def max_path_sum(root):
             return 0
         left_gain  = max(gain(node.left),  0)
         right_gain = max(gain(node.right), 0)
-        # Bent path through this node — compared to global, NOT returned.
+        # Bent path through this node: compared to global, NOT returned.
         if node.val + left_gain + right_gain > best:
             best = node.val + left_gain + right_gain
         # Straight-down path returned to caller.
@@ -166,7 +166,7 @@ def max_path_sum(root):
     return int(best)
 ```
 
-**Solution** — Python ([Java](./13-tree-dp/lc-124/sol.java) · [C++](./13-tree-dp/lc-124/sol.cpp) · [Go](./13-tree-dp/lc-124/sol.go))
+**Solution** in Python ([Java](./13-tree-dp/lc-124/sol.java) · [C++](./13-tree-dp/lc-124/sol.cpp) · [Go](./13-tree-dp/lc-124/sol.go))
 
 ```python
 # LC 124. Binary Tree Maximum Path Sum
@@ -205,7 +205,7 @@ def max_path_sum(root: Optional[TreeNode]) -> int:
             return 0
         left_gain  = max(gain(node.left),  0)
         right_gain = max(gain(node.right), 0)
-        # Bent path through this node — compared to global, NOT returned.
+        # Bent path through this node: compared to global, NOT returned.
         if node.val + left_gain + right_gain > best:
             best = node.val + left_gain + right_gain
         # Straight-down path returned to caller.
@@ -287,7 +287,7 @@ def min_camera_cover(root):
     return cameras
 ```
 
-**Solution** — Python ([Java](./13-tree-dp/lc-968/sol.java) · [C++](./13-tree-dp/lc-968/sol.cpp) · [Go](./13-tree-dp/lc-968/sol.go))
+**Solution** in Python ([Java](./13-tree-dp/lc-968/sol.java) · [C++](./13-tree-dp/lc-968/sol.cpp) · [Go](./13-tree-dp/lc-968/sol.go))
 
 ```python
 # LC 968. Binary Tree Cameras
@@ -334,14 +334,14 @@ def min_camera_cover(root: Optional[TreeNode]) -> int:
             return COVERED
         l = dfs(node.left)
         r = dfs(node.right)
-        # Any child unmonitored — place a camera here.
+        # Any child unmonitored: place a camera here.
         if l == NEEDS_COVER or r == NEEDS_COVER:
             cameras += 1
             return HAS_CAMERA
-        # Any child holds a camera — this node is covered by it.
+        # Any child holds a camera, and this node is covered by it.
         if l == HAS_CAMERA or r == HAS_CAMERA:
             return COVERED
-        # Both children covered, none has a camera — this node needs cover.
+        # Both children covered, none has a camera, and this node needs cover.
         return NEEDS_COVER
 
     if dfs(root) == NEEDS_COVER:
@@ -393,7 +393,7 @@ def sum_of_distances_in_tree(n, edges):
     return answer
 ```
 
-**Solution** — Python ([Java](./13-tree-dp/lc-834/sol.java) · [C++](./13-tree-dp/lc-834/sol.cpp) · [Go](./13-tree-dp/lc-834/sol.go))
+**Solution** in Python ([Java](./13-tree-dp/lc-834/sol.java) · [C++](./13-tree-dp/lc-834/sol.cpp) · [Go](./13-tree-dp/lc-834/sol.go))
 
 ```python
 # LC 834. Sum of Distances in Tree
@@ -494,14 +494,14 @@ A bug worth naming briefly: forgetting the negative-clamp on LC 124. Without `ma
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 337 — House Robber III](https://leetcode.com/problems/house-robber-iii/) [Medium] • tree-dp-state-machine ★
-- [LC 124 — Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) [Hard] • tree-dp-dual-quantity
-- [LC 968 — Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras/) [Hard] • tree-dp-greedy-state
+- [LC 337: House Robber III](https://leetcode.com/problems/house-robber-iii/) [Medium] • tree-dp-state-machine ★
+- [LC 124: Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) [Hard] • tree-dp-dual-quantity
+- [LC 968: Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras/) [Hard] • tree-dp-greedy-state
 
 ### STRETCH (optional)
 
-- [LC 834 — Sum of Distances in Tree](https://leetcode.com/problems/sum-of-distances-in-tree/) [Hard] • tree-dp-rerooting
-- [LC 979 — Distribute Coins in Binary Tree](https://leetcode.com/problems/distribute-coins-in-binary-tree/) [Medium] • tree-dp-flow-on-edges
+- [LC 834: Sum of Distances in Tree](https://leetcode.com/problems/sum-of-distances-in-tree/) [Hard] • tree-dp-rerooting
+- [LC 979: Distribute Coins in Binary Tree](https://leetcode.com/problems/distribute-coins-in-binary-tree/) [Medium] • tree-dp-flow-on-edges
 
 LC 337 is the chapter's signature (★) because the two-state tuple return is the cleanest mechanics-teaching vehicle in the four-problem set; the dual-quantity split (LC 124) and the three-state reduction (LC 968) extend the same pattern in different directions. The CORE three span Medium and Hard but do not span Easy: the canonical Easy tree-DP problem (LC 543 *Diameter of Binary Tree*) is owned by [Binary tree fundamentals](../part-6-trees-heaps/00-binary-tree-fundamentals.md), and the three Easy/Medium shapes from the primer ([Tree DP primer](../part-6-trees-heaps/09-tree-dp.md)) are owned there. The chapter's `ladder_curation_flag` is `no-easy-canonical` to record that gap as a property of the advanced subset, not a missing problem.
 
@@ -519,7 +519,7 @@ A second branch leads to graphs with cycles. Tree DP's correctness rests on each
 
 [^2]: Hello Interview, "Leetcode 124. Binary Tree Maximum Path Sum." <https://www.hellointerview.com/community/questions/binary-tree-max-sum/cm5eh7nrh04qg838ohcis83zd>
 
-[^3]: USACO Guide, "DP on Trees — Solving For All Roots" (Gold module). Names the two-array technique (in-subtree `f[x]` and out-of-subtree `g[x]`) and gives the per-edge O(1) update derivation used in the LC 834 implementation above. <https://usaco.guide/gold/all-roots>
+[^3]: USACO Guide, "DP on Trees, Solving For All Roots" (Gold module). Names the two-array technique (in-subtree `f[x]` and out-of-subtree `g[x]`) and gives the per-edge O(1) update derivation used in the LC 834 implementation above. <https://usaco.guide/gold/all-roots>
 
 [^4]: Jeff Erickson, *Algorithms*, 1st ed., June 2019, Chapter 3 "Dynamic Programming". The inductive correctness argument used in this chapter's complexity section is from §3.6. <https://jeffe.cs.illinois.edu/teaching/algorithms/book/03-dynprog.pdf>
 

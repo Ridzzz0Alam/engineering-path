@@ -125,19 +125,19 @@ One problem per primary form. Each shows the form's pattern signal in one canoni
 
 ### Recursion wins: Maximum Depth of Binary Tree
 
-[LC 104 — Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) [Easy]
+[LC 104: Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) [Easy]
 
 Tree height is bounded by problem constraints (LeetCode caps node count at `10^4`, so the absolute worst case is a degenerate path of depth `10^4`, within Python's raised limit and well within the JVM's `-Xss` default). The recursive solution is three lines and proves itself by induction: depth of an empty tree is 0; depth of a node is 1 plus the larger of its subtree depths. The iterative version requires a queue, a level counter, and twenty lines of bookkeeping that obscure the recurrence.
 
 ### Iteration wins: Longest Substring Without Repeating Characters
 
-[LC 3 — Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) [Medium]
+[LC 3: Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) [Medium]
 
 Strings are sequences. A `10^5`-character input would overflow the recursion limit in Python even after raising it on most platforms, and the natural shape is "scan, expand, contract": two pointers walking left and right with a hash map. There is no recursive shape to extract. Erickson's framing answers the structural question directly: when you ask "what is the recursive shape of this input?" and the answer is "there isn't one," you write the loop.[^9]
 
 ### Hybrid wins: Number of Islands on a 10^6-cell grid
 
-[LC 200 — Number of Islands](https://leetcode.com/problems/number-of-islands/) [Medium]
+[LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/) [Medium]
 
 The recursive flood fill is the obvious solution. On the LeetCode judge with grids capped at `300×300`, the recursive form passes. On a grid that's `1000×1000` with every cell connected (the kind of input a fuzz test will produce) the recursion goes `10^6` deep, and Python, Java, or Go all crash. The fix is an explicit stack: a `list` of `(r, c)` pairs in Python, push neighbors, pop until empty. Same traversal order, no call-stack risk. This is the same conversion Mattermost's CVE-2022-28131 fix applied to `encoding/xml.Decoder.Skip`: replace recursion with an iterative loop carrying its own stack.[^4]
 
@@ -159,7 +159,7 @@ The recursive flood fill is the obvious solution. On the LeetCode judge with gri
 
 [^2]: Sedgewick and Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011. https://algs4.cs.princeton.edu/
 
-[^3]: Shannon, "PEP 651 — Robust Stack Overflow Handling," 2021 (rejected). https://peps.python.org/pep-0651/
+[^3]: Shannon, "PEP 651, Robust Stack Overflow Handling," 2021 (rejected). https://peps.python.org/pep-0651/
 
 [^4]: Forsen, "A deep dive into deeply recursive Go," Mattermost Engineering Blog, 2025-07-11. https://mattermost.com/blog/a-deep-dive-into-deeply-recursive-go/
 
@@ -169,7 +169,7 @@ The recursive flood fill is the obvious solution. On the LeetCode judge with gri
 
 [^7]: GCC Internals, "Permitting tail calls." https://gcc.gnu.org/onlinedocs/gccint/Tail-Calls.html
 
-[^8]: Clang, "Attributes in Clang — `musttail`." https://clang.llvm.org/docs/AttributeReference.html#musttail
+[^8]: Clang, "Attributes in Clang, `musttail`." https://clang.llvm.org/docs/AttributeReference.html#musttail
 
 [^9]: Erickson, *Algorithms*, 1st ed., 2019, Ch. 1. https://jeffe.cs.illinois.edu/teaching/algorithms/
 

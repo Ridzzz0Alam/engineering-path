@@ -81,7 +81,7 @@ Watch the recursion run in the widget. The sub-trees that repeat are the visible
 
 Four steps turn the naive recursion into a memoized recursion. The procedure is mechanical, not creative; you follow the steps and the function gets faster.
 
-**1. Identify the recursive function's signature.** Whatever the function takes as arguments is the *DP state* — the unique identifier of a subproblem. For Fibonacci the signature is `fib(n: int)`, so the state is the single integer `n`. For longest common subsequence it's `(i, j)`. For coin change it's `(amount)`. The signature *is* the state; treat them as the same thing.
+**1. Identify the recursive function's signature.** Whatever the function takes as arguments is the *DP state*: the unique identifier of a subproblem. For Fibonacci the signature is `fib(n: int)`, so the state is the single integer `n`. For longest common subsequence it's `(i, j)`. For coin change it's `(amount)`. The signature *is* the state; treat them as the same thing.
 
 **2. Identify the base cases.** The directly-knowable subproblems where the recursion terminates without recursing further. For Fibonacci, `fib(0) = 0` and `fib(1) = 1`. The base cases are usually obvious, but if you can't write them down cleanly, your state probably isn't right; go back to step 1.
 
@@ -104,7 +104,7 @@ def fib(n: int) -> int:
     return solve(n)
 ```
 
-**Solution** — Python ([Java](./00-dp-recursion-to-memo/lc-509/sol.java) · [C++](./00-dp-recursion-to-memo/lc-509/sol.cpp) · [Go](./00-dp-recursion-to-memo/lc-509/sol.go))
+**Solution** in Python ([Java](./00-dp-recursion-to-memo/lc-509/sol.java) · [C++](./00-dp-recursion-to-memo/lc-509/sol.cpp) · [Go](./00-dp-recursion-to-memo/lc-509/sol.go))
 
 ```python
 # LC 509. Fibonacci Number
@@ -144,11 +144,11 @@ def fib_cached(n: int) -> int:
 sys.setrecursionlimit(10_000)
 ```
 
-> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-a`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [DP table fill](../widgets/w-31-dp-table-fill.yml) (panel `panel-a`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a 24-step trace on `fib(6)`. The recursion tree builds depth-first to the leftmost leaf, hits the base case, computes `F(2) = 1`, then on every right child of every ancestor the cache hits and the subtree is pruned. Eleven tree nodes total for `fib(6)`; five of those are cache hits that save five exponential subtrees.*
 
-Three things every memoized DP shares. A *base map* (here, `{0: 0, 1: 1}` — the two known answers seeded into the memo). A *recurrence* (`solve(k - 1) + solve(k - 2)`, the relation that breaks size `k` into smaller sizes). A *cached return* (the `if k in memo` check at the top, the `memo[k] = ...` assignment before the return). Skiena's *Algorithm Design Manual* §10.3 calls this the "three-step recipe" and presents it as the universal DP shape.[^4]
+Three things every memoized DP shares. A *base map* (here, `{0: 0, 1: 1}`, the two known answers seeded into the memo). A *recurrence* (`solve(k - 1) + solve(k - 2)`, the relation that breaks size `k` into smaller sizes). A *cached return* (the `if k in memo` check at the top, the `memo[k] = ...` assignment before the return). Skiena's *Algorithm Design Manual* §10.3 calls this the "three-step recipe" and presents it as the universal DP shape.[^4]
 
 ### Why memoization preserves correctness
 
@@ -166,7 +166,7 @@ The second consequence: if the recursive function is *not* pure (it reads a hidd
 
 ## What it actually costs
 
-The unique-subproblem count for `fib(n)` is `n + 1` (the subproblems `F(0), F(1), ..., F(n)`). Memoization guarantees each unique subproblem is computed exactly once, with `O(1)` work above the recursive calls.[^1] Total time is `O(n)`. Without the memo, the call tree has `Theta(phi^n)` nodes; with the memo, the recursion *DAG* has `n + 1` nodes.[^3] The shape changed from a tree to a DAG — same edges, same dependencies, no duplicate vertices.
+The unique-subproblem count for `fib(n)` is `n + 1` (the subproblems `F(0), F(1), ..., F(n)`). Memoization guarantees each unique subproblem is computed exactly once, with `O(1)` work above the recursive calls.[^1] Total time is `O(n)`. Without the memo, the call tree has `Theta(phi^n)` nodes; with the memo, the recursion *DAG* has `n + 1` nodes.[^3] The shape changed from a tree to a DAG: same edges, same dependencies, no duplicate vertices.
 
 ```mermaid
 flowchart TD
@@ -216,7 +216,7 @@ The chapter doesn't deepen these here. Each one anchors a later chapter or shows
 > **Hitting Python's default recursion limit.** Pure Fibonacci on `n` near 1000 raises `RecursionError: maximum recursion depth exceeded`. CPython's default is 1000 frames per the `sys` documentation.[^8] Set `sys.setrecursionlimit(10_000)` once at module top level, per the DSA Handbook code-idioms convention. If `n` could be larger still, prefer the iterative form covered in [Bottom-up tabulation](./01-dp-bottom-up-tabulation.md), which has no recursion stack at all.
 
 > [!WARNING]
-> **Memo across calls when the function isn't really pure.** A `static` or instance-field memo persists across calls in Java and C++. For Fibonacci this is harmless (the function really is pure across calls). For DPs whose memo is keyed on relative state — the way some coin-change variants are written — the cache contains stale answers from the previous call and the next call returns the wrong result. The fix: instantiate a fresh memo per call. The principle: a memo is a cache of `(input -> output)`; if the function depends on hidden mutable state, the cache is wrong by construction.
+> **Memo across calls when the function isn't really pure.** A `static` or instance-field memo persists across calls in Java and C++. For Fibonacci this is harmless (the function really is pure across calls). For DPs whose memo is keyed on relative state (the way some coin-change variants are written) the cache contains stale answers from the previous call and the next call returns the wrong result. The fix: instantiate a fresh memo per call. The principle: a memo is a cache of `(input -> output)`; if the function depends on hidden mutable state, the cache is wrong by construction.
 
 > [!WARNING]
 > **Returning a mutable structure from a memoized function.** The `@lru_cache` decorator caches a *reference* to the returned object, not a copy. If your memoized function returns a list and the caller mutates it, the next cache hit returns the mutated list. Subtle bug, often only visible at scale. For DP problems whose answer is a list of trees (LC 95) or a list of sequences (LC 1143 reconstruction), either return immutable copies, or make read-only the caller's contract.
@@ -225,13 +225,13 @@ The chapter doesn't deepen these here. Each one anchors a later chapter or shows
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 509 — Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) [Easy] • dp-memoization-fibonacci-shape ★
-- [LC 1137 — N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/) [Easy] • dp-memoization-fibonacci-shape
-- [LC 264 — Ugly Number II](https://leetcode.com/problems/ugly-number-ii/) [Medium] • dp-multi-pointer-on-recurrence
+- [LC 509: Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) [Easy] • dp-memoization-fibonacci-shape ★
+- [LC 1137: N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/) [Easy] • dp-memoization-fibonacci-shape
+- [LC 264: Ugly Number II](https://leetcode.com/problems/ugly-number-ii/) [Medium] • dp-multi-pointer-on-recurrence
 
 ### STRETCH (optional)
 
-- [LC 95 — Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/) [Medium] • dp-recursion-with-structural-memo
+- [LC 95: Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/) [Medium] • dp-recursion-with-structural-memo
 
 The ladder spans Easy + Easy + Medium + Medium with no Hard; the canonical Hard for the "trust the recursion plus memoize" pattern is LC 312 Burst Balloons, locked downstream at the interval-DP chapter. The natural Hard analogues at this difficulty (LC 70 / 198 / 322) are also locked downstream because they each anchor their own pattern chapter.
 

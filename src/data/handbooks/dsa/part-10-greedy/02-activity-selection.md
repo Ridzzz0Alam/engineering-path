@@ -62,7 +62,7 @@ def least_interval(tasks, n):
     return time
 ```
 
-**Solution** — Python ([Java](./02-activity-selection/lc-621/sol.java) · [C++](./02-activity-selection/lc-621/sol.cpp) · [Go](./02-activity-selection/lc-621/sol.go))
+**Solution** in Python ([Java](./02-activity-selection/lc-621/sol.java) · [C++](./02-activity-selection/lc-621/sol.cpp) · [Go](./02-activity-selection/lc-621/sol.go))
 
 ```python
 # LC 621. Task Scheduler
@@ -217,15 +217,15 @@ A third trap worth flagging in passing: the `long` accumulator in LC 1834. With 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 621 — Task Scheduler](https://leetcode.com/problems/task-scheduler/) [Medium] • heap-greedy-cooldown ★
-- [LC 767 — Reorganize String](https://leetcode.com/problems/reorganize-string/) [Medium] • heap-greedy-cooldown *(reference: Python only)*
-- [LC 1834 — Single-Threaded CPU](https://leetcode.com/problems/single-threaded-cpu/) [Medium] • heap-priority-by-key *(reference: Python only)*
+- [LC 621: Task Scheduler](https://leetcode.com/problems/task-scheduler/) [Medium] • heap-greedy-cooldown ★
+- [LC 767: Reorganize String](https://leetcode.com/problems/reorganize-string/) [Medium] • heap-greedy-cooldown *(reference: Python only)*
+- [LC 1834: Single-Threaded CPU](https://leetcode.com/problems/single-threaded-cpu/) [Medium] • heap-priority-by-key *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 1405 — Longest Happy String](https://leetcode.com/problems/longest-happy-string/) [Medium] • heap-greedy-cooldown *(reference: Python only)*
-- [LC 1942 — The Number of the Smallest Unoccupied Chair](https://leetcode.com/problems/the-number-of-the-smallest-unoccupied-chair/) [Medium] • heap-greedy-event-driven *(reference: Python only)*
-- [LC 358 — Rearrange String k Distance Apart](https://leetcode.com/problems/rearrange-string-k-distance-apart/) [Hard] • heap-greedy-cooldown *(reference: Python only)*
+- [LC 1405: Longest Happy String](https://leetcode.com/problems/longest-happy-string/) [Medium] • heap-greedy-cooldown *(reference: Python only)*
+- [LC 1942: The Number of the Smallest Unoccupied Chair](https://leetcode.com/problems/the-number-of-the-smallest-unoccupied-chair/) [Medium] • heap-greedy-event-driven *(reference: Python only)*
+- [LC 358: Rearrange String k Distance Apart](https://leetcode.com/problems/rearrange-string-k-distance-apart/) [Hard] • heap-greedy-cooldown *(reference: Python only)*
 
 LC 621 is the chapter's signature problem (★) and the cleanest demonstration of the heap+cooldown spine. The CORE three exercise the spine's three load-bearing variations: identity (LC 621, frequency-keyed cooldown), no-adjacent (LC 767, single-slot held-back), and CPU scheduling (LC 1834, key-flip from frequency to duration). The pattern admits no canonical Easy LC problem in interview rotation; the algorithmic minimum (heap + cooldown queue + frequency table) is already a Medium-tier composition. The chapter's ladder carries a `core-emh-via-stretch` curation flag in the problem registry: the Hard band is filled by LC 358 (Premium), with LC 767 in CORE as the free Medium equivalent.
 

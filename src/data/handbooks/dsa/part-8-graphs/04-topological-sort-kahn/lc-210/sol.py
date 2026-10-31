@@ -1,5 +1,5 @@
 # LC 210. Course Schedule II
-"""LC 210 Course Schedule II — Kahn's algorithm; emit the order itself."""
+"""LC 210 Course Schedule II: Kahn's algorithm; emit the order itself."""
 from collections import deque
 from typing import List
 

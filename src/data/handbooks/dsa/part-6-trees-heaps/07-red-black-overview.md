@@ -180,7 +180,7 @@ The case-by-case insert and delete logic is not on this list. CLRS §13.3 and §
 
 [^6]: cppreference, "std::map." [en.cppreference.com/w/cpp/container/map](https://en.cppreference.com/w/cpp/container/map).
 
-[^7]: Jenks, Grant. "Implementation Details — Sorted Containers documentation." [grantjenks.com/docs/sortedcontainers/implementation.html](https://grantjenks.com/docs/sortedcontainers/implementation.html).
+[^7]: Jenks, Grant. "Implementation Details: Sorted Containers documentation." [grantjenks.com/docs/sortedcontainers/implementation.html](https://grantjenks.com/docs/sortedcontainers/implementation.html).
 
 [^8]: Pfaff, Ben. "Performance Analysis of BSTs in System Software." Stanford University, June 2004. [stanford.edu/~blp/papers/libavl.pdf](http://www.stanford.edu/~blp/papers/libavl.pdf).
 

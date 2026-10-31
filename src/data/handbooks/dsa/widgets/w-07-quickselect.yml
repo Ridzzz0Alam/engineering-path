@@ -1,4 +1,4 @@
-# Quickselect (Lomuto partition + recurse-on-one-side) — chapter 2.7 dedicated widget
+# Quickselect (Lomuto partition + recurse-on-one-side): chapter 2.7 dedicated widget
 # Level 1 single-panel widget. Where w-06 zooms in on a single Lomuto pass,
 # this widget shows the across-recursion behavior: pivot is picked, partition
 # runs (steps elided to one frame each), pivot lands at its sorted index, the
@@ -169,7 +169,7 @@ notes: |
   The all-equal preset (canonical input [7, 7, 7, 7, 7], k = 3) is the
   pedagogical trap: with strict `<` Lomuto, every comparison is `ge`, so
   the partition collapses to "pivot lands at lo", recursion shrinks by 1
-  each step, and the algorithm degenerates to O(n^2) — the worst-case
+  each step, and the algorithm degenerates to O(n^2): the worst-case
   failure mode that 3-way (Dutch national flag) partitioning fixes.
 
   The duplicates preset (canonical [3, 2, 3, 1, 2, 4, 5, 5, 6], k = 4)

@@ -32,7 +32,7 @@ The canonical problem is LC 560, *Subarray Sum Equals K*. Given an integer array
 The honest first attempt enumerates every `(l, r)` pair and accumulates the sum element by element. One counter increments on a match.
 
 ```python
-# Brute force: O(n^2) — what we're replacing
+# Brute force: O(n^2), what we're replacing
 def subarray_sum_brute(nums, k):
     count = 0
     for i in range(len(nums)):
@@ -115,7 +115,7 @@ def subarray_sum(nums, k):
     return answer
 ```
 
-**Solution** — Python ([Java](./05-prefix-sum-hash/lc-560/sol.java) · [C++](./05-prefix-sum-hash/lc-560/sol.cpp) · [Go](./05-prefix-sum-hash/lc-560/sol.go))
+**Solution** in Python ([Java](./05-prefix-sum-hash/lc-560/sol.java) · [C++](./05-prefix-sum-hash/lc-560/sol.cpp) · [Go](./05-prefix-sum-hash/lc-560/sol.go))
 
 ```python
 # LC 560. Subarray Sum Equals K
@@ -160,7 +160,7 @@ The second line is the order: lookup *before* increment. We're counting subarray
 
 | Problem | `init_state` | `slide_in(state, x)` | `slide_out(state, x)` | `observe(state)` |
 |---|---|---|---|---|
-| LC 560 sum equals k | `seen = {0: 1}; running = 0` | `running += x`; lookup `running - k`; `seen[running] += 1` | (no shrink — append-only) | running answer count |
+| LC 560 sum equals k | `seen = {0: 1}; running = 0` | `running += x`; lookup `running - k`; `seen[running] += 1` | (no shrink, append-only) | running answer count |
 | LC 974 sum mod k | `seen = {0: 1}; running = 0` | `running = (running + x) mod k`; lookup `running`; `seen[running] += 1` | (no shrink) | running answer count |
 | LC 525 contiguous binary | `seen = {0: -1}; balance = 0` | `balance += (1 if x else -1)`; lookup `balance` to find earliest `l` | (no shrink) | longest length |
 
@@ -182,7 +182,7 @@ End of array. Return 2.
 
 The widget animates this exact trace, holding step 9 (the moment the seeded `{0: 1}` entry produces the first hit) for emphasis. That step is where the dummy entry pays for itself.
 
-> **Interactive widget:** [Prefix-sum + hash-map combo](../widgets/w-35-prefix-sum-hash-combo.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Prefix-sum + hash-map combo](../widgets/w-35-prefix-sum-hash-combo.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the running prefix tracks `[1, 2, 3]`; the lookup keys track `[-1, 0, 1]`; the answer ratchets `0 → 1 → 2`. Two hits, at the indices where a previous prefix value matches the current `prefix - k`. The first hit consumes the seeded `{0: 1}` entry; without it, the answer would stop at 1.*
 
@@ -269,14 +269,14 @@ A third pitfall worth naming briefly: looking up *after* the increment instead o
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 560 — Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) [Medium] • prefix-sum-hashmap-equality ★
-- [LC 974 — Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/) [Medium] • prefix-sum-hashmap-modulo
-- [LC 525 — Contiguous Array](https://leetcode.com/problems/contiguous-array/) [Medium] • prefix-sum-hashmap-encoded
+- [LC 560: Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) [Medium] • prefix-sum-hashmap-equality ★
+- [LC 974: Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/) [Medium] • prefix-sum-hashmap-modulo
+- [LC 525: Contiguous Array](https://leetcode.com/problems/contiguous-array/) [Medium] • prefix-sum-hashmap-encoded
 
 ### STRETCH (optional)
 
-- [LC 523 — Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/) [Medium] • prefix-sum-hashmap-modulo-with-index
-- [LC 1248 — Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/) [Medium] • prefix-sum-hashmap-parity
+- [LC 523: Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/) [Medium] • prefix-sum-hashmap-modulo-with-index
+- [LC 1248: Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/) [Medium] • prefix-sum-hashmap-parity
 
 LC 560 is the chapter's signature problem (★) and the cleanest mixed-sign demonstration. The CORE three exercise the three load-bearing variations on the hash key: identity (LC 560), modulo (LC 974), and first-seen-index after a `+1/-1` encoding (LC 525). All five problems sit at Medium, which is honest: this pattern has no canonical Easy or Hard problem in interview rotation. The chapter's `single-difficulty-band` curation flag in the problem registry records that this is a property of the pattern, not a gap in the ladder.
 

@@ -29,7 +29,7 @@ This chapter is the trick that takes the second number down to the first. The tw
 Look at what brute force actually computes. The window starting at index 0 covers `nums[0..3]`. The window starting at index 1 covers `nums[1..4]`. Three of those four numbers are the same. Brute force re-adds them anyway.
 
 ```python
-# Brute force: O(n*k) — what we're replacing
+# Brute force: O(n*k), what we're replacing
 def find_max_average_brute(nums, k):
     best_avg = float('-inf')
     for i in range(len(nums) - k + 1):
@@ -60,7 +60,7 @@ def find_max_average(nums, k):
     return best_sum / k
 ```
 
-**Solution** — Python ([Java](./02-sliding-window-fixed/lc-643/sol.java) · [C++](./02-sliding-window-fixed/lc-643/sol.cpp) · [Go](./02-sliding-window-fixed/lc-643/sol.go))
+**Solution** in Python ([Java](./02-sliding-window-fixed/lc-643/sol.java) · [C++](./02-sliding-window-fixed/lc-643/sol.cpp) · [Go](./02-sliding-window-fixed/lc-643/sol.go))
 
 ```python
 # LC 643. Maximum Average Subarray I
@@ -98,10 +98,10 @@ The whole pattern surface is four operations: build the initial state, add the e
 
 | Problem | `init_state` | `slide_in(state, x)` | `slide_out(state, x)` | `observe(state)` |
 |---|---|---|---|---|
-| LC 643 — max average | `sum = 0` | `sum += x` | `sum -= x` | `sum` (divide by k once at end) |
-| LC 1456 — max vowels | `cnt = 0` | `cnt += is_vowel(x)` | `cnt -= is_vowel(x)` | `cnt` |
-| LC 567 — perm-in-string | `freq = [0]*26` | `freq[x] += 1` | `freq[x] -= 1` | `freq == target_freq` |
-| LC 30 — substring concat | `wordCount = {}` | `wordCount[token] += 1` | `wordCount[token] -= 1` | `wordCount == words_freq` |
+| LC 643: max average | `sum = 0` | `sum += x` | `sum -= x` | `sum` (divide by k once at end) |
+| LC 1456: max vowels | `cnt = 0` | `cnt += is_vowel(x)` | `cnt -= is_vowel(x)` | `cnt` |
+| LC 567: perm-in-string | `freq = [0]*26` | `freq[x] += 1` | `freq[x] -= 1` | `freq == target_freq` |
+| LC 30: substring concat | `wordCount = {}` | `wordCount[token] += 1` | `wordCount[token] -= 1` | `wordCount == words_freq` |
 
 When you meet a fixed-window problem, the work is filling those four cells. The skeleton is identical.[^2] Three of the rows above deserve a closer look, because they're the three problems on the chapter's CORE ladder and they exercise progressively richer state.
 
@@ -123,7 +123,7 @@ The remaining three slides are confirmation. `[1, 3, 2]` sums to 6. `[3, 2, 1]` 
 
 Six windows in total. Five slides, each one subtract and one add, plus three integer comparisons that don't update best. The build is three additions. Eleven additions and five comparisons across the whole run, on an eight-element array. The widget below animates each step.
 
-> **Interactive widget:** [Sliding window (fixed + variable size)](../widgets/w-09-sliding-window-expansion.yml) (panel `panel-a`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Sliding window (fixed + variable size)](../widgets/w-09-sliding-window-expansion.yml) (panel `panel-a`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: window sums across the six windows are `[8, 7, 9, 6, 6, 7]`; the running max stays at 8 after the build, jumps to 9 on the second slide, and holds 9 to the end.*
 
@@ -211,14 +211,14 @@ A third pitfall worth naming briefly: re-comparing the full frequency array ever
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 643 — Maximum Average Subarray I](https://leetcode.com/problems/maximum-average-subarray-i/) [Easy] • fixed-window ★
-- [LC 567 — Permutation in String](https://leetcode.com/problems/permutation-in-string/) [Medium] • fixed-window + char-count
-- [LC 30 — Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) [Hard] • fixed-window + word-multiset
+- [LC 643: Maximum Average Subarray I](https://leetcode.com/problems/maximum-average-subarray-i/) [Easy] • fixed-window ★
+- [LC 567: Permutation in String](https://leetcode.com/problems/permutation-in-string/) [Medium] • fixed-window + char-count
+- [LC 30: Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) [Hard] • fixed-window + word-multiset
 
 ### STRETCH (optional)
 
-- [LC 1456 — Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/) [Medium] • fixed-window
-- [LC 438 — Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) [Medium] • fixed-window + char-count
+- [LC 1456: Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/) [Medium] • fixed-window
+- [LC 438: Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) [Medium] • fixed-window + char-count
 
 LC 643 is the chapter's signature problem (★) and the one the worked example and widget animate. LC 1456 is the gentlest second pass: same template, different `slide_in` predicate. LC 438 is LC 567 with a different return type; the `zeros` counter optimisation transfers verbatim.
 

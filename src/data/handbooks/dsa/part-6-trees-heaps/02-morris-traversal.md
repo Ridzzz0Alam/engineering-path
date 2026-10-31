@@ -61,7 +61,7 @@ That null right-pointer is free real estate. Use it to write down where to come 
 pred.right = curr
 ```
 
-Now descend left. The algorithm walks the entire left subtree without remembering anything else, because when it eventually reaches `pred` and tries to step right, `pred.right` no longer leads off into space — it leads back to `curr`. The thread is the return address.
+Now descend left. The algorithm walks the entire left subtree without remembering anything else, because when it eventually reaches `pred` and tries to step right, `pred.right` no longer leads off into space, and it leads back to `curr`. The thread is the return address.
 
 When `curr` is reached the second time, by the thread, the algorithm knows it's the second visit because the inner predecessor walk lands on a node whose `right` already points back to `curr`. That's the unmistakable signature: `pred.right == curr` means "I have been here before, the left subtree is finished, please tear down the thread and visit me." Restore `pred.right = null`, output `curr.val`, step right.
 
@@ -131,7 +131,7 @@ The right subtree (6, 7) has no left children at any point, so the algorithm deg
 
 Both threads installed during the walk are gone by the time the function returns. The tree at the end is bit-for-bit identical to the tree at the start.
 
-> **Interactive widget:** [Morris inorder traversal (threading)](../widgets/w-17-morris-thread.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Morris inorder traversal (threading)](../widgets/w-17-morris-thread.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: at step 0 the tree is intact and the output buffer is empty. At step 5, two threads coexist (1 → 2 and 3 → 4), the algorithm has descended to node 1 but not yet visited it. At step 14, the 1 → 2 thread has been torn down and the algorithm has just returned to node 4 via the surviving 3 → 4 thread. At step 23, every thread is gone and the output reads `[1, 2, 3, 4, 6, 7]`.*
 
@@ -171,7 +171,7 @@ Three named variants live next door to the canonical algorithm. One of them is g
 
 ### Morris preorder: move the visit, keep the threads
 
-Preorder visits each node *before* its subtrees. The skeleton is identical to Morris inorder; the only change is *when* `out.append(curr.val)` runs. In preorder, the visit happens during the link phase — just before descending left — because that's the moment `curr` is first met. The unlink phase no longer visits; its only job is to undo the thread.[^8] Same complexity, same correctness argument, one line moved.
+Preorder visits each node *before* its subtrees. The skeleton is identical to Morris inorder; the only change is *when* `out.append(curr.val)` runs. In preorder, the visit happens during the link phase (just before descending left) because that's the moment `curr` is first met. The unlink phase no longer visits; its only job is to undo the thread.[^8] Same complexity, same correctness argument, one line moved.
 
 ### Reverse Morris: descending order on a BST
 
@@ -227,7 +227,7 @@ def recover_tree(root):
         first.val, second.val = second.val, first.val
 ```
 
-**Solution** — Python ([Java](./02-morris-traversal/lc-99/sol.java) · [C++](./02-morris-traversal/lc-99/sol.cpp) · [Go](./02-morris-traversal/lc-99/sol.go))
+**Solution** in Python ([Java](./02-morris-traversal/lc-99/sol.java) · [C++](./02-morris-traversal/lc-99/sol.cpp) · [Go](./02-morris-traversal/lc-99/sol.go))
 
 ```python
 # LC 99. Recover Binary Search Tree
@@ -296,18 +296,18 @@ class Solution:
             first.val, second.val = second.val, first.val
 ```
 
-The structure of `recover_tree` is the structure of `morris_inorder` with one addition: a `prev` pointer carried across the visit step, and the violation-capture logic that runs at every visit point — both in the `curr.left is None` branch and after the unlink in the second-visit branch. The two visit sites must each run the violation check, because both correspond to "we are about to emit `curr.val` as the next inorder value."
+The structure of `recover_tree` is the structure of `morris_inorder` with one addition: a `prev` pointer carried across the visit step, and the violation-capture logic that runs at every visit point, both in the `curr.left is None` branch and after the unlink in the second-visit branch. The two visit sites must each run the violation check, because both correspond to "we are about to emit `curr.val` as the next inorder value."
 
 ## Problem ladder
 
 ### CORE (solve both to claim chapter mastery)
 
-- [LC 99 — Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/) [Medium] • morris-inorder-with-state ★
-- [LC 1305 — All Elements in Two Binary Search Trees](https://leetcode.com/problems/all-elements-in-two-binary-search-trees/) [Medium] • morris-inorder-streaming-merge
+- [LC 99: Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/) [Medium] • morris-inorder-with-state ★
+- [LC 1305: All Elements in Two Binary Search Trees](https://leetcode.com/problems/all-elements-in-two-binary-search-trees/) [Medium] • morris-inorder-streaming-merge
 
 ### STRETCH (optional)
 
-- [LC 285 — Inorder Successor in BST](https://leetcode.com/problems/inorder-successor-in-bst/) [Medium] • morris-inorder-with-state *(LC Premium; free alternative is LC 1305 in CORE)*
+- [LC 285: Inorder Successor in BST](https://leetcode.com/problems/inorder-successor-in-bst/) [Medium] • morris-inorder-with-state *(LC Premium; free alternative is LC 1305 in CORE)*
 
 LC 99 is the chapter's signature problem (★) and the canonical Morris-only application: the problem statement explicitly calls out O(1) space as a follow-up bonus, which is exactly the bound Morris exists to deliver. LC 1305 is the cleanest exercise of two Morris cursors running concurrently with a streaming merge, taking auxiliary space from O(n₁ + n₂) (collect-then-merge) down to O(1) excluding the output array.[^12]
 
@@ -341,4 +341,4 @@ The threading mental model, overload an existing pointer field temporarily to en
 
 [^11]: GeeksForGeeks, "Post Order Traversal of Binary Tree in O(N) using O(1) space," updated 2025-07-12. <https://www.geeksforgeeks.org/post-order-traversal-of-binary-tree-in-on-using-o1-space/>.
 
-[^12]: LeetCode The Hard Way, "1305 — All Elements in Two Binary Search Trees (Medium)" editorial. <https://leetcodethehardway.com/solutions/1300-1399/all-elements-in-two-binary-search-trees-medium>.
+[^12]: LeetCode The Hard Way, "1305, All Elements in Two Binary Search Trees (Medium)" editorial. <https://leetcodethehardway.com/solutions/1300-1399/all-elements-in-two-binary-search-trees-medium>.

@@ -309,7 +309,7 @@ Think about (a) why a single index strategy fails when tenant sizes span 4 order
 **A:** Filtered-DiskANN builds graph edges that respect label sets, so traversal stays within matching vertices even on highly selective filters. It solves the recall cliff that post-filtering causes on multi-tenant or metadata-heavy workloads. It powers Bing and Azure Cosmos DB.
 
 **Q:** What is Matryoshka Representation Learning?
-**A:** A training technique that nests embeddings of multiple granularities inside one vector, so the first N dimensions are usable as a standalone embedding. OpenAI text-embedding-3-large reports MTEB 64.6 at 3072-dim and 62.0 at 256-dim — roughly 96% of retrieval performance at 12x compression.
+**A:** A training technique that nests embeddings of multiple granularities inside one vector, so the first N dimensions are usable as a standalone embedding. OpenAI text-embedding-3-large reports MTEB 64.6 at 3072-dim and 62.0 at 256-dim: roughly 96% of retrieval performance at 12x compression.
 
 **Q:** What is the canonical tuning rule for IVF nlist and nprobe?
 **A:** Set nlist approximately equal to sqrt(N). Set nprobe between nlist/32 and nlist/8 for 90-95% recall. FAISS default nprobe=1 is almost always wrong for production.

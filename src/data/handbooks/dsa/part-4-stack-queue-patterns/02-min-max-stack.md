@@ -78,7 +78,7 @@ class MinStack:
         return self.mins[-1]
 ```
 
-**Solution** — Python ([Java](./02-min-max-stack/lc-155/sol.java) · [C++](./02-min-max-stack/lc-155/sol.cpp) · [Go](./02-min-max-stack/lc-155/sol.go))
+**Solution** in Python ([Java](./02-min-max-stack/lc-155/sol.java) · [C++](./02-min-max-stack/lc-155/sol.cpp) · [Go](./02-min-max-stack/lc-155/sol.go))
 
 ```python
 # LC 155. Min Stack
@@ -141,9 +141,9 @@ The values stack and the auxiliary stack always have the same length. The auxili
 | Operation | Time | Space | Notes |
 |---|---|---|---|
 | `push(val)` | O(1) | one extra int per element | Two writes (values append, mins append). |
-| `pop()` | O(1) | — | Two list-tail mutations, unconditional on both. |
-| `top()` | O(1) | — | One peek. |
-| `getMin()` | O(1) | — | One peek on the auxiliary. |
+| `pop()` | O(1) | n/a | Two list-tail mutations, unconditional on both. |
+| `top()` | O(1) | n/a | One peek. |
+| `getMin()` | O(1) | n/a | One peek on the auxiliary. |
 | Total over n operations | O(n) | O(n) | The auxiliary doubles the constant; the asymptote is unchanged. |
 
 The space cost is one auxiliary integer per push, doubling storage from `n` to `2n` words. In the comparison-based model this is provably optimal for the O(1) `getMin` requirement: without an auxiliary, `getMin` after a pop forces a re-scan of the surviving values, which is `Omega(n)` in the worst case.[^2] Sedgewick algs4 Exercise 1.3.58 specifies exactly this design and asserts the constant-time bound directly.[^1]
@@ -226,7 +226,7 @@ The pattern across the three problems:
 | LC 1381 CustomStack | One parallel int stack of pending updates | Cumulative deferred increment per index |
 | LC 895 FreqStack | Two hash maps + a running int | Most-frequent element, ties broken by recency |
 
-Three problems, one technique. The auxiliary's *shape* tracks the aggregate's complexity; the *pinning* — push and pop and query in lockstep with the primary — is invariant.
+Three problems, one technique. The auxiliary's *shape* tracks the aggregate's complexity; the *pinning* (push and pop and query in lockstep with the primary) is invariant.
 
 ## Where the technique stops applying
 
@@ -272,13 +272,13 @@ The two patterns differ on a single axis. The augmented-stack pattern (this chap
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 155 — Min Stack](https://leetcode.com/problems/min-stack/) [Medium] • stack-with-aux-min-stack ★
-- [LC 1381 — Design a Stack With Increment Operation](https://leetcode.com/problems/design-a-stack-with-increment-operation/) [Medium] • stack-with-lazy-aux-increment *(reference: Python only)*
-- [LC 895 — Maximum Frequency Stack](https://leetcode.com/problems/maximum-frequency-stack/) [Hard] • stack-with-frequency-bucket-aux *(reference: Python only)*
+- [LC 155: Min Stack](https://leetcode.com/problems/min-stack/) [Medium] • stack-with-aux-min-stack ★
+- [LC 1381: Design a Stack With Increment Operation](https://leetcode.com/problems/design-a-stack-with-increment-operation/) [Medium] • stack-with-lazy-aux-increment *(reference: Python only)*
+- [LC 895: Maximum Frequency Stack](https://leetcode.com/problems/maximum-frequency-stack/) [Hard] • stack-with-frequency-bucket-aux *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 716 — Max Stack](https://leetcode.com/problems/max-stack/) [Hard] • stack-with-doubly-linked-list-and-multimap *(Premium; the boundary case where the chapter's technique stops applying)*
+- [LC 716: Max Stack](https://leetcode.com/problems/max-stack/) [Hard] • stack-with-doubly-linked-list-and-multimap *(Premium; the boundary case where the chapter's technique stops applying)*
 
 The pattern admits no canonical Easy LeetCode problem; an O(1) auxiliary aggregate query on a stack is structurally Medium-and-up. LC 155 is the spine and the only ladder problem with verified four-language reference code; LC 1381 and LC 895 carry inline Python sketches in the prose above. LC 716 is Premium-locked, listed as STRETCH only so the chapter can name the boundary at which the lockstep auxiliary stops working.
 

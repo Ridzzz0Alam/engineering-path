@@ -94,7 +94,7 @@ The two algorithms keep agreeing, because in this graph the next-cheapest global
 
 Same edge, two reasons to throw it out. The cut property explains both: A-C does not cross the cut between in-tree and out-of-tree (both endpoints sit on the in-tree side), so it cannot be safe.
 
-> **Interactive widget:** [MST: Kruskal + Prim (side-by-side)](../widgets/w-30-mst-kruskal-prim.yml) (panel `panel-prim`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [MST: Kruskal + Prim (side-by-side)](../widgets/w-30-mst-kruskal-prim.yml) (panel `panel-prim`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: Prim absorbs vertices in order A, B, C, D, E, F, G; accepts edges A-B (1), B-C (2), C-D (4), D-E (6), D-F (8), E-G (10) for total weight 31; encounters four stale heap entries (A-C 3, B-D 5, C-E 7, E-F 9) along the way and skips them.*
 
@@ -113,7 +113,7 @@ The bound that matters in interview rotation is `O(m log n)`. The dense-graph va
 
 ## When the graph is implicit: LC 1584
 
-[LC 1584 — Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) hands you `n` 2D points, up to a thousand of them, and asks for the cheapest set of segments that connects them all under Manhattan distance. The graph is a complete graph: every pair of points is an edge whose weight is `|x₁ - x₂| + |y₁ - y₂|`. With `n = 1000`, that is roughly half a million edges nobody has built yet.
+[LC 1584: Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) hands you `n` 2D points, up to a thousand of them, and asks for the cheapest set of segments that connects them all under Manhattan distance. The graph is a complete graph: every pair of points is an edge whose weight is `|x₁ - x₂| + |y₁ - y₂|`. With `n = 1000`, that is roughly half a million edges nobody has built yet.
 
 The natural Prim implementation builds the adjacency list lazily. On each absorption, scan every other point, compute the distance on the fly, and push it onto the heap if its target isn't in the tree yet. No edge list, no precomputed adjacency:
 
@@ -140,7 +140,7 @@ def min_cost_connect_points(points):
     return total
 ```
 
-**Solution** — Python ([Java](./12-mst-prim/lc-1584/sol.java) · [C++](./12-mst-prim/lc-1584/sol.cpp) · [Go](./12-mst-prim/lc-1584/sol.go))
+**Solution** in Python ([Java](./12-mst-prim/lc-1584/sol.java) · [C++](./12-mst-prim/lc-1584/sol.cpp) · [Go](./12-mst-prim/lc-1584/sol.go))
 
 ```python
 # LC 1584. Min Cost to Connect All Points
@@ -198,12 +198,12 @@ The dense variant is the right choice whenever `m` is close to `n²` or whenever
 
 ### CORE (solve to claim chapter mastery)
 
-- [LC 1584 — Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) [Medium] • mst-prim-dense ★
+- [LC 1584: Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) [Medium] • mst-prim-dense ★
 
 ### STRETCH (optional)
 
-- [LC 1135 — Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/) [Medium] • mst-sparse *(Premium; free analogue at LC 1584)*
-- [LC 1489 — Find Critical and Pseudo-Critical Edges in MST](https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/) [Hard] • mst-edge-classification
+- [LC 1135: Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/) [Medium] • mst-sparse *(Premium; free analogue at LC 1584)*
+- [LC 1489: Find Critical and Pseudo-Critical Edges in MST](https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/) [Hard] • mst-edge-classification
 
 There is no canonical Easy LC problem on the MST tag; the smallest non-trivial MST instance has at least three vertices and at least one tie or cycle decision, which lands at Medium. The chapter ladder is intentionally narrow: LC 1584 is the one problem where Prim is more natural than Kruskal (the dense-graph case), and the two STRETCH problems live primarily in [Kruskal's chapter](./11-mst-kruskal.md). Work them in either framing.
 

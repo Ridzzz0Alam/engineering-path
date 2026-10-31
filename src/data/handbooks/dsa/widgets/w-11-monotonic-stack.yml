@@ -1,4 +1,4 @@
-# Monotonic stack — chapter widget for 4.0
+# Monotonic stack: chapter widget for 4.0
 # Single-panel widget animating LC 739 Daily Temperatures.
 
 id: w-11-monotonic-stack
@@ -171,7 +171,7 @@ notes: |
   Chapter 4.0 widget. Animates the cleanest demonstration of the
   monotonic-stack invariant on LC 739 (24 steps, well under the 30-step
   cap). The dramatic moment is step 19, where index 2 (value 75) finally
-  resolves after waiting four days — the visual payoff that explains why
+  resolves after waiting four days: the visual payoff that explains why
   storing indices (not values) matters: answer[2] = 4 is the index
   difference, recoverable only because we kept index 2 on the stack.
   LC 84's sentinel-pop trick gets a separate editorial widget

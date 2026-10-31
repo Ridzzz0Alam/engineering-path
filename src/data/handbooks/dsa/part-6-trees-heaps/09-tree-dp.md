@@ -121,7 +121,7 @@ def binary_tree_paths(root):
     return out
 ```
 
-**Solution** — Python ([Java](./09-tree-dp/lc-257/sol.java) · [C++](./09-tree-dp/lc-257/sol.cpp) · [Go](./09-tree-dp/lc-257/sol.go))
+**Solution** in Python ([Java](./09-tree-dp/lc-257/sol.java) · [C++](./09-tree-dp/lc-257/sol.cpp) · [Go](./09-tree-dp/lc-257/sol.go))
 
 ```python
 # LC 257. Binary Tree Paths
@@ -200,7 +200,7 @@ def find_frequent_tree_sum(root):
     return [s for s, c in counts.items() if c == best]
 ```
 
-**Solution** — Python ([Java](./09-tree-dp/lc-508/sol.java) · [C++](./09-tree-dp/lc-508/sol.cpp) · [Go](./09-tree-dp/lc-508/sol.go))
+**Solution** in Python ([Java](./09-tree-dp/lc-508/sol.java) · [C++](./09-tree-dp/lc-508/sol.cpp) · [Go](./09-tree-dp/lc-508/sol.go))
 
 ```python
 # LC 508. Most Frequent Subtree Sum
@@ -280,7 +280,7 @@ def longest_zig_zag(root):
     return best
 ```
 
-**Solution** — Python ([Java](./09-tree-dp/lc-1372/sol.java) · [C++](./09-tree-dp/lc-1372/sol.cpp) · [Go](./09-tree-dp/lc-1372/sol.go))
+**Solution** in Python ([Java](./09-tree-dp/lc-1372/sol.java) · [C++](./09-tree-dp/lc-1372/sol.cpp) · [Go](./09-tree-dp/lc-1372/sol.go))
 
 ```python
 # LC 1372. Longest ZigZag Path in a Binary Tree
@@ -291,7 +291,7 @@ return). The helper returns a 2-tuple (left_extending, right_extending)
 describing how far a zigzag chain entering this node from above can extend
 in each direction. A closure-captured global takes the max with the
 through-this-node composite at every step. The final answer lives in the
-global, NOT in the helper's return value — that split is the chapter's
+global, NOT in the helper's return value: that split is the chapter's
 load-bearing insight.
 """
 import sys
@@ -370,13 +370,13 @@ A third trap is more subtle: assuming "the tree" can be any graph. The three sha
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 257 — Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/) [Easy] • shape 1 accumulator
-- [LC 508 — Most Frequent Subtree Sum](https://leetcode.com/problems/most-frequent-subtree-sum/) [Medium] • shape 2 aggregate + side state
-- [LC 1372 — Longest ZigZag Path in a Binary Tree](https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/) [Medium] • shape 3 diameter trick + tuple return ★
+- [LC 257: Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/) [Easy] • shape 1 accumulator
+- [LC 508: Most Frequent Subtree Sum](https://leetcode.com/problems/most-frequent-subtree-sum/) [Medium] • shape 2 aggregate + side state
+- [LC 1372: Longest ZigZag Path in a Binary Tree](https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/) [Medium] • shape 3 diameter trick + tuple return ★
 
 ### STRETCH (optional)
 
-- [LC 250 — Count Univalue Subtrees](https://leetcode.com/problems/count-univalue-subtrees/) [Medium] • shape 2 with a `(is_univalue, value)` tuple return *(LeetCode Premium; LC 508 in CORE is the free shape-2 problem)*
+- [LC 250: Count Univalue Subtrees](https://leetcode.com/problems/count-univalue-subtrees/) [Medium] • shape 2 with a `(is_univalue, value)` tuple return *(LeetCode Premium; LC 508 in CORE is the free shape-2 problem)*
 
 The CORE three exercise all three shapes once each. The chapter's signature problem (★) is LC 1372: the tuple return composes shape 3 (diameter trick) with the multi-piece return that shapes 2 and 3 both bend toward, and the side-effect-ordering pitfall is rooted on this exact problem. LC 543 Diameter of Binary Tree, the simpler diameter-trick exemplar, is owned by [Binary tree fundamentals](./00-binary-tree-fundamentals.md) as a stretch problem; readers who solved it there will recognize LC 1372 as the same shape with one direction-tracking twist on top.
 

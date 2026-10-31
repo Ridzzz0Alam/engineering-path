@@ -106,19 +106,19 @@ The first two columns make the same point in different vocabularies: both walks 
 
 ## Three signature problems
 
-### LC 56 — Merge Intervals
+### LC 56: Merge Intervals
 
 [https://leetcode.com/problems/merge-intervals/](https://leetcode.com/problems/merge-intervals/) (Medium).
 
 Merge overlapping. Input is unordered; sort by start; walk with one running merged interval. Sketch: `[[1, 3], [2, 6], [8, 10], [15, 18]]` is already sorted; init `out = [[1, 3]]`. See `[2, 6]`: `2 <= 3`, extend `last.end = max(3, 6) = 6`, `out = [[1, 6]]`. See `[8, 10]`: `8 > 6`, emit-new. See `[15, 18]`: `15 > 10`, emit-new. Final `[[1, 6], [8, 10], [15, 18]]`. The `max` step matters on contained inputs like `[[1, 10], [2, 3]]`, where unconditional assignment would shrink `last.end` from 10 to 3.[^2]
 
-### LC 57 — Insert Interval
+### LC 57: Insert Interval
 
 [https://leetcode.com/problems/insert-interval/](https://leetcode.com/problems/insert-interval/) (Medium).
 
 Insert into pre-sorted. Three phases, single linear pass, no sort. Sketch: `intervals = [[1, 3], [6, 9]]`, `newInterval = [2, 5]`. Phase 1 (before) walks while `intervals[i].end < newInterval.start`; with `2 > 3`, nothing matches. Phase 2 (overlap-merge) walks while `intervals[i].start <= newInterval.end`; `[1, 3]` overlaps, widen to `[min(1, 2), max(3, 5)] = [1, 5]`, append. Phase 3 (after) copies `[6, 9]`. Final `[[1, 5], [6, 9]]`. The walkccc reference solution annotates this as `Time: O(n)` precisely because it respects the pre-sorted precondition.[^3]
 
-### LC 253 — Meeting Rooms II
+### LC 253: Meeting Rooms II
 
 [https://leetcode.com/problems/meeting-rooms-ii/](https://leetcode.com/problems/meeting-rooms-ii/) (Medium).
 

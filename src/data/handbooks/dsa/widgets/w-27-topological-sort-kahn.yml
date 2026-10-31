@@ -1,5 +1,5 @@
-# Topological sort — Kahn's vs DFS post-order reverse
-# Dual-panel shared widget — chapter 8.4 (Kahn's, panel-kahn) and chapter
+# Topological sort: Kahn's vs DFS post-order reverse
+# Dual-panel shared widget: chapter 8.4 (Kahn's, panel-kahn) and chapter
 # 8.5 (DFS post-order reverse, panel-dfs). Both panels share the same
 # input DAG so the reader steps the algorithms side-by-side on identical
 # graph state and observes where the two valid topological orders diverge.

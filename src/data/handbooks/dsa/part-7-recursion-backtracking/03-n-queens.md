@@ -95,7 +95,7 @@ def solve_n_queens(n):
     return solutions
 ```
 
-**Solution** — Python ([Java](./03-n-queens/lc-51/sol.java) · [C++](./03-n-queens/lc-51/sol.cpp) · [Go](./03-n-queens/lc-51/sol.go))
+**Solution** in Python ([Java](./03-n-queens/lc-51/sol.java) · [C++](./03-n-queens/lc-51/sol.cpp) · [Go](./03-n-queens/lc-51/sol.go))
 
 ```python
 # LC 51. N-Queens (and LC 52. N-Queens II as the count-only sibling)
@@ -159,7 +159,7 @@ The four primitives map onto the recursion this way:
 | `init_state` | `cols = diag1 = diag2 = 0` at the root call | Three integers; no allocation |
 | `available` | `((1 << n) - 1) & ~(cols \| diag1 \| diag2)` | Three bitwise ops |
 | `place` | `cols \| bit`, `(diag1 \| bit) << 1`, `(diag2 \| bit) >> 1` | Three bitwise ops; passed by value to the recursive call |
-| `undo` | (none — masks are passed by value) | The recursive call's modifications never reach the caller |
+| `undo` | (none: masks are passed by value) | The recursive call's modifications never reach the caller |
 
 The "no undo" row is the lesson the bitmask form teaches that an array-based form obscures. Every common backtracking bug in N-Queens, and there are several catalogued in the pitfalls below, is some variant of forgetting to undo a placement. The bitmask form makes the bug literally unwriteable: there is no shared mutable state to corrupt.
 
@@ -175,7 +175,7 @@ The board starts empty. Three constraint masks are zero. We open the search at r
 
 The widget animates exactly this trace. The chapter's central teaching artifact is the moment of dead-end at row 2: the union of three masks `5 | 12 | 2 = 15 = 0b1111` *is* the proof that no column survives, and the reader sees the integer arithmetic happen on screen rather than reading it off a code listing.
 
-> **Interactive widget:** [N-Queens -- place / attack / backtrack on n=4](../widgets/w-23-n-queens.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [N-Queens: place / attack / backtrack on n=4](../widgets/w-23-n-queens.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the search visits 38 algorithmically meaningful states across 40 frames. Two solutions surface at frames 15 and 24 (`[1, 3, 0, 2]` and `[2, 0, 3, 1]`); four dead-ends at frames 3, 7, 32, 36; the rest are place and backtrack steps. The two valid configurations are mirror images of each other, which is generally true of N-Queens solutions on small boards.*
 
@@ -247,12 +247,12 @@ The chapter's algorithm is exhaustive: it enumerates every valid configuration. 
 
 ### CORE (solve both to claim chapter mastery)
 
-- [LC 51 — N-Queens](https://leetcode.com/problems/n-queens/) [Hard] • backtracking-row-column-diagonal ★
-- [LC 52 — N-Queens II](https://leetcode.com/problems/n-queens-ii/) [Hard] • backtracking-row-column-diagonal-count-only
+- [LC 51: N-Queens](https://leetcode.com/problems/n-queens/) [Hard] • backtracking-row-column-diagonal ★
+- [LC 52: N-Queens II](https://leetcode.com/problems/n-queens-ii/) [Hard] • backtracking-row-column-diagonal-count-only
 
 ### STRETCH (optional)
 
-- [LC 1219 — Path with Maximum Gold](https://leetcode.com/problems/path-with-maximum-gold/) [Medium] • backtracking-grid-path-with-state-restore
+- [LC 1219: Path with Maximum Gold](https://leetcode.com/problems/path-with-maximum-gold/) [Medium] • backtracking-grid-path-with-state-restore
 
 LC 51 is the chapter's signature problem (★) and the one the widget animates. LC 52 is the same algorithm with the leaf changed from "emit board" to `count++`; treating it as STRETCH would obscure that the search and the output materialization are separable concerns. The CORE pair is both Hard. The chapter has no canonical Easy or Medium variant on the same pattern: removing the constraint sets reduces the problem to permutation enumeration, which lives in [Subsets, combinations, permutations](./02-subsets-combinations-permutations.md); removing the attack-style constraint reduces it to grid traversal, which lives in [Word search](./05-word-search.md). The frontmatter's `single-difficulty-band` curation flag records this honestly. LC 1219 is the chapter's stretch and bridges to the next chapter's territory by applying the same "make a choice, recurse, undo" discipline to a 4-direction grid walk.
 

@@ -37,7 +37,7 @@ Why teach the version the C library walked away from? Two reasons. The naive alg
 The pattern is a plain double loop. For each starting position `i` in the text, compare up to `m` characters of the pattern against the text starting at `i`. If all `m` match, return `i`. If any mismatches, advance `i` by one and try again. No precomputation, no shift table, no rolling state.
 
 ```python
-# LC 28 — Find the Index of the First Occurrence in a String
+# LC 28: Find the Index of the First Occurrence in a String
 def str_str(haystack: str, needle: str) -> int:
     n, m = len(haystack), len(needle)
     if m == 0:
@@ -53,7 +53,7 @@ def str_str(haystack: str, needle: str) -> int:
     return -1
 ```
 
-**Solution** — Python ([Java](./00-naive-string-matching/lc-28/sol.java) · [C++](./00-naive-string-matching/lc-28/sol.cpp) · [Go](./00-naive-string-matching/lc-28/sol.go))
+**Solution** in Python ([Java](./00-naive-string-matching/lc-28/sol.java) · [C++](./00-naive-string-matching/lc-28/sol.cpp) · [Go](./00-naive-string-matching/lc-28/sol.go))
 
 ```python
 # LC 28. Find the Index of the First Occurrence in a String
@@ -105,9 +105,9 @@ Three problems in the ladder reuse the same five-line matcher with different fra
 
 **Find every occurrence, not just the first.** Replace `return i` with `result.append(i)` and continue past the match. Position increments by one (overlapping matches counted) or by `m` (non-overlapping); pick from the problem statement. The CLRS pseudocode is the all-occurrences form by default. Finding only the first is a specialization, not the natural shape.
 
-**Search a constructed haystack.** [LC 686 — Repeated String Match](https://leetcode.com/problems/repeated-string-match/) asks for the minimum number of times string `a` must be repeated for `b` to appear inside it. Concatenate `a` exactly `ceil(|b| / |a|)` times, run naive search, return that count if found. If not found, append one more copy and search again. If still not found, return `-1`. The `+1` ceiling is provably tight: any longer concatenation can't help, because any match of `b` has to start within the first `|a|` characters of some repetition. The algorithm is naive matching; the cleverness is the bound on how much haystack to build.
+**Search a constructed haystack.** [LC 686: Repeated String Match](https://leetcode.com/problems/repeated-string-match/) asks for the minimum number of times string `a` must be repeated for `b` to appear inside it. Concatenate `a` exactly `ceil(|b| / |a|)` times, run naive search, return that count if found. If not found, append one more copy and search again. If still not found, return `-1`. The `+1` ceiling is provably tight: any longer concatenation can't help, because any match of `b` has to start within the first `|a|` characters of some repetition. The algorithm is naive matching; the cleverness is the bound on how much haystack to build.
 
-**Use the doubled-text trick.** [LC 796 — Rotate String](https://leetcode.com/problems/rotate-string/) asks whether one string is a rotation of another. Every rotation of `s` appears as a substring of `s + s`. The one-line solution is `len(s) == len(goal) and goal in s + s`, which calls naive matching (or whatever the runtime ships) on the doubled text. The length guard prevents false positives when the strings differ in length; the rotation theorem does the rest.
+**Use the doubled-text trick.** [LC 796: Rotate String](https://leetcode.com/problems/rotate-string/) asks whether one string is a rotation of another. Every rotation of `s` appears as a substring of `s + s`. The one-line solution is `len(s) == len(goal) and goal in s + s`, which calls naive matching (or whatever the runtime ships) on the doubled text. The length guard prevents false positives when the strings differ in length; the rotation theorem does the rest.
 
 ## Two pitfalls that bite
 
@@ -121,14 +121,14 @@ Three problems in the ladder reuse the same five-line matcher with different fra
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 28 — Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) [Easy] • naive-string-matching ★
-- [LC 1455 — Check If a Word Occurs As a Prefix of Any Word in a Sentence](https://leetcode.com/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/) [Easy] • naive-string-matching *(reference: Python only)*
-- [LC 686 — Repeated String Match](https://leetcode.com/problems/repeated-string-match/) [Medium] • naive-string-matching *(reference: Python only)*
+- [LC 28: Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) [Easy] • naive-string-matching ★
+- [LC 1455: Check If a Word Occurs As a Prefix of Any Word in a Sentence](https://leetcode.com/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/) [Easy] • naive-string-matching *(reference: Python only)*
+- [LC 686: Repeated String Match](https://leetcode.com/problems/repeated-string-match/) [Medium] • naive-string-matching *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 30 — Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) [Hard] • naive-string-matching + hash-counter *(canonical solution lives in [Sliding window: fixed size](../part-3-pointers-window-prefix/02-sliding-window-fixed.md))*
-- [LC 796 — Rotate String](https://leetcode.com/problems/rotate-string/) [Easy] • naive-string-matching *(reference: Python only)*
+- [LC 30: Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) [Hard] • naive-string-matching + hash-counter *(canonical solution lives in [Sliding window: fixed size](../part-3-pointers-window-prefix/02-sliding-window-fixed.md))*
+- [LC 796: Rotate String](https://leetcode.com/problems/rotate-string/) [Easy] • naive-string-matching *(reference: Python only)*
 
 The pattern admits no canonical Hard problem on its own. The LeetCode Hards tagged with naive matching (LC 214 Shortest Palindrome, LC 1392 Longest Happy Prefix) are canonically solved with KMP or Z-algorithm and belong to those chapters. LC 30's brute force *is* naive matching at every starting index, which is why it sits as STRETCH here while [Sliding window: fixed size](../part-3-pointers-window-prefix/02-sliding-window-fixed.md) owns the optimal solution.
 

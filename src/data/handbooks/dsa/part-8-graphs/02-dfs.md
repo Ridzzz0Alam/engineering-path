@@ -104,7 +104,7 @@ The amortization argument is the same one used for stack push/pop. Each vertex i
 
 The space bound is loose. A grid full of `'X'`s with a single `'O'` at one corner gives a recursion stack of depth 1; a grid where the `'O'` cells form a Hilbert-curve snake gives a recursion stack of depth m·n. The chapter quotes the worst case in the table and uses "linear in the input size" in prose because the worst case is what trips real submissions. Plan for it; the iterative form sidesteps the problem entirely.
 
-## Worked example: LC 130 — Surrounded Regions
+## Worked example: LC 130: Surrounded Regions
 
 The problem in our own words. A 2D board contains `'X'`s and `'O'`s. An `'O'` region is *captured* (flipped to `'X'`) if it is fully enclosed, meaning every `'O'` in the region is hemmed in by `'X'`s on all four sides through every neighbor chain. An `'O'` region that contains a cell on the board's border is *safe*, because such a region escapes the enclosure.
 
@@ -138,7 +138,7 @@ def solve(board):
                 board[r][c] = "O"
 ```
 
-**Solution** — Python ([Java](./02-dfs/lc-130/sol.java) · [C++](./02-dfs/lc-130/sol.cpp) · [Go](./02-dfs/lc-130/sol.go))
+**Solution** in Python ([Java](./02-dfs/lc-130/sol.java) · [C++](./02-dfs/lc-130/sol.cpp) · [Go](./02-dfs/lc-130/sol.go))
 
 ```python
 # LC 130. Surrounded Regions
@@ -181,7 +181,7 @@ def solve(board: list[list[str]]) -> None:
 
 The bounds check and the `!= "O"` guard at the top of `dfs` are doing all the recursion-terminating work. Out of bounds, an `'X'`, or an already-marked `'#'`: any of the three returns without recursing. The mutation `board[r][c] = "#"` is both the visited mark and the answer-being-built. There is no separate `visited` set because the grid is the visited record.
 
-> **Interactive widget:** [DFS exploration -- iterative DFS-from-boundary on a 5x5 grid](../widgets/w-26-graph-dfs.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [DFS exploration: iterative DFS-from-boundary on a 5x5 grid](../widgets/w-26-graph-dfs.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: on the canonical 5x5 input, the four border `'O'`s seed the stack; DFS marks seven cells boundary-connected; the two interior cells at (3,1) and (3,2) flip from `'O'` to `'X'` in the final sweep.*
 
@@ -201,14 +201,14 @@ A third pitfall worth a passing mention: on the iterative version, a cell can be
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 130 — Surrounded Regions](https://leetcode.com/problems/surrounded-regions/) [Medium] • dfs-from-boundary ★
-- [LC 417 — Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) [Medium] • dfs-from-boundary-multi-source
-- [LC 1254 — Number of Closed Islands](https://leetcode.com/problems/number-of-closed-islands/) [Medium] • dfs-from-boundary-then-count
+- [LC 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/) [Medium] • dfs-from-boundary ★
+- [LC 417: Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) [Medium] • dfs-from-boundary-multi-source
+- [LC 1254: Number of Closed Islands](https://leetcode.com/problems/number-of-closed-islands/) [Medium] • dfs-from-boundary-then-count
 
 ### STRETCH (optional)
 
-- [LC 1971 — Find if Path Exists in Graph](https://leetcode.com/problems/find-if-path-exists-in-graph/) [Easy] • dfs-reachability
-- [LC 827 — Making A Large Island](https://leetcode.com/problems/making-a-large-island/) [Hard] • dfs-component-sizing-then-flip
+- [LC 1971: Find if Path Exists in Graph](https://leetcode.com/problems/find-if-path-exists-in-graph/) [Easy] • dfs-reachability
+- [LC 827: Making A Large Island](https://leetcode.com/problems/making-a-large-island/) [Hard] • dfs-component-sizing-then-flip
 
 The CORE three are all Medium because the canonical DFS-from-boundary pattern this chapter teaches has no Easy or Hard cousin at its native shape. STRETCH fills the span: LC 1971 is the gentlest possible reachability check (does a path exist between two vertices in an explicit-edge-list graph?), and LC 827 is two passes of DFS, one to label every island with a size, one to evaluate flipping each `'0'` cell, where the trick is deduplicating neighbor component ids. LC 200 (Number of Islands) and LC 547 (Number of Provinces) are not on this ladder; they belong to [Connected components and flood fill](./03-connected-components.md), where the flood-fill primitive is the chapter's main subject rather than a vehicle for the boundary-DFS pattern.
 

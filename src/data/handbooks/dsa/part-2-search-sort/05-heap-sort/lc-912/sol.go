@@ -1,4 +1,4 @@
-// LC 912. Sort an Array — heap-sort reference (in-place, O(n log n) worst case)
+// LC 912. Sort an Array: heap-sort reference (in-place, O(n log n) worst case)
 package main
 
 // HeapSort sorts nums in place and returns it. Worst-case O(n log n) time,

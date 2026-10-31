@@ -88,11 +88,11 @@ Three rows decide most interview outcomes. Stability is the cleanest discriminat
 
 ## Three signature problems
 
-- [LC 912 — Sort an Array](https://leetcode.com/problems/sort-an-array/) [Medium] is the textbook quicksort case. The "expected `O(n log n)` time without using built-in sort" rule rules out `Arrays.sort` and forces an actual implementation. Naive last-element-pivot quicksort hits `O(n²)` on the hidden sorted-input test and times out; the accepted answer is randomized-pivot or median-of-three quicksort with three-way partitioning for duplicate-heavy inputs.
+- [LC 912: Sort an Array](https://leetcode.com/problems/sort-an-array/) [Medium] is the textbook quicksort case. The "expected `O(n log n)` time without using built-in sort" rule rules out `Arrays.sort` and forces an actual implementation. Naive last-element-pivot quicksort hits `O(n²)` on the hidden sorted-input test and times out; the accepted answer is randomized-pivot or median-of-three quicksort with three-way partitioning for duplicate-heavy inputs.
 
-- [LC 148 — Sort List](https://leetcode.com/problems/sort-list/) [Medium] is the canonical linked-list mergesort problem. Quicksort's partition needs random access; on a linked list that is `O(n)` per access, collapsing total time to `O(n²)`. Heapsort needs random access for sift-down; same problem. Bottom-up mergesort is the only one of the three that runs in `O(n log n)` on a singly-linked list with `O(1)` extra space.
+- [LC 148: Sort List](https://leetcode.com/problems/sort-list/) [Medium] is the canonical linked-list mergesort problem. Quicksort's partition needs random access; on a linked list that is `O(n)` per access, collapsing total time to `O(n²)`. Heapsort needs random access for sift-down; same problem. Bottom-up mergesort is the only one of the three that runs in `O(n log n)` on a singly-linked list with `O(1)` extra space.
 
-- [LC 75 — Sort Colors](https://leetcode.com/problems/sort-colors/) [Medium] is Dijkstra's Dutch national flag, the three-way partition step extracted as a standalone exercise. The brute-force two-pass count-and-overwrite is the obvious wrong move; the optimal is a single linear scan with three pointers, the same primitive that powers Bentley-McIlroy three-way quicksort on duplicate-heavy input.
+- [LC 75: Sort Colors](https://leetcode.com/problems/sort-colors/) [Medium] is Dijkstra's Dutch national flag, the three-way partition step extracted as a standalone exercise. The brute-force two-pass count-and-overwrite is the obvious wrong move; the optimal is a single linear scan with three pointers, the same primitive that powers Bentley-McIlroy three-way quicksort on duplicate-heavy input.
 
 LC 215 (Kth Largest) deliberately is not on this list. Full sort wastes work when only the k-th element is needed; quickselect at `O(n)` average or a bounded heap at `O(n log k)` is the right answer. See [Quickselect vs heap for top-K](./P-22-quickselect-vs-heap-top-k.md).
 

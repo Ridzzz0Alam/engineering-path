@@ -80,7 +80,7 @@ The "good pivot" condition is what random pivot selection buys. A uniformly rand
 
 Pull random pivot out and the algorithm has a Theta(n²) worst case the input can trigger. Take `nums = [1, 2, 3, ..., n]` already sorted ascending and a textbook pivot rule that always picks `arr[hi]`. Every partition picks the largest remaining element; every partition's recurse-side is the entire active range minus the pivot's slot. The recurrence becomes `T(n) = T(n - 1) + Theta(n)`, summing to `Theta(n^2)`. Submit that to LC 215 and the hidden 50,000-element sorted-input test times out exactly the way naive Lomuto quicksort times out on the same shape.
 
-The fix is one line. Before partition picks its pivot from `arr[hi]`, swap `arr[hi]` with `arr[uniform_random(lo, hi)]`. The adversary cannot construct a worst-case input without seeing your random coins; by symmetry of permutations, every input is equally bad in expectation, and Devroye's 1984 exponential-tail bound makes the probability of taking more than `Cn` comparisons super-exponentially small in `C` for sufficiently large `C`.[^3] This is what the chapter means by "expected linear time" — the expectation is over the algorithm's coin flips, not over input distributions.
+The fix is one line. Before partition picks its pivot from `arr[hi]`, swap `arr[hi]` with `arr[uniform_random(lo, hi)]`. The adversary cannot construct a worst-case input without seeing your random coins; by symmetry of permutations, every input is equally bad in expectation, and Devroye's 1984 exponential-tail bound makes the probability of taking more than `Cn` comparisons super-exponentially small in `C` for sufficiently large `C`.[^3] This is what the chapter means by "expected linear time": the expectation is over the algorithm's coin flips, not over input distributions.
 
 Random pivot is not a performance optimization. It is the correctness fix that turns the algorithm from "works on benchmarks, breaks on adversarial input" into "works on every input with overwhelming probability." Production code uses it; production code that doesn't is broken.
 
@@ -118,7 +118,7 @@ def _partition(nums: List[int], lo: int, hi: int) -> int:
     return store
 ```
 
-**Solution** — Python ([Java](./07-quickselect/lc-215/sol.java) · [C++](./07-quickselect/lc-215/sol.cpp) · [Go](./07-quickselect/lc-215/sol.go))
+**Solution** in Python ([Java](./07-quickselect/lc-215/sol.java) · [C++](./07-quickselect/lc-215/sol.cpp) · [Go](./07-quickselect/lc-215/sol.go))
 
 ```python
 # LC 215. Kth Largest Element in an Array
@@ -169,7 +169,7 @@ Round 2 operates on `arr[3..5] = [5, 6, 4]`. Pivot is `5` (from index 3); after 
 
 Total comparison work: 5 in round 1, 2 in round 2, 7 across 6 elements. Sort would have done about 16. The win compounds with `n`.
 
-> **Interactive widget:** [Quickselect: partition and recurse on one side](../widgets/w-07-quickselect.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Quickselect: partition and recurse on one side](../widgets/w-07-quickselect.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: the deterministic `pivot=lo` trace through 14 steps showing pivot pick, partition scan, pivot placement, the recurse-right decision after round 1, and the terminating answer at index 4.*
 
@@ -222,7 +222,7 @@ The chapter teaches BFPRT for completeness and the citation that closes the comp
 > **Wrong recursion side after the comparison.** State the loop invariant before writing the branch: "after partition, `nums[pivot_idx]` is in its final sorted position; the answer lies strictly to the right iff `target_idx > pivot_idx`." Memorising "if pivot less than target, go right" without the invariant inverts the moment the comparison sense flips on a variant problem.
 
 > [!WARNING]
-> **Quickselect mutates the caller's array.** Lomuto partition is intrinsically destructive — that is the entire space-efficiency argument. If the caller assumes `nums` is unchanged after the call, copy at the boundary (`list(nums)` in Python, `nums.clone()` in Java, `slices.Clone(nums)` in Go). The four reference implementations document the side effect; production code that wraps quickselect should follow.
+> **Quickselect mutates the caller's array.** Lomuto partition is intrinsically destructive: that is the entire space-efficiency argument. If the caller assumes `nums` is unchanged after the call, copy at the boundary (`list(nums)` in Python, `nums.clone()` in Java, `slices.Clone(nums)` in Go). The four reference implementations document the side effect; production code that wraps quickselect should follow.
 
 > [!WARNING]
 > **Lomuto on all-equal input degenerates to `Theta(n^2)` even with random pivot.** Strict-`<` Lomuto puts every element in the "less than pivot" side, the pivot lands at `lo` every iteration, and recursion shrinks by exactly one each step. The fix is **3-way (Dutch national flag) partition**, which collapses the equal-key band in one pass and recurses only on the strictly-less and strictly-greater bands. Sedgewick's `Quick3way` is the canonical reference.[^6]
@@ -232,17 +232,17 @@ The chapter teaches BFPRT for completeness and the citation that closes the comp
 
 ## Problem ladder
 
-CORE spans Medium three times because quickselect's natural problem space starts at Medium — Easy selection problems (LC 414 Third Maximum Number) are owned by [Linear search and the running-aggregate pattern](./00-linear-search.md), where three integer trackers solve them without quickselect at all. STRETCH supplies the Hard rung.
+CORE spans Medium three times because quickselect's natural problem space starts at Medium: Easy selection problems (LC 414 Third Maximum Number) are owned by [Linear search and the running-aggregate pattern](./00-linear-search.md), where three integer trackers solve them without quickselect at all. STRETCH supplies the Hard rung.
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 215 — Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) [Medium] • quickselect ★
-- [LC 973 — K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) [Medium] • quickselect-on-derived-key
-- [LC 347 — Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) [Medium] • hash-counts-then-quickselect
+- [LC 215: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) [Medium] • quickselect ★
+- [LC 973: K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) [Medium] • quickselect-on-derived-key
+- [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) [Medium] • hash-counts-then-quickselect
 
 ### STRETCH (optional)
 
-- [LC 4 — Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • quickselect-on-merged-virtual-array
+- [LC 4: Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) [Hard] • quickselect-on-merged-virtual-array
 
 LC 973 is the "quickselect on a derived key" variant: each cell is a point, the key is squared distance from origin, the comparator operates on the derived key while the swap moves the compound object. Same algorithm, one indirection. LC 347 is the two-stage variant: hash to `(value, count)` pairs in `O(n)`, then run quickselect on the count dimension; this is also where the heap solution from Part 6 competes most directly. LC 4's optimal solution is binary search on the partition index for `O(log min(m, n))`, not quickselect; the chapter teaches the quickselect-on-merged-virtual-array view as a clean `O(m + n)` lens on the problem before pointing readers at the binary-search optimum in [Binary search variants](./02-binary-search-variants.md).
 

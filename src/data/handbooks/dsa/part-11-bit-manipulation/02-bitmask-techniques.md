@@ -44,7 +44,7 @@ Take LC 187. The problem hands you a DNA string `s` and asks for every 10-letter
 The natural first pass:
 
 ```python
-# Brute force: O(n*k) — what we're replacing.
+# Brute force: O(n*k), what we're replacing.
 def find_repeated_dna_brute(s):
     seen, answer = {}, set()
     for i in range(len(s) - 9):
@@ -80,7 +80,7 @@ def find_repeated_dna_sequences(s):
     return answer
 ```
 
-**Solution** — Python ([Java](./02-bitmask-techniques/lc-187/sol.java) · [C++](./02-bitmask-techniques/lc-187/sol.cpp) · [Go](./02-bitmask-techniques/lc-187/sol.go))
+**Solution** in Python ([Java](./02-bitmask-techniques/lc-187/sol.java) · [C++](./02-bitmask-techniques/lc-187/sol.cpp) · [Go](./02-bitmask-techniques/lc-187/sol.go))
 
 ```python
 # LC 187. Repeated DNA Sequences
@@ -249,13 +249,13 @@ The bitmask-iteration pattern is structurally Medium-and-Hard. LC's Easy bitmask
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 187 — Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) [Medium] • bitmask-encode-alphabet
-- [LC 1178 — Number of Valid Words for Each Puzzle](https://leetcode.com/problems/number-of-valid-words-for-each-puzzle/) [Hard] • bitmask-submask-enumeration ★
-- [LC 982 — Triples with Bitwise AND Equal To Zero](https://leetcode.com/problems/triples-with-bitwise-and-equal-to-zero/) [Hard] • bitmask-multiset-aggregation
+- [LC 187: Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) [Medium] • bitmask-encode-alphabet
+- [LC 1178: Number of Valid Words for Each Puzzle](https://leetcode.com/problems/number-of-valid-words-for-each-puzzle/) [Hard] • bitmask-submask-enumeration ★
+- [LC 982: Triples with Bitwise AND Equal To Zero](https://leetcode.com/problems/triples-with-bitwise-and-equal-to-zero/) [Hard] • bitmask-multiset-aggregation
 
 ### STRETCH (optional)
 
-- [LC 320 — Generalized Abbreviation](https://leetcode.com/problems/generalized-abbreviation/) [Medium] • bitmask-encode-pick-skip *(Premium; LC 187 covers the same shape free)*
+- [LC 320: Generalized Abbreviation](https://leetcode.com/problems/generalized-abbreviation/) [Medium] • bitmask-encode-pick-skip *(Premium; LC 187 covers the same shape free)*
 
 ## Where this leads
 

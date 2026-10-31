@@ -45,7 +45,7 @@ flowchart TD
 The first instinct on bipartite check is to enumerate. Try every assignment of vertices to two sides. Reject the assignment if any edge stays inside one side. Return whether any assignment survives.
 
 ```python
-# Brute force: O(2^n * E) — what we're replacing
+# Brute force: O(2^n * E), what we're replacing
 def is_bipartite_brute(graph):
     n = len(graph)
     for mask in range(1 << n):
@@ -96,7 +96,7 @@ def is_bipartite(graph):
     return True
 ```
 
-**Solution** — Python ([Java](./07-bipartite-check/lc-785/sol.java) · [C++](./07-bipartite-check/lc-785/sol.cpp) · [Go](./07-bipartite-check/lc-785/sol.go))
+**Solution** in Python ([Java](./07-bipartite-check/lc-785/sol.java) · [C++](./07-bipartite-check/lc-785/sol.cpp) · [Go](./07-bipartite-check/lc-785/sol.go))
 
 ```python
 # LC 785. Is Graph Bipartite?
@@ -105,7 +105,7 @@ from typing import List
 
 
 def is_bipartite(graph: List[List[int]]) -> bool:
-    """LC 785 — true iff `graph` admits a 2-coloring (no odd cycle)."""
+    """LC 785: true iff `graph` admits a 2-coloring (no odd cycle)."""
     n = len(graph)
     color = [0] * n                       # 0 = unvisited, 1 / -1 = the two color classes
     for start in range(n):
@@ -219,13 +219,13 @@ A third trap worth naming: conflating bipartite check with bipartite *matching*.
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 785 — Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/) [Medium] • bipartite-check ★
-- [LC 886 — Possible Bipartition](https://leetcode.com/problems/possible-bipartition/) [Medium] • bipartite-check
-- [LC 1042 — Flower Planting With No Adjacent](https://leetcode.com/problems/flower-planting-with-no-adjacent/) [Easy] • graph-coloring
+- [LC 785: Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/) [Medium] • bipartite-check ★
+- [LC 886: Possible Bipartition](https://leetcode.com/problems/possible-bipartition/) [Medium] • bipartite-check
+- [LC 1042: Flower Planting With No Adjacent](https://leetcode.com/problems/flower-planting-with-no-adjacent/) [Easy] • graph-coloring
 
 ### STRETCH (optional)
 
-- [LC 684 — Redundant Connection](https://leetcode.com/problems/redundant-connection/) [Medium] • cycle-detection (free mirror of the Premium *Graph Valid Tree*)
+- [LC 684: Redundant Connection](https://leetcode.com/problems/redundant-connection/) [Medium] • cycle-detection (free mirror of the Premium *Graph Valid Tree*)
 
 LC 785 is the chapter's signature problem (★) and the one the worked example walks through. LC 886 is the same algorithm under a different name; the build-the-graph step and the 1-indexed handling are the only new work. LC 1042 is the Easy slot through the adjacent-pattern door: not 2-coloring, but the same paint-and-traverse skeleton, and a useful boundary marker for where the technique stops applying.
 
@@ -237,14 +237,14 @@ There is no canonical Hard for this chapter, and that's an honest gap, not a cur
 
 ## References
 
-[^1]: Wikipedia contributors, "Bipartite graph," English Wikipedia, §"Properties — Characterization", <https://en.wikipedia.org/wiki/Bipartite_graph>.
+[^1]: Wikipedia contributors, "Bipartite graph," English Wikipedia, §"Properties, Characterization", <https://en.wikipedia.org/wiki/Bipartite_graph>.
 
 [^2]: LeetCode 785, *Is Graph Bipartite?*, problem statement: "There is an undirected graph with n nodes... The graph may not be connected, meaning there may be two nodes u and v such that there is no path between them." Verified via the leetcodethehardway.com mirror at <https://leetcodethehardway.com/solutions/0700-0799/is-graph-bipartite-medium>.
 
-[^3]: T. H. Cormen, C. E. Leiserson, R. L. Rivest, C. Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022, Chapter 20 §20.2 (Breadth-first search), Theorem 20.1 — BFS runs in O(V + E) on adjacency-list input.
+[^3]: T. H. Cormen, C. E. Leiserson, R. L. Rivest, C. Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022, Chapter 20 §20.2 (Breadth-first search), Theorem 20.1: BFS runs in O(V + E) on adjacency-list input.
 
 [^4]: R. Sedgewick, *Algorithms in Java, Part 5: Graph Algorithms*, 3rd ed., Addison Wesley, 2004, pp. 109–111 (DFS-based bipartite test). Cited via the LC discuss reference template "Graph coloring using BFS," <https://leetcode.com/discuss/interview-question/1992272/graph-coloring-using-bfs>.
 
-[^5]: P.-Y. Chen (walkccc), *LeetCode Solutions* — LC 886 reference, <https://walkccc.me/LeetCode/problems/0886/>.
+[^5]: P.-Y. Chen (walkccc), *LeetCode Solutions*: LC 886 reference, <https://walkccc.me/LeetCode/problems/0886/>.
 
 [^6]: Wikipedia contributors, "Brooks' theorem," <https://en.wikipedia.org/wiki/Brooks%27_theorem>.

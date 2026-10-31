@@ -23,7 +23,7 @@ public final class Sol {
         if (node == null) return 0;
         int leftGain  = Math.max(gain(node.left),  0);
         int rightGain = Math.max(gain(node.right), 0);
-        // Bent path through node — compared to global, NOT returned.
+        // Bent path through node: compared to global, NOT returned.
         int bent = node.val + leftGain + rightGain;
         if (bent > best) best = bent;
         // Straight-down path returned to parent.

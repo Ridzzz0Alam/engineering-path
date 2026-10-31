@@ -29,7 +29,7 @@ Every other 2D-DP problem you have seen so far in this part fills the table row 
 The honest first attempt enumerates every substring of `s` and checks each one for the palindrome property. Three nested operations: pick a left index, pick a right index, run a two-pointer check.
 
 ```python
-# Brute force: O(n^3) — what we're replacing
+# Brute force: O(n^3), what we're replacing
 def longest_palindrome_brute(s):
     n = len(s)
     if n == 0:
@@ -118,7 +118,7 @@ def longest_palindrome(s):
     return s[start:start + max_len]
 ```
 
-**Solution** — Python ([Java](./10-palindrome-dp/lc-5/sol.java) · [C++](./10-palindrome-dp/lc-5/sol.cpp) · [Go](./10-palindrome-dp/lc-5/sol.go))
+**Solution** in Python ([Java](./10-palindrome-dp/lc-5/sol.java) · [C++](./10-palindrome-dp/lc-5/sol.cpp) · [Go](./10-palindrome-dp/lc-5/sol.go))
 
 ```python
 # LC 5. Longest Palindromic Substring
@@ -345,14 +345,14 @@ The outer loop runs over `i` from 0 to `n - 1`; the inner loop runs over candida
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 5 — Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) [Medium] • palindrome-dp-by-length ★
-- [LC 647 — Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) [Medium] • palindrome-dp-by-length
-- [LC 1312 — Minimum Insertion Steps to Make a String Palindrome](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/) [Hard] • palindrome-dp-subseq-reduction
+- [LC 5: Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) [Medium] • palindrome-dp-by-length ★
+- [LC 647: Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) [Medium] • palindrome-dp-by-length
+- [LC 1312: Minimum Insertion Steps to Make a String Palindrome](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/) [Hard] • palindrome-dp-subseq-reduction
 
 ### STRETCH (optional)
 
-- [LC 516 — Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/) [Medium] • palindrome-dp-subseq
-- [LC 132 — Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/) [Hard] • interval-dp-with-palindrome-table
+- [LC 516: Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/) [Medium] • palindrome-dp-subseq
+- [LC 132: Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/) [Hard] • interval-dp-with-palindrome-table
 
 LC 5 is the chapter's signature problem (★) and the cleanest demonstration of the by-length fill. The CORE three exercise the three load-bearing read-outs of the palindrome predicate: longest substring (LC 5), count of palindromic substrings (LC 647), and the `n - LPS` reduction for minimum insertions (LC 1312). No canonical Easy palindrome-DP problem exists in interview rotation. LC 9 (Palindrome Number) is integer math and LC 125 (Valid Palindrome) is a two-pointer check; neither uses the table, so the ladder spans Medium and Hard only.
 

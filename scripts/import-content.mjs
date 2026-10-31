@@ -10,6 +10,7 @@
 import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { join, resolve, relative } from 'node:path';
+import { removeEmDashes } from './remove-em-dashes.mjs';
 
 const HANDBOOKS = ['hld', 'dsa', 'ai-eng'];
 const SKIP_FILES = new Set(['README.md']);
@@ -38,6 +39,8 @@ for (const hb of HANDBOOKS) {
     },
   });
 }
+
+removeEmDashes(dest);
 
 // Lessons rewritten for this site replace their handbook originals, so a re-import doesn't lose them.
 const rewrites = resolve('src/data/rewrites');

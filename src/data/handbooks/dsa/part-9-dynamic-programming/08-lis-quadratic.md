@@ -45,7 +45,7 @@ The signal is structural, not surface-level. When the input is a one-dimensional
 The honest first attempt enumerates every subsequence. For each of the `2^n` subsets of indices, check whether the picked values form a strictly increasing chain; track the maximum length seen.
 
 ```python
-# Brute force: O(2^n * n) — what we're replacing
+# Brute force: O(2^n * n), what we're replacing
 def length_of_lis_brute(nums):
     n = len(nums)
     best = 0
@@ -89,7 +89,7 @@ def length_of_lis(nums):
     return max(dp)
 ```
 
-**Solution** — Python ([Java](./08-lis-quadratic/lc-300/sol.java) · [C++](./08-lis-quadratic/lc-300/sol.cpp) · [Go](./08-lis-quadratic/lc-300/sol.go))
+**Solution** in Python ([Java](./08-lis-quadratic/lc-300/sol.java) · [C++](./08-lis-quadratic/lc-300/sol.cpp) · [Go](./08-lis-quadratic/lc-300/sol.go))
 
 ```python
 # LC 300. Longest Increasing Subsequence
@@ -273,14 +273,14 @@ A third bug worth flagging in passing: omitting `prev[]` when reconstruction is 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 300 — Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) [Medium] • lis-quadratic-dp ★
-- [LC 673 — Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) [Medium] • lis-with-count
-- [LC 1671 — Minimum Number of Removals to Make Mountain Array](https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/) [Hard] • bitonic-lis
+- [LC 300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) [Medium] • lis-quadratic-dp ★
+- [LC 673: Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) [Medium] • lis-with-count
+- [LC 1671: Minimum Number of Removals to Make Mountain Array](https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/) [Hard] • bitonic-lis
 
 ### STRETCH (optional)
 
-- [LC 376 — Wiggle Subsequence](https://leetcode.com/problems/wiggle-subsequence/) [Medium] • wiggle-two-state-dp
-- [LC 1027 — Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence/) [Medium] • lis-keyed-by-difference
+- [LC 376: Wiggle Subsequence](https://leetcode.com/problems/wiggle-subsequence/) [Medium] • wiggle-two-state-dp
+- [LC 1027: Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence/) [Medium] • lis-keyed-by-difference
 
 The LIS family on LeetCode has no canonical Easy variant at the subsequence-DP level; LC 674 (*Longest Continuous Increasing Subsequence*) is contiguous, not subsequence, and uses a linear scan rather than the look-back recurrence. The CORE three exercise the recurrence at the difficulty bands the pattern naturally admits: identity (LC 300), augmentation with a tie-accumulating count (LC 673), and the bidirectional sweep with the both-halves gate (LC 1671). The STRETCH pair shows what happens when the framework simplifies (LC 376 collapses to `O(n)`) and what happens when the state extends (LC 1027 keys the table by difference).
 

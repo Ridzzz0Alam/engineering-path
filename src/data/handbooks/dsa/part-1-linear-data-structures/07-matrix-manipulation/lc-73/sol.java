@@ -2,7 +2,7 @@
 // In place, O(1) extra space. Use row 0 and column 0 as the marker arrays;
 // two booleans capture whether row 0 or column 0 originally contained a
 // zero (the marker pass overwrites cell (0, 0) and loses that information).
-// Read the flags BEFORE the marker pass — that ordering is the bug fix.
+// Read the flags BEFORE the marker pass: that ordering is the bug fix.
 // O(m*n) time, O(1) extra space.
 public final class Sol {
 

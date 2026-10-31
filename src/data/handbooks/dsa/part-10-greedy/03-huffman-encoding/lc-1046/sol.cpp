@@ -5,7 +5,7 @@
 class Solution {
 public:
     int lastStoneWeight(std::vector<int>& stones) {
-        // C++ std::priority_queue defaults to max-heap on < — what we want here.
+        // C++ std::priority_queue defaults to max-heap on <: what we want here.
         std::priority_queue<int> heap(stones.begin(), stones.end());
         while (heap.size() > 1) {
             int y = heap.top(); heap.pop(); // heaviest

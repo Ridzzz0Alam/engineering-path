@@ -1,4 +1,4 @@
-// LC linear search — Knuth Algorithm B (The Art of Computer Programming Vol 3 §6.1).
+// LC linear search: Knuth Algorithm B (The Art of Computer Programming Vol 3 §6.1).
 //
 // std::size_t is the natural type against vector::size; the cast to int
 // happens only at the return site to match the chapter's int-based contract.

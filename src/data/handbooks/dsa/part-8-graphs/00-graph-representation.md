@@ -186,7 +186,7 @@ def valid_path(n, edges, source, destination):
     return False
 ```
 
-**Solution** — Python ([Java](./00-graph-representation/lc-1971/sol.java) · [C++](./00-graph-representation/lc-1971/sol.cpp) · [Go](./00-graph-representation/lc-1971/sol.go))
+**Solution** in Python ([Java](./00-graph-representation/lc-1971/sol.java) · [C++](./00-graph-representation/lc-1971/sol.cpp) · [Go](./00-graph-representation/lc-1971/sol.go))
 
 ```python
 # LC 1971. Find if Path Exists in Graph
@@ -271,7 +271,7 @@ def find_smallest_set_of_vertices(n, edges):
     return [u for u in range(n) if in_degree[u] == 0]
 ```
 
-**Solution** — Python ([Java](./00-graph-representation/lc-1557/sol.java) · [C++](./00-graph-representation/lc-1557/sol.cpp) · [Go](./00-graph-representation/lc-1557/sol.go))
+**Solution** in Python ([Java](./00-graph-representation/lc-1557/sol.java) · [C++](./00-graph-representation/lc-1557/sol.cpp) · [Go](./00-graph-representation/lc-1557/sol.go))
 
 ```python
 # LC 1557. Minimum Number of Vertices to Reach All Nodes
@@ -310,11 +310,11 @@ This chapter is on the `FOUNDATION_FRAMEWORK_EXEMPT` list (DSH-15 carve-out): fo
 
 ### CORE
 
-- [LC 1971 — Find if Path Exists in Graph](https://leetcode.com/problems/find-if-path-exists-in-graph/) [Easy] • graph-representation-build-and-traverse ★
+- [LC 1971: Find if Path Exists in Graph](https://leetcode.com/problems/find-if-path-exists-in-graph/) [Easy] • graph-representation-build-and-traverse ★
 
 ### STRETCH (optional)
 
-- [LC 1557 — Minimum Number of Vertices to Reach All Nodes](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/) [Medium] • graph-in-degree-only
+- [LC 1557: Minimum Number of Vertices to Reach All Nodes](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/) [Medium] • graph-in-degree-only
 
 ## Where this leads
 

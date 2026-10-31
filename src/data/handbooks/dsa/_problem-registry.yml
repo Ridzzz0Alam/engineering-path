@@ -1,4 +1,4 @@
-# DSA Handbook — Cross-chapter LC problem registry
+# DSA Handbook: Cross-chapter LC problem registry
 #
 # Single source of truth for chapter ownership of every LC problem in the
 # handbook. The build pipeline validates that:
@@ -25,7 +25,7 @@
 # Version: 1.0
 
 # =============================================================================
-# Part 0 — Foundations
+# Part 0: Foundations
 # =============================================================================
 
 # 0.2 recursion-mental-model
@@ -118,7 +118,7 @@
   premium: false
 
 # =============================================================================
-# Part 1 — Linear Data Structures
+# Part 1: Linear Data Structures
 # =============================================================================
 
 # 1.0 arrays
@@ -226,7 +226,7 @@
     PRIMARY in 1.2 strings (in-place two-pointer iterative reversal).
     Secondary in 0.2 recursion-mental-model as STRETCH: the recursive
     solution swaps s[l] and s[r] then recurses on (l+1, r-1) with base
-    case l >= r — a clean first-recursion exercise.
+    case l >= r: a clean first-recursion exercise.
 125:
   title: "Valid Palindrome"
   difficulty: Easy
@@ -359,7 +359,7 @@
     PRIMARY = 1.4 hash-collisions: the algorithmic core is hash-set
     membership; the matrix shape is incidental. 1.7 matrix declines.
 432:
-  title: 'All O`one Data Structure'   # title contains a literal backtick — single-quoted YAML scalar
+  title: 'All O`one Data Structure'   # title contains a literal backtick - single-quoted YAML scalar
   difficulty: Hard
   url: https://leetcode.com/problems/all-oone-data-structure/
   primary_chapter: part-1-linear-data-structures/04-hash-collisions
@@ -408,7 +408,7 @@
   premium: false
   assignment_notes: |
     PRIMARY = 4.3 expression-evaluation (Q3 amendment per "more specialized
-    chapter wins" — same precedent as LC 150). Signature ★ for 4.3:
+    chapter wins": same precedent as LC 150). Signature ★ for 4.3:
     parens + unary minus via the iterative sign-stack shape, the
     deepest application of the stack-as-suspended-work pattern in the
     chapter. 1.5 cites as "see also."
@@ -566,7 +566,7 @@
   premium: false
   assignment_notes: |
     PRIMARY = 4.1 monotonic-deque (the canonical chapter; LC 239 is its
-    signature problem). 1.6 cites as "see also" — the deque internals
+    signature problem). 1.6 cites as "see also": the deque internals
     are taught in 1.6; the monotonicity invariant is taught in 4.1.
 
 641:
@@ -643,7 +643,7 @@
     coordinate transformation in its simplest form.
 
 # =============================================================================
-# Part 2 — Search & Sort
+# Part 2: Search & Sort
 # =============================================================================
 
 # 2.0 linear-search
@@ -885,7 +885,7 @@
   premium: false
 
 # 2.5 heap-sort
-# No CORE locks — discusses the heap-sort algorithm as a teaching topic.
+# No CORE locks: discusses the heap-sort algorithm as a teaching topic.
 # LC 215, 347, 23, 295, 703 are owned by other chapters and cite 2.5
 # as "see also." LC 1046 was previously primary here as a stretch reference;
 # moved to 10.3 huffman-encoding (CORE) at chapter 10.3 ratification because
@@ -904,7 +904,7 @@
   assignment_notes: |
     PRIMARY in 10.3 because the operation choreography (extract two extremes
     from a heap, push back a combined node, repeat) is identical to Huffman's
-    EXTRACT-MIN, EXTRACT-MIN, INSERT loop — only the combine rule differs
+    EXTRACT-MIN, EXTRACT-MIN, INSERT loop, only the combine rule differs
     (subtraction here, addition in Huffman). Secondary citation in 2.5
     heap-sort as a max-heap mechanics example.
 1962:
@@ -990,7 +990,7 @@
   premium: false
 
 # =============================================================================
-# Part 3 — Pointers, Window, Prefix
+# Part 3: Pointers, Window, Prefix
 # =============================================================================
 
 # 3.0 two-pointers-opposite
@@ -1284,7 +1284,7 @@
     sliding-window solution but the prefix-sum framing is canonical here.
 
 # =============================================================================
-# Part 4 — Stack & Queue Patterns
+# Part 4: Stack & Queue Patterns
 # =============================================================================
 
 # 4.0 monotonic-stack
@@ -1308,7 +1308,7 @@
   premium: false
   assignment_notes: |
     PRIMARY in 4.0 because LC 739 is the chapter widget's animation
-    target — the cleanest demonstration of the monotonic-stack invariant
+    target: the cleanest demonstration of the monotonic-stack invariant
     with a 24-step trace under the 30-step cap. Resolution function is
     the simplest form (i - j distance), so no sentinel-pop or dual-bound
     machinery distracts from the core invariant.
@@ -1353,13 +1353,13 @@
     compose (column-height aggregation + LC 84 sentinel pop).
 
 # =============================================================================
-# Part 5 — Linked Lists
+# Part 5: Linked Lists
 # =============================================================================
 
 # 5.0 linked-list-fundamentals
 # CORE: LC 1290 (E), LC 707 (M ★ canonical_test), LC 2 (M).
 # STRETCH: LC 138 (M), LC 1019 (M).
-# ladder_curation_flag: no-hard-canonical — LC 432 (Hard, Premium) is the
+# ladder_curation_flag: no-hard-canonical, LC 432 (Hard, Premium) is the
 #   only Hard linked-list-design problem; cannot be CORE per
 #   leetcode-source-mapping.md §3.1. LC 23 / LC 25 / LC 146 are locked to
 #   chapters 5.4 / 5.2 / 5.5 respectively.
@@ -1505,8 +1505,8 @@
 
 # 5.2 reverse-in-groups-k
 # CORE: LC 24 (M), LC 25 (H ★ canonical_test), LC 1721 (M).
-# STRETCH: LC 2074 (M), LC 92 (M, secondary — PRIMARY at 5.1).
-# ladder_curation_flag: no-easy-canonical — k-group reversal is structurally
+# STRETCH: LC 2074 (M), LC 92 (M, secondary, PRIMARY at 5.1).
+# ladder_curation_flag: no-easy-canonical, k-group reversal is structurally
 #   Medium-and-up. The full peek-then-reverse-then-stitch mechanic has no
 #   canonical Easy LC; LC 206 (PRIMARY at 5.1) exercises only the inner
 #   reversal phase. Per leetcode-source-mapping.md §1.3a.
@@ -1521,7 +1521,7 @@
   star: false
   premium: false
   assignment_notes: |
-    Medium CORE for 5.2. The k=2 special case — the warm-up before the
+    Medium CORE for 5.2. The k=2 special case: the warm-up before the
     general k loop. Inner reversal collapses to three explicit pointer
     assignments, which makes the seam mechanics legible without the
     inner loop's bookkeeping. Cited in 5.1 as a forward reference; the
@@ -1574,7 +1574,7 @@
 # 5.5 lru-cache (dual-data-structure pattern: hash map + doubly linked list)
 # CORE: LC 146 (M ★ canonical_test), LC 460 (H), LC 1472 (M).
 # STRETCH: LC 1206 (H).
-# ladder_curation_flag: core-emh-via-stretch — the dual-data-structure
+# ladder_curation_flag: core-emh-via-stretch, the dual-data-structure
 #   pattern admits no canonical Easy LC; LC 705/706/707 either drop the
 #   linked-list half (705/706 are hash-only and 705 is locked to 1.4)
 #   or are themselves Medium (707). E/M/H span achieved via STRETCH.
@@ -1643,9 +1643,9 @@
     readers who finished CORE.
 
 # =============================================================================
-# Part 6 — Trees & Heaps (heaps subchapter pre-locked)
+# Part 6: Trees & Heaps (heaps subchapter pre-locked)
 # =============================================================================
-# Part 6 — Trees & Heaps (heaps subchapter pre-locked)
+# Part 6: Trees & Heaps (heaps subchapter pre-locked)
 # =============================================================================
 
 # 6.3 level-order-traversal
@@ -1897,7 +1897,7 @@
 # 6.2 morris-traversal
 # CORE: LC 99 (M ★ canonical_test), LC 1305 (M).
 # STRETCH: LC 285 (M, Premium; alt = LC 1305).
-# ladder_curation_flag: single-difficulty-band — Morris is structurally
+# ladder_curation_flag: single-difficulty-band, Morris is structurally
 #   Medium-only on LC. Easy tree problems use recursion or explicit-stack
 #   iteration (LC 94/144/145 owned by 6.1 at O(h) space). Hard problems that
 #   nominally use Morris (LC 124, LC 297) layer it inside other techniques
@@ -1948,14 +1948,14 @@
   assignment_notes: |
     STRETCH for 6.2. Premium-gated; the free alternative LC 1305 is in
     CORE. Direct application of "track prev during inorder; when prev
-    matches the target, return curr" — the running-cursor variant of
+    matches the target, return curr": the running-cursor variant of
     Morris-with-state. Listed as STRETCH so non-Premium readers reach
     the same skill via 1305.
 
 # 6.10 segment-tree
 # CORE: LC 307 (M ★ canonical_test), LC 731 (M), LC 732 (H).
 # STRETCH: LC 729 (M), LC 218 (H).
-# ladder_curation_flag: no-easy-canonical — LC 303 is the natural Easy
+# ladder_curation_flag: no-easy-canonical, LC 303 is the natural Easy
 #   candidate but is locked to part-3-pointers-window-prefix/04-prefix-sums
 #   as star=true PRIMARY (see leetcode-source-mapping.md §1.3a; the formal
 #   escape hatch). No other Easy LC genuinely teaches segment trees over
@@ -2007,7 +2007,7 @@
     Hard CORE for 6.10. The "k-booking" variant: report the maximum
     overlap depth at any point on the calendar after each booking.
     Dynamic / sparse segment tree (lazy-allocated nodes) is the clean
-    fit because coordinates run up to 1e9 — too large for a dense 4n
+    fit because coordinates run up to 1e9: too large for a dense 4n
     array. Cements the chapter's dynamic-tree variant from §5.5 of the
     research doc. Per the registry overlap rule, owned by 6.10 because
     the segment-tree formulation is what the chapter teaches; the
@@ -2027,7 +2027,7 @@
     solution path even though a TreeSet/map<int,int> ordered-map
     solution is more idiomatic. STRETCH because the segment-tree
     formulation is somewhat overkill compared to the ordered-map
-    alternative — it teaches the family but not the canonical lens.
+    alternative, and it teaches the family but not the canonical lens.
 218:
   title: "The Skyline Problem"
   difficulty: Hard
@@ -2077,7 +2077,7 @@
   assignment_notes: |
     Easy slot for the 6.8 E/M/H span. The "build word one char at a
     time" framing maps cleanly to "every prefix node along this path
-    is is_end" — a mechanical exercise on the chapter's structure.
+    is is_end": a mechanical exercise on the chapter's structure.
     A sorted-iteration solution exists; the trie solution is the
     framing the chapter teaches.
 212:
@@ -2164,8 +2164,8 @@
     PRIMARY for 6.9 as a Medium CORE. Canonical shape 2 (post-order
     returns aggregate, hash counter accumulates): the helper returns
     the subtree sum AND records every value it produces in a closure-
-    captured Counter. The two-channel split — helper return vs. side
-    state — is the chapter's central teaching move. Also serves as the
+    captured Counter. The two-channel split: helper return vs. side
+    state, is the chapter's central teaching move. Also serves as the
     free CORE alternative to the Premium LC 250 STRETCH per
     leetcode-source-mapping.md §3.
 1372:
@@ -2197,14 +2197,14 @@
   premium_alternative: 508
   assignment_notes: |
     STRETCH for 6.9 (LeetCode Premium). Natural extension of LC 508
-    with a (is_univalue, value) Boolean+value tuple return — shape 2
+    with a (is_univalue, value) Boolean+value tuple return: shape 2
     composed with the multi-piece return shape. LC 508 is the free
     CORE alternative on the same shape per leetcode-source-mapping.md
     §3 Premium policy.
 
 # 9.13 tree-dp (advanced)
 # CORE: LC 337 (M ★), LC 124 (H), LC 968 (H). STRETCH: LC 834 (H), LC 979 (M).
-# ladder_curation_flag: no-easy-canonical — the canonical Easy tree-DP problem
+# ladder_curation_flag: no-easy-canonical, the canonical Easy tree-DP problem
 # (LC 543 Diameter) is PRIMARY-locked to chapter 6.0 Binary Tree Fundamentals;
 # the three Easy/Medium teaching problems (LC 257, 508, 1372) are PRIMARY-
 # locked to chapter 6.9 (Tree DP primer). Chapter 9.13 owns the advanced
@@ -2223,7 +2223,7 @@
     STAR (★) of 9.13. The cleanest two-state tuple-return mechanics
     teaching vehicle: each subtree returns (rob_this, skip_this) and the
     parent picks the better composition per its own scenario. The shape
-    generalizes — LC 1372 (owned by 6.9) used a 2-tuple for two zigzag
+    generalizes: LC 1372 (owned by 6.9) used a 2-tuple for two zigzag
     directions; LC 968 (also 9.13) uses a 3-state code; LC 337 is the
     canonical 2-state exemplar. Chosen as canonical_test for the chapter
     over LC 124 because the two-state mechanics are mechanics-driven
@@ -2240,7 +2240,7 @@
   premium: false
   assignment_notes: |
     Hard CORE for 9.13. Canonical "what to return vs what to compare
-    globally" split — a bent path through this node is compared against
+    globally" split: a bent path through this node is compared against
     the global answer, but a straight-down chain is what the parent gets,
     because a parent attaching itself to an already-bent child path
     produces a two-bend shape that is no longer a path under LC 124's
@@ -2284,7 +2284,7 @@
     Hard STRETCH for 9.13. The canonical re-rooting problem: the answer
     is wanted at every node as the root, not just at one. Naive O(n^2)
     BFS-from-each-node times out on the 30,000-node constraint. The
-    re-rooting trick is two passes — post-order computes count[u] and
+    re-rooting trick is two passes: post-order computes count[u] and
     answer[0] (rooted at node 0); pre-order moves the root from u to
     each child v in O(1) via answer[v] = answer[u] - count[v] +
     (n - count[v]). The technique is named in the USACO Guide's
@@ -2354,14 +2354,14 @@
     convention; readers solve from the chapter's pattern.
 
 # =============================================================================
-# Part 8 — Graphs
+# Part 8: Graphs
 # =============================================================================
 
 # 8.3 connected-components
 # CORE: LC 200 (M ★ canonical_test), LC 695 (M), LC 547 (M).
 # STRETCH: LC 463 (E, secondary; primary at 7.5), LC 305 (H, Premium with
 #   free alternative LC 200/547 solved with Union-Find from 8.8).
-# ladder_curation_flag: core-emh-via-stretch — CORE three are all Medium;
+# ladder_curation_flag: core-emh-via-stretch, CORE three are all Medium;
 #   span to Easy via LC 463 STRETCH and to Hard via LC 305 STRETCH.
 200:
   title: "Number of Islands"
@@ -2392,7 +2392,7 @@
   star: false
   premium: false
   assignment_notes: |
-    CORE Medium for 8.3 — the chapter's "graph-shape-agnostic" reveal.
+    CORE Medium for 8.3: the chapter's "graph-shape-agnostic" reveal.
     Same connected-components count as LC 200, but on an n-by-n
     adjacency matrix instead of a grid. Forces the reader to internalize
     that the algorithm is not about grids: only the neighbor function
@@ -2461,7 +2461,7 @@
 # 8.4 topological-sort-kahn
 # CORE: LC 207 (M ★ canonical_test), LC 210 (M), LC 802 (M).
 # STRETCH: LC 269 (H, Premium with free alternative LC 210), LC 310 (M).
-# ladder_curation_flag: core-emh-via-stretch — CORE three are all Medium;
+# ladder_curation_flag: core-emh-via-stretch, CORE three are all Medium;
 #   span to Hard via LC 269 STRETCH. No canonical Easy LC for Kahn's
 #   algorithm; closest Easy candidates (LC 1971, LC 997) test reachability
 #   or degree counting, not the indegree-decrement loop.
@@ -2570,14 +2570,14 @@
     edges form a valid undirected tree.
 
 # =============================================================================
-# Part 8 — Graphs
+# Part 8: Graphs
 # =============================================================================
 
 # 8.5 topological-sort-dfs (DFS post-order reverse)
 # CORE: LC 1192 (H ★), LC 332 (H), LC 2360 (H).
 # STRETCH: LC 444 (M, Premium; free-alt LC 210), LC 1059 (M, Premium;
 #   free-alt LC 207).
-# ladder_curation_flag: single-difficulty-band — pure DFS post-order
+# ladder_curation_flag: single-difficulty-band, pure DFS post-order
 #   applications (Tarjan bridges, Hierholzer Eulerian, cycle-length via
 #   timestamps) are structurally Hard; LC has no canonical Easy at this
 #   theme. LC 207 / 210 / 802 / 269 are PRIMARY-owned by 8.4 (Kahn's),
@@ -2597,7 +2597,7 @@
     minimum disc reachable from u's subtree). The canonical "post-order
     timestamp" application: a tree edge (u, v) is a bridge iff
     low[v] > disc[u], and low[v] is computable only because the
-    update happens AFTER recursing on v — exactly the post-order
+    update happens AFTER recursing on v: exactly the post-order
     moment that defines this chapter. Chapter widget animates LC 207
     on the same DAG as 8.4's Kahn-flavored panel; LC 1192 itself is
     the chapter's worked-example bridge target (one paragraph in
@@ -2617,7 +2617,7 @@
     dead-end vertex, then prepend the dead-end into the result on
     the way out of recursion. The "result built by post-order, then
     reversed" pattern is identical to topological sort, only on
-    edges instead of vertices — the chapter's pattern proof point.
+    edges instead of vertices: the chapter's pattern proof point.
     Lexical ordering enforced by sorting each adjacency list (or
     using a min-heap per vertex). LeetCode guarantees the input
     admits a valid Eulerian path from JFK; production code should
@@ -2639,7 +2639,7 @@
     that vertex is on the *current* DFS path (GRAY), the cycle
     length is `current_timestamp - disc[seen]`. Pure DFS post-order
     timestamp pattern applied to cycle-length measurement, not just
-    cycle existence — the natural Hard companion to LC 1192's
+    cycle existence: the natural Hard companion to LC 1192's
     Tarjan timestamps.
 444:
   title: "Sequence Reconstruction"
@@ -2685,7 +2685,7 @@
 # CORE: LC 565 (M), LC 1361 (M ★ canonical_test), LC 261 (M, Premium with
 #   free-alternative LC 684).
 # STRETCH: LC 1971 (E, secondary; PRIMARY 8.0), LC 802 (M, secondary; PRIMARY 8.4).
-# ladder_curation_flag: single-difficulty-band — pure DFS three-color
+# ladder_curation_flag: single-difficulty-band, pure DFS three-color
 #   cycle-detection is structurally Medium. The Hard variant LC 2360 is
 #   PRIMARY-owned by 8.5 (post-order timestamps); the prerequisite Medium
 #   LC 207/210 are PRIMARY-owned by 8.4 (Kahn). 8.6's slice is M+M+M with
@@ -2757,7 +2757,7 @@
 # =============================================================================
 # Deferred (problems known to belong to future chapters; not yet locked)
 # =============================================================================
-# Part 7 — Recursion & Backtracking
+# Part 7: Recursion & Backtracking
 # =============================================================================
 
 # 7.0 recursion-patterns
@@ -2839,7 +2839,7 @@
     set, so the recursion tree is fan-out by-position rather than
     subset-of-shared-set. This makes choose/explore/unchoose visible
     without the duplicate-skipping or set-difference noise that
-    subsets (LC 78) and permutations (LC 46) introduce — both of
+    subsets (LC 78) and permutations (LC 46) introduce: both of
     which are CORE in 7.2. Star (★) of 7.1; the worked example and
     the chapter's widget panel both animate this problem on
     digits = "23".
@@ -2864,7 +2864,7 @@
     §7.2.1.3 Algorithm L canonical. Anchors panel-subsets of widget
     w-22-backtracking-tree (22-step verified trace on canonical
     [1, 2, 3]). Reference at 02-subsets-combinations-permutations/
-    lc-78/sol.{py,java,cpp,go} — all four langs verified per
+    lc-78/sol.{py,java,cpp,go}: all four langs verified per
 46:
   title: "Permutations"
   difficulty: Medium
@@ -2968,7 +2968,7 @@
     DFS-with-visited applied to any neighbor function, not just the
     4-direction grid. The visited mark persists for the whole run
     (no restoration) because each index is single-use across the
-    entire search, not just the current path — a useful contrast
+    entire search, not just the current path: a useful contrast
     with LC 79's per-path mark-and-restore. Could appear as STRETCH
     in 8.0 graph-representation when implicit graphs are taught.
 463:
@@ -2982,18 +2982,18 @@
   star: false
   premium: false
   assignment_notes: |
-    PRIMARY for 7.5 as the Easy CORE — the chapter's E/M/H span uses
+    PRIMARY for 7.5 as the Easy CORE: the chapter's E/M/H span uses
     LC 463 to anchor the rows-cols outer loop and the four-neighbor-
     offset idiom without the recursion-and-restore step. A
     formula-based solution exists (islands * 4 - 2 * shared_edges),
     O(mn) time, O(1) space. Cited as STRETCH in 8.3 connected-
-    components for the "first instinct (wrong)" callout — looks like
+    components for the "first instinct (wrong)" callout: looks like
     flood fill, isn't.
 
 # 7.3 n-queens
 # CORE: LC 51 (H ★ canonical_test), LC 52 (H).
 # STRETCH: LC 1219 (M).
-# ladder_curation_flag: single-difficulty-band — N-Queens admits no
+# ladder_curation_flag: single-difficulty-band, N-Queens admits no
 #   canonical Easy or Medium variant on the same pattern. The pattern
 #   "row-by-row backtracking with column + diagonal pruning sets"
 #   teaches at Hard. LC 1219 is the Medium grid-backtracking bridge
@@ -3050,13 +3050,13 @@
     Medium not Hard.
 
 # =============================================================================
-# Part 8 — Graphs
+# Part 8: Graphs
 # =============================================================================
 
 # 8.7 bipartite-check
 # CORE: LC 785 (M ★ canonical_test), LC 886 (M), LC 1042 (E).
 # STRETCH: LC 684 (M, free mirror of LC 261 *Graph Valid Tree* Premium).
-# ladder_curation_flag: no-hard-canonical — bipartite check on LC is
+# ladder_curation_flag: no-hard-canonical, bipartite check on LC is
 #   structurally Easy/Medium-bound; the natural Hard variants drift into
 #   bipartite matching (König via max-flow), odd cycle transversal
 #   (NP-complete), or edge bipartization (NP-complete), all owned by
@@ -3114,7 +3114,7 @@
     Reference at 07-bipartite-check/lc-1042/sol.{py,java,cpp,go}.
 
 # =============================================================================
-# Part 8 — Graphs
+# Part 8: Graphs
 # =============================================================================
 
 # 8.0 graph-representation
@@ -3192,7 +3192,7 @@
     path-scoring function, not just the sum. The relaxation is
     dist[v] = max(dist[u], cell_diff(u, v)) instead of dist[u] + w.
     Worked-example treatment is brief in the chapter prose; reader
-    follows the link to LC. No per-problem subdir — the algorithm
+    follows the link to LC. No per-problem subdir: the algorithm
     is one-line different from LC 743 and reusing 743's reference is
     the right teaching move.
 778:
@@ -3408,11 +3408,11 @@
 
 
 # =============================================================================
-# Part 9 — Dynamic Programming
+# Part 9: Dynamic Programming
 # =============================================================================
 
 # 9.0 dp-recursion-to-memo
-# (LC 509 Fibonacci is PRIMARY in 0.2 — see top of file. 9.0 cites it as
+# (LC 509 Fibonacci is PRIMARY in 0.2: see top of file. 9.0 cites it as
 # the canonical anchor for the memoization lift; the per-LC code subdir
 # at 9.0 ships a memoization-specific implementation distinct from 0.2's
 # straight-recursion teaching cut.)
@@ -3497,7 +3497,7 @@
     CORE Medium for 9.5. First count-of-ways extension; introduces
     the `dp[0] = 1` base case and the OUTER-LOOP = COINS discipline
     that prevents permutation double-counting. The pairing with
-    LC 377 is the chapter's central teaching contrast — same
+    LC 377 is the chapter's central teaching contrast: same
     recurrence body, different loop nesting, different problem.
 377:
   title: "Combination Sum IV"
@@ -3512,7 +3512,7 @@
     CORE Medium for 9.5. The loop-order foil to LC 518: same recurrence
     shape, but OUTER LOOP = AMOUNTS yields ordered sequences instead of
     unordered combinations. LC's statement says "different sequences are
-    counted as different combinations" — the title is misleading; the
+    counted as different combinations": the title is misleading; the
     answer counts permutations. THE chapter's classic gotcha pitfall.
 983:
   title: "Minimum Cost For Tickets"
@@ -3548,11 +3548,11 @@
 
 
 #
-# Part 4 — stack/queue patterns:
+# Part 4: stack/queue patterns:
 #   4.0 monotonic-stack: LC 84, LC 85, LC 496, LC 503, LC 739 LOCKED above.
 #   Deferred: LC 901 (4.0 cross-ref only), LC 856 (1.5 stacks).
 #
-# Part 5 — linked lists:
+# Part 5: linked lists:
 #   LC 21 (Merge Two Sorted Lists), LC 19 (Remove Nth Node),
 #   LC 234 (Palindrome), LC 25 (Reverse K Group), LC 92 (Reverse Range),
 #   LC 143 (Reorder).
@@ -3561,7 +3561,7 @@
 #                 5.3 (LC 141, 142, 287, 202, 457),
 #                 5.5 (LC 146, 460, 1472, 1206).
 #
-# Part 6 — trees beyond 6.4 heaps:
+# Part 6: trees beyond 6.4 heaps:
 #   Trees: LC 100, LC 101, LC 104, LC 110, LC 226, LC 543, LC 124,
 #          LC 102, LC 199, LC 105, LC 297.
 #   BSTs: LC 98, LC 230, LC 235, LC 700, LC 701.
@@ -3570,30 +3570,30 @@
 #   Union-Find: LC 200 candidates (registry decides between 6.x and 8.x),
 #               LC 547, LC 684.
 #
-# Part 7 — recursion / backtracking:
+# Part 7: recursion / backtracking:
 #   7.0/7.1/7.2/7.5 LOCKED above (7.2: LC 78★ M, LC 46 M, LC 39 M
 #   CORE; LC 90 M, LC 47 M STRETCH).
 #   Remaining deferred: LC 40 (Combination Sum II), LC 22 (Generate
-#   Parentheses — currently cited at 7.0 as free alternative for
+#   Parentheses: currently cited at 7.0 as free alternative for
 #   LC 247; final primary chapter pending Part 7 outline ratification
 #   for 7.3 / 7.4).
 #   LC 37 (Sudoku Solver) and LC 980 (Unique Paths III) LOCKED above (7.4).
 #   Locked above: 7.3 (LC 51 ★, LC 52, LC 1219).
 #
-# Part 8 — graphs:
+# Part 8: graphs:
 #   BFS/DFS: LC 200, LC 994, LC 542, LC 130, LC 417, LC 207, LC 210
 #            (Course Schedule).
 #   Shortest Paths: LC 743, LC 787, LC 1631, LC 778.
 #   MST: LC 1584.
 #   8.5 LOCKED above (LC 1192 ★, LC 332, LC 2360 CORE; LC 444, LC 1059 STRETCH).
 #
-# Part 9 — dynamic programming:
+# Part 9: dynamic programming:
 #   LC 70 (Climbing Stairs), LC 198 (House Robber), LC 322 (Coin Change),
 #   LC 91 (Decode Ways), LC 139 (Word Break), LC 416 (Partition),
 #   LC 518, LC 1143 (LCS), LC 72 (Edit Distance), LC 300 (LIS),
 #   LC 5 (Longest Palindromic Substring), LC 647 (Palindromic Substrings),
 #   LC 312 (Burst Balloons), LC 62/63 (Unique Paths), LC 64 (Min Path Sum),
-#   LC 124 (Tree DP — registry decides 6.x vs 9.x), LC 337 (House Robber III),
+#   LC 124 (Tree DP: registry decides 6.x vs 9.x), LC 337 (House Robber III),
 #   LC 691 (Stickers / bitmask DP).
 #
 # 9.1 dp-bottom-up-tabulation
@@ -3631,7 +3631,7 @@
   assignment_notes: |
     CORE in 9.1. The "reduces to House Robber on a frequency array" classic.
     Taking value v eliminates v-1 and v+1, so adjacent values cannot both
-    be taken — exactly the rob-non-adjacent constraint. Teaches the
+    be taken: exactly the rob-non-adjacent constraint. Teaches the
     meta-skill of recognizing a 1D-DP shape inside a problem that doesn't
     look like one. The bucket transformation (earn[v] = v * count(v)) is
     the key insight; running rolling-pair tabulation on earn[] is the
@@ -3649,7 +3649,7 @@
   assignment_notes: |
     CORE in 9.1. Row-by-row DP where each row's optimal dp row depends on
     the previous row plus a left-pass / right-pass max. Generalizes the
-    rolling-pair idea from "previous two values" to "previous row" — the
+    rolling-pair idea from "previous two values" to "previous row": the
     rolling-row variant. The naive O(m·n²) cell-by-cell solution times
     out at LC's bound (1 ≤ m·n ≤ 1e5); the O(m·n) left-right-sweep is
     the expected approach, with O(n) space via single-row reuse. Reference:
@@ -3658,7 +3658,7 @@
 # 9.3 dp-decode-word-break (string-prefix decision DP)
 # CORE: LC 91 (M ★ canonical_test), LC 139 (M), LC 1043 (M).
 # STRETCH: LC 140 (H), LC 472 (H).
-# ladder_curation_flag: complete — three Mediums occupy the natural
+# ladder_curation_flag: complete, three Mediums occupy the natural
 #   difficulty band; Hard rung supplied by the two STRETCH problems.
 #   The pattern's canonical Easy LC problems (LC 70 climbing stairs,
 #   LC 198 house robber) are 9.2's CORE.
@@ -3678,7 +3678,7 @@
     if `int(s[i-2:i]) in [10,26]`. Lifts to O(1) space via the rolling-window
     trick (only `dp[i-1]` and `dp[i-2]` live across iterations). Acceptance
     rate ≈ 35% on LC, the lowest of any Medium DP problem on the prefix-
-    decision pattern — the `'0'` rule is the chapter's biggest pitfall.
+    decision pattern: the `'0'` rule is the chapter's biggest pitfall.
     Full multi-language reference at 03-dp-decode-word-break/lc-91/sol.
     {py,java,cpp,go}; canonical test verifies cases ["226","0","10","12",
     "06","27","2101"] → [3,0,1,2,0,1,1] in all four languages.
@@ -3715,7 +3715,7 @@
     CORE Medium for 9.3. Same prefix-DP shape as LC 91/139 but on a numeric
     array with an arithmetic transition (max-times-length over a block of
     length up to k) instead of a dictionary lookup. Pins down that string-
-    prefix decision DP is a *shape*, not a string trick — the recurrence
+    prefix decision DP is a *shape*, not a string trick: the recurrence
     fits any sequence whose answer for length `i` decomposes into "choose a
     final block, recurse on what's left." Reference: chapter prose only;
     no per-problem subdir because the algorithm is sufficiently captured by
@@ -3792,7 +3792,7 @@
     P = (total + target) / 2. The signed-expression count collapses to
     "count subsets of nums summing to (total + target) / 2", which is the
     canonical 0/1 knapsack count-subsets variant (boolean OR replaced by
-    integer addition). Teaches the reformulation skill — the cleverness
+    integer addition). Teaches the reformulation skill: the cleverness
     is the algebra, the DP itself is straightforward. Reference: Python
     only at this rung; documents the reformulation.
 879:
@@ -3806,9 +3806,9 @@
   premium: false
   assignment_notes: |
     CORE in 9.4. 3D 0/1 knapsack with two simultaneous constraints
-    (members AND minProfit). The profit-clamping trick — any actual
+    (members AND minProfit). The profit-clamping trick: any actual
     profit beyond minProfit collapses to the same state, since the
-    question is "at least minProfit" — is the interview tell that
+    question is "at least minProfit", is the interview tell that
     Hard problems often invoke. Demonstrates pattern transfer beyond
     1D capacity; with g, n, p ≤ 100 the 3D DP runs ~10^6 transitions,
     well inside the limit. Reference: Python only at this rung;
@@ -3845,7 +3845,7 @@
     which collapses to "find subset closest to half the total". The
     answer is total - 2 * S where S is the largest reachable subset
     sum ≤ total / 2. Walks the dp array after the fill phase to find
-    the largest True cell ≤ total / 2 — the optimization variant
+    the largest True cell ≤ total / 2: the optimization variant
     where pure boolean reachability falls short. Reference: Python
     only at this rung; documents the reformulation.
 
@@ -3929,14 +3929,14 @@
     shape, but the off-match branch resets to 0 instead of inheriting
     the better neighbor (because contiguity must be unbroken), and the
     answer is `max` over all cells rather than the corner cell. Pinned
-    to 9.6 to teach the LCS-vs-LCSubstring distinction explicitly —
+    to 9.6 to teach the LCS-vs-LCSubstring distinction explicitly,
     pitfall §7.1 of the research names this as the most common student
     error on the family. Reference: Python only at this rung.
 
 # 9.7 edit-distance
 # CORE: LC 72 (M ★ canonical_test).
 # STRETCH: LC 161 (M, Premium), LC 1771 (H).
-# ladder_curation_flag: no-easy-canonical — the pattern admits no canonical
+# ladder_curation_flag: no-easy-canonical, the pattern admits no canonical
 #   Easy LC variant. The simplest LC variant of full Wagner-Fischer is LC 161
 #   (Medium), and pulling in an Easy from an adjacent pattern would teach a
 #   different recurrence.
@@ -3953,8 +3953,8 @@
   assignment_notes: |
     PRIMARY + signature ★ for 9.7. The canonical Wagner-Fischer 1974 problem
     and the chapter's worked example. Three-way recurrence at every interior
-    cell — match (free diagonal), replace (diagonal + 1), delete (up + 1),
-    insert (left + 1) — on an (m+1) x (n+1) table indexed by prefix lengths.
+    cell: match (free diagonal), replace (diagonal + 1), delete (up + 1),
+    insert (left + 1): on an (m+1) x (n+1) table indexed by prefix lengths.
     Canonical_test cases include horse/ros->3, intention/execution->5, and
     the empty-string base cases. Full multi-language reference at
     07-edit-distance/lc-72/sol.{py,java,cpp,go}. The leetcode.ca mirror tags
@@ -3972,7 +3972,7 @@
   premium_alternative: 72
   assignment_notes: |
     STRETCH for 9.7. The k=1 bounded-distance variant: "is d(s, t) ≤ 1?"
-    Teaches that bounded edit distance can short-circuit the full table —
+    Teaches that bounded edit distance can short-circuit the full table,
     Ukkonen's diagonal-band DP runs in O(k * min(m, n)) for cost ≤ k. The
     free workaround on this rung is "implement LC 72 then check
     dp[m][n] <= 1", which collapses to the chapter's primary algorithm
@@ -3995,7 +3995,7 @@
     the constraint that the palindrome contains at least one character from
     each substring; LPS reduces to LCS on s and reverse(s), which is the
     same DP shape as edit distance with a different cost function. Closes
-    the family — the Wagner-Fischer table absorbs LCS, edit distance, and
+    the family: the Wagner-Fischer table absorbs LCS, edit distance, and
     palindrome-from-subsequence all on the same (m+1) x (n+1) chassis.
     Reference: Python-only at this rung.
 
@@ -4109,7 +4109,7 @@
     PRIMARY + signature ★ for 9.9. The canonical sort-then-LIS application:
     sort by (width ASC, height DESC on tie), then run patience-sort LIS on
     the heights only. The DESC tie-break is the most-missed part of LC 354
-    in interview settings — Diagram 2 walks why it works
+    in interview settings: Diagram 2 walks why it works
     (same-width envelopes can't both join a strict-LIS over heights, and
     the DESC sort surfaces them in decreasing order so a strict-LIS skips
     the duplicate). Full multi-language reference at
@@ -4168,7 +4168,7 @@
     compound-key sort in two different settings; the chapter prose flags
     explicitly that this is NOT a patience-sort problem and recommends
     solving LC 354 first. The pattern-recognition lesson is that sort
-    shape alone is too coarse a signal — the body of the algorithm is
+    shape alone is too coarse a signal: the body of the algorithm is
     what discriminates. Reference: Python only at this rung.
 
 # 9.14 bitmask-dp
@@ -4209,7 +4209,7 @@
     Permutation counting with a per-position divisibility predicate;
     pure bitmask DP shape dp[mask] = number of valid permutations using
     the values whose bits are set in mask. Implicit position pointer is
-    popcount(mask) — no separate (mask, last) state needed. Constraint
+    popcount(mask): no separate (mask, last) state needed. Constraint
     n <= 15 makes the chapter's "n <= 20 ceiling" claim immediately
     concrete: 2^15 = 32768 states, sub-second across all four languages.
     Reference: Python only at this rung; full four-language coverage
@@ -4260,14 +4260,14 @@
   assignment_notes: |
     STRETCH for 9.14. The textbook set-cover-via-bitmask Hard. Mask is
     over the m <= 16 required skills, NOT over the n <= 60 candidate
-    people — a deliberate teaching pivot that exercises pitfall §7.5
+    people: a deliberate teaching pivot that exercises pitfall §7.5
     (mask the requirements, iterate the items). Demonstrates the
     "duality" insight: when the problem says "subset of items chosen",
     the bitmask is often over the *requirements*, not the choices.
     Reference: Python only at this rung.
 
 # =============================================================================
-# Part 11 — Bit manipulation
+# Part 11: Bit manipulation
 # =============================================================================
 
 # 11.0 bit-operations-cookbook
@@ -4502,14 +4502,14 @@
 # Part 14 (interview framework): both deferred.
 
 # =============================================================================
-# Part 12 — Strings and pattern matching
+# Part 12: Strings and pattern matching
 # =============================================================================
 
 # 12.1 rabin-karp
 # CORE: LC 1044 (H ★), LC 187 (M), LC 1316 (H).
 # STRETCH: LC 1062 (M, Premium with free-alt LC 1044).
 # canonical_test: LC 28 (owned by 1.2 strings; cited as the worked example).
-# ladder_curation_flag: core-emh-via-stretch — the rolling-hash pattern admits
+# ladder_curation_flag: core-emh-via-stretch, the rolling-hash pattern admits
 #   no canonical Easy on LC; the setup overhead exceeds the win at small input
 #   sizes. CORE sits at M/H/H; STRETCH covers the same M band via Premium-locked
 #   LC 1062.
@@ -4577,15 +4577,15 @@
   assignment_notes: |
     STRETCH Medium for 12.1. Premium-locked predecessor of LC 1044
     (single string, find any duplicate of any length); the free
-    alternative is LC 1044, which is in CORE — Premium policy
+    alternative is LC 1044, which is in CORE: Premium policy
     (leetcode-source-mapping.md §3) requires the free equivalent be in
     CORE, satisfied. Same algorithm shape as LC 1044 with a smaller
     n-bound. Reference: Python only at this rung.
 
 # =============================================================================
-# Part 10 — Greedy
+# Part 10: Greedy
 # =============================================================================
-# Part 10 — Greedy
+# Part 10: Greedy
 # =============================================================================
 
 # 10.0 greedy-thinking
@@ -4667,7 +4667,7 @@
     patterns). Reference: Python only at this rung.
 
 # =============================================================================
-# Part 12 — Strings & Pattern Matching
+# Part 12: Strings & Pattern Matching
 # =============================================================================
 
 # 12.3 z-algorithm
@@ -4764,7 +4764,7 @@
     rung.
 
 # =============================================================================
-# Part 12 — Strings: pattern matching
+# Part 12: Strings: pattern matching
 # =============================================================================
 
 # 12.0 naive-string-matching
@@ -4815,7 +4815,7 @@
 # 12.2 kmp
 # CORE: LC 459 (E ★), LC 1392 (H).
 # STRETCH: LC 1668 (cross-link to 12.3), LC 214 (cross-link to 12.3).
-# ladder_curation_flag: no-medium-canonical — KMP genuinely lacks a
+# ladder_curation_flag: no-medium-canonical, KMP genuinely lacks a
 #   canonical Medium LC. The natural Medium substring problems live
 #   in sister chapters: LC 686 in 12.0 naive matching, LC 3034 / LC 187
 #   in 12.1 and 12.3. The flag formalizes the absence per
@@ -4848,7 +4848,7 @@
   premium: false
   assignment_notes: |
     CORE Hard for 12.2. A "happy prefix" is the longest non-empty
-    proper prefix of s that is also a suffix — literally s[:lps[n-1]].
+    proper prefix of s that is also a suffix: literally s[:lps[n-1]].
     The cleanest possible LPS-only problem on LC: zero matching pass,
     one application of the failure-function subroutine. Hard difficulty
     per LC. Reference: Python only at this rung.
@@ -4856,7 +4856,7 @@
 # 10.1 interval-scheduling
 # CORE: LC 435 (M ★ canonical_test), LC 56 (M), LC 57 (M).
 # STRETCH: LC 1851 (H), LC 252 (E, Premium with free-alt LC 56).
-# ladder_curation_flag: core-emh-via-stretch — CORE three are all Medium
+# ladder_curation_flag: core-emh-via-stretch, CORE three are all Medium
 #   per current LC labels; span to Easy via LC 252 STRETCH (Premium with
 #   free-alt LC 56) and to Hard via LC 1851 STRETCH.
 435:
@@ -4971,7 +4971,7 @@
 # 10.2 activity-selection (task-scheduler family)
 # CORE: LC 621 (M ★ canonical_test), LC 767 (M), LC 1834 (M).
 # STRETCH: LC 1405 (M), LC 1942 (M), LC 358 (H, Premium with free-alt LC 767).
-# ladder_curation_flag: core-emh-via-stretch — CORE three are all Medium per
+# ladder_curation_flag: core-emh-via-stretch, CORE three are all Medium per
 #   current LC labels; the pattern admits no canonical Easy LC and the Hard
 #   cousin (LC 358) is Premium-paywalled with LC 767 as the free Medium
 #   equivalent already in CORE. Per leetcode-source-mapping.md §1.3a.
@@ -5021,7 +5021,7 @@
   premium: false
   assignment_notes: |
     CORE Medium for 10.2. The "what counts as 'most-frequent' in this
-    problem" lesson — the priority key flips from frequency to
+    problem" lesson: the priority key flips from frequency to
     (processing_time, original_index), and the cooldown queue becomes an
     arrival-time event queue. Same heap+queue shape; different keys.
     Watch for the `long` accumulator gotcha: cumulative time can reach
@@ -5094,8 +5094,8 @@
   assignment_notes: |
     The canonical "two priority queues advancing together" problem: a
     min-heap by capital threshold feeds a max-heap by profit. Generalizes
-    Huffman's lesson — the right heap structure makes the greedy choice
-    O(log n) — to a setting where the greedy choice is the max under a
+    Huffman's lesson: the right heap structure makes the greedy choice
+    O(log n): to a setting where the greedy choice is the max under a
     feasibility filter rather than the global minimum.
 1675:
   title: "Minimize Deviation in Array"
@@ -5130,13 +5130,13 @@
     Free equivalent in CORE: LC 1046 Last Stone Weight.
 
 # =============================================================================
-# Part 13 — Design the data structure
+# Part 13: Design the data structure
 # =============================================================================
 
-# 13.0 lru-cache (design framing — pairs with 5.5 mechanics)
+# 13.0 lru-cache (design framing: pairs with 5.5 mechanics)
 # CORE: LC 1396 (M ★ canonical_test), LC 588 (H, Premium with free alt LC 1166).
 # STRETCH: LC 535 (M), LC 1352 (M).
-# ladder_curation_flag: core-emh-via-stretch — design-interview Easy with the
+# ladder_curation_flag: core-emh-via-stretch, design-interview Easy with the
 #   multi-container framing has no canonical LC; CORE achieves M+H native
 #   span. LC 146 LRU Cache is the chapter's worked-example anchor in prose
 #   (locked PRIMARY at part-5-linked-lists/05-lru-cache; cited here as
@@ -5177,7 +5177,7 @@
     vs. directory. ls/mkdir/addContentToFile/readContentFromFile compose
     naturally on this shape. Premium-locked; the canonical free
     alternative is LC 1166 Design File System (also Premium; see Q5
-    note in leetcode-source-mapping.md §3.1) — both teach the same
+    note in leetcode-source-mapping.md §3.1): both teach the same
     tree-of-hash-maps idea. The chapter ships the four-language reference
     at 00-lru-cache/lc-588/sol.{py,java,cpp,go} so readers without LC
     Premium can still study the implementation.
@@ -5216,7 +5216,7 @@
 # CORE: LC 460 (H ★ canonical_test).
 # STRETCH: LC 1472 (M, primary at 5.5; cited here for the cursor-variant
 #   half of the dual-structure pattern), LC 2227 (H).
-# ladder_curation_flag: single-difficulty-band — LFU as a pattern admits
+# ladder_curation_flag: single-difficulty-band, LFU as a pattern admits
 #   no Easy or Medium canonical LeetCode problem (LC 146 collapses to
 #   LRU and is locked at 5.5; LC 1756 is Premium without a free
 #   same-pattern equivalent; LC 705/706 drop the frequency axis). CORE
@@ -5242,7 +5242,7 @@
 # 13.3 hit-counter-rate-limiter
 # CORE: LC 933 (E, secondary here; primary at 1.6) + LC 362 (M, Premium ★) + LC 1488 (H).
 # STRETCH: LC 359 (E, Premium with LC 1396 free-alt at 13.0).
-# ladder_curation_flag: core-emh-via-stretch — the canonical Medium teaching
+# ladder_curation_flag: core-emh-via-stretch, the canonical Medium teaching
 #   problem (LC 362) is Premium; per leetcode-source-mapping.md §3.1 Premium
 #   MAY NOT be CORE without a flag. The chapter takes the curation hit
 #   explicitly because LC 362 IS the chapter (bucket-array on streams);
@@ -5307,11 +5307,11 @@
     to 13.0) without paying for Premium.
 
 # 13.4 trie-autocomplete
-# CORE: LC 1023 (M), LC 676 (M ★), LC 745 (H — citation; PRIMARY 12.4).
-# STRETCH: LC 720 (E — citation; PRIMARY 6.8), LC 642 (H, Premium).
+# CORE: LC 1023 (M), LC 676 (M ★), LC 745 (H, citation; PRIMARY 12.4).
+# STRETCH: LC 720 (E, citation; PRIMARY 6.8), LC 642 (H, Premium).
 # canonical_test: LC 642 (Premium contract; the chapter's AutocompleteTrie
 # class implements the spec verbatim).
-# ladder_curation_flag: core-emh-via-secondary — Easy and Hard bands
+# ladder_curation_flag: core-emh-via-secondary, Easy and Hard bands
 # fulfilled by problems whose PRIMARY ownership lives elsewhere; 13.4
 # cites them under the trie-autocomplete framing.
 1023:
@@ -5369,11 +5369,11 @@
     paired with the per-node frequency cache from this chapter.
 
 # =============================================================================
-# Part 12 — Strings & Pattern Matching (12.4 Aho-Corasick)
+# Part 12: Strings & Pattern Matching (12.4 Aho-Corasick)
 # =============================================================================
 # CORE: LC 1032 (H ★ canonical_test), LC 745 (H), LC 648 (M).
-# STRETCH: LC 720 (E, primary in 6.8 tries — secondary here for adjacent-pattern E coverage).
-# ladder_curation_flag: core-emh-via-stretch — multi-pattern matching has no
+# STRETCH: LC 720 (E, primary in 6.8 tries: secondary here for adjacent-pattern E coverage).
+# ladder_curation_flag: core-emh-via-stretch, multi-pattern matching has no
 #   canonical Easy on LC; STRETCH supplies the Easy via LC 720.
 1032:
   title: "Stream of Characters"
@@ -5436,7 +5436,7 @@
 # 10.4 jump-games-gas-station
 # CORE: LC 55 (M ★ canonical_test), LC 45 (M), LC 134 (M).
 # STRETCH: LC 871 (H).
-# ladder_curation_flag: core-emh-via-stretch — CORE three are all Medium per
+# ladder_curation_flag: core-emh-via-stretch, CORE three are all Medium per
 #   current LC labels; the jump-game-greedy pattern has no canonical Easy in
 #   interview rotation. STRETCH supplies the Hard via LC 871, so combined
 #   CORE+STRETCH spans Medium plus Hard.
@@ -5508,7 +5508,7 @@
     at this rung (full four-language coverage deferred).
 
 # =============================================================================
-# Registry sync — entries added during post-ship verification pass.
+# Registry sync: entries added during post-ship verification pass.
 # Sourced from chapter ladder references that warned at build time.
 # =============================================================================
 

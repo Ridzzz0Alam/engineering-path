@@ -147,11 +147,11 @@ The Claude Agent SDK exposes this through the `AskUserQuestion` tool: the model 
 
 [^2]: Miles McCain et al., Anthropic, "Measuring AI agent autonomy in practice", February 18, 2026. https://www.anthropic.com/research/measuring-agent-autonomy
 
-[^3]: OpenAI, "Human-in-the-loop -- OpenAI Agents Python SDK", June 2026. https://openai.github.io/openai-agents-python/human_in_the_loop/
+[^3]: OpenAI, "Human-in-the-loop, OpenAI Agents Python SDK", June 2026. https://openai.github.io/openai-agents-python/human_in_the_loop/
 
-[^4]: LangChain, "Interrupts -- LangGraph Python docs", June 2026. https://docs.langchain.com/oss/python/langgraph/human-in-the-loop
+[^4]: LangChain, "Interrupts, LangGraph Python docs", June 2026. https://docs.langchain.com/oss/python/langgraph/human-in-the-loop
 
-[^5]: Anthropic, "Handle approvals and user input -- Claude Agent SDK", June 2026. https://console.anthropic.com/docs/en/agent-sdk/user-input
+[^5]: Anthropic, "Handle approvals and user input, Claude Agent SDK", June 2026. https://console.anthropic.com/docs/en/agent-sdk/user-input
 
 [^6]: Matthew DosSantos DiSorbo and Harang Ju, "Act or Escalate? Evaluating Escalation Behavior in Automation with Language Models", arXiv:2604.08588, March 31, 2026. https://arxiv.org/abs/2604.08588
 

@@ -66,7 +66,7 @@ def range_sum(prefix, l, r):
     return prefix[r + 1] - prefix[l]    # nums[l..r] inclusive
 ```
 
-**Solution** — Python ([Java](./04-prefix-sums/lc-303/sol.java) · [C++](./04-prefix-sums/lc-303/sol.cpp) · [Go](./04-prefix-sums/lc-303/sol.go))
+**Solution** in Python ([Java](./04-prefix-sums/lc-303/sol.java) · [C++](./04-prefix-sums/lc-303/sol.cpp) · [Go](./04-prefix-sums/lc-303/sol.go))
 
 ```python
 # LC 303. Range Sum Query - Immutable
@@ -128,7 +128,7 @@ The widget canonical input is `nums = [3, -1, 4, 1, 5, -9, 2, 6]` with one query
 
 The arithmetic at the moment that matters: `prefix[r + 1] - prefix[l] = prefix[6] - prefix[2] = 3 - 2 = 1`. That's the sum of `nums[2..5] = [4, 1, 5, -9]`. The answer is `1`. The slice contains a `-9`, which is the kind of mixed-sign input where sliding window stops working. Prefix sums don't care.
 
-> **Interactive widget:** [Prefix sum (cumulative + range query)](../widgets/w-10-prefix-sum-cumulative.yml) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Prefix sum (cumulative + range query)](../widgets/w-10-prefix-sum-cumulative.yml), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: row 1 holds `nums = [3, -1, 4, 1, 5, -9, 2, 6]`; row 2 fills left to right with the prefix `[0, 3, 2, 6, 7, 12, 3, 5, 11]`; the highlighted query reads `prefix[6] - prefix[2] = 3 - 2 = 1`.*
 
@@ -267,14 +267,14 @@ Without the `<= K` constraint, the answer is just Kadane. *With* the constraint,
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 303 — Range Sum Query Immutable](https://leetcode.com/problems/range-sum-query-immutable/) [Easy] • prefix-sum-1d-precompute ★
-- [LC 304 — Range Sum Query 2D Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) [Medium] • prefix-sum-2d-rectangle-query
-- [LC 363 — Max Sum of Rectangle No Larger Than K](https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/) [Hard] • prefix-sum-2d-with-binary-search *(reference: Python only)*
+- [LC 303: Range Sum Query Immutable](https://leetcode.com/problems/range-sum-query-immutable/) [Easy] • prefix-sum-1d-precompute ★
+- [LC 304: Range Sum Query 2D Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) [Medium] • prefix-sum-2d-rectangle-query
+- [LC 363: Max Sum of Rectangle No Larger Than K](https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/) [Hard] • prefix-sum-2d-with-binary-search *(reference: Python only)*
 
 ### STRETCH (optional)
 
-- [LC 1109 — Corporate Flight Bookings](https://leetcode.com/problems/corporate-flight-bookings/) [Medium] • difference-array-range-update
-- [LC 238 — Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) [Medium] • prefix-product-and-suffix-product
+- [LC 1109: Corporate Flight Bookings](https://leetcode.com/problems/corporate-flight-bookings/) [Medium] • difference-array-range-update
+- [LC 238: Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) [Medium] • prefix-product-and-suffix-product
 
 LC 303 is the chapter's signature problem (★) and the cleanest demonstration of the build-once-query-many shape. LC 304 lifts the same identity to 2D rectangles and exercises the inclusion-exclusion offsets; if you can derive the four-corner formula on paper without looking it up, the chapter has done its job. LC 363 is genuinely hard. The 2D prefix sum is necessary but not sufficient; the binary-search-on-sorted-prefix-sums step is what makes it Hard, and it's the kind of problem worth solving once and revisiting later. LC 1109 is the chapter's cleanest demonstration of the inverse direction, and LC 238 is the prefix-and-suffix variant that comes up when the operator's inverse isn't available.
 

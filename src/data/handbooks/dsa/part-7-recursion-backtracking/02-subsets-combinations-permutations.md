@@ -88,7 +88,7 @@ def subsets(nums):
     return result
 ```
 
-**Solution** — Python ([Java](./02-subsets-combinations-permutations/lc-78/sol.java) · [C++](./02-subsets-combinations-permutations/lc-78/sol.cpp) · [Go](./02-subsets-combinations-permutations/lc-78/sol.go))
+**Solution** in Python ([Java](./02-subsets-combinations-permutations/lc-78/sol.java) · [C++](./02-subsets-combinations-permutations/lc-78/sol.cpp) · [Go](./02-subsets-combinations-permutations/lc-78/sol.go))
 
 ```python
 # LC 78. Subsets
@@ -112,7 +112,7 @@ def subsets(nums: List[int]) -> List[List[int]]:
 ```
 
 > [!IMPORTANT]
-> **Snapshot at every node, not at every leaf.** The empty subset comes from the snapshot at the root, before the loop has fired even once. Singletons come from the snapshot at depth 1, before that level's loop has fired. Pairs and the full set come from snapshots at depths 2 and 3. The very first thing every `dfs(start)` call does, before deciding what to take next, is record the partial path it just inherited. Move the snapshot to the loop body and you miss every subset that doesn't have a "successor pick" — including, lethally, the empty subset and the full set.
+> **Snapshot at every node, not at every leaf.** The empty subset comes from the snapshot at the root, before the loop has fired even once. Singletons come from the snapshot at depth 1, before that level's loop has fired. Pairs and the full set come from snapshots at depths 2 and 3. The very first thing every `dfs(start)` call does, before deciding what to take next, is record the partial path it just inherited. Move the snapshot to the loop body and you miss every subset that doesn't have a "successor pick", including, lethally, the empty subset and the full set.
 
 The decision-tree expansion on `nums = [1, 2, 3]` is what the widget animates. It produces eight nodes, in bijection with the eight subsets, walked in pre-order DFS:
 
@@ -129,7 +129,7 @@ graph TD
 
 *Each node corresponds to one `dfs(start)` call; every node emits one subset on entry. Edge labels show the index `i` chosen and the value appended. Total nodes = 2³ = 8.*
 
-> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-subsets`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-subsets`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: snapshot fires at the root for `[]`; the leftmost branch builds `[1] → [1,2] → [1,2,3]`, snapshotting at each depth; the algorithm backtracks twice, then takes the right sibling at depth 1 to produce `[1,3]`; the same pattern plays out under starting choices `2` and `3`. Eight emissions total, in pre-order.*
 
@@ -163,7 +163,7 @@ def permute(nums):
     return result
 ```
 
-**Solution** — Python ([Java](./02-subsets-combinations-permutations/lc-46/sol.java) · [C++](./02-subsets-combinations-permutations/lc-46/sol.cpp) · [Go](./02-subsets-combinations-permutations/lc-46/sol.go))
+**Solution** in Python ([Java](./02-subsets-combinations-permutations/lc-46/sol.java) · [C++](./02-subsets-combinations-permutations/lc-46/sol.cpp) · [Go](./02-subsets-combinations-permutations/lc-46/sol.go))
 
 ```python
 # LC 46. Permutations
@@ -196,9 +196,9 @@ def permute(nums: List[int]) -> List[List[int]]:
 
 The `used[]` mask carries a quiet invariant: at any moment, `sum(used) == len(path)`, which is the depth of the current frame. The push-and-mark and pop-and-clear pairs keep that invariant. A common bug is forgetting to clear `used[i]` in the unchoose half; the algorithm proceeds, fails to revisit the cleared element on a sibling branch, and produces a too-small answer (often `n!/something`, never quite the full count). The `used[i] = False` line is not optional.
 
-> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-perms`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-perms`), rendered on the website; the YAML spec describes the keyframes.
 
-*Static fallback: under starting choice 1 the algorithm produces `[1,2,3]` and `[1,3,2]`; backtracking through the depth-0 frame clears `used[0]`, freeing 1 to appear later; starting choice 2 produces `[2,1,3]` and `[2,3,1]`; starting choice 3 produces `[3,1,2]` and `[3,2,1]`. Six leaves total — exactly `3!`.*
+*Static fallback: under starting choice 1 the algorithm produces `[1,2,3]` and `[1,3,2]`; backtracking through the depth-0 frame clears `used[0]`, freeing 1 to appear later; starting choice 2 produces `[2,1,3]` and `[2,3,1]`; starting choice 3 produces `[3,1,2]` and `[3,2,1]`. Six leaves total: exactly `3!`.*
 
 The recursion depth is always exactly `n` for every leaf; the tree is balanced and every internal node has fan-out `n - depth`. Total work is `Θ(n · n!)`: there are `n!` leaves, each costs `O(n)` to copy into `result`, internal-node work is dominated by leaf work because each level above the leaves contributes a strictly smaller geometric sum. The `n` and the `!` together give the brutal scaling: at `n = 10` the answer has 3.6 million arrangements; at `n = 12` it has 479 million; at `n = 15` you have already exceeded a trillion and any backtracking solution is the wrong tool. LC 46 caps `nums.length` at 6 (720 permutations) for exactly this reason.[^2]
 
@@ -222,13 +222,13 @@ def combination_sum(candidates, target):
             if candidates[i] > remaining:
                 break                       # sorted: no later candidate fits either
             path.append(candidates[i])
-            dfs(i, remaining - candidates[i])  # i, not i+1 — reuse
+            dfs(i, remaining - candidates[i])  # i, not i+1: reuse
             path.pop()
     dfs(0, target)
     return result
 ```
 
-**Solution** — Python ([Java](./02-subsets-combinations-permutations/lc-39/sol.java) · [C++](./02-subsets-combinations-permutations/lc-39/sol.cpp) · [Go](./02-subsets-combinations-permutations/lc-39/sol.go))
+**Solution** in Python ([Java](./02-subsets-combinations-permutations/lc-39/sol.java) · [C++](./02-subsets-combinations-permutations/lc-39/sol.cpp) · [Go](./02-subsets-combinations-permutations/lc-39/sol.go))
 
 ```python
 # LC 39. Combination Sum
@@ -250,7 +250,7 @@ def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
             if candidates[i] > remaining:
                 break                           # sorted: no later candidate fits either
             path.append(candidates[i])
-            dfs(i, remaining - candidates[i])   # i, not i+1 — reuse same element
+            dfs(i, remaining - candidates[i])   # i, not i+1: reuse same element
             path.pop()                          # undo for backtrack
 
     dfs(0, target)
@@ -259,7 +259,7 @@ def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
 
 The sort up front is the sneaky optimization. With sorted candidates, the first `candidates[i]` that exceeds `remaining` proves every later candidate exceeds it too, so the loop can `break` instead of `continue`. On the canonical input the prune saves only a handful of recursive calls; on `target = 500` with `candidates = [2, 3, 5, 7, 11, ...]` it saves orders of magnitude.[^3]
 
-> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-combos`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Backtracking decision tree](../widgets/w-22-backtracking-tree.yml) (panel `panel-combos`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: under starting choice 2, the algorithm explores `[2]`, `[2, 2]`, `[2, 2, 2]` (pruned: remaining = 1, no candidate fits), pops to `[2, 2]`, picks 3 to hit `[2, 2, 3]` (snapshot), then prunes the remaining branches because every later candidate exceeds the residual. Under starting choice 3, the subtree explores but produces no snapshots. Under starting choice 7, the algorithm hits target on the first push and emits `[7]`. Two snapshots total, matching LC 39's expected output.*
 
@@ -315,22 +315,22 @@ For permutations with duplicates (LC 47) the predicate has to change shape, beca
 | Permutations II (LC 47) | O(n · n!) worst case | O(n) | O(n · n!) |
 | Combination Sum (LC 39) | O(N^(T/M)) loose upper bound | O(T/M) recursion depth | bounded by output |
 
-The lower bound on every row matches the upper bound up to constants: the *output alone* has the size in the rightmost column, so any algorithm that emits the full enumeration must touch every output cell at least once. Asking "can you do better than `O(n · 2^n)`" in an interview is a trap unless the asker means streaming (yield one subset at a time, `O(n)` per subset) or counting only (one integer, `O(n)` for some cases or worse for others — different chapter).[^1][^2]
+The lower bound on every row matches the upper bound up to constants: the *output alone* has the size in the rightmost column, so any algorithm that emits the full enumeration must touch every output cell at least once. Asking "can you do better than `O(n · 2^n)`" in an interview is a trap unless the asker means streaming (yield one subset at a time, `O(n)` per subset) or counting only (one integer, `O(n)` for some cases or worse for others: different chapter).[^1][^2]
 
-The practical takeaway is the scaling cliff. Subsets are tractable to about `n = 20` (one million subsets). Permutations are tractable to about `n = 8` (forty thousand permutations). Combination Sum is bounded by output size and prunes aggressively in practice, but worst-case inputs with small minimum candidate and large target blow up just as fast. *"Can you do this in `O(n)` instead of `O(n · 2^n)`?"* — no, and the asker either misunderstands the problem or is looking for a counting / DP framing. State the bound, state why it is tight, and move on.
+The practical takeaway is the scaling cliff. Subsets are tractable to about `n = 20` (one million subsets). Permutations are tractable to about `n = 8` (forty thousand permutations). Combination Sum is bounded by output size and prunes aggressively in practice, but worst-case inputs with small minimum candidate and large target blow up just as fast. *"Can you do this in `O(n)` instead of `O(n · 2^n)`?"*: no, and the asker either misunderstands the problem or is looking for a counting / DP framing. State the bound, state why it is tight, and move on.
 
 ## Problem ladder
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 78 — Subsets](https://leetcode.com/problems/subsets/) [Medium] • subsets-backtracking ★
-- [LC 46 — Permutations](https://leetcode.com/problems/permutations/) [Medium] • permutations-backtracking
-- [LC 39 — Combination Sum](https://leetcode.com/problems/combination-sum/) [Medium] • combinations-backtracking-with-target
+- [LC 78: Subsets](https://leetcode.com/problems/subsets/) [Medium] • subsets-backtracking ★
+- [LC 46: Permutations](https://leetcode.com/problems/permutations/) [Medium] • permutations-backtracking
+- [LC 39: Combination Sum](https://leetcode.com/problems/combination-sum/) [Medium] • combinations-backtracking-with-target
 
 ### STRETCH (optional)
 
-- [LC 90 — Subsets II](https://leetcode.com/problems/subsets-ii/) [Medium] • subsets-with-duplicates
-- [LC 47 — Permutations II](https://leetcode.com/problems/permutations-ii/) [Medium] • permutations-with-duplicates
+- [LC 90: Subsets II](https://leetcode.com/problems/subsets-ii/) [Medium] • subsets-with-duplicates
+- [LC 47: Permutations II](https://leetcode.com/problems/permutations-ii/) [Medium] • permutations-with-duplicates
 
 > [!NOTE]
 > The pure subsets / combinations / permutations skeleton is structurally Medium-bound on LeetCode; LC 51 N-Queens is the closest Hard but its lesson is constraint pruning, not enumeration, and it lives in the next chapter. The frontmatter's `single-difficulty-band` curation flag records this honestly. Five Mediums is the right shape; padding the ladder with a forced Easy or Hard would teach the wrong thing.

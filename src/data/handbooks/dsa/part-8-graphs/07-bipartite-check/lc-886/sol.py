@@ -5,7 +5,7 @@ from typing import List
 
 
 def possible_bipartition(n: int, dislikes: List[List[int]]) -> bool:
-    """LC 886 — partition n people (1..n) into two groups such that no
+    """LC 886: partition n people (1..n) into two groups such that no
     disliked pair lands in the same group. Equivalent to bipartite check
     on the dislikes graph.
     """

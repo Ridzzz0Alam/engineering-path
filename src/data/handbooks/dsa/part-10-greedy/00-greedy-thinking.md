@@ -99,7 +99,7 @@ def partition_labels(s):
     return parts
 ```
 
-**Solution** — Python ([Java](./00-greedy-thinking/lc-763/sol.java) · [C++](./00-greedy-thinking/lc-763/sol.cpp) · [Go](./00-greedy-thinking/lc-763/sol.go))
+**Solution** in Python ([Java](./00-greedy-thinking/lc-763/sol.java) · [C++](./00-greedy-thinking/lc-763/sol.cpp) · [Go](./00-greedy-thinking/lc-763/sol.go))
 
 ```python
 # LC 763. Partition Labels
@@ -192,14 +192,14 @@ The leaves correspond to four sub-patterns Part 10 specialises one chapter at a 
 
 ### CORE (solve all three to claim chapter mastery)
 
-- [LC 860 — Lemonade Change](https://leetcode.com/problems/lemonade-change/) [Easy] • greedy-state-tracking *(reference: Python only)*
-- [LC 1217 — Minimum Cost to Move Chips to The Same Position](https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) [Easy] • greedy-parity-classification *(reference: Python only)*
-- [LC 763 — Partition Labels](https://leetcode.com/problems/partition-labels/) [Medium] • greedy-interval-merge ★
+- [LC 860: Lemonade Change](https://leetcode.com/problems/lemonade-change/) [Easy] • greedy-state-tracking *(reference: Python only)*
+- [LC 1217: Minimum Cost to Move Chips to The Same Position](https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) [Easy] • greedy-parity-classification *(reference: Python only)*
+- [LC 763: Partition Labels](https://leetcode.com/problems/partition-labels/) [Medium] • greedy-interval-merge ★
 
 ### STRETCH (optional)
 
-- [LC 1029 — Two City Scheduling](https://leetcode.com/problems/two-city-scheduling/) [Medium] • greedy-exchange-argument *(reference: Python only)*
-- [LC 135 — Candy](https://leetcode.com/problems/candy/) [Hard] • greedy-two-pass *(reference: Python only)*
+- [LC 1029: Two City Scheduling](https://leetcode.com/problems/two-city-scheduling/) [Medium] • greedy-exchange-argument *(reference: Python only)*
+- [LC 135: Candy](https://leetcode.com/problems/candy/) [Hard] • greedy-two-pass *(reference: Python only)*
 
 The CORE three span Easy and Medium natively; the Hard slot is filled via STRETCH (LC 135), keeping the canonical interval-scheduling and jump-game Hards reserved for chapters 10.1 through 10.4 where they belong.
 

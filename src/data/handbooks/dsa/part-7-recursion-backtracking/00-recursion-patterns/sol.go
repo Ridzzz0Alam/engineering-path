@@ -1,4 +1,4 @@
-// Chapter 7.0 — Recursion patterns: linear, tree, and divide-and-conquer
+// Chapter 7.0: Recursion patterns: linear, tree, and divide-and-conquer
 package main
 
 // Shape 1: linear recursion. Go does NOT eliminate tail calls in general;

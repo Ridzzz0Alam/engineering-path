@@ -1,6 +1,6 @@
 // LC 128. Longest Consecutive Sequence
 // Build a hash set, then for each value, only start an inner walk when
-// (x - 1) is absent — i.e., x is the minimum of its run. Each element is
+// (x - 1) is absent, i.e., x is the minimum of its run. Each element is
 // touched at most twice, giving O(n) total work assuming O(1) average
 // set membership. O(n) time, O(n) space.
 package main

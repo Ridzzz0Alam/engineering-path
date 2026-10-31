@@ -1,4 +1,4 @@
-# Hash table — chained insert + lookup, with load-factor + resize companion
+# Hash table: chained insert + lookup, with load-factor + resize companion
 # Dual-panel shared widget. Chapter 1.3 mounts panel-a (clean happy path, no
 # collisions, no resize). Chapter 1.4 mounts panel-b (collision storm that
 # drives a load-factor-triggered resize). The two panels step in lockstep so
@@ -55,7 +55,7 @@ static_fallback:
 panels:
   panel-a:
     chapter: "1.3"
-    label: "Hash table — clean insert + lookup"
+    label: "Hash table, clean insert + lookup"
     canonical_input: |
       operations = [
         ("insert", "apple", 1),
@@ -207,7 +207,7 @@ panels:
 
   panel-b:
     chapter: "1.4"
-    label: "Hash table — collision storm + resize"
+    label: "Hash table, collision storm + resize"
     canonical_input: |
       operations = [
         ("insert", 5, 1),
@@ -229,7 +229,7 @@ panels:
           threshold: 3
           size: 0
           buckets: [[], [], [], []]
-        narration: "Empty 4-bucket chained table. Threshold = 0.75 * 4 = 3 entries. The keys 5, 1, 9, 13, 17 are tuned so every one of them hashes to bucket 1 of a 4-bucket table — a worst-case collision storm."
+        narration: "Empty 4-bucket chained table. Threshold = 0.75 * 4 = 3 entries. The keys 5, 1, 9, 13, 17 are tuned so every one of them hashes to bucket 1 of a 4-bucket table: a worst-case collision storm."
       - step: 1
         kind: place
         payload: { key: 5, value: 1, bucket_index: 1 }
@@ -256,7 +256,7 @@ panels:
           threshold: 3
           size: 3
           buckets: [[], [[5, 1], [1, 1], [9, 1]], [], []]
-        narration: "9 mod 4 = 1. Collision again. Chain length 3. Size = 3, load factor 0.75 — exactly at threshold."
+        narration: "9 mod 4 = 1. Collision again. Chain length 3. Size = 3, load factor 0.75: exactly at threshold."
       - step: 4
         kind: place
         payload: { key: 13, value: 1, bucket_index: 1 }

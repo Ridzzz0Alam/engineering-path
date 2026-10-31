@@ -73,7 +73,7 @@ The threshold isn't checked on lookup. It's checked on insert. When `size > thre
 
 The widget below is panel-b of the dual-panel `w-02-hash-table` widget shared with [Hash maps and hash sets](./03-hash-maps.md). Five keys (5, 1, 9, 13, 17) are tuned so every one of them hashes to bucket 1 at capacity 4. The third insert sits the table exactly at threshold. The fourth crosses it and triggers the doubling.
 
-> **Interactive widget:** [Hash table (chained insert + lookup)](../widgets/w-02-hash-table.yml) (panel `panel-b`) — rendered on the website; the YAML spec describes the keyframes.
+> **Interactive widget:** [Hash table (chained insert + lookup)](../widgets/w-02-hash-table.yml) (panel `panel-b`), rendered on the website; the YAML spec describes the keyframes.
 
 *Static fallback: a 4-bucket chained table starts empty; inserts of 5, 1, 9, 13 all land in bucket 1, growing the chain to length 4 and pushing load factor to 1.0; the threshold-cross fires; capacity doubles to 8; rehashing redistributes the four keys (5 and 13 → bucket 5, 1 and 9 → bucket 1); the final insert of 17 lands in bucket 1 next to 1 and 9 with the table at load factor 0.625 and chain lengths well-bounded.*
 
@@ -113,12 +113,12 @@ def longest_consecutive(nums):
     return best
 ```
 
-**Solution** — Python ([Java](./04-hash-collisions/lc-128/sol.java) · [C++](./04-hash-collisions/lc-128/sol.cpp) · [Go](./04-hash-collisions/lc-128/sol.go))
+**Solution** in Python ([Java](./04-hash-collisions/lc-128/sol.java) · [C++](./04-hash-collisions/lc-128/sol.cpp) · [Go](./04-hash-collisions/lc-128/sol.go))
 
 ```python
 # LC 128. Longest Consecutive Sequence
 # Build a hash set, then for each value, only start an inner walk when
-# (x - 1) is absent — i.e., x is the minimum of its run. Each element is
+# (x - 1) is absent, i.e., x is the minimum of its run. Each element is
 # touched at most twice, giving O(n) total work assuming O(1) average
 # set membership. O(n) time, O(n) space.
 from typing import List
@@ -246,7 +246,7 @@ LC 705 carries the chapter's only Easy CORE-eligible candidate; held in STRETCH 
 
 ## Where this leads
 
-The hash-map-plus-something-else pattern that LC 380 introduces is the through-line of [Part 13 — Designing data structures](../part-13-design-the-data-structure/), where the question shifts from "use a hash map" to "compose a hash map with the structure that supplies what hashing can't." The highest-leverage *algorithmic* application of hash maps is [Prefix sums and the hash-map twist](../part-3-pointers-window-prefix/05-prefix-sum-hash.md), which uses today's `O(1)`-average set membership to find subarrays with arbitrary sums in `O(n)`, and which (like LC 128) depends on a load factor that nobody is checking and a hash function that nobody picked. When the workload genuinely needs ordered traversal, the alternatives are [Binary search trees](../part-6-trees-heaps/05-binary-search-trees.md) (sorted, `O(log n)` per op) and [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md) (priority access, partially ordered).
+The hash-map-plus-something-else pattern that LC 380 introduces is the through-line of [Part 13: Designing data structures](../part-13-design-the-data-structure/), where the question shifts from "use a hash map" to "compose a hash map with the structure that supplies what hashing can't." The highest-leverage *algorithmic* application of hash maps is [Prefix sums and the hash-map twist](../part-3-pointers-window-prefix/05-prefix-sum-hash.md), which uses today's `O(1)`-average set membership to find subarrays with arbitrary sums in `O(n)`, and which (like LC 128) depends on a load factor that nobody is checking and a hash function that nobody picked. When the workload genuinely needs ordered traversal, the alternatives are [Binary search trees](../part-6-trees-heaps/05-binary-search-trees.md) (sorted, `O(log n)` per op) and [Heaps](../part-6-trees-heaps/04-heaps-priority-queues.md) (priority access, partially ordered).
 
 ## References
 

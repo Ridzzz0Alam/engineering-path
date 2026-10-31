@@ -106,9 +106,9 @@ Two structural observations follow from the table. The first three rows share th
 
 ## Three signature problems
 
-- [LC 78 — Subsets](https://leetcode.com/problems/subsets/) [Medium] • backtracking-subsets ★. The cleanest introduction to the family. Every node of the search tree is a valid subset, so `accept` triggers at every depth rather than only at leaves. The `start = i + 1` advance is what prevents the same subset from surfacing in two different orders; without it, `[1, 2]` and `[2, 1]` both emit and the output set has 3^n entries instead of 2^n.
-- [LC 51 — N-Queens](https://leetcode.com/problems/n-queens/) [Hard] • backtracking-constraint-propagation. The canonical constraint-propagation example. Three precomputed sets reduce per-candidate feasibility to one bitwise AND in the bitmask form. The chapter widget animates the diagonal sets updating as the recursion descends row by row.
-- [LC 79 — Word Search](https://leetcode.com/problems/word-search/) [Medium] • backtracking-grid-with-visited-marker. The textbook example of the temporary visit-mark idiom. The cell is marked `'#'` for the duration of the current path and restored on the way back up; failing to restore is the highest-frequency bug on this archetype.
+- [LC 78: Subsets](https://leetcode.com/problems/subsets/) [Medium] • backtracking-subsets ★. The cleanest introduction to the family. Every node of the search tree is a valid subset, so `accept` triggers at every depth rather than only at leaves. The `start = i + 1` advance is what prevents the same subset from surfacing in two different orders; without it, `[1, 2]` and `[2, 1]` both emit and the output set has 3^n entries instead of 2^n.
+- [LC 51: N-Queens](https://leetcode.com/problems/n-queens/) [Hard] • backtracking-constraint-propagation. The canonical constraint-propagation example. Three precomputed sets reduce per-candidate feasibility to one bitwise AND in the bitmask form. The chapter widget animates the diagonal sets updating as the recursion descends row by row.
+- [LC 79: Word Search](https://leetcode.com/problems/word-search/) [Medium] • backtracking-grid-with-visited-marker. The textbook example of the temporary visit-mark idiom. The cell is marked `'#'` for the duration of the current path and restored on the way back up; failing to restore is the highest-frequency bug on this archetype.
 
 ## Common misconceptions
 
@@ -140,4 +140,4 @@ Two structural observations follow from the table. The first three rows share th
 
 [^8]: Skiena, *The Algorithm Design Manual*, 3rd ed., Springer, 2020, §9.1.
 
-[^9]: OEIS, "A000170 — Number of ways of placing n non-attacking queens." https://oeis.org/A000170
+[^9]: OEIS, "A000170, Number of ways of placing n non-attacking queens." https://oeis.org/A000170

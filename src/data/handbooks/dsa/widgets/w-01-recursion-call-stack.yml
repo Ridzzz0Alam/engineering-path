@@ -1,4 +1,4 @@
-# Recursion call stack — chapter 0.2 worked example: factorial(n).
+# Recursion call stack: chapter 0.2 worked example: factorial(n).
 # Animates the push/base/pop trace of a linear recursion so the reader sees
 # the call stack as a physical artifact (frames pushed, base case fires,
 # frames pop with deferred multiplications running in reverse).
@@ -328,8 +328,8 @@ notes: |
   pop with deferred multiplication). The trace matches the Python reference
   at content/dsa/part-0-foundations/02-recursion-mental-model/sol.py.
 
-  Panel-b (chapter 7.0) shows three call-stack panels side-by-side — linear,
-  tree, divide-and-conquer — at small canonical inputs (fib_linear(3),
+  Panel-b (chapter 7.0) shows three call-stack panels side-by-side: linear,
+  tree, divide-and-conquer: at small canonical inputs (fib_linear(3),
   fib_tree(3), merge_sort([3,1,2])). The 30-event sequence (8 + 10 + 12) lets
   the reader see the three SHAPES of recursion as physically distinct stack
   behaviors: a chain that pushes then pops, a tree whose siblings push and

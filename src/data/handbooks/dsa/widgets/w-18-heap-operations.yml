@@ -1,4 +1,4 @@
-# Heap operations — chapter widget for 6.4
+# Heap operations: chapter widget for 6.4
 # Single-panel widget animating sift-up after push and sift-down after pop on
 # a small max-heap. Canonical input byte-for-byte:
 # initial heap [9, 7, 8, 3, 6, 2, 5], then push(10), then pop_max().

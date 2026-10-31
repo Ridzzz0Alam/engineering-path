@@ -1,4 +1,4 @@
-# Matrix rotation — layered 4-cycle on an n x n square matrix.
+# Matrix rotation: layered 4-cycle on an n x n square matrix.
 # Animates LC 48 Rotate Image as concentric 4-cell cycles peeled from
 # the outer ring inward. The 4-fold rotational symmetry is what makes
 # the in-place permutation visible; transpose-then-reverse is the

@@ -100,9 +100,9 @@ The structural skeleton is identical across all four rows. Only the cursor's pay
 
 ## Three signature problems
 
-- [LC 23 — Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) [Hard] • k-way-merge-min-heap-of-cursors ★
-- [LC 378 — Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/) [Medium] • cursor-heap-with-early-termination
-- [LC 632 — Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/) [Hard] • cursor-heap-with-running-max
+- [LC 23: Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) [Hard] • k-way-merge-min-heap-of-cursors ★
+- [LC 378: Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/) [Medium] • cursor-heap-with-early-termination
+- [LC 632: Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/) [Hard] • cursor-heap-with-running-max
 
 LC 23 is the structural canonical: cursor entries, advance the popped source, run to exhaustion. LC 378 is the partial-output variant: same structure, stop after `k` pops. LC 632 is the auxiliary-state variant that demonstrates why the heap-of-cursors is more flexible than pairwise merge: alongside the heap, maintain a single scalar `max_val` equal to the maximum of the values currently in the heap. The window `[heap.peek().value, max_val]` always contains at least one element from every non-exhausted source, because the heap holds one cursor per source. On every iteration, compute `current_range = max_val - heap.peek().value`, pop the smallest cursor from source `i`, push its next value, and update `max_val`. Stop the moment any source exhausts; no further window can cover all `k` lists.[^9]
 

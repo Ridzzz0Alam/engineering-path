@@ -185,7 +185,7 @@ panels:
         highlights: ["tails-cell-3"]
         state_snapshot: { i: 7, x: 18, tails: [2, 3, 7, 18], pos: 3, decision: replace }
         narration: |
-          After step 8: tails = [2, 3, 7, 18]. The length stays 4 — but the
+          After step 8: tails = [2, 3, 7, 18]. The length stays 4, but the
           tail at length 4 is now 18, not 101. tails[i] is the smallest
           possible tail of any length-(i+1) increasing subsequence so far.
       - step_id: 25
