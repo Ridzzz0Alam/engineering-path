@@ -3,7 +3,7 @@ import remarkHandbook from './src/lib/remark-handbook.mjs';
 
 export default defineConfig({
   // Set this to your real domain when you deploy (used for canonical URLs).
-  site: 'https://engineering-path-xi.vercel.app',
+  site: 'https://engineeringpath.vercel.app',
   trailingSlash: 'always',
   markdown: {
     remarkPlugins: [remarkHandbook],
