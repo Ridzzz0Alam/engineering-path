@@ -165,5 +165,6 @@ writeFileSync(
   JSON.stringify({ repo: REPO, commit, importedAt: new Date().toISOString().slice(0, 10), license: 'MIT' }, null, 2) + '\n',
 );
 cpSync(join(src, 'LICENSE'), resolve('LICENSE-ML-FOR-BEGINNERS.txt'));
+cpSync(join(src, 'LICENSE'), resolve('public/licenses/ml-for-beginners-mit.txt'));
 
 console.log(`Imported ${LESSONS.length} lessons from ${relative(process.cwd(), src) || src} @ ${commit.slice(0, 7)}`);
