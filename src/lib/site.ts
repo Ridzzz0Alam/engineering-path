@@ -1,11 +1,12 @@
 import source from '../data/source.json';
+import mlSource from '../data/ml-source.json';
 
 export const SITE = {
   name: 'Engineering Path',
   author: 'Ridwan',
   repo: 'https://github.com/Ridzzz0Alam/engineering-path',
   description:
-    'Free, structured courses on system design, data structures & algorithms, and AI engineering.',
+    'Free, structured courses on system design, data structures & algorithms, AI engineering and machine learning.',
   // Fill these in when you have them; empty values are hidden.
   social: {
     github: '',
@@ -15,4 +16,5 @@ export const SITE = {
 };
 
 export const SOURCE = source as { repo: string; commit: string; importedAt: string; license: string };
+export const ML_SOURCE = mlSource as { repo: string; commit: string; importedAt: string; license: string };
 export const LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/';

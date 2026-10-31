@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE, SOURCE, LICENSE_URL } from '../lib/site';
+import { SITE, SOURCE, ML_SOURCE, LICENSE_URL } from '../lib/site';
 import { HANDBOOKS } from '../lib/handbooks';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   bodyClass?: string;
 }
 const { title, description = SITE.description, course, bodyClass } = Astro.props;
-const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · System Design, DSA & AI Engineering`;
+const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · System Design, DSA, AI & Machine Learning`;
 const path = Astro.url.pathname;
 ---
 
@@ -57,9 +57,18 @@ const path = Astro.url.pathname;
         </a>
         <nav class="nav" aria-label="Main">
           <a href="/" aria-current={path === '/' ? 'true' : undefined}>Home</a>
-          {HANDBOOKS.map((h) => (
-            <a href={`/${h.id}/`} aria-current={path.startsWith(`/${h.id}/`) ? 'true' : undefined}>{h.short}</a>
-          ))}
+          <div class="nav-menu" data-nav-menu>
+            <button class="nav-menu-btn" type="button" data-nav-menu-btn aria-expanded="false" aria-controls="courses-menu" aria-current={HANDBOOKS.some((h) => path.startsWith(`/${h.id}/`)) ? 'true' : undefined}>
+              Courses
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="nav-menu-panel" id="courses-menu">
+              <a href="/#courses">All courses</a>
+              {HANDBOOKS.map((h) => (
+                <a href={`/${h.id}/`} aria-current={path.startsWith(`/${h.id}/`) ? 'true' : undefined}>{h.short}</a>
+              ))}
+            </div>
+          </div>
         </nav>
         <div class="header-actions">
           <a class="search-btn" href="/search/" data-search-trigger aria-label="Search lessons">
@@ -77,7 +86,9 @@ const path = Astro.url.pathname;
       </div>
       <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
         <a href="/">Home</a>
-        {HANDBOOKS.map((h) => <a href={`/${h.id}/`}>{h.title}</a>)}
+        <span class="mobile-nav-label">Courses</span>
+        <a class="mobile-nav-sub" href="/#courses">All courses</a>
+        {HANDBOOKS.map((h) => <a class="mobile-nav-sub" href={`/${h.id}/`}>{h.short}</a>)}
         <a href="/search/">Search</a>
         <a href="/newsletter/">Newsletter</a>
       </nav>
@@ -107,7 +118,7 @@ const path = Astro.url.pathname;
             </ul>
           </div>
         </div>
-        <p class="footer-legal">Course content is adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>. It has been reorganized, restyled and adapted for this site, and the adapted content is shared under the same license. {SITE.name} is not affiliated with or endorsed by Handbook Academy. <a href="/license/">Full credits</a>.</p>
+        <p class="footer-legal">Course content is adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>, and, for the Machine Learning course, <a href={ML_SOURCE.repo} target="_blank" rel="noopener">ML For Beginners</a> by Microsoft and contributors, under the MIT License. It has been reorganized, restyled and adapted for this site, and each adaptation is shared under the license of its source. {SITE.name} is not affiliated with or endorsed by Handbook Academy or Microsoft. <a href="/license/">Full credits</a>.</p>
       </div>
     </footer>
 
@@ -137,7 +148,27 @@ const path = Astro.url.pathname;
         const open = mobileNav?.classList.toggle('open');
         menuBtn.setAttribute('aria-expanded', String(!!open));
       });
+      mobileNav?.addEventListener('click', (e) => {
+        if (!(e.target as HTMLElement).closest('a')) return;
+        mobileNav.classList.remove('open');
+        menuBtn?.setAttribute('aria-expanded', 'false');
+      });
+      const coursesMenu = document.querySelector('[data-nav-menu]');
+      const coursesBtn = document.querySelector<HTMLElement>('[data-nav-menu-btn]');
+      const setCoursesOpen = (open: boolean) => {
+        coursesMenu?.classList.toggle('open', open);
+        coursesBtn?.setAttribute('aria-expanded', String(open));
+      };
+      coursesBtn?.addEventListener('click', () => setCoursesOpen(!coursesMenu?.classList.contains('open')));
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (!coursesMenu?.contains(target) || target.closest('a')) setCoursesOpen(false);
+      });
       document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && coursesMenu?.classList.contains('open')) {
+          setCoursesOpen(false);
+          coursesBtn?.focus();
+        }
         const el = e.target as HTMLElement;
         if (e.key === '/' && !e.metaKey && !e.ctrlKey && !['INPUT', 'TEXTAREA'].includes(el.tagName) && !el.isContentEditable) {
           e.preventDefault();

@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "import-content": "node scripts/import-content.mjs",
+    "import-ml": "node scripts/import-ml.mjs",
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",

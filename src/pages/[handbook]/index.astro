@@ -165,7 +165,11 @@ const levels = (ls: typeof lessons) => {
   <section class="container"><Newsletter /></section>
 
   <section class="container">
-    <p class="course-credit">The lessons in this course are adapted from the <a href={`${SOURCE.repo}/tree/main/content/${config.id}`} target="_blank" rel="noopener">{config.title} handbook</a> in The Engineering Handbook by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>. The course structure, stage groupings and summaries on this page were written for {SITE.name}. <a href="/license/">Credits & license</a>.</p>
+    {config.source ? (
+      <p class="course-credit">The lessons in this course are adapted from <a href={config.source.repo} target="_blank" rel="noopener">{config.source.name}</a> by {config.source.authors}, licensed under the <a href={config.source.licenseUrl} target="_blank" rel="noopener">{config.source.license}</a>. The course structure, stage groupings and summaries on this page were written for {SITE.name}. <a href="/license/">Credits & license</a>.</p>
+    ) : (
+      <p class="course-credit">The lessons in this course are adapted from the <a href={`${SOURCE.repo}/tree/main/content/${config.id}`} target="_blank" rel="noopener">{config.title} handbook</a> in The Engineering Handbook by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>. The course structure, stage groupings and summaries on this page were written for {SITE.name}. <a href="/license/">Credits & license</a>.</p>
+    )}
   </section>
 
   <script>

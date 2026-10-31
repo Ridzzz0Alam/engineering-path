@@ -21,7 +21,7 @@ const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing
         <span class="eyebrow">Free · no sign-up · {totalLessons} lessons</span>
         <h1>Learn how real systems are <em>built</em>, one lesson at a time.</h1>
         <p class="lead">
-          Structured courses on system design, data structures &amp; algorithms, and AI engineering,
+          Structured courses on system design, data structures &amp; algorithms, AI engineering and machine learning,
           with diagrams, worked examples and trade-offs in every lesson.
         </p>
         <div class="cta">
@@ -134,8 +134,8 @@ const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing
       <span class="eyebrow">About</span>
       <h2>Free, open learning for engineers</h2>
       <p>
-        {SITE.name} is a free, independent place to study system design, algorithms and AI engineering. The courses build on
-        an excellent open-source handbook, reorganized into a structured path with progress tracking.
+        {SITE.name} is a free, independent place to study system design, algorithms, AI engineering and machine learning. The courses build on
+        excellent open-source material, reorganized into a structured path with progress tracking.
       </p>
     </div>
   </section>
@@ -170,7 +170,7 @@ const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing
   @keyframes flow { to { stroke-dashoffset: -16; } }
   @media (prefers-reduced-motion: reduce) { .hero-art .lines { animation: none; } }
 
-  .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .course-card { position: relative; display: grid; gap: 14px; align-content: start; padding: 36px 32px; text-decoration: none; transition: transform .15s, border-color .15s; overflow: hidden; }
   .course-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--accent); }
   .course-card:hover { transform: translateY(-3px); border-color: var(--accent); }
@@ -202,7 +202,7 @@ const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing
   .about p { color: var(--muted); font-size: 1.05rem; line-height: 1.7; margin: 0; }
 
   @media (max-width: 1000px) {
-    .course-grid, .features { grid-template-columns: 1fr 1fr; }
+    .features { grid-template-columns: 1fr 1fr; }
     .featured { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 760px) {

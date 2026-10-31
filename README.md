@@ -1,11 +1,11 @@
 # Engineering Path
 
-Free, structured courses on **System Design**, **Data Structures & Algorithms** and **AI Engineering**.
+Free, structured courses on **System Design**, **Data Structures & Algorithms**, **AI Engineering** and **Machine Learning**.
 Built with [Astro](https://astro.build) + TypeScript. Fully static: no server or database needed.
 
 ## What's inside
 
-- **3 courses, 429 lessons**, grouped into stages and parts, each with its own course page
+- **4 courses, 456 lessons**, grouped into stages and parts, each with its own course page
 - **Lesson pages** with a course sidebar, "on this page" outline, prerequisites, prev/next, and reading time
 - **Diagrams** (950+ Mermaid diagrams render in the browser, light and dark)
 - **Progress tracking** ("mark as complete", "continue where you left off"), saved in the reader's browser
@@ -74,17 +74,26 @@ Lessons rewritten for this site live in `src/data/rewrites/`, using the same pat
 If the handbook adds a new part (folder), the build stops with a message telling you which folder to add to a
 stage in `src/lib/handbooks.ts`.
 
+The Machine Learning course comes from Microsoft's [ML For Beginners](https://github.com/microsoft/ML-For-Beginners) and has its own import, which the handbook import leaves alone:
+
+```bash
+git clone --depth 1 https://github.com/microsoft/ML-For-Beginners.git ../ML-For-Beginners
+npm run import-ml -- ../ML-For-Beginners
+```
+
 ## License
 
-This repository holds work under two licenses.
+This repository holds work under three licenses.
 
 - **Site code** is under the [MIT License](LICENSE). This covers everything not listed below.
 - **Lesson content** is adapted from The Engineering Handbook by Handbook Academy and contributors, and stays under
   [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (full text in `CONTENT-LICENSE.txt`), not MIT. This covers:
-  - `src/data/handbooks/`, including the code samples
+  - `src/data/handbooks/` except `ml/`, including the code samples
   - `src/data/rewrites/`
   - `src/lib/image-diagrams.mjs`, which redraws the handbook's illustrations
 
   Keep the attribution on lesson pages, in the footer and on `/license/`.
+- **Machine Learning lessons** are adapted from ML For Beginners by Microsoft and contributors, and stay under the MIT License
+  (`LICENSE-ML-FOR-BEGINNERS.txt`). This covers `src/data/handbooks/ml/` and `public/files/ml/`.
 
 The name and logo are not licensed for use by other projects.

@@ -1,12 +1,21 @@
 // Site-level course configuration. Titles, summaries and stage groupings here
 // are written for Engineering Path; lesson content comes from the imported handbooks.
 
-export type HandbookId = 'hld' | 'dsa' | 'ai-eng';
+export type HandbookId = 'hld' | 'dsa' | 'ai-eng' | 'ml';
 
 export interface Stage {
   name: string;
   blurb: string;
   parts: string[]; // folder names
+}
+
+// Set on courses that don't come from The Engineering Handbook.
+export interface CourseSource {
+  name: string;
+  authors: string;
+  repo: string;
+  license: string;
+  licenseUrl: string;
 }
 
 export interface HandbookConfig {
@@ -21,6 +30,7 @@ export interface HandbookConfig {
   partSummaries: Record<string, string>;
   partTitles?: Record<string, string>;
   hidden?: string[]; // folders not shown as parts
+  source?: CourseSource;
 }
 
 export const HANDBOOKS: HandbookConfig[] = [
@@ -135,6 +145,41 @@ export const HANDBOOKS: HandbookConfig[] = [
       'part-11-ai-product': 'UX, instrumentation and growth for AI features.',
     },
     partTitles: { 'part-2-working-with-model-apis': 'Working with Model APIs', 'part-6-retrieval-augmented-generation': 'Retrieval-Augmented Generation' },
+  },
+  {
+    id: 'ml',
+    title: 'Machine Learning',
+    short: 'Machine Learning',
+    tagline: 'From your first model to real-world ML.',
+    intro:
+      'A beginner-friendly route through classic machine learning with Python and Scikit-learn. Each part builds a working project using real data, covering regression, classification, clustering, language, time series and reinforcement learning.',
+    accent: 'ml',
+    icon: 'M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM6.5 15.5 10.5 13M13.5 11 17.5 8.5',
+    stages: [
+      { name: 'Foundations', blurb: 'What machine learning is, then your first models and how to serve them.', parts: ['part-1-introduction', 'part-2-regression', 'part-3-web-app'] },
+      { name: 'Core techniques', blurb: 'Sorting data into known categories, and finding groups you did not know about.', parts: ['part-4-classification', 'part-5-clustering'] },
+      { name: 'Specialized topics', blurb: 'Working with language, data over time, and agents that learn from rewards.', parts: ['part-6-nlp', 'part-7-time-series', 'part-8-reinforcement-learning'] },
+      { name: 'In practice', blurb: 'How machine learning is used and debugged outside the classroom.', parts: ['part-9-real-world'] },
+    ],
+    partSummaries: {
+      'part-1-introduction': 'Core concepts, the history of the field, responsible AI and the ML workflow.',
+      'part-2-regression': 'Prepare data, then build linear, polynomial and logistic regression models.',
+      'part-3-web-app': 'Save a trained model and serve its predictions from a small web app.',
+      'part-4-classification': 'Clean a cuisines dataset, compare classifiers and build a recommender.',
+      'part-5-clustering': 'Explore music data and group it with K-Means.',
+      'part-6-nlp': 'Language tasks, translation and sentiment analysis, ending with hotel reviews.',
+      'part-7-time-series': 'Forecast electricity usage with ARIMA and support vector regression.',
+      'part-8-reinforcement-learning': 'Teach agents with Q-learning, then balance a pole in Gym.',
+      'part-9-real-world': 'Real-world applications of ML, and how to debug models responsibly.',
+    },
+    partTitles: { 'part-6-nlp': 'Natural Language Processing', 'part-9-real-world': 'Machine Learning in the Real World' },
+    source: {
+      name: 'ML For Beginners',
+      authors: 'Microsoft and contributors',
+      repo: 'https://github.com/microsoft/ML-For-Beginners',
+      license: 'MIT License',
+      licenseUrl: 'https://github.com/microsoft/ML-For-Beginners/blob/main/LICENSE',
+    },
   },
 ];
 

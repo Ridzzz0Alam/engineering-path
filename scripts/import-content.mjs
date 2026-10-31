@@ -24,7 +24,8 @@ if (!existsSync(join(src, 'content'))) {
   process.exit(1);
 }
 
-rmSync(dest, { recursive: true, force: true });
+// Only the handbook's own courses are replaced: the Machine Learning course has its own import.
+for (const hb of HANDBOOKS) rmSync(join(dest, hb), { recursive: true, force: true });
 mkdirSync(dest, { recursive: true });
 
 let count = 0;
@@ -41,7 +42,7 @@ for (const hb of HANDBOOKS) {
   });
 }
 
-removeEmDashes(dest);
+for (const hb of HANDBOOKS) removeEmDashes(join(dest, hb));
 
 // Lessons rewritten for this site replace their handbook originals, so a re-import doesn't lose them.
 const rewrites = resolve('src/data/rewrites');
@@ -52,7 +53,7 @@ if (existsSync(rewrites)) {
 
 // Images and other static assets are also served from public/files/.
 const publicFiles = resolve('public/files');
-rmSync(publicFiles, { recursive: true, force: true });
+for (const hb of HANDBOOKS) rmSync(join(publicFiles, hb), { recursive: true, force: true });
 const STATIC_EXTS = /\.(png|jpe?g|gif|svg|webp|pdf)$/i;
 function copyStatic(dir) {
   for (const name of readdirSync(dir)) {
@@ -71,7 +72,7 @@ function copyStatic(dir) {
     }
   }
 }
-copyStatic(dest);
+for (const hb of HANDBOOKS) copyStatic(join(dest, hb));
 
 let commit = 'unknown';
 try {

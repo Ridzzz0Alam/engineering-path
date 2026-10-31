@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SOURCE, LICENSE_URL, SITE } from '../lib/site';
+import { SOURCE, ML_SOURCE, LICENSE_URL, SITE } from '../lib/site';
 ---
 
 <BaseLayout title="License & credits">
@@ -8,7 +8,9 @@ import { SOURCE, LICENSE_URL, SITE } from '../lib/site';
     <span class="eyebrow">License & credits</span>
     <h1>Where the content comes from</h1>
 
-    <p>The lessons on {SITE.name} are adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and its contributors. The original work is licensed under the <a href={LICENSE_URL} target="_blank" rel="noopener">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.</p>
+    <p>The System Design, DSA and AI Engineering lessons on {SITE.name} are adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and its contributors. The original work is licensed under the <a href={LICENSE_URL} target="_blank" rel="noopener">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.</p>
+
+    <p>The Machine Learning lessons are adapted from <a href={ML_SOURCE.repo} target="_blank" rel="noopener">ML For Beginners</a> by Microsoft Corporation and its contributors, including its illustrators Tomomi Imura, Dasani Madipalli and Jen Looper. The original work is licensed under the <a href={`${ML_SOURCE.repo}/blob/main/LICENSE`} target="_blank" rel="noopener">MIT License</a>, © Microsoft Corporation.</p>
 
     <h2>What was changed</h2>
     <ul>
@@ -18,25 +20,30 @@ import { SOURCE, LICENSE_URL, SITE } from '../lib/site';
       <li>Illustrations in the AI Engineering course were redrawn as Mermaid diagrams, and em dashes were replaced with other wording or punctuation.</li>
       <li>Links were rewritten to point at the matching pages on this site; the first heading of each lesson is shown in the page header.</li>
       <li>Progress tracking and search were added.</li>
+      <li>In the Machine Learning course, lessons were placed in stages with new descriptions, quiz headings became plain links, and links to notebooks and assignments now point at the source repository. Only the Python lessons are included.</li>
     </ul>
 
     <h2>Your rights to this content</h2>
     <p>
-      The adapted lesson content on this site is shared under the same CC BY-SA 4.0 license. You may copy and adapt it,
+      The adapted System Design, DSA and AI Engineering lessons are shared under the same CC BY-SA 4.0 license. You may copy and adapt it,
       as long as you give appropriate credit, link to the license, indicate changes, and share your adaptations under the
       same license.
     </p>
     <p>
+      The adapted Machine Learning lessons and their images stay under the
+      <a href={`${SITE.repo}/blob/main/LICENSE-ML-FOR-BEGINNERS.txt`} target="_blank" rel="noopener">MIT License</a>, not CC BY-SA. You may reuse them if you keep that notice.
+    </p>
+    <p>
       The site's code is available under the <a href={`${SITE.repo}/blob/main/LICENSE`} target="_blank" rel="noopener">MIT License</a>,
-      which does not cover the lesson content above. The course structure text and page summaries are © {new Date().getFullYear()} {SITE.author},
+      which does not replace the lesson licenses above. The course structure text and page summaries are © {new Date().getFullYear()} {SITE.author},
       and the {SITE.name} name and logo are not licensed for use by other projects.
     </p>
 
     <h2>Source version</h2>
-    <p> Content imported from commit <a href={`${SOURCE.repo}/tree/${SOURCE.commit}`} target="_blank" rel="noopener"><code>{SOURCE.commit.slice(0, 7)}</code></a> on {SOURCE.importedAt}. Each lesson links to its original file at the bottom of the page. </p>
+    <p> Content imported from commit <a href={`${SOURCE.repo}/tree/${SOURCE.commit}`} target="_blank" rel="noopener"><code>{SOURCE.commit.slice(0, 7)}</code></a> on {SOURCE.importedAt}. Machine Learning content imported from commit <a href={`${ML_SOURCE.repo}/tree/${ML_SOURCE.commit}`} target="_blank" rel="noopener"><code>{ML_SOURCE.commit.slice(0, 7)}</code></a> on {ML_SOURCE.importedAt}. Each lesson links to its original file at the bottom of the page. </p>
 
     <h2>No endorsement</h2>
-    <p>{SITE.name} is an independent project and is not affiliated with, sponsored by or endorsed by Handbook Academy or its contributors.</p>
+    <p>{SITE.name} is an independent project and is not affiliated with, sponsored by or endorsed by Handbook Academy, Microsoft or their contributors.</p>
   </section>
 </BaseLayout>
 

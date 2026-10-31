@@ -113,6 +113,15 @@ function flashcards(tree) {
   tree.children.splice(start + 1, section.length, ...markdownCards(htmlCards(section)));
 }
 
+// Headings start with a capital, unless they start with a name or code that is spelled in lowercase.
+const LOWERCASE_NAMES = /^(eBay|mTLS|gRPC|vLLM|etcd|pgvector|turbopuffer|getNewsFeed|postTweet)\b/;
+
+function capitaliseHeading(node) {
+  const first = node.children[0];
+  if (first?.type !== 'text' || LOWERCASE_NAMES.test(first.value)) return;
+  first.value = first.value.charAt(0).toUpperCase() + first.value.slice(1);
+}
+
 const TAB_LANGS = { Python: 'python', Java: 'java', 'C++': 'cpp', Go: 'go' };
 
 // "**Solution** in Python ([Java](...) · [C++](...) · [Go](...))" followed by the Python code.
@@ -197,6 +206,8 @@ export default function remarkHandbook() {
 
     solutionTabs(tree, relDir);
     flashcards(tree);
+
+    visit(tree, 'heading', capitaliseHeading);
 
     visit(tree, (node, index, parent) => {
       // 2. Links and images.
