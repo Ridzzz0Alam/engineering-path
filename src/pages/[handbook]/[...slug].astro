@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCourses, resolvePrerequisites, relatedLessons, formatMinutes, type Lesson } from '../../lib/content';
-import { SOURCE, LICENSE_URL } from '../../lib/site';
+import { SOURCE, PRIMER, LICENSE_URL } from '../../lib/site';
 
 export async function getStaticPaths() {
   const courses = await getCourses();
@@ -168,6 +168,8 @@ const allIds = course.lessons.map((l) => l.id).join(',');
 
         {source ? (
           <p class="credit">This lesson is adapted from <a href={sourceUrl} target="_blank" rel="noopener">“{lesson.title}”</a> in {source.name} by {source.authors}, used under the <a href={source.licenseUrl} target="_blank" rel="noopener">{source.license}</a>. Changes: restyled and reorganized for this site, with links and some formatting adjusted. <a href={sourceUrl} target="_blank" rel="noopener">View original source</a>.</p>
+        ) : lesson.entry.data.origin === 'primer' ? (
+          <p class="credit">This lesson is adapted from <a href={PRIMER.repo} target="_blank" rel="noopener">{PRIMER.name}</a> by {PRIMER.author}, used under <a href={PRIMER.licenseUrl} target="_blank" rel="noopener">CC BY 4.0</a>. Changes: expanded and rewritten for this site with new explanations, examples, exercises and diagrams, and some outdated advice corrected. This adaptation is shared under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
         ) : (
           <p class="credit">This lesson is adapted from <a href={sourceUrl} target="_blank" rel="noopener">“{lesson.title}”</a> in The Engineering Handbook by Handbook Academy and contributors, used under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>. Changes: {lesson.entry.data.rewritten ? 'rewritten in a new voice and structure, with added examples, and restyled for this site' : 'restyled and reorganized for this site'}. <a href={sourceUrl} target="_blank" rel="noopener">View original source</a>.</p>
         )}

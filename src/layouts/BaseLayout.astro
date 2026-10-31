@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE, SOURCE, ML_SOURCE, LICENSE_URL } from '../lib/site';
+import { SITE, SOURCE, ML_SOURCE, PRIMER, LICENSE_URL } from '../lib/site';
 import { HANDBOOKS } from '../lib/handbooks';
 
 interface Props {
@@ -118,9 +118,13 @@ const path = Astro.url.pathname;
             </ul>
           </div>
         </div>
-        <p class="footer-legal">Course content is adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>, and, for the Machine Learning course, <a href={ML_SOURCE.repo} target="_blank" rel="noopener">ML For Beginners</a> by Microsoft and contributors, under the MIT License. It has been reorganized, restyled and adapted for this site, and each adaptation is shared under the license of its source. {SITE.name} is not affiliated with or endorsed by Handbook Academy or Microsoft. <a href="/license/">Full credits</a>.</p>
+        <p class="footer-legal">Course content is adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>; <a href={PRIMER.repo} target="_blank" rel="noopener">{PRIMER.name}</a> by {PRIMER.author}, under <a href={PRIMER.licenseUrl} target="_blank" rel="noopener">CC BY 4.0</a>; and, for the Machine Learning course, <a href={ML_SOURCE.repo} target="_blank" rel="noopener">ML For Beginners</a> by Microsoft and contributors, under the MIT License. It has been reorganized, restyled and adapted for this site, and each adaptation is shared under the license of its source. {SITE.name} is not affiliated with or endorsed by Handbook Academy, Donne Martin or Microsoft. <a href="/license/">Full credits</a>.</p>
       </div>
     </footer>
+
+    <button class="to-top" type="button" data-to-top aria-label="Back to top" title="Back to top">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+    </button>
 
     <script>
       import { initReveal } from '../scripts/reveal';
@@ -131,7 +135,15 @@ const path = Astro.url.pathname;
       initReveal();
 
       const header = document.querySelector('.site-header');
-      const syncHeader = () => header?.classList.toggle('is-scrolled', scrollY > 8);
+      const toTop = document.querySelector<HTMLElement>('[data-to-top]');
+      const syncHeader = () => {
+        header?.classList.toggle('is-scrolled', scrollY > 8);
+        toTop?.classList.toggle('visible', scrollY > 300);
+      };
+      toTop?.addEventListener('click', () => {
+        const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' });
+      });
       addEventListener('scroll', syncHeader, { passive: true });
       syncHeader();
 

@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import { getCourses, formatMinutes } from '../../lib/content';
 import { HANDBOOKS } from '../../lib/handbooks';
-import { SITE, SOURCE, LICENSE_URL } from '../../lib/site';
+import { SITE, SOURCE, PRIMER, LICENSE_URL } from '../../lib/site';
 
 export function getStaticPaths() {
   return HANDBOOKS.map((h) => ({ params: { handbook: h.id } }));
@@ -168,7 +168,7 @@ const levels = (ls: typeof lessons) => {
     {config.source ? (
       <p class="course-credit">The lessons in this course are adapted from <a href={config.source.repo} target="_blank" rel="noopener">{config.source.name}</a> by {config.source.authors}, licensed under the <a href={config.source.licenseUrl} target="_blank" rel="noopener">{config.source.license}</a>. The course structure, stage groupings and summaries on this page were written for {SITE.name}. <a href="/license/">Credits & license</a>.</p>
     ) : (
-      <p class="course-credit">The lessons in this course are adapted from the <a href={`${SOURCE.repo}/tree/main/content/${config.id}`} target="_blank" rel="noopener">{config.title} handbook</a> in The Engineering Handbook by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>. The course structure, stage groupings and summaries on this page were written for {SITE.name}. <a href="/license/">Credits & license</a>.</p>
+      <p class="course-credit">The lessons in this course are adapted from the <a href={`${SOURCE.repo}/tree/main/content/${config.id}`} target="_blank" rel="noopener">{config.title} handbook</a> in The Engineering Handbook by Handbook Academy and contributors, licensed under <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>. {config.id === 'hld' && <>Some lessons are adapted from <a href={PRIMER.repo} target="_blank" rel="noopener">{PRIMER.name}</a> by {PRIMER.author} (<a href={PRIMER.licenseUrl} target="_blank" rel="noopener">CC BY 4.0</a>), as noted on each. </>}The course structure, stage groupings and summaries on this page were written for {SITE.name}. <a href="/license/">Credits & license</a>.</p>
     )}
   </section>
 

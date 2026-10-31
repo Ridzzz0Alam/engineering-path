@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SOURCE, ML_SOURCE, LICENSE_URL, SITE } from '../lib/site';
+import { SOURCE, ML_SOURCE, PRIMER, LICENSE_URL, SITE } from '../lib/site';
 ---
 
 <BaseLayout title="License & credits">
@@ -9,6 +9,8 @@ import { SOURCE, ML_SOURCE, LICENSE_URL, SITE } from '../lib/site';
     <h1>Where the content comes from</h1>
 
     <p>The System Design, DSA and AI Engineering lessons on {SITE.name} are adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and its contributors. The original work is licensed under the <a href={LICENSE_URL} target="_blank" rel="noopener">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.</p>
+
+    <p>Eleven System Design lessons are adapted from <a href={PRIMER.repo} target="_blank" rel="noopener">{PRIMER.name}</a> by {PRIMER.author}, licensed under <a href={PRIMER.licenseUrl} target="_blank" rel="noopener">CC BY 4.0</a>. They are marked in their credit lines, and the adaptations are shared under CC BY-SA 4.0. The primer's images were not used.</p>
 
     <p>The Machine Learning lessons are adapted from <a href={ML_SOURCE.repo} target="_blank" rel="noopener">ML For Beginners</a> by Microsoft Corporation and its contributors, including its illustrators Tomomi Imura, Dasani Madipalli and Jen Looper. The original work is licensed under the <a href={`${ML_SOURCE.repo}/blob/main/LICENSE`} target="_blank" rel="noopener">MIT License</a>, © Microsoft Corporation.</p>
 
@@ -19,6 +21,7 @@ import { SOURCE, ML_SOURCE, LICENSE_URL, SITE } from '../lib/site';
       <li>Some lessons were rewritten in a new voice and structure, with added examples. Those lessons say so in their credit line and link to the original.</li>
       <li>Illustrations in the AI Engineering course were redrawn as Mermaid diagrams, and em dashes were replaced with other wording or punctuation.</li>
       <li>Links were rewritten to point at the matching pages on this site; the first heading of each lesson is shown in the page header.</li>
+      <li>Lessons adapted from {PRIMER.name} were expanded and rewritten, with new explanations, exercises and Mermaid diagrams, and some outdated advice was corrected.</li>
       <li>Progress tracking and search were added.</li>
       <li>In the Machine Learning course, lessons were placed in stages with new descriptions, quiz headings became plain links, and links to notebooks and assignments now point at the source repository. Only the Python lessons are included.</li>
     </ul>
@@ -43,7 +46,7 @@ import { SOURCE, ML_SOURCE, LICENSE_URL, SITE } from '../lib/site';
     <p> Content imported from commit <a href={`${SOURCE.repo}/tree/${SOURCE.commit}`} target="_blank" rel="noopener"><code>{SOURCE.commit.slice(0, 7)}</code></a> on {SOURCE.importedAt}. Machine Learning content imported from commit <a href={`${ML_SOURCE.repo}/tree/${ML_SOURCE.commit}`} target="_blank" rel="noopener"><code>{ML_SOURCE.commit.slice(0, 7)}</code></a> on {ML_SOURCE.importedAt}. Each lesson links to its original file at the bottom of the page. </p>
 
     <h2>No endorsement</h2>
-    <p>{SITE.name} is an independent project and is not affiliated with, sponsored by or endorsed by Handbook Academy, Microsoft or their contributors.</p>
+    <p>{SITE.name} is an independent project and is not affiliated with, sponsored by or endorsed by Handbook Academy, Donne Martin, Microsoft or their contributors.</p>
   </section>
 </BaseLayout>
 

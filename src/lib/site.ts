@@ -17,4 +17,5 @@ export const SITE = {
 
 export const SOURCE = source as { repo: string; commit: string; importedAt: string; license: string };
 export const ML_SOURCE = mlSource as { repo: string; commit: string; importedAt: string; license: string };
+export const PRIMER = { name: 'The System Design Primer', author: 'Donne Martin', repo: 'https://github.com/donnemartin/system-design-primer', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/' };
 export const LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/';

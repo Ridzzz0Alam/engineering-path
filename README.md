@@ -5,7 +5,7 @@ Built with [Astro](https://astro.build) + TypeScript. Fully static: no server or
 
 ## What's inside
 
-- **4 courses, 456 lessons**, grouped into stages and parts, each with its own course page
+- **4 courses, 467 lessons**, grouped into stages and parts, each with its own course page
 - **Lesson pages** with a course sidebar, "on this page" outline, prerequisites, prev/next, and reading time
 - **Diagrams** (950+ Mermaid diagrams render in the browser, light and dark)
 - **Progress tracking** ("mark as complete", "continue where you left off"), saved in the reader's browser
@@ -93,6 +93,7 @@ This repository holds work under three licenses.
   - `src/lib/image-diagrams.mjs`, which redraws the handbook's illustrations
 
   Keep the attribution on lesson pages, in the footer and on `/license/`.
+- **Eleven System Design lessons** in `src/data/rewrites/hld/` marked `origin: primer` are adapted from [The System Design Primer](https://github.com/donnemartin/system-design-primer) by Donne Martin (CC BY 4.0), and shared under CC BY-SA 4.0.
 - **Machine Learning lessons** are adapted from ML For Beginners by Microsoft and contributors, and stay under the MIT License
   (`LICENSE-ML-FOR-BEGINNERS.txt`). This covers `src/data/handbooks/ml/` and `public/files/ml/`.
 

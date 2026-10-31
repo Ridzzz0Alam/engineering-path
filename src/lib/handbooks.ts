@@ -40,7 +40,7 @@ export const HANDBOOKS: HandbookConfig[] = [
     short: 'System Design',
     tagline: 'From one server to planet-scale systems.',
     intro:
-      'A complete path through high-level design: the networking and database basics everything rests on, the building blocks you combine, the distributed-systems theory behind them, and 56 worked case studies that put it all together.',
+      'A complete path through high-level design: the networking and database basics everything rests on, the building blocks you combine, the distributed-systems theory behind them, and 61 worked case studies that put it all together.',
     accent: 'hld',
     icon: 'M4 6h16M4 12h16M4 18h10',
     stages: [
@@ -53,13 +53,13 @@ export const HANDBOOKS: HandbookConfig[] = [
     partSummaries: {
       'part-0-prerequisites': 'Networking, operating systems, data structures, databases and APIs, in just enough depth.',
       'part-1-core-fundamentals': 'Scalability, latency, availability, consistency and quick estimation.',
-      'part-2-building-blocks': 'Load balancers, caches, queues, CDNs, databases, sharding and more.',
+      'part-2-building-blocks': 'Load balancers, DNS, caches, queues, CDNs, databases, sharding and more.',
       'part-3-distributed-systems-theory': 'Consensus, quorums, clocks, CRDTs and distributed transactions.',
       'part-4-data-systems': 'Storage engines, analytics, streaming, search and specialized databases.',
       'part-5-architecture-patterns': 'Monoliths, microservices, events, CQRS, multi-region and multi-tenant designs.',
       'part-6-reliability-and-operations': 'Observability, SLOs, resilience, deployments, incidents and cost.',
       'part-7-security-at-scale': 'Identity, tokens, service auth, secrets, compliance and supply chain.',
-      'part-8-case-studies': '56 complete designs, from URL shorteners to AI search engines.',
+      'part-8-case-studies': '61 complete designs, from URL shorteners to AI search engines.',
       'part-9-ai-ml-system-design': 'Serving models, retrieval, vector search, agents and ML infrastructure.',
       'part-10-emerging-patterns': 'Forward-looking topics such as sustainable computing.',
       'part-11-interview-framework': 'How to run a system design interview from start to finish.',
