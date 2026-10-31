@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { getCourses, formatMinutes } from '../lib/content';
+import { SITE } from '../lib/site';
+
+const courses = [...(await getCourses()).values()];
+const totalLessons = courses.reduce((s, c) => s + c.lessons.length, 0);
+const totalMinutes = courses.reduce((s, c) => s + c.minutes, 0);
+const totalDiagrams = courses.reduce((s, c) => s + c.diagrams, 0);
+const hld = courses.find((c) => c.config.id === 'hld')!;
+const featured = ['scalability', 'caching', 'url-shortener', 'consistent-hashing']
+  .map((slug) => hld.lessons.find((l) => l.url.endsWith(`/${slug}/`)))
+  .filter(Boolean);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Free · no sign-up · {totalLessons} lessons</span>
+        <h1>Learn how real systems are <em>built</em>, one lesson at a time.</h1>
+        <p class="lead">
+          Structured courses on system design, data structures &amp; algorithms, and AI engineering,
+          with diagrams, worked examples and trade-offs in every lesson.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#courses">Browse courses</a>
+          <a class="btn btn-ghost" href="/hld/">Start with system design →</a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong>{courses.length}</strong> courses</li>
+          <li><strong>{totalLessons}</strong> lessons</li>
+          <li><strong>{totalDiagrams}+</strong> diagrams</li>
+          <li><strong>{formatMinutes(totalMinutes)}</strong> of reading</li>
+        </ul>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 420 360" role="img">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="currentColor" /></marker>
+          </defs>
+          <g fill="none" stroke="currentColor" stroke-width="1.5" class="lines">
+            <path d="M80 70 V128" marker-end="url(#arr)" />
+            <path d="M80 172 L 205 228" marker-end="url(#arr)" />
+            <path d="M210 70 V128" marker-end="url(#arr)" />
+            <path d="M210 172 V218" marker-end="url(#arr)" />
+            <path d="M340 70 V128" marker-end="url(#arr)" />
+            <path d="M340 172 L 218 228" marker-end="url(#arr)" />
+          </g>
+          <g class="node n1"><rect x="20" y="28" width="120" height="42" rx="11" /><text x="80" y="54">clients</text></g>
+          <g class="node n1"><rect x="150" y="28" width="120" height="42" rx="11" /><text x="210" y="54">clients</text></g>
+          <g class="node n1"><rect x="280" y="28" width="120" height="42" rx="11" /><text x="340" y="54">clients</text></g>
+          <g class="node n2"><rect x="20" y="130" width="120" height="42" rx="11" /><text x="80" y="156">cache</text></g>
+          <g class="node n3"><rect x="150" y="130" width="120" height="42" rx="11" /><text x="210" y="156">load balancer</text></g>
+          <g class="node n4"><rect x="280" y="130" width="120" height="42" rx="11" /><text x="340" y="156">queue</text></g>
+          <g class="node n5"><rect x="130" y="222" width="160" height="50" rx="12" /><text x="210" y="252">services</text></g>
+          <g class="db"><ellipse cx="210" cy="306" rx="54" ry="11" /><path d="M156 306 v30 a54 11 0 0 0 108 0 v-30" /><text x="210" y="332">database</text></g>
+          <path d="M210 272 V292" fill="none" stroke="currentColor" stroke-width="1.5" class="lines" marker-end="url(#arr)" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="courses">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Courses</span>
+          <h2>Pick a track</h2>
+          <p>Each course is ordered into stages and parts, so you always know what to read next.</p>
+        </div>
+      </div>
+      <div class="course-grid">
+        {courses.map((c) => (
+          <a class="card course-card" href={`/${c.config.id}/`} data-course={c.config.id}>
+            <span class="course-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={c.config.icon} /></svg>
+            </span>
+            <h3>{c.config.title}</h3>
+            <p class="tag">{c.config.tagline}</p>
+            <p class="desc">{c.config.intro}</p>
+            <ul class="course-meta">
+              <li>{c.lessons.length} lessons</li>
+              <li>{c.parts.length} parts</li>
+              <li>{formatMinutes(c.minutes)}</li>
+            </ul>
+            <div class="course-progress" data-progress={c.lessons.map((l) => l.id).join(',')}>
+              <div class="progress"><span></span></div>
+              <small class="muted" data-progress-label>{c.lessons.length} lessons · not started</small>
+            </div>
+            <span class="go">Open course →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section features-section">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">How lessons work</span><h2>Built for actually understanding it</h2></div></div>
+      <div class="features">
+        <div class="feature"><h3>Diagrams everywhere</h3><p>Architecture and flow diagrams render right in the page, in light or dark mode.</p></div>
+        <div class="feature"><h3>Trade-offs, not just facts</h3><p>Lessons explain when an approach fits and when it doesn't, with real numbers where they matter.</p></div>
+        <div class="feature"><h3>Track your progress</h3><p>Mark lessons complete and pick up where you left off. Saved in your browser, no account.</p></div>
+        <div class="feature"><h3>Your own notes</h3><p>Every lesson has a notes box. Write the idea in your own words, then review all your notes in one place.</p></div>
+        <div class="feature"><h3>Fast search</h3><p>Press <kbd>/</kbd> anywhere to search all {totalLessons} lessons instantly.</p></div>
+        <div class="feature"><h3>Code in four languages</h3><p>DSA lessons include solutions in Python, Java, C++ and Go.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {featured.length > 0 && (
+    <section class="section" style="padding-top: 0">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Good places to start</span><h2>Popular first lessons</h2></div></div>
+        <div class="featured">
+          {featured.map((l) => (
+            <a class="card featured-card" href={l!.url} data-course="hld">
+              <span class:list={['diff', `diff-${l!.difficulty}`]}>{l!.difficulty}</span>
+              <h3>{l!.title}</h3>
+              <p>{l!.description}</p>
+              <small class="muted">{formatMinutes(l!.minutes)} read</small>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="container"><Newsletter /></section>
+
+  <section class="section about">
+    <div class="container about-inner">
+      <span class="eyebrow">About</span>
+      <h2>Free, open learning for engineers</h2>
+      <p>
+        {SITE.name} is a free, independent place to study system design, algorithms and AI engineering. The courses build on
+        an excellent open-source handbook, reorganized into a structured path with progress tracking and notes.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    import { refreshProgress } from '../scripts/progress';
+    refreshProgress();
+  </script>
+</BaseLayout>
+
+<style>
+  .hero { padding: clamp(56px, 9vw, 112px) 0 clamp(56px, 8vw, 96px); background:
+      radial-gradient(700px 360px at 90% 0%, color-mix(in oklab, var(--hld) 14%, transparent), transparent 70%),
+      radial-gradient(600px 300px at 10% 100%, color-mix(in oklab, var(--dsa) 10%, transparent), transparent 70%); }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; align-items: center; }
+  h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); letter-spacing: -0.04em; margin: 18px 0 20px; line-height: 1.02; }
+  h1 em { font-style: normal; color: var(--hld); text-decoration: underline; text-decoration-thickness: 0.08em; text-underline-offset: 0.12em; text-decoration-color: color-mix(in oklab, var(--hld) 45%, transparent); }
+  .lead { font-size: 1.15rem; color: var(--muted); max-width: 54ch; margin: 0; line-height: 1.65; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .hero-stats { list-style: none; padding: 0; margin: 36px 0 0; display: flex; flex-wrap: wrap; gap: 10px 28px; color: var(--muted); font-size: 0.92rem; }
+  .hero-stats strong { color: var(--text); font-family: var(--font-head); font-size: 1.25rem; margin-right: 4px; }
+  .hero-art { color: var(--faint); }
+  .hero-art svg { width: 100%; height: auto; font: 600 13px var(--font-mono); }
+  .hero-art .node rect { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+  .hero-art .node text, .hero-art .db text { fill: var(--text); text-anchor: middle; }
+  .hero-art .n3 rect { stroke: var(--hld); fill: color-mix(in oklab, var(--hld) 12%, var(--surface)); }
+  .hero-art .n2 rect { stroke: var(--dsa); }
+  .hero-art .n4 rect { stroke: var(--ai); }
+  .hero-art .n5 rect { stroke: var(--text); }
+  .hero-art .db ellipse, .hero-art .db path { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
+  .hero-art .lines { stroke-dasharray: 4 4; animation: flow 1.6s linear infinite; }
+  @keyframes flow { to { stroke-dashoffset: -16; } }
+  @media (prefers-reduced-motion: reduce) { .hero-art .lines { animation: none; } }
+
+  .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .course-card { position: relative; display: grid; gap: 14px; align-content: start; padding: 36px 32px; text-decoration: none; transition: transform .15s, border-color .15s; overflow: hidden; }
+  .course-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--accent); }
+  .course-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .course-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); margin-bottom: 6px; }
+  .course-card h3 { font-size: 1.45rem; }
+  .course-card .tag { margin: 0; color: var(--accent); font-weight: 600; font-size: 0.95rem; }
+  .course-card .desc { margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+  .course-meta { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .course-meta li { padding: 4px 10px; border-radius: 999px; background: var(--surface-2); font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+  .course-progress { display: grid; gap: 6px; margin-top: 8px; }
+  .course-progress small { font-size: 0.78rem; }
+  .go { margin-top: 6px; font-weight: 700; color: var(--accent); font-size: 0.92rem; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+  .feature { padding: 36px 32px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .feature h3 { font-size: 1.1rem; margin-bottom: 8px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+  kbd { font-size: 0.8em; border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; background: var(--surface-2); }
+
+  .featured { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .featured-card { display: grid; gap: 12px; align-content: start; padding: 28px; text-decoration: none; transition: border-color .15s; }
+  .featured-card:hover { border-color: var(--accent); }
+  .featured-card h3 { font-size: 1.08rem; line-height: 1.25; }
+  .featured-card p { margin: 0; color: var(--muted); font-size: 0.86rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  .about-inner { max-width: 720px; }
+  .about h2 { font-size: 2rem; margin: 12px 0 14px; }
+  .about p { color: var(--muted); font-size: 1.05rem; line-height: 1.7; margin: 0; }
+
+  @media (max-width: 1000px) {
+    .course-grid, .features { grid-template-columns: 1fr 1fr; }
+    .featured { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    .hero { padding-top: 40px; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { max-width: 380px; }
+    .course-grid, .features, .featured { grid-template-columns: 1fr; }
+  }
+</style>

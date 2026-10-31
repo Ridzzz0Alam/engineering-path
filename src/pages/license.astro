@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SOURCE, LICENSE_URL, SITE } from '../lib/site';
+---
+
+<BaseLayout title="License & credits">
+  <section class="container lic prose">
+    <span class="eyebrow">License & credits</span>
+    <h1>Where the content comes from</h1>
+
+    <p>The lessons on {SITE.name} are adapted from <a href={SOURCE.repo} target="_blank" rel="noopener">The Engineering Handbook</a> by Handbook Academy and its contributors. The original work is licensed under the <a href={LICENSE_URL} target="_blank" rel="noopener">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.</p>
+
+    <h2>What was changed</h2>
+    <ul>
+      <li>Lessons were reorganized into courses, stages and parts, with new course pages, summaries and navigation.</li>
+      <li>The content was restyled for this site: new layout, typography, diagrams rendering, callouts and code viewer.</li>
+      <li>Some lessons were rewritten in a new voice and structure, with added examples. Those lessons say so in their credit line and link to the original.</li>
+      <li>Links were rewritten to point at the matching pages on this site; the first heading of each lesson is shown in the page header.</li>
+      <li>Progress tracking, personal notes and search were added.</li>
+    </ul>
+
+    <h2>Your rights to this content</h2>
+    <p>
+      The adapted lesson content on this site is shared under the same CC BY-SA 4.0 license. You may copy and adapt it,
+      as long as you give appropriate credit, link to the license, indicate changes, and share your adaptations under the
+      same license.
+    </p>
+    <p>
+      The site's own code, design, branding, course structure text and page summaries are © {new Date().getFullYear()} {SITE.author}.
+    </p>
+
+    <h2>Source version</h2>
+    <p> Content imported from commit <a href={`${SOURCE.repo}/tree/${SOURCE.commit}`} target="_blank" rel="noopener"><code>{SOURCE.commit.slice(0, 7)}</code></a> on {SOURCE.importedAt}. Each lesson links to its original file at the bottom of the page. </p>
+
+    <h2>No endorsement</h2>
+    <p>{SITE.name} is an independent project and is not affiliated with, sponsored by or endorsed by Handbook Academy or its contributors.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .lic { max-width: 760px; padding: 48px 0 20px; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 12px 0 24px !important; }
+</style>

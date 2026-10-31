@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search">
+  <Fragment slot="head">
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  </Fragment>
+  <section class="container search-page">
+    <span class="eyebrow">Search</span>
+    <h1>Find a lesson</h1>
+    <p class="muted">Search across every lesson in all three courses. Filter by course on the left.</p>
+    <div id="search"></div>
+    <p class="dev-note" hidden data-dev-note>
+      Search is built during <code>npm run build</code>. Run a build and <code>npm run preview</code> to try it locally.
+    </p>
+  </section>
+  <script is:inline src="/pagefind/pagefind-ui.js" onerror="document.querySelector('[data-dev-note]').hidden=false"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!window.PagefindUI) return;
+      const ui = new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        resetStyles: false,
+        translations: { placeholder: 'Search lessons, e.g. "consistent hashing"' },
+      });
+      const q = new URLSearchParams(location.search).get('q');
+      if (q) ui.triggerSearch(q);
+      setTimeout(() => document.querySelector('#search input')?.focus(), 50);
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .search-page { max-width: 900px; padding: 48px 0 40px; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 12px 0 8px; }
+  #search { margin-top: 28px;
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-text: var(--text);
+    --pagefind-ui-background: var(--surface);
+    --pagefind-ui-border: var(--border);
+    --pagefind-ui-tag: var(--surface-2);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 11px;
+    --pagefind-ui-font: var(--font-body);
+  }
+  .dev-note { margin-top: 24px; padding: 16px; border: 1px dashed var(--border); border-radius: 11px; color: var(--muted); }
+</style>

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+
+<BaseLayout title="Newsletter">
+  <section class="container nl-page">
+    <span class="eyebrow">Newsletter</span>
+    <h1>Coming soon</h1>
+    <p class="muted">
+      A weekly email is on the way: one concept explained simply, a diagram to go with it, and a pointer to the lesson
+      to read next. Sign-ups aren't open yet.
+    </p>
+    <Newsletter />
+  </section>
+</BaseLayout>
+
+<style>
+  .nl-page { max-width: 900px; padding: 48px 0 20px; display: grid; gap: 16px; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  p { max-width: 62ch; margin: 0 0 16px; font-size: 1.05rem; }
+</style>

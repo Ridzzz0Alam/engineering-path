@@ -1,0 +1,74 @@
+---
+// Viewer for code samples that lessons link to (e.g. DSA solutions in Java, C++, Go).
+import { Code } from 'astro:components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCourses } from '../../lib/content';
+import { SOURCE, LICENSE_URL } from '../../lib/site';
+
+const LANGS: Record<string, { lang: string; label: string }> = {
+  py: { lang: 'python', label: 'Python' },
+  java: { lang: 'java', label: 'Java' },
+  cpp: { lang: 'cpp', label: 'C++' },
+  go: { lang: 'go', label: 'Go' },
+  yml: { lang: 'yaml', label: 'YAML' },
+  yaml: { lang: 'yaml', label: 'YAML' },
+};
+
+export async function getStaticPaths() {
+  const files = import.meta.glob('/src/data/handbooks/**/*.{py,java,cpp,go,yml,yaml}', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  }) as Record<string, string>;
+  const all = Object.keys(files).map((k) => k.replace('/src/data/handbooks/', ''));
+  return Object.entries(files).map(([key, code]) => {
+    const path = key.replace('/src/data/handbooks/', '');
+    const dir = path.slice(0, path.lastIndexOf('/'));
+    const siblings = all.filter((p) => p.slice(0, p.lastIndexOf('/')) === dir).sort();
+    return { params: { path }, props: { path, code, siblings } };
+  });
+}
+
+const { path, code, siblings } = Astro.props as { path: string; code: string; siblings: string[] };
+const ext = path.split('.').pop()!;
+const { lang, label } = LANGS[ext] ?? { lang: 'text', label: ext };
+const segs = path.split('/');
+const courseId = segs[0];
+const course = (await getCourses()).get(courseId);
+const lesson = course?.lessons.find((l) => l.id === segs.slice(0, 3).join('/'));
+const problem = segs.length > 4 ? segs[segs.length - 2].toUpperCase().replace(/^LC-/, 'LeetCode ') : segs.at(-1);
+const sourceUrl = `${SOURCE.repo}/blob/main/content/${path}`;
+---
+
+<BaseLayout title={`${problem} · ${label}`} course={courseId}>
+  <div class="container code-page">
+    <nav class="crumbs">
+      {course && <a href={`/${courseId}/`}>{course.config.title}</a>}
+      {lesson && <><span>/</span><a href={lesson.url}>{lesson.title}</a></>}
+    </nav>
+    <h1>{problem} <span class="muted">· {label}</span></h1>
+    {siblings.length > 1 && (
+      <div class="tabs" role="tablist" aria-label="Language">
+        {siblings.map((s) => {
+          const e = s.split('.').pop()!;
+          return <a role="tab" href={`/code/${s}/`} aria-selected={s === path ? 'true' : 'false'}>{LANGS[e]?.label ?? e}</a>;
+        })}
+      </div>
+    )}
+    <div class="code-wrap"><Code code={code} lang={lang as any} themes={{ light: 'github-light', dark: 'github-dark-dimmed' }} /></div>
+    <p class="credit">{lesson && <><a href={lesson.url}>← Back to the lesson</a> · </>} From The Engineering Handbook (<a href={sourceUrl} target="_blank" rel="noopener">source</a>), <a href={LICENSE_URL} target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .code-page { max-width: 900px; padding: 36px 0 20px; }
+  .crumbs { display: flex; gap: 8px; font-size: 0.86rem; color: var(--faint); margin-bottom: 14px; }
+  .crumbs a { color: var(--muted); text-decoration: none; }
+  h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 20px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tabs a { padding: 7px 14px; border-radius: 9px; border: 1px solid var(--border); text-decoration: none; font-size: 0.88rem; font-weight: 600; color: var(--muted); background: var(--surface); }
+  .tabs a[aria-selected='true'] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .code-wrap :global(pre) { padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); overflow-x: auto; font-size: 0.86rem; line-height: 1.65; background-color: var(--surface) !important; }
+  .credit { font-size: 0.85rem; color: var(--faint); margin-top: 18px; }
+  .credit a { color: var(--accent); }
+</style>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found">
+  <section class="container nf">
+    <span class="eyebrow mono">404</span>
+    <h1>This page doesn't exist.</h1>
+    <p class="muted">It may have moved. Try searching for the lesson instead.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="/search/">Search lessons</a>
+      <a class="btn btn-ghost" href="/">Go home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf { padding: 96px 0 40px; max-width: 640px; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 14px 0 10px; }
+  .cta { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+</style>
