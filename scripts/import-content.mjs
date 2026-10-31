@@ -9,8 +9,9 @@
 
 import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
-import { join, resolve, relative } from 'node:path';
+import { join, resolve, relative, sep } from 'node:path';
 import { removeEmDashes } from './remove-em-dashes.mjs';
+import { IMAGE_DIAGRAMS } from '../src/lib/image-diagrams.mjs';
 
 const HANDBOOKS = ['hld', 'dsa', 'ai-eng'];
 const SKIP_FILES = new Set(['README.md']);
@@ -58,6 +59,12 @@ function copyStatic(dir) {
     const p = join(dir, name);
     if (statSync(p).isDirectory()) copyStatic(p);
     else if (STATIC_EXTS.test(name)) {
+      // Illustrations redrawn as Mermaid aren't displayed, so don't keep them.
+      const [, part] = relative(dest, p).split(sep);
+      if (IMAGE_DIAGRAMS[`${part}/${name.replace(/\.\w+$/, '')}`]) {
+        rmSync(p);
+        continue;
+      }
       const out = join(publicFiles, relative(dest, p));
       mkdirSync(join(out, '..'), { recursive: true });
       cpSync(p, out);

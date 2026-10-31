@@ -67,7 +67,7 @@ npm run build
 
 The import also runs `scripts/remove-em-dashes.mjs`, so newly imported lessons don't bring em dashes back.
 
-The AI Engineering illustrations are shown as Mermaid diagrams from `src/lib/image-diagrams.mjs`. Astro caches rendered lessons, so after changing that file or `src/lib/remark-handbook.mjs`, run `rm -rf node_modules/.astro .astro/data-store.json` before building.
+The AI Engineering illustrations are shown as Mermaid diagrams from `src/lib/image-diagrams.mjs`, so the import skips those PNGs. An image with no entry there is still copied to `public/files/`. Astro caches rendered lessons, so after changing that file or `src/lib/remark-handbook.mjs`, run `rm -rf node_modules/.astro .astro/data-store.json` before building.
 
 Lessons rewritten for this site live in `src/data/rewrites/`, using the same paths as `src/data/handbooks/`. The import copies them over the handbook originals, so edit a rewritten lesson there and in `src/data/handbooks/`, or re-run the import. Add `rewritten: true` to the lesson's frontmatter so its credit line says it was rewritten.
 
@@ -76,8 +76,15 @@ stage in `src/lib/handbooks.ts`.
 
 ## License
 
-- **Lesson content** (`src/data/handbooks/`, `public/files/`) is adapted from The Engineering Handbook by Handbook
-  Academy and contributors, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
-  (full text in `CONTENT-LICENSE.txt`). The adapted content on this site is shared under the same license.
+This repository holds work under two licenses.
+
+- **Site code** is under the [MIT License](LICENSE). This covers everything not listed below.
+- **Lesson content** is adapted from The Engineering Handbook by Handbook Academy and contributors, and stays under
+  [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (full text in `CONTENT-LICENSE.txt`), not MIT. This covers:
+  - `src/data/handbooks/`, including the code samples
+  - `src/data/rewrites/`
+  - `src/lib/image-diagrams.mjs`, which redraws the handbook's illustrations
+
   Keep the attribution on lesson pages, in the footer and on `/license/`.
-- **Site code, design and branding** are © Ridwan.
+
+The name and logo are not licensed for use by other projects.
