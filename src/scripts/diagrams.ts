@@ -1,118 +1,110 @@
-// Renders Mermaid diagrams in the browser and colours them. Only the styling changes: the
+// Renders Mermaid diagrams in the browser and themes them. Only the styling changes: the
 // diagram sources, and so their structure, labels and solid vs dashed lines, stay as written.
 
 interface Swatch { fill: string; stroke: string }
 
-const PALETTE: Record<'light' | 'dark', Swatch[]> = {
-  light: [
-    { fill: '#d5f2ed', stroke: '#0d7a6f' },
-    { fill: '#e0e6ff', stroke: '#3653c9' },
-    { fill: '#fde2e4', stroke: '#c0364f' },
-    { fill: '#ece4ff', stroke: '#7c3aed' },
-    { fill: '#d9f0fb', stroke: '#0f7ab8' },
-  ],
-  dark: [
-    { fill: '#123530', stroke: '#3cc6b5' },
-    { fill: '#1c2550', stroke: '#8ea6ff' },
-    { fill: '#3c1a24', stroke: '#f27a93' },
-    { fill: '#2a1f4d', stroke: '#b794ff' },
-    { fill: '#11303f', stroke: '#5cc0ee' },
-  ],
-};
-// Decisions always use amber, so they stand out from the layer colours above.
-const DECISION: Record<'light' | 'dark', Swatch> = {
-  light: { fill: '#fdeccf', stroke: '#b45309' },
-  dark: { fill: '#3a2a10', stroke: '#f2a541' },
-};
+const NODE = '#34d399';
+const NODE_BORDER = '#1f2937';
+const NODE_TEXT = '#111827';
+const NOTE = '#fdab4e';
 
 const themeVariables = (mode: 'light' | 'dark') => {
   const dark = mode === 'dark';
-  const [teal, indigo, rose, violet, sky] = PALETTE[mode];
-  const text = dark ? '#e8e4da' : '#1c1e24';
-  const line = dark ? '#a3a7b2' : '#5d6170';
+  const text = dark ? '#e8e4da' : '#1f2937';
+  const line = dark ? '#4ade80' : '#16a34a';
   const surface = dark ? '#171a20' : '#fffdf8';
+  const cluster = dark ? '#1f232b' : '#eef2f7';
+  const rail = dark ? '#2d2d2d' : '#cbd5e1';
   return {
     darkMode: dark,
     background: surface,
     fontFamily: 'Inter Variable, system-ui, sans-serif',
-    primaryColor: teal.fill,
-    primaryBorderColor: teal.stroke,
-    primaryTextColor: text,
-    secondaryColor: indigo.fill,
-    secondaryBorderColor: indigo.stroke,
-    secondaryTextColor: text,
-    tertiaryColor: violet.fill,
-    tertiaryBorderColor: violet.stroke,
+    fontSize: '13px',
+    primaryColor: NODE,
+    primaryBorderColor: NODE_BORDER,
+    primaryTextColor: NODE_TEXT,
+    secondaryColor: NODE,
+    secondaryBorderColor: NODE_BORDER,
+    secondaryTextColor: NODE_TEXT,
+    tertiaryColor: surface,
+    tertiaryBorderColor: surface,
     tertiaryTextColor: text,
     textColor: text,
+    nodeTextColor: NODE_TEXT,
     lineColor: line,
     edgeLabelBackground: surface,
     clusterBkg: surface,
-    clusterBorder: line,
+    clusterBorder: surface,
     titleColor: text,
-    noteBkgColor: DECISION[mode].fill,
-    noteBorderColor: DECISION[mode].stroke,
-    noteTextColor: text,
-    actorBkg: teal.fill,
-    actorBorder: teal.stroke,
-    actorTextColor: text,
-    actorLineColor: line,
-    signalColor: text,
+    noteBkgColor: NOTE,
+    noteBorderColor: NODE_BORDER,
+    noteTextColor: NODE_TEXT,
+    actorBkg: NODE,
+    actorBorder: NODE_BORDER,
+    actorTextColor: NODE_TEXT,
+    actorLineColor: rail,
+    signalColor: line,
     signalTextColor: text,
-    labelBoxBkgColor: sky.fill,
-    labelBoxBorderColor: sky.stroke,
-    labelTextColor: text,
+    labelBoxBkgColor: NODE,
+    labelBoxBorderColor: NODE_BORDER,
+    labelTextColor: NODE_TEXT,
     loopTextColor: text,
-    activationBkgColor: violet.fill,
-    activationBorderColor: violet.stroke,
-    sectionBkgColor: teal.fill,
+    sectionBkgColor: cluster,
     altSectionBkgColor: surface,
-    sectionBkgColor2: indigo.fill,
-    taskBkgColor: indigo.stroke,
-    taskBorderColor: indigo.stroke,
-    taskTextColor: dark ? '#101216' : '#ffffff',
+    sectionBkgColor2: cluster,
+    taskBkgColor: NODE,
+    taskBorderColor: NODE_BORDER,
+    taskTextColor: NODE_TEXT,
     taskTextOutsideColor: text,
-    taskTextDarkColor: text,
-    activeTaskBkgColor: teal.stroke,
-    activeTaskBorderColor: teal.stroke,
-    doneTaskBkgColor: violet.stroke,
-    doneTaskBorderColor: violet.stroke,
-    critBkgColor: rose.stroke,
-    critBorderColor: rose.stroke,
-    gridColor: line,
-    todayLineColor: rose.stroke,
+    taskTextDarkColor: NODE_TEXT,
+    activeTaskBkgColor: NOTE,
+    activeTaskBorderColor: NODE_BORDER,
+    doneTaskBkgColor: line,
+    doneTaskBorderColor: NODE_BORDER,
+    critBkgColor: '#f27a93',
+    critBorderColor: NODE_BORDER,
+    gridColor: rail,
+    todayLineColor: NOTE,
     xyChart: {
       backgroundColor: 'transparent',
-      plotColorPalette: [teal.stroke, indigo.stroke, rose.stroke].join(','),
+      plotColorPalette: [NODE, NOTE].join(','),
       titleColor: text,
       xAxisLabelColor: text,
       xAxisTitleColor: text,
-      xAxisLineColor: line,
-      xAxisTickColor: line,
+      xAxisLineColor: text,
+      xAxisTickColor: text,
       yAxisLabelColor: text,
       yAxisTitleColor: text,
-      yAxisLineColor: line,
-      yAxisTickColor: line,
+      yAxisLineColor: text,
+      yAxisTickColor: text,
     },
-    quadrant1Fill: teal.fill,
-    quadrant2Fill: indigo.fill,
-    quadrant3Fill: rose.fill,
-    quadrant4Fill: violet.fill,
+    quadrant1Fill: cluster,
+    quadrant2Fill: cluster,
+    quadrant3Fill: cluster,
+    quadrant4Fill: cluster,
     quadrant1TextFill: text,
     quadrant2TextFill: text,
     quadrant3TextFill: text,
     quadrant4TextFill: text,
+    quadrantPointFill: NODE,
+    quadrantPointTextFill: text,
     quadrantTitleFill: text,
     quadrantXAxisTextFill: text,
     quadrantYAxisTextFill: text,
-    quadrantInternalBorderStrokeFill: line,
-    quadrantExternalBorderStrokeFill: line,
-    pie1: teal.stroke,
-    pie2: indigo.stroke,
-    pie3: rose.stroke,
-    pie4: violet.stroke,
-    pie5: sky.stroke,
+    quadrantInternalBorderStrokeFill: rail,
+    quadrantExternalBorderStrokeFill: rail,
   };
+};
+
+// ER diagrams colour edge labels like node text, which disappears on the dark panel, and hard-code
+// white into their optional markers. Class diagrams colour box text like page text, which is too pale
+// on the green boxes. This CSS stays inside the SVG, so the zoom dialog gets it too.
+const CLASS_TEXT = ['.label-group', '.members-group', '.methods-group'].flatMap((g) => [`${g} p`, `${g} span`, `${g} text`]).join(', ');
+const themeCSS = (mode: 'light' | 'dark') => {
+  const { textColor, background } = themeVariables(mode);
+  return `.edgeLabel p, .edgeLabel span { color: ${textColor}; }
+    marker[id*="_er-"] circle { fill: ${background} !important; }
+    ${CLASS_TEXT} { color: ${NODE_TEXT}; fill: ${NODE_TEXT}; }`;
 };
 
 const paint = (shape: SVGElement, { fill, stroke }: Swatch) => {
@@ -158,60 +150,132 @@ function restyleAuthorNode(node: SVGGElement, mode: 'light' | 'dark') {
   node.querySelectorAll<SVGElement>('text, tspan').forEach((label) => label.style.setProperty('fill', text, 'important'));
 }
 
-// Boxes in the same layer of the diagram share a colour, which makes the layers easy to follow.
-function colourNodes(svg: SVGSVGElement, source: string, mode: 'light' | 'dark') {
-  const horizontal = /^\s*(?:flowchart|graph)\s+(?:LR|RL)\b/m.test(source) || /direction\s+(?:LR|RL)\b/.test(source);
-  const all = Array.from(svg.querySelectorAll<SVGGElement>('g.node'));
-  all.filter(authorStyled).forEach((n) => restyleAuthorNode(n, mode));
-  const nodes = all
-    .filter((n) => !authorStyled(n))
-    .map((node) => {
-      const box = node.getBoundingClientRect();
-      return { node, at: horizontal ? box.left + box.width / 2 : box.top + box.height / 2 };
-    })
-    .sort((a, b) => a.at - b.at);
-
-  let layer = -1;
-  let last = -Infinity;
-  for (const { node, at } of nodes) {
-    if (at - last > 24) layer++;
-    last = at;
-    const shapes = node.querySelectorAll<SVGElement>('rect, polygon, circle, ellipse, path');
-    const swatch = node.querySelector('polygon') ? DECISION[mode] : PALETTE[mode][layer % PALETTE[mode].length];
-    shapes.forEach((s) => paint(s, swatch));
-  }
-
-  svg.querySelectorAll<SVGElement>('.cluster rect').forEach((rect, i) => {
-    const { stroke } = PALETTE[mode][(i + 1) % PALETTE[mode].length];
-    rect.style.setProperty('stroke', stroke, 'important');
-    rect.style.setProperty('fill', `color-mix(in srgb, ${stroke} 7%, transparent)`, 'important');
-  });
-}
-
-// Each participant keeps one colour, at the top and bottom of its lifeline.
-function colourActors(svg: SVGSVGElement, mode: 'light' | 'dark') {
-  const order = new Map<string, number>();
-  svg.querySelectorAll<SVGElement>('rect.actor, line.actor-line').forEach((el) => {
-    const name = el.getAttribute('name') ?? '';
-    if (!order.has(name)) order.set(name, order.size);
-    const swatch = PALETTE[mode][order.get(name)! % PALETTE[mode].length];
-    if (el.tagName.toLowerCase() === 'line') el.style.setProperty('stroke', swatch.stroke, 'important');
-    else paint(el, swatch);
-  });
-}
-
 function colour(host: HTMLElement, mode: 'light' | 'dark') {
   const svg = host.querySelector<SVGSVGElement>('svg');
   if (!svg) return;
+  // Small diagrams stay readable on phones: the panel scrolls rather than shrinking them further.
+  const natural = svg.viewBox.baseVal.width;
+  if (natural) svg.style.setProperty('--floor', `${Math.round(natural * 0.6)}px`);
   const kind = svg.getAttribute('aria-roledescription') ?? '';
   if (kind === 'sequence') {
-    colourActors(svg, mode);
     // "rect rgb(...)" bands behind messages.
     svg.querySelectorAll<SVGElement>('rect.rect').forEach((band) => {
       const swatch = themedColour(getComputedStyle(band).fill, mode);
       if (swatch) band.style.setProperty('fill', swatch.fill, 'important');
     });
-  } else if (/flowchart|state|class/.test(kind)) colourNodes(svg, host.dataset.source ?? '', mode);
+  } else if (/flowchart|state|class/.test(kind)) {
+    svg.querySelectorAll<SVGGElement>('g.node').forEach((n) => {
+      if (authorStyled(n)) restyleAuthorNode(n, mode);
+    });
+  }
+}
+
+const icon = (paths: string, size = 17) =>
+  `<svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+const LENS = '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M8.5 11h5';
+
+const ZOOM_MIN = 1;
+const ZOOM_MAX = 4;
+const ZOOM_STEP = 0.25;
+
+// A dialog that shows one diagram large, with zoom buttons and drag to pan.
+function createViewer() {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'diagram-viewer';
+  dialog.setAttribute('aria-label', 'Diagram');
+  dialog.innerHTML = `
+    <div class="diagram-viewer__bar">
+      <div class="diagram-viewer__zoom" role="group" aria-label="Zoom">
+        <button type="button" data-zoom="out" aria-label="Zoom out" title="Zoom out (-)">${icon(`${LENS}"/>`)}</button>
+        <output class="diagram-viewer__level" aria-live="polite">100%</output>
+        <button type="button" data-zoom="in" aria-label="Zoom in" title="Zoom in (+)">${icon(`${LENS}M11 8.5v5"/>`)}</button>
+        <span class="diagram-viewer__divider"></span>
+        <button type="button" data-zoom="reset" aria-label="Reset zoom" title="Reset zoom (0)">${icon('<path d="M5 12a7 7 0 1 0 2.2-5.1L5 9M5 5v4h4"/>')}</button>
+      </div>
+      <button type="button" class="diagram-viewer__close" aria-label="Close diagram" title="Close (Esc)">${icon('<path d="M6 6l12 12M18 6L6 18"/>', 18)}</button>
+    </div>
+    <div class="diagram-viewer__body"><div class="diagram-viewer__canvas"></div></div>`;
+  document.body.append(dialog);
+
+  const body = dialog.querySelector<HTMLElement>('.diagram-viewer__body')!;
+  const canvas = dialog.querySelector<HTMLElement>('.diagram-viewer__canvas')!;
+  const level = dialog.querySelector('output')!;
+  const zoomOut = dialog.querySelector<HTMLButtonElement>('[data-zoom="out"]')!;
+  const zoomIn = dialog.querySelector<HTMLButtonElement>('[data-zoom="in"]')!;
+  let zoom = 1;
+  let drag: { x: number; y: number; left: number; top: number } | null = null;
+
+  const setZoom = (next: number) => {
+    zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, next));
+    canvas.style.width = canvas.style.height = `${zoom * 100}%`;
+    level.textContent = `${Math.round(zoom * 100)}%`;
+    body.classList.toggle('is-pannable', zoom > 1);
+    zoomOut.disabled = zoom === ZOOM_MIN;
+    zoomIn.disabled = zoom === ZOOM_MAX;
+  };
+
+  zoomOut.addEventListener('click', () => setZoom(zoom - ZOOM_STEP));
+  zoomIn.addEventListener('click', () => setZoom(zoom + ZOOM_STEP));
+  dialog.querySelector('[data-zoom="reset"]')!.addEventListener('click', () => setZoom(1));
+  dialog.querySelector('.diagram-viewer__close')!.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  dialog.addEventListener('close', () => canvas.replaceChildren());
+  dialog.addEventListener('keydown', (e) => {
+    if (e.key === '+' || e.key === '=') setZoom(zoom + ZOOM_STEP);
+    else if (e.key === '-') setZoom(zoom - ZOOM_STEP);
+    else if (e.key === '0') setZoom(1);
+  });
+  body.addEventListener('pointerdown', (e) => {
+    if (zoom <= 1) return;
+    drag = { x: e.clientX, y: e.clientY, left: body.scrollLeft, top: body.scrollTop };
+    body.setPointerCapture(e.pointerId);
+  });
+  body.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    body.scrollLeft = drag.left - (e.clientX - drag.x);
+    body.scrollTop = drag.top - (e.clientY - drag.y);
+  });
+  const endDrag = () => (drag = null);
+  body.addEventListener('pointerup', endDrag);
+  body.addEventListener('pointercancel', endDrag);
+
+  return (svg: SVGSVGElement) => {
+    canvas.replaceChildren(svg.cloneNode(true));
+    setZoom(1);
+    dialog.showModal();
+  };
+}
+
+function addExpandButtons(diagrams: HTMLElement[]) {
+  const open = createViewer();
+  diagrams.forEach((d) => {
+    const panel = d.closest('.viz');
+    if (!panel) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'viz-expand';
+    button.setAttribute('aria-label', 'Expand diagram');
+    button.title = 'Expand diagram';
+    button.innerHTML = icon('<path d="M14.5 5.5h4v4M18.5 5.5l-5 5M9.5 18.5h-4v-4M5.5 18.5l5-5"/>', 15);
+    button.addEventListener('click', () => {
+      const svg = d.querySelector<SVGSVGElement>('svg');
+      if (svg) open(svg);
+    });
+    panel.append(button);
+  });
+}
+
+// The scroll hint only shows on panels that actually overflow.
+function watchOverflow(diagrams: HTMLElement[]) {
+  const update = () =>
+    diagrams.forEach((d) => {
+      const panel = d.closest('.viz');
+      panel?.classList.toggle('is-scrollable', panel.scrollWidth > panel.clientWidth + 1);
+    });
+  update();
+  window.addEventListener('resize', update);
 }
 
 export function initDiagrams() {
@@ -227,8 +291,12 @@ export function initDiagrams() {
         startOnLoad: false,
         securityLevel: 'strict',
         theme: 'base',
+        // Mermaid 12 defaults to ELK and can add shadows; dagre and classic give curved edges and flat nodes.
+        layout: 'dagre',
+        look: 'classic',
         themeVariables: themeVariables(mode),
-        flowchart: { curve: 'basis', nodeSpacing: 48, rankSpacing: 56, padding: 14 },
+        themeCSS: themeCSS(mode),
+        flowchart: { curve: 'basis', wrappingWidth: 200, minNodeWidth: 0 },
         fontFamily: 'Inter Variable, system-ui, sans-serif',
       });
       diagrams.forEach((d) => {
@@ -243,6 +311,8 @@ export function initDiagrams() {
       diagrams.forEach((d) => colour(d, mode));
     };
     await render();
+    addExpandButtons(diagrams);
+    watchOverflow(diagrams);
     window.addEventListener('lwr:theme', render);
   });
 }

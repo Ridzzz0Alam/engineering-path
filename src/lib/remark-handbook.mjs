@@ -1,7 +1,8 @@
 // Remark plugin that adapts the handbook Markdown for this site:
 //  - drops the leading H1 (the lesson layout renders the title)
 //  - rewrites relative links to lessons, code samples, images and files
-//  - turns ```mermaid fences into <pre class="mermaid"> for client rendering
+//  - turns ```mermaid fences into captioned <pre class="mermaid"> panels for client rendering
+//  - turns the Q and A pairs under "## Flashcards" into collapsible cards
 //  - turns GitHub-style "> [!WARNING]" blockquotes into styled callouts
 //  - swaps illustrations for their Mermaid versions (see image-diagrams.mjs)
 //  - shows a solution's Python, Java, C++ and Go as language tabs
@@ -25,10 +26,92 @@ const escapeHtml = (s) =>
 
 const escapeAttr = (s) => escapeHtml(s).replace(/"/g, '&quot;');
 
+const VIZ_CAP = '<div class="viz-cap">Diagram</div>';
+
 const mermaidNode = (source, description = '') => ({
   type: 'html',
-  value: `<div class="diagram"${description ? ` role="img" aria-label="${escapeAttr(description)}"` : ''}><pre class="mermaid">${escapeHtml(source)}</pre></div>`,
+  viz: { source, description },
+  value: `<div class="viz"${description ? ` role="img" aria-label="${escapeAttr(description)}"` : ''}>${VIZ_CAP}<pre class="mermaid">${escapeHtml(source)}</pre></div>`,
 });
+
+// The italic line under a diagram is its caption, so it moves into the panel as the title.
+function captionDiagrams(parent) {
+  for (let i = parent.children.length - 2; i >= 0; i--) {
+    const { viz } = parent.children[i];
+    const next = parent.children[i + 1];
+    if (!viz || next.type !== 'paragraph' || next.children.length !== 1 || next.children[0].type !== 'emphasis') continue;
+    const label = viz.description ? ` role="img" aria-label="${escapeAttr(viz.description)}"` : '';
+    parent.children.splice(
+      i,
+      2,
+      { type: 'html', value: `<div class="viz"${label}>${VIZ_CAP}` },
+      { type: 'paragraph', data: { hName: 'div', hProperties: { className: ['viz-title'] } }, children: next.children[0].children },
+      { type: 'html', value: `<pre class="mermaid">${escapeHtml(viz.source)}</pre></div>` },
+    );
+  }
+}
+
+const isLabel = (node, label) => node?.type === 'strong' && node.children[0]?.value === label;
+const startsWithLabel = (node, label) => node.type === 'paragraph' && isLabel(node.children[0], label);
+
+// Removes the line break or spaces left around a Q or A once its label is gone.
+function trimInline(children) {
+  const nodes = children.filter((n, i) => !(n.type === 'break' && (i === 0 || i === children.length - 1)));
+  const first = nodes[0];
+  const last = nodes[nodes.length - 1];
+  if (first?.type === 'text') first.value = first.value.trimStart();
+  if (last?.type === 'text') last.value = last.value.trimEnd();
+  return nodes.filter((n) => n.type !== 'text' || n.value);
+}
+
+function markdownCards(nodes) {
+  const out = [];
+  let card = null;
+  for (const node of nodes) {
+    if (startsWithLabel(node, 'Q:')) {
+      const split = node.children.findIndex((n) => isLabel(n, 'A:'));
+      const question = split === -1 ? node.children.slice(1) : node.children.slice(1, split);
+      card = {
+        type: 'flashcard',
+        data: { hName: 'details', hProperties: { className: ['flashcard'] } },
+        children: [{ type: 'paragraph', data: { hName: 'summary' }, children: trimInline(question) }],
+      };
+      if (split !== -1) card.children.push({ type: 'paragraph', children: trimInline(node.children.slice(split + 1)) });
+      out.push(card);
+    } else if (card && startsWithLabel(node, 'A:')) {
+      card.children.push({ type: 'paragraph', children: trimInline(node.children.slice(1)) });
+    } else if (card) {
+      card.children.push(node);
+    } else {
+      out.push(node);
+    }
+  }
+  return out;
+}
+
+const inlineCode = (s) => s.replace(/`([^`]+)`/g, (_, code) => `<code>${code}</code>`);
+
+// Some lessons already wrap each card in <details>; those only need their labels removed.
+function htmlCards(nodes) {
+  nodes.forEach((node, i) => {
+    if (node.type !== 'html') return;
+    const m = node.value.match(/^<details>\s*<summary>(?:<strong>)?(?:Q:\s*)?([\s\S]*?)(?:<\/strong>)?<\/summary>\s*$/);
+    if (!m) return;
+    node.value = `<details class="flashcard"><summary>${inlineCode(m[1])}</summary>`;
+    const first = nodes[i + 1]?.type === 'paragraph' ? nodes[i + 1].children[0] : null;
+    if (first?.type === 'text') first.value = first.value.replace(/^A:\s*/, '');
+  });
+  return nodes;
+}
+
+function flashcards(tree) {
+  const start = tree.children.findIndex((n) => n.type === 'heading' && n.depth === 2 && n.children[0]?.value === 'Flashcards');
+  if (start === -1) return;
+  let end = start + 1;
+  while (end < tree.children.length && !(tree.children[end].type === 'heading' && tree.children[end].depth <= 2)) end++;
+  const section = tree.children.slice(start + 1, end);
+  tree.children.splice(start + 1, section.length, ...markdownCards(htmlCards(section)));
+}
 
 const TAB_LANGS = { Python: 'python', Java: 'java', 'C++': 'cpp', Go: 'go' };
 
@@ -113,6 +196,7 @@ export default function remarkHandbook() {
     if (firstH1 !== -1 && firstH1 < 3) tree.children.splice(firstH1, 1);
 
     solutionTabs(tree, relDir);
+    flashcards(tree);
 
     visit(tree, (node, index, parent) => {
       // 2. Links and images.
@@ -132,6 +216,7 @@ export default function remarkHandbook() {
           if (parent.type === 'paragraph' && parent.children.length === 1) {
             parent.type = 'html';
             parent.value = replacement.value;
+            parent.viz = replacement.viz;
             delete parent.children;
           } else {
             parent.children[index] = replacement;
@@ -154,10 +239,7 @@ export default function remarkHandbook() {
 
       // 3. Mermaid.
       if (node.type === 'code' && node.lang === 'mermaid' && parent && index !== undefined) {
-        parent.children[index] = {
-          type: 'html',
-          value: `<div class="diagram"><pre class="mermaid">${escapeHtml(node.value)}</pre></div>`,
-        };
+        parent.children[index] = mermaidNode(node.value);
         return SKIP;
       }
 
@@ -185,6 +267,10 @@ export default function remarkHandbook() {
           }
         }
       }
+    });
+
+    visit(tree, (node) => {
+      if (node.children) captionDiagrams(node);
     });
   };
 }

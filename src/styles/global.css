@@ -242,17 +242,40 @@ code, pre, kbd { font-family: var(--font-mono); }
 .prose details[open] { padding-bottom: 16px; }
 .prose summary { cursor: pointer; padding: 14px 0; font-weight: 600; }
 .prose details > * + * { margin-top: 0.9em; }
-.prose .diagram { border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background:
-    radial-gradient(420px 220px at 100% 0%, color-mix(in oklab, var(--ai) 9%, transparent), transparent 70%),
-    radial-gradient(420px 220px at 0% 100%, color-mix(in oklab, var(--hld) 9%, transparent), transparent 70%),
-    var(--surface); padding: 28px; overflow-x: auto; text-align: center; }
+.prose .viz { position: relative; margin: 1.9rem 0; padding: 1.5rem 1.35rem 1.1rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+.prose .viz-cap { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; padding-right: 2.5rem; font: 700 0.68rem/1 var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: #b8402e; }
+.prose .viz-cap::before { content: ''; width: 18px; height: 2px; background: #b8402e; }
+.prose .viz-title { margin-bottom: 1rem; padding-right: 2.5rem; font-family: var(--font-head); font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text); }
+.prose .viz-expand { position: absolute; top: 0.6rem; right: 0.6rem; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; padding: 0; border: 0; border-radius: 7px; background: none; color: var(--faint); cursor: zoom-in; transition: background-color 0.15s, color 0.15s; }
+.prose .viz-expand:hover, .prose .viz-expand:focus-visible { background: color-mix(in oklab, var(--text) 7%, transparent); color: var(--text); }
+.prose .viz-expand:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.prose .viz.is-scrollable::after { content: 'scroll to see the full diagram'; position: sticky; inset-inline-start: 0; display: block; margin-top: 0.6rem; font: 400 0.68rem/1 var(--font-mono); color: var(--faint); }
 .prose pre.mermaid { border: 0; padding: 0; margin: 0; background: transparent; font-size: 0.8rem; color: var(--faint); white-space: pre-wrap; text-align: left; }
-.prose pre.mermaid[data-processed] { text-align: center; color: inherit; }
-.prose pre.mermaid svg { max-width: 100%; height: auto; }
-.prose pre.mermaid .node rect, .prose pre.mermaid rect.actor { rx: 10px; ry: 10px; }
-.prose pre.mermaid .cluster rect { rx: 14px; ry: 14px; }
-.prose pre.mermaid .node, .prose pre.mermaid rect.actor { filter: drop-shadow(0 2px 5px rgb(0 0 0 / 0.14)); }
-.prose pre.mermaid .nodeLabel, .prose pre.mermaid .actor { font-weight: 500; }
+.prose pre.mermaid[data-processed] { text-align: center; color: inherit; overflow: visible; }
+.prose pre.mermaid svg { display: block; margin: 0 auto; width: 100%; min-width: var(--floor, 0); height: auto; }
+.prose pre.mermaid .nodeLabel { font-weight: 600; }
+.diagram-viewer { width: min(96vw, 1440px); max-width: none; height: 92vh; max-height: none; padding: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); }
+.diagram-viewer:focus { outline: none; }
+.diagram-viewer[open] { display: flex; flex-direction: column; }
+.diagram-viewer::backdrop { background: rgb(0 0 0 / 0.55); }
+.diagram-viewer__bar { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0.7rem 0.45rem 0.6rem; border-bottom: 1px solid var(--border); background: color-mix(in oklab, var(--text) 2.5%, var(--surface)); }
+.diagram-viewer__zoom { display: flex; align-items: center; gap: 0.1rem; padding: 0.2rem; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
+.diagram-viewer__zoom button, .diagram-viewer__close { display: grid; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 6px; background: none; color: var(--muted); cursor: pointer; transition: background-color 0.15s, color 0.15s; }
+.diagram-viewer__zoom button:hover:not(:disabled), .diagram-viewer__close:hover { background: color-mix(in oklab, var(--text) 7%, transparent); color: var(--text); }
+.diagram-viewer__zoom button:disabled { color: var(--border); cursor: default; }
+.diagram-viewer__zoom button:focus-visible, .diagram-viewer__close:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.diagram-viewer__level { min-width: 3.4rem; font: 500 0.82rem/1 var(--font-body); font-variant-numeric: tabular-nums; text-align: center; color: var(--muted); }
+.diagram-viewer__divider { width: 1px; height: 1.2rem; margin: 0 0.3rem; background: var(--border); }
+.diagram-viewer__body { flex: 1; min-height: 0; display: flex; padding: 1.25rem; overflow: auto; overscroll-behavior: contain; }
+.diagram-viewer__body.is-pannable { cursor: grab; }
+.diagram-viewer__body.is-pannable:active { cursor: grabbing; }
+.diagram-viewer__canvas { flex: none; display: flex; flex-direction: column; margin: auto; }
+.diagram-viewer__canvas svg { flex: 1; min-height: 0; width: 100% !important; height: 100%; max-width: none !important; user-select: none; }
+.prose details.flashcard { margin: 0.8rem 0; padding: 0; border: 1px solid var(--border); border-radius: 0.6rem; background: none; }
+.prose details.flashcard[open] { padding-bottom: 0; }
+.prose .flashcard > summary { margin: 0; padding: 0.75rem 1rem; font-weight: 600; cursor: pointer; list-style-position: inside; }
+.prose .flashcard[open] > summary { border-bottom: 1px solid var(--border); }
+.prose .flashcard > :not(summary) { margin: 0.75rem 1rem; }
 .prose .footnotes { font-size: 0.88rem; color: var(--muted); margin-top: 3em; border-top: 1px solid var(--border); padding-top: 1em; }
 .prose .footnotes h2 { font-size: 1.1rem; margin-top: 0; }
 .prose sup { line-height: 0; }
