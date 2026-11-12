@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="You're offline" noindex>
+  <section class="container off">
+    <span class="eyebrow mono">Offline</span>
+    <h1>This lesson isn't saved on this device yet.</h1>
+    <p class="muted">Lessons you've opened before still work without a connection. Reconnect to load this one.</p>
+    <div class="cta">
+      <button class="btn btn-primary" type="button" onclick="location.reload()">Try again</button>
+      <a class="btn btn-ghost" href="/">Go home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .off { padding: 96px 0 40px; max-width: 640px; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 14px 0 10px; }
+  .cta { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+</style>

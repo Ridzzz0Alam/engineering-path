@@ -1,0 +1,202 @@
+---
+import QRCode from 'qrcode';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../lib/site';
+
+const siteUrl = new URL('/', Astro.site).href;
+// Dark modules on a light tile, so it scans in either theme.
+const qr = await QRCode.toString(siteUrl, { type: 'svg', margin: 1, color: { dark: '#14161b', light: '#fffdf8' } });
+---
+
+<BaseLayout title="Get the app" description={`Install ${SITE.name} on your phone or computer. Free, no app store, works offline.`}>
+  <script is:inline>
+    // Catch the browser's install offer early, before the page script loads.
+    addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window.__lwrInstall = e;
+      dispatchEvent(new Event('lwr:installable'));
+    });
+  </script>
+
+  <section class="container app-page" data-app-page>
+    <header class="app-hero">
+      <div>
+        <span class="eyebrow">Get the app</span>
+        <h1>Study on your phone</h1>
+        <p class="lead muted">
+          Install {SITE.name} on your home screen. It opens full screen like any other app, keeps your progress, and
+          lessons you've opened stay readable without a connection.
+        </p>
+
+        <div class="install-box">
+          <button class="btn btn-accent install-btn" type="button" data-install hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            Install the app
+          </button>
+          <p class="install-note" data-status="installed" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+            The app is installed on this device.
+          </p>
+          <p class="install-note muted" data-status="manual">Follow the steps for your device below. It takes a few seconds.</p>
+        </div>
+
+        <ul class="perks">
+          <li><strong>Free</strong><span>No app store, no account, no ads.</span></li>
+          <li><strong>Works offline</strong><span>Lessons you've opened are saved on the device.</span></li>
+          <li><strong>Always current</strong><span>Updates itself when new lessons are added.</span></li>
+        </ul>
+      </div>
+
+      <figure class="qr card">
+        <div class="qr-code" set:html={qr} />
+        <figcaption>
+          <strong>On a computer?</strong>
+          <span class="muted">Scan with your phone's camera to open the site there, then install it.</span>
+        </figcaption>
+      </figure>
+    </header>
+
+    <h2 class="steps-title">How to install</h2>
+    <div class="steps">
+      <article class="card step" data-platform="android">
+        <div class="step-head">
+          <h3>Android</h3>
+          <span class="chip chip-accent this-device">This device</span>
+        </div>
+        <p class="muted small">In Chrome, Edge or Samsung Internet</p>
+        <ol>
+          <li>Open this site in your browser.</li>
+          <li>Tap the <strong>⋮</strong> menu in the top corner.</li>
+          <li>Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+          <li>Confirm, and the icon appears with your other apps.</li>
+        </ol>
+      </article>
+
+      <article class="card step" data-platform="ios">
+        <div class="step-head">
+          <h3>iPhone and iPad</h3>
+          <span class="chip chip-accent this-device">This device</span>
+        </div>
+        <p class="muted small">In Safari</p>
+        <ol>
+          <li>Open this site in <strong>Safari</strong>.</li>
+          <li>Tap the <strong>Share</strong> button, the square with an arrow pointing up.</li>
+          <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+          <li>Tap <strong>Add</strong> in the top corner.</li>
+        </ol>
+      </article>
+
+      <article class="card step" data-platform="desktop">
+        <div class="step-head">
+          <h3>Computer</h3>
+          <span class="chip chip-accent this-device">This device</span>
+        </div>
+        <p class="muted small">In Chrome or Edge on Windows, Mac or Linux</p>
+        <ol>
+          <li>Look for the <strong>install icon</strong> at the right end of the address bar.</li>
+          <li>Click it, then click <strong>Install</strong>.</li>
+          <li>Or open the browser menu and choose <strong>Install Engineering Path</strong>, found under <strong>Cast, save and share</strong> in Chrome.</li>
+        </ol>
+      </article>
+    </div>
+
+    <p class="footnote muted small">
+      To remove it later, uninstall it the way you would any other app. Your saved progress is kept in the browser on
+      that device.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .app-page { padding: 48px 0 20px; }
+  .app-hero { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 48px; align-items: start; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 14px 0 12px; }
+  .lead { max-width: 56ch; font-size: 1.08rem; margin: 0; }
+
+  .install-box { margin: 26px 0 30px; }
+  .install-btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; font-size: 1rem; }
+  .install-btn[hidden] { display: none; }
+  .install-note { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 500; }
+  .install-note[hidden] { display: none; }
+  .install-note[data-status='installed'] { color: var(--accent); }
+
+  .perks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .perks li { display: grid; gap: 4px; padding-left: 14px; border-left: 2px solid var(--accent); }
+  .perks span { color: var(--muted); font-size: 0.92rem; }
+
+  .qr { margin: 0; padding: 18px; display: grid; gap: 14px; }
+  .qr-code { border-radius: var(--radius-sm); overflow: hidden; line-height: 0; }
+  .qr-code :global(svg) { width: 100%; height: auto; }
+  .qr figcaption { display: grid; gap: 4px; font-size: 0.9rem; }
+
+  .steps-title { margin: 64px 0 18px; font-size: 1.5rem; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .step { padding: 22px; transition: border-color .15s; }
+  .step-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 28px; }
+  .step h3 { margin: 0; font-size: 1.12rem; }
+  .step ol { margin: 14px 0 0; padding-left: 20px; display: grid; gap: 8px; }
+  .small { font-size: 0.88rem; margin: 6px 0 0; }
+  .this-device { display: none; }
+  .step.is-current { border-color: var(--accent); }
+  .step.is-current .this-device { display: inline-flex; }
+  .footnote { margin-top: 28px; }
+
+  @media (max-width: 860px) {
+    .app-hero { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .perks, .steps { grid-template-columns: minmax(0, 1fr); }
+    .step.is-current { order: -1; }
+    /* The QR code is for moving to a phone, so it's not much use on one. */
+    .qr { max-width: 260px; }
+    .app-page[data-device='android'] .qr, .app-page[data-device='ios'] .qr { display: none; }
+  }
+</style>
+
+<script>
+  type InstallEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> };
+  const w = window as typeof window & { __lwrInstall?: InstallEvent };
+
+  const page = document.querySelector<HTMLElement>('[data-app-page]')!;
+  const btn = page.querySelector<HTMLButtonElement>('[data-install]')!;
+  const installed = page.querySelector<HTMLElement>('[data-status="installed"]')!;
+  const manual = page.querySelector<HTMLElement>('[data-status="manual"]')!;
+
+  const ua = navigator.userAgent;
+  // iPadOS reports itself as a Mac, so check for touch too.
+  const device = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)
+    ? 'ios'
+    : /Android/.test(ua)
+      ? 'android'
+      : 'desktop';
+  page.dataset.device = device;
+  page.querySelector(`[data-platform="${device}"]`)?.classList.add('is-current');
+
+  const show = (state: 'installed' | 'button' | 'manual') => {
+    installed.hidden = state !== 'installed';
+    btn.hidden = state !== 'button';
+    manual.hidden = state !== 'manual';
+  };
+
+  const standalone = matchMedia('(display-mode: standalone)').matches || (navigator as { standalone?: boolean }).standalone === true;
+  const sync = () => {
+    if (standalone) show('installed');
+    else if (w.__lwrInstall) show('button');
+    else show('manual');
+  };
+  sync();
+  addEventListener('lwr:installable', sync);
+  addEventListener('appinstalled', () => {
+    w.__lwrInstall = undefined;
+    show('installed');
+  });
+
+  btn.addEventListener('click', async () => {
+    const evt = w.__lwrInstall;
+    if (!evt) return;
+    await evt.prompt();
+    const { outcome } = await evt.userChoice;
+    // The browser offers the prompt only once per event.
+    w.__lwrInstall = undefined;
+    if (outcome === 'accepted') show('installed');
+    else sync();
+  });
+</script>

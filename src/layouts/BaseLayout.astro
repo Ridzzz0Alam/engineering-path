@@ -8,8 +8,9 @@ interface Props {
   description?: string;
   course?: string;
   bodyClass?: string;
+  noindex?: boolean;
 }
-const { title, description = SITE.description, course, bodyClass } = Astro.props;
+const { title, description = SITE.description, course, bodyClass, noindex } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · System Design, DSA, AI & Machine Learning`;
 const path = Astro.url.pathname;
 ---
@@ -36,6 +37,11 @@ const path = Astro.url.pathname;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content={SITE.name} />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    {noindex && <meta name="robots" content="noindex" />}
     <script is:inline>
       (() => {
         let t = null;
@@ -69,6 +75,7 @@ const path = Astro.url.pathname;
               ))}
             </div>
           </div>
+          <a href="/app/" aria-current={path === '/app/' ? 'true' : undefined}>Get the app</a>
         </nav>
         <div class="header-actions">
           <a class="search-btn" href="/search/" data-search-trigger aria-label="Search lessons">
@@ -89,6 +96,7 @@ const path = Astro.url.pathname;
         <span class="mobile-nav-label">Courses</span>
         <a class="mobile-nav-sub" href="/#courses">All courses</a>
         {HANDBOOKS.map((h) => <a class="mobile-nav-sub" href={`/${h.id}/`}>{h.short}</a>)}
+        <a href="/app/">Get the app</a>
         <a href="/search/">Search</a>
         <a href="/newsletter/">Newsletter</a>
       </nav>
@@ -112,6 +120,7 @@ const path = Astro.url.pathname;
           <div>
             <h4>Site</h4>
             <ul>
+              <li><a href="/app/">Get the app</a></li>
               <li><a href="/search/">Search</a></li>
               <li><a href="/newsletter/">Newsletter</a></li>
               <li><a href="/license/">License & credits</a></li>
@@ -189,6 +198,11 @@ const path = Astro.url.pathname;
       });
 
       initDiagrams();
+
+      // Offline support and "install app". Production only: in dev it would serve stale pages.
+      if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+        addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+      }
     </script>
   </body>
 </html>
